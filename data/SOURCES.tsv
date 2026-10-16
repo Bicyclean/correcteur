@@ -3,3 +3,4 @@
 CONTRIB-INIT	Texte rédigé par les contributeurs du projet	GPL-3.0-or-later	intégré	Lexique d'amorce, règles, messages, corpus. Voir docs/provenance.md.
 REF-GRAM-FR	Grammaires de référence du français (consultation)	sans objet	référence	Sert à vérifier une règle ; aucune formulation n'est reprise.
 REF-TYPO-FR	Usages typographiques français (consultation)	sans objet	référence	Sert à vérifier une règle ; aucune formulation n'est reprise.
+LEXIQUE383	Lexique 3.83 (http://www.lexique.org), B. New, C. Pallier et coll.	CC BY-SA 4.0	intégré	data/lexique/10-lexique383.tsv, généré par `correcteur importer-lexique383`. Archive Lexique383.zip (27 243 156 octets, SHA-256 e181d132b3b0d3d87efc98d376968441b517353933011cebea5366321a6024e6), licence lue dans README-Lexique.txt le 2026-10-17. Le fichier dérivé reste sous CC BY-SA 4.0.
