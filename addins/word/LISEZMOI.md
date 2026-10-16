@@ -70,8 +70,19 @@ chemin réseau dans *Fichier > Options > Centre de gestion de la confidentialit�
 > Paramètres > Catalogues de compléments approuvés* en cochant « Afficher dans
 le menu », redémarrez Word, puis *Insertion > Mes compléments > Dossier partagé*.
 
-**Word pour le web** : *Insertion > Compléments > Charger mon complément*,
-puis choisissez `dist/manifest.xml`.
+**Word pour le web** (essai réussi avec Safari) : *Accueil > Compléments >
+Plus de compléments > Mes compléments > Charger mon complément*, puis
+choisissez `dist/manifest.xml`. Le complément chargé n'est retenu que par le
+navigateur utilisé : il faut le recharger dans un autre navigateur. Firefox
+n'utilise pas forcément le trousseau de macOS et refuse alors le certificat
+de développement (panneau vide) ; Safari et Edge l'acceptent.
+
+Pour vérifier le manifeste avant de le charger (envoie le manifeste au
+service de validation de Microsoft) :
+
+```bash
+npx office-addin-manifest validate dist/manifest.xml
+```
 
 Le bouton **Corriger** apparaît dans l'onglet Accueil.
 
