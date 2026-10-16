@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { DEFAULT_OPTIONS } from "../src/engine";
-import { sanitize } from "../src/settings";
+import { sanitize } from "./settings";
+import { DEFAULT_OPTIONS } from "./types";
 
 test("réglages corrompus : valeurs par défaut", () => {
   assert.deepEqual(sanitize(null), DEFAULT_OPTIONS);

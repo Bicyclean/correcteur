@@ -6,7 +6,7 @@ import path from "node:path";
 import { before, test } from "node:test";
 import { fileURLToPath } from "node:url";
 import { DEFAULT_OPTIONS, Engine, encodeOptions } from "../src/engine";
-import { applyToText, locate, replacement } from "../src/mapping";
+import { applyToText, locate, replacement } from "../../../web/commun/mapping";
 
 // dist-tests/engine.test.mjs → addins/word
 const addin = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");

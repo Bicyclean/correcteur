@@ -1,7 +1,7 @@
 // Réglages de l'utilisateur, conservés dans le stockage local du panneau.
 // Rien n'est envoyé sur le réseau.
 
-import { type CheckOptions, DEFAULT_OPTIONS } from "./engine";
+import { type CheckOptions, DEFAULT_OPTIONS } from "./types";
 
 const KEY = "correcteur.reglages.v1";
 

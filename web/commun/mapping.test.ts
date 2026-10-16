@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { applyToText, escapeSearch, locate, replacement, searchRank } from "../src/mapping";
+import { applyToText, escapeSearch, locate, replacement, searchRank } from "./mapping";
 
 test("mot simple", () => {
   const t = locate("Le chein dort.", { start: 3, end: 8 })!;

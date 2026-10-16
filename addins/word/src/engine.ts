@@ -1,42 +1,10 @@
 // Enveloppe TypeScript du module WebAssembly (crates/correcteur-wasm).
 // Fonctionne dans le navigateur (panneau Word) comme dans Node (tests).
 
-export type Category = "orthographe" | "homophone" | "grammaire" | "typographie";
+import { type CheckOptions, DEFAULT_OPTIONS, type Issue } from "../../../web/commun/types";
 
-export interface Issue {
-  /** Début, en unités UTF-16 dans le texte analysé. */
-  start: number;
-  end: number;
-  rule: string;
-  category: Category;
-  message: string;
-  explanation: string;
-  suggestions: string[];
-}
-
-export interface CheckOptions {
-  disabledCategories: Category[];
-  disabledRules: string[];
-  userWords: string[];
-  narrowNbsp: boolean;
-  typographicApostrophe: boolean;
-  frenchQuotes: boolean;
-  ellipsisCharacter: boolean;
-  checkProperNouns: boolean;
-  maxSuggestions: number;
-}
-
-export const DEFAULT_OPTIONS: CheckOptions = {
-  disabledCategories: [],
-  disabledRules: [],
-  userWords: [],
-  narrowNbsp: true,
-  typographicApostrophe: true,
-  frenchQuotes: true,
-  ellipsisCharacter: true,
-  checkProperNouns: false,
-  maxSuggestions: 5,
-};
+export type { CheckOptions, Issue } from "../../../web/commun/types";
+export { DEFAULT_OPTIONS } from "../../../web/commun/types";
 
 interface Exports {
   memory: WebAssembly.Memory;

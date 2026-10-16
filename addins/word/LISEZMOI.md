@@ -101,10 +101,11 @@ données (environ 7 Mo, dont le lexique) gagnent à être servies compressées.
 | Fichier | Rôle |
 |---|---|
 | `src/engine.ts` | Charge le module WebAssembly et les données, appelle l'analyse. |
-| `src/mapping.ts` | Transforme une position dans un paragraphe en extrait à chercher dans Word. |
-| `src/document.ts` | Lit les paragraphes, sélectionne et remplace (Word ou démonstration). |
-| `src/taskpane.ts` | Interface du panneau. |
-| `src/settings.ts` | Réglages et dictionnaire personnel, dans le stockage local du panneau. |
+| `src/word.ts` | Lit les paragraphes, sélectionne et remplace dans Word. |
+| `src/taskpane.ts` | Point d'entrée : moteur WebAssembly, Word ou mode démonstration. |
+| `../../web/commun/panneau.ts` | Interface du panneau, partagée avec l'application de bureau. |
+| `../../web/commun/mapping.ts` | Transforme une position dans un paragraphe en extrait à chercher dans Word. |
+| `../../web/commun/settings.ts` | Réglages et dictionnaire personnel, dans le stockage local du panneau. |
 
 Le document est analysé paragraphe par paragraphe. Office.js ne donne pas de
 plage à partir d'une position : pour sélectionner ou corriger une erreur, le

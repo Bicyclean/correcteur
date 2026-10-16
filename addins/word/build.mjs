@@ -42,9 +42,10 @@ await esbuild.build({
   sourcemap: true,
   logLevel: "warning",
 });
-for (const f of ["taskpane.html", "taskpane.css", "aide.html"]) {
+for (const f of ["taskpane.html", "aide.html"]) {
   fs.copyFileSync(path.join(here, "src", f), path.join(dist, f));
 }
+fs.copyFileSync(path.join(root, "web/commun/panneau.css"), path.join(dist, "taskpane.css"));
 fs.cpSync(path.join(here, "assets"), path.join(dist, "assets"), { recursive: true });
 
 // 3. Manifeste.
@@ -77,10 +78,17 @@ fs.copyFileSync(path.join(root, "data/lexique/LISEZMOI.md"), path.join(dist, "da
 
 // 5. Tests (Node).
 if (flag("--tests")) {
-  const tests = fs.readdirSync(path.join(here, "test")).filter((f) => f.endsWith(".test.ts"));
+  const testDirs = [path.join(here, "test"), path.join(root, "web/commun")];
+  const tests = testDirs.flatMap((d) =>
+    fs.readdirSync(d).filter((f) => f.endsWith(".test.ts")).map((f) => path.join(d, f)),
+  );
+  const outdir = path.join(here, "dist-tests");
+  // Repartir de zéro : un test supprimé ou déplacé ne doit pas continuer à tourner.
+  fs.rmSync(outdir, { recursive: true, force: true });
   await esbuild.build({
-    entryPoints: tests.map((f) => path.join(here, "test", f)),
-    outdir: path.join(here, "dist-tests"),
+    // Tous les tests au même niveau : dist-tests/<nom>.test.mjs
+    entryPoints: Object.fromEntries(tests.map((t) => [path.basename(t, ".ts"), t])),
+    outdir,
     outExtension: { ".js": ".mjs" },
     bundle: true,
     platform: "node",
