@@ -22,7 +22,9 @@ l'appareil.
 | Chemin | Contenu |
 |---|---|
 | `crates/correcteur-core` | Moteur : découpage, lexique, règles, suggestions, corpus. |
-| `crates/correcteur-cli` | Commande `correcteur` : `analyser`, `evaluer`, `mesurer`. |
+| `crates/correcteur-cli` | Commande `correcteur` : `analyser`, `evaluer`, `mesurer`, `importer-lexique383`. |
+| `crates/correcteur-wasm` | Module WebAssembly : interface C minimale, échanges en JSON. |
+| `addins/word` | Add-in Word (TypeScript, Office.js) ; voir `addins/word/LISEZMOI.md`. |
 | `data/lexique/*.tsv` | Lexiques de formes fléchies (chargés dans l'ordre alphabétique). |
 | `data/regles/` | Description des règles, locutions, listes (élisions, abréviations…). |
 | `data/SOURCES.tsv` | Ressources utilisées et leurs licences. |
@@ -30,7 +32,7 @@ l'appareil.
 | `corpus/fr/evaluation/` | Phrases libres pour mesurer précision et rappel. |
 | `docs/` | Architecture, format des données, provenance, résultats. |
 
-À venir (ordre de livraison) : `addins/word` (étape 2), règles d'accord
+À venir (ordre de livraison) : règles d'accord
 (étape 3), `apps/bureau` Tauri (étape 4), `addins/libreoffice` (étape 5),
 conjugaison et synonymes (étape 6).
 
@@ -93,8 +95,13 @@ message vide.
 ## Cibles de compilation
 
 - Bibliothèque Rust (`rlib`) aujourd'hui.
-- WebAssembly pour l'add-in Word (étape 2) : `Engine::new` reçoit le contenu
-  des fichiers, `from_dir` est absent sur `wasm32`.
+- WebAssembly pour l'add-in Word (`crates/correcteur-wasm`), sans
+  `wasm-bindgen` ni dépendance : le JavaScript réserve de la mémoire
+  (`cr_alloc`), y écrit des chaînes UTF-8, appelle `cr_add_file` pour chaque
+  fichier de données, `cr_build`, puis `cr_check(texte, options)`, et lit le
+  résultat JSON (`cr_output_ptr`, `cr_output_len`). Les positions renvoyées
+  sont en UTF-16. Module : 220 Ko ; avec le lexique complet, construction en
+  130 ms et 40 Mo de mémoire (mesures Node, Apple Silicon).
 - Bibliothèque native avec interface C pour LibreOffice et Tauri (étapes 4 et 5).
 
 ## Performance

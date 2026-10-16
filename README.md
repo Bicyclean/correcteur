@@ -13,7 +13,7 @@ Tout le traitement est local : le texte ne quitte jamais l'appareil.
 | Étape | Contenu | État |
 |---|---|---|
 | 1 | Moteur Rust : typographie, orthographe de base, homophones, tests | **Fait** — lexique Lexique 3.83 importé (125 000 formes) |
-| 2 | Add-in Word (Windows, macOS) | À faire |
+| 2 | Add-in Word (Windows, macOS) | **En cours** — panneau et module WebAssembly testés hors de Word ; essai dans Word à faire |
 | 3 | Accords et grammaire | À faire |
 | 4 | Application de bureau Tauri | À faire |
 | 5 | Extension LibreOffice | À faire |
@@ -47,6 +47,8 @@ cargo run --release -p correcteur-cli -- evaluer
 ```bash
 cargo run --release -p correcteur-cli -- mesurer
 ```
+
+Add-in Word : voir [addins/word/LISEZMOI.md](addins/word/LISEZMOI.md).
 
 ## Documentation
 

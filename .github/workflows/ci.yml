@@ -29,3 +29,34 @@ jobs:
         run: cargo run --release -p correcteur-cli -- mesurer
       - name: Évaluation
         run: cargo run --release -p correcteur-cli -- evaluer
+
+  addin-word:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: addins/word
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: addins/word/package-lock.json
+      - run: npm ci
+      - name: Types
+        run: npm run typecheck
+      - name: Tests (module WebAssembly et panneau)
+        run: npm test
+      - name: Paquet de l'add-in
+        uses: actions/upload-artifact@v4
+        if: matrix.os == 'macos-latest'
+        with:
+          name: addin-word
+          path: addins/word/dist
