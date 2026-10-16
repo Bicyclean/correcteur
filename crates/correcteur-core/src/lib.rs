@@ -15,8 +15,8 @@ mod text;
 
 use std::collections::HashSet;
 
-pub use data::{DataError, EngineData, RuleInfo};
-pub use lexicon::{Lexicon, Pos, Reading};
+pub use data::{DataError, EngineData, RuleInfo, RULE_FILES};
+pub use lexicon::{Gn, Lexicon, Pos, Reading};
 
 /// Famille d'une erreur, utilisée pour le filtrage et pour les mesures de qualité.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]

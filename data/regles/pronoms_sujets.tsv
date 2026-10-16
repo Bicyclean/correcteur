@@ -1,0 +1,12 @@
+# Pronoms personnels sujets : pronom, personne, genre, nombre pour l'accord du participe, source.
+# « on » et « vous » (vouvoiement) n'imposent pas de nombre au participe ; je, tu, nous, vous, on n'imposent pas de genre.
+je	1s	e	s	REF-GRAM-FR
+j’	1s	e	s	REF-GRAM-FR
+tu	2s	e	s	REF-GRAM-FR
+il	3s	m	s	REF-GRAM-FR
+elle	3s	f	s	REF-GRAM-FR
+on	3s	e	e	REF-GRAM-FR
+nous	1p	e	p	REF-GRAM-FR
+vous	2p	e	e	REF-GRAM-FR
+ils	3p	m	p	REF-GRAM-FR
+elles	3p	f	p	REF-GRAM-FR

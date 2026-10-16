@@ -1,0 +1,57 @@
+# Corpus de règles — grammaire : accords, participes, négation, constructions.
+GRAM_ACCORD_SUJET_VERBE	Les enfants ⟦mange→mangent⟧ des pommes.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ils ⟦mange→mangent⟧ une pomme.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Tu ⟦mange→manges⟧ trop vite.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	J’⟦aimes→aime⟧ le chocolat.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ils ⟦a→ont⟧ fini.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Elle se ⟦sont→est⟧ levée.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Je pense que les enfants ⟦joue→jouent⟧ dehors.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Nous mangeons ensemble.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Il nous parle souvent.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Les élèves travaillent.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Le petit garçon mange.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Le chat et la souris dorment.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Que mangent les enfants{fine}?	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	⟦Les chat→Les chats⟧ dorment.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	⟦Le chats→Le chat⟧ dort.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	⟦Le maison→La maison⟧ est grande.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Il aime ⟦le école→l’école⟧.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	La porte est ouverte.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Il la porte.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Une enfant joue.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	L’école est fermée.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Mon amie est contente.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Une maison ⟦blanc→blanche⟧ se dresse là.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Des chats ⟦noir→noirs⟧ dorment.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Une ⟦grand→grande⟧ maison.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Le chat noir dort.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Elle porte des chaussures marron.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elle est ⟦parti→partie⟧ hier.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Les fleurs sont ⟦fané→fanées⟧.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ils sont ⟦content→contents⟧.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elle est ⟦partit→partie⟧ hier.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elle s’est lavé les mains.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Il est important de partir.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Nous sommes partis tôt.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Vous êtes parti tôt.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR	Elle a ⟦mangée→mangé⟧ une pomme.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR	La pomme qu’elle a mangée était bonne.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR	Il les a mangées.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Il a ⟦manger→mangé⟧ sa soupe.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Elle est ⟦aller→allée⟧ au marché.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Il a mangé sa soupe.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Il a à faire.	CONTRIB-INIT
+GRAM_NEGATION_NE	Je ⟦sais→ne sais⟧ pas.	CONTRIB-INIT
+GRAM_NEGATION_NE	On ⟦a→n’a⟧ pas le temps.	CONTRIB-INIT
+GRAM_NEGATION_NE	⟦C’est→Ce n’est⟧ pas grave.	CONTRIB-INIT
+GRAM_NEGATION_NE	Il ⟦y a→n’y a⟧ pas de pain.	CONTRIB-INIT
+GRAM_NEGATION_NE	Je ne sais pas.	CONTRIB-INIT
+GRAM_NEGATION_NE	Il mange plus que moi.	CONTRIB-INIT
+GRAM_PREPOSITION	Il faut ⟦pallier à→pallier⟧ ce problème.	CONTRIB-INIT
+GRAM_PREPOSITION	Je ⟦vais au docteur→vais chez le docteur⟧ demain.	CONTRIB-INIT
+GRAM_PREPOSITION	Il faut pallier ce problème.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	La fin m’a semblé un peu longue.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Les enfants couraient entre les tables pendant que leurs parents discutaient.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Nous aurons besoin de ton avis.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Une ⟦petit→petite⟧ fille joue.	CONTRIB-INIT
+GRAM_NEGATION_NE	On ⟦a→n’a⟧ rien vu.	CONTRIB-INIT

@@ -53,12 +53,13 @@ if (urlArg) manifest = manifest.replaceAll("https://localhost:3000", urlArg.repl
 fs.writeFileSync(path.join(dist, "manifest.xml"), manifest);
 
 // 4. Données : celles que lit le moteur, et leur liste.
+// Tous les fichiers de règles : le moteur ignore ceux qu'il n'utilise pas.
 const dataFiles = [
-  "regles/regles.tsv",
-  "regles/locutions.tsv",
-  "regles/elisions.txt",
-  "regles/abreviations.txt",
-  "regles/verbes_a.txt",
+  ...fs
+    .readdirSync(path.join(root, "data/regles"))
+    .filter((f) => /\.(tsv|txt)$/.test(f))
+    .sort()
+    .map((f) => `regles/${f}`),
   ...fs
     .readdirSync(path.join(root, "data/lexique"))
     .filter((f) => f.endsWith(".tsv"))

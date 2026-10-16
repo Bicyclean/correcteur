@@ -1,6 +1,7 @@
 //! Locutions fautives reconnues mot à mot (`data/regles/locutions.tsv`).
 
 use super::{Context, RawIssue};
+use crate::data::LocToken;
 use crate::text::{capitalize, is_capitalized};
 
 pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
@@ -13,7 +14,11 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
             }
             let matches = loc.words.iter().enumerate().all(|(k, expected)| {
                 let w = &words[i + k];
-                w.lower == *expected && !w.ignored && (k == 0 || w.joined_to_prev)
+                let same = match expected {
+                    LocToken::Word(e) => w.lower == *e,
+                    LocToken::Lemma(l) => ctx.form(i + k).is_some_and(|f| f.has(|r| r.lemma == *l)),
+                };
+                same && !w.ignored && (k == 0 || w.joined_to_prev)
             });
             if !matches {
                 continue;
@@ -26,11 +31,15 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
                 continue; // déjà signalé par une règle plus précise
             }
             let found = &ctx.text[start..end];
-            let replacement = if is_capitalized(found) {
-                capitalize(&loc.replacement)
-            } else {
-                loc.replacement.clone()
-            };
+            // « $1 », « $2 »… : texte du mot trouvé à cette place (de droite à gauche
+            // pour que « $1 » ne remplace pas le début de « $12 »).
+            let mut replacement = loc.replacement.clone();
+            for k in (0..n).rev() {
+                replacement = replacement.replace(&format!("${}", k + 1), words[i + k].text);
+            }
+            if is_capitalized(found) {
+                replacement = capitalize(&replacement);
+            }
             out.push(
                 RawIssue::new(start, end, loc.rule)
                     .arg(found)

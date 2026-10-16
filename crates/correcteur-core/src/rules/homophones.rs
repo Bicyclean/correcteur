@@ -69,12 +69,12 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
 
 /// Indice du mot précédent, s'il n'en est séparé que par des blancs.
 fn prev(ctx: &Context, i: usize) -> Option<usize> {
-    (i > 0 && ctx.words[i].joined_to_prev).then(|| i - 1)
+    ctx.prev(i)
 }
 
 /// Indice du mot suivant, s'il n'en est séparé que par des blancs.
 fn next(ctx: &Context, i: usize) -> Option<usize> {
-    (i + 1 < ctx.words.len() && ctx.words[i + 1].joined_to_prev).then_some(i + 1)
+    ctx.next(i)
 }
 
 fn lower_is(ctx: &Context, i: Option<usize>, set: &[&str]) -> bool {

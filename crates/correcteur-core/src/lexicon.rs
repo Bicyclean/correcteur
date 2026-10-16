@@ -51,6 +51,44 @@ impl Pos {
     }
 }
 
+/// Genre et nombre ; `None` : indifférent (épicène, invariable ou inconnu).
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
+pub struct Gn {
+    pub gender: Option<char>,
+    pub number: Option<char>,
+}
+
+impl Gn {
+    /// Lit `m.s`, `f.p`, `e.e`… ; `None` si le format n'est pas reconnu.
+    pub fn parse(s: &str) -> Option<Gn> {
+        let (g, n) = s.split_once('.')?;
+        let one = |x: &str, allowed: [char; 2]| -> Option<Option<char>> {
+            match x {
+                "e" | "" => Some(None),
+                _ if x.len() == 1 && allowed.contains(&x.chars().next()?) => Some(x.chars().next()),
+                _ => None,
+            }
+        };
+        Some(Gn {
+            gender: one(g, ['m', 'f'])?,
+            number: one(n, ['s', 'p'])?,
+        })
+    }
+
+    pub fn compatible(self, other: Gn) -> bool {
+        let ok = |a: Option<char>, b: Option<char>| a.is_none() || b.is_none() || a == b;
+        ok(self.gender, other.gender) && ok(self.number, other.number)
+    }
+
+    /// Combine deux descriptions compatibles en gardant ce qui est connu.
+    pub fn merge(self, other: Gn) -> Gn {
+        Gn {
+            gender: self.gender.or(other.gender),
+            number: self.number.or(other.number),
+        }
+    }
+}
+
 /// Une lecture possible d'une forme.
 #[derive(Debug, Clone, PartialEq)]
 pub struct Reading {
@@ -67,6 +105,34 @@ impl Reading {
 
     pub fn is_past_participle(&self) -> bool {
         self.pos.is_verb() && self.traits.starts_with("ppas")
+    }
+
+    /// Genre et nombre d'un nom, adjectif, déterminant ou participe passé.
+    pub fn gn(&self) -> Option<Gn> {
+        match self.pos {
+            Pos::Nom | Pos::Adj | Pos::Det => Gn::parse(&self.traits),
+            _ if self.is_past_participle() => match self.traits.strip_prefix("ppas.") {
+                Some(gn) => Gn::parse(gn),
+                None => Some(Gn::default()),
+            },
+            _ => None,
+        }
+    }
+
+    /// Personne d'un verbe conjugué (`3p`), hors impératif.
+    pub fn person(&self) -> Option<&str> {
+        if !self.is_finite_verb() || self.traits.starts_with("imp.") {
+            return None;
+        }
+        self.traits.rsplit('.').next()
+    }
+
+    /// Mode et temps d'un verbe conjugué (`ind.pres`).
+    pub fn mode_tense(&self) -> Option<&str> {
+        if !self.is_finite_verb() {
+            return None;
+        }
+        self.traits.rsplit_once('.').map(|(mt, _)| mt)
     }
 
     /// Verbe conjugué (ni infinitif ni participe).
@@ -108,6 +174,8 @@ pub struct Lexicon {
     by_lower: HashMap<String, Vec<u32>>,
     /// Formes indexées par squelette (voir [`skeleton`]).
     by_skeleton: HashMap<String, Vec<u32>>,
+    /// Formes indexées par lemme.
+    by_lemma: HashMap<String, Vec<u32>>,
 }
 
 impl Lexicon {
@@ -153,13 +221,21 @@ impl Lexicon {
     }
 
     fn insert(&mut self, text: String, reading: Reading, freq: f32) {
+        let id = self.insert_form(text, reading.clone(), freq);
+        let ids = self.by_lemma.entry(reading.lemma).or_default();
+        if !ids.contains(&id) {
+            ids.push(id);
+        }
+    }
+
+    fn insert_form(&mut self, text: String, reading: Reading, freq: f32) -> u32 {
         if let Some(&id) = self.by_text.get(&text) {
             let form = &mut self.forms[id as usize];
             form.freq += freq;
             if !form.readings.contains(&reading) {
                 form.readings.push(reading);
             }
-            return;
+            return id;
         }
         let id = self.forms.len() as u32;
         let lower = text.to_lowercase();
@@ -176,6 +252,7 @@ impl Lexicon {
             freq,
             readings: vec![reading],
         });
+        id
     }
 
     pub fn len(&self) -> usize {
@@ -236,6 +313,31 @@ impl Lexicon {
         if let Some(ids) = self.by_lower.get(lower) {
             out.extend_from_slice(ids);
         }
+    }
+
+    /// Formes du lemme `lemma` ayant une lecture qui satisfait `pred`, de la
+    /// plus fréquente à la moins fréquente.
+    pub fn inflect(&self, lemma: &str, pred: impl Fn(&Reading) -> bool) -> Vec<&str> {
+        let mut forms: Vec<&Form> = self
+            .by_lemma
+            .get(lemma)
+            .into_iter()
+            .flatten()
+            .map(|&id| self.form(id))
+            .filter(|f| f.has(|r| r.lemma == lemma && pred(r)))
+            .collect();
+        forms.sort_by(|a, b| b.freq.total_cmp(&a.freq).then_with(|| a.text.cmp(&b.text)));
+        forms.into_iter().map(|f| f.text.as_str()).collect()
+    }
+
+    /// Lectures de toutes les formes d'un lemme.
+    pub fn lemma_readings<'a>(&'a self, lemma: &'a str) -> impl Iterator<Item = &'a Reading> + 'a {
+        self.by_lemma
+            .get(lemma)
+            .into_iter()
+            .flatten()
+            .flat_map(|&id| self.form(id).readings.iter())
+            .filter(move |r| r.lemma == lemma)
     }
 
     pub(crate) fn ids_for_skeleton(&self, skel: &str) -> &[u32] {

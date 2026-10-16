@@ -1,0 +1,76 @@
+# Petits mots utilisés par les règles de grammaire : mot, classe, source.
+# Classes :
+#   clitique      pronom ou négation qui peut se placer entre le sujet et le verbe
+#   objet         clitique complément d'objet (accord du participe avec avoir, verbes pronominaux)
+#   charniere     mot après lequel peut commencer une proposition (et, que, quand…)
+#   adverbe       adverbe qui peut s'intercaler entre l'auxiliaire et le participe
+#   negation      second élément de la négation (pas, jamais…)
+#   antecedent    mot qui annonce un complément d'objet placé avant le verbe (que, combien)
+ne	clitique	REF-GRAM-FR
+n’	clitique	REF-GRAM-FR
+me	clitique	REF-GRAM-FR
+m’	clitique	REF-GRAM-FR
+te	clitique	REF-GRAM-FR
+t’	clitique	REF-GRAM-FR
+se	clitique	REF-GRAM-FR
+s’	clitique	REF-GRAM-FR
+le	clitique	REF-GRAM-FR
+la	clitique	REF-GRAM-FR
+l’	clitique	REF-GRAM-FR
+les	clitique	REF-GRAM-FR
+lui	clitique	REF-GRAM-FR
+leur	clitique	REF-GRAM-FR
+y	clitique	REF-GRAM-FR
+en	clitique	REF-GRAM-FR
+nous	clitique	REF-GRAM-FR
+vous	clitique	REF-GRAM-FR
+me	objet	REF-GRAM-FR
+m’	objet	REF-GRAM-FR
+te	objet	REF-GRAM-FR
+t’	objet	REF-GRAM-FR
+se	objet	REF-GRAM-FR
+s’	objet	REF-GRAM-FR
+le	objet	REF-GRAM-FR
+la	objet	REF-GRAM-FR
+l’	objet	REF-GRAM-FR
+les	objet	REF-GRAM-FR
+nous	objet	REF-GRAM-FR
+vous	objet	REF-GRAM-FR
+et	charniere	REF-GRAM-FR
+mais	charniere	REF-GRAM-FR
+ou	charniere	REF-GRAM-FR
+donc	charniere	REF-GRAM-FR
+car	charniere	REF-GRAM-FR
+puis	charniere	REF-GRAM-FR
+que	charniere	REF-GRAM-FR
+qu’	charniere	REF-GRAM-FR
+quand	charniere	REF-GRAM-FR
+lorsque	charniere	REF-GRAM-FR
+lorsqu’	charniere	REF-GRAM-FR
+si	charniere	REF-GRAM-FR
+comme	charniere	REF-GRAM-FR
+parce	charniere	REF-GRAM-FR
+puisque	charniere	REF-GRAM-FR
+puisqu’	charniere	REF-GRAM-FR
+pas	adverbe	REF-GRAM-FR
+plus	adverbe	REF-GRAM-FR
+jamais	adverbe	REF-GRAM-FR
+bien	adverbe	REF-GRAM-FR
+déjà	adverbe	REF-GRAM-FR
+très	adverbe	REF-GRAM-FR
+toujours	adverbe	REF-GRAM-FR
+encore	adverbe	REF-GRAM-FR
+trop	adverbe	REF-GRAM-FR
+aussi	adverbe	REF-GRAM-FR
+vraiment	adverbe	REF-GRAM-FR
+souvent	adverbe	REF-GRAM-FR
+enfin	adverbe	REF-GRAM-FR
+pas	negation	REF-GRAM-FR
+jamais	negation	REF-GRAM-FR
+rien	negation	REF-GRAM-FR
+guère	negation	REF-GRAM-FR
+aucun	negation	REF-GRAM-FR
+aucune	negation	REF-GRAM-FR
+que	antecedent	REF-GRAM-FR
+qu’	antecedent	REF-GRAM-FR
+combien	antecedent	REF-GRAM-FR

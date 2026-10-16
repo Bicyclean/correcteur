@@ -250,13 +250,7 @@ mod tests {
     #[test]
     fn interface_complete() {
         let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../data");
-        let mut files = vec![
-            "regles/regles.tsv",
-            "regles/locutions.tsv",
-            "regles/elisions.txt",
-            "regles/abreviations.txt",
-            "regles/verbes_a.txt",
-        ];
+        let mut files = correcteur_core::RULE_FILES.to_vec();
         files.push("lexique/00-amorce.tsv");
         for f in files {
             let content = std::fs::read_to_string(root.join(f)).unwrap();

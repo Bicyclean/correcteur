@@ -1,0 +1,31 @@
+# Phrases correctes de registre courant, pour mesurer les faux positifs (toutes catégories).
+grammaire	Les habitants du village se sont réunis sur la place pour fêter la fin des moissons. Les enfants couraient entre les tables pendant que leurs parents discutaient des récoltes.	CONTRIB-INIT
+grammaire	La mairie a décidé de rénover l’église, dont le clocher menace de s’effondrer. Les travaux commenceront au printemps et dureront plusieurs mois.	CONTRIB-INIT
+grammaire	Elle a toujours aimé les livres anciens. Sa bibliothèque contient des centaines de volumes qu’elle a patiemment rassemblés au fil des années.	CONTRIB-INIT
+grammaire	Nous avons pris le train de nuit pour rejoindre la côte. Le voyage était long, mais les paysages que nous avons découverts valaient le détour.	CONTRIB-INIT
+grammaire	Les résultats de l’enquête montrent que la plupart des personnes interrogées sont satisfaites du service. Certaines réponses restent toutefois difficiles à interpréter.	CONTRIB-INIT
+grammaire	Il faut que tu viennes demain{nbsp}: la réunion commence à neuf heures et nous aurons besoin de ton avis.	CONTRIB-INIT
+grammaire	Les fleurs que j’ai cueillies ce matin sont déjà fanées. Ma grand-mère les aurait mises dans un vase avec un peu de sucre.	CONTRIB-INIT
+grammaire	Le directeur et son adjointe ont présenté le budget. Les chiffres, bien que encourageants, ne permettent pas encore d’embaucher.	CONTRIB-INIT
+grammaire	On dirait que la pluie ne s’arrêtera jamais. Les rues sont inondées et les voitures roulent au pas.	CONTRIB-INIT
+grammaire	Cette décision, prise sans concertation, a provoqué la colère des syndicats. Ils réclament une rencontre avec la direction.	CONTRIB-INIT
+grammaire	Les petites filles jouaient dans la cour tandis que les garçons lisaient sous le grand chêne.	CONTRIB-INIT
+grammaire	Je ne crois pas qu’il viendra. Il n’a jamais tenu ses promesses.	CONTRIB-INIT
+grammaire	Les élèves dont les notes sont insuffisantes devront repasser l’examen.	CONTRIB-INIT
+grammaire	Chaque matin, la boulangère ouvre sa boutique à six heures. Ses croissants sont réputés dans tout le quartier.	CONTRIB-INIT
+grammaire	Il les a vues partir sans rien dire. Elles sont revenues le lendemain, fatiguées mais heureuses.	CONTRIB-INIT
+grammaire	La plupart des invités sont arrivés en retard à cause des embouteillages.	CONTRIB-INIT
+grammaire	Le chien de mes voisins aboie toute la nuit.	CONTRIB-INIT
+grammaire	Les livres que tu m’as prêtés sont passionnants.	CONTRIB-INIT
+grammaire	Votre dossier est complet{fine}; vous recevrez une réponse sous huit jours.	CONTRIB-INIT
+grammaire	Une des raisons de son départ reste mystérieuse.	CONTRIB-INIT
+# Erreurs de grammaire variées, dont certaines hors de portée des règles actuelles.
+grammaire	Elle a ⟦manger→mangé⟧ tôt.	CONTRIB-INIT
+grammaire	Une ⟦petit→petite⟧ fille joue dans le jardin.	CONTRIB-INIT
+grammaire	On ⟦a→n’a⟧ rien vu.	CONTRIB-INIT
+grammaire	Les enfants de mon frère ⟦joue→jouent⟧ dehors.	CONTRIB-INIT
+grammaire	Les pommes que j’ai ⟦mangé→mangées⟧ étaient bonnes.	CONTRIB-INIT
+grammaire	Ma sœur et ma mère ⟦est→sont⟧ arrivées.	CONTRIB-INIT
+grammaire	Ils se sont ⟦lavés→lavé⟧ les mains.	CONTRIB-INIT
+grammaire	Je les ai ⟦vu→vus⟧ hier.	CONTRIB-INIT
+grammaire	Il faut que tu ⟦viens→viennes⟧ demain.	CONTRIB-INIT

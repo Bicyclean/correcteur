@@ -1,6 +1,7 @@
 //! Règles d'analyse. Chaque module ajoute des [`RawIssue`] ; le moteur y joint
 //! ensuite les textes décrits dans `data/regles/regles.tsv`.
 
+mod grammar;
 mod homophones;
 mod locutions;
 mod spelling;
@@ -26,6 +27,14 @@ pub const CODE_RULES: &[&str] = &[
     homophones::SE_CE,
     homophones::C_S,
     homophones::ET_EST,
+    grammar::SUBJECT_VERB,
+    grammar::DETERMINER,
+    grammar::ADJECTIVE,
+    grammar::PARTICIPLE_ETRE,
+    grammar::PARTICIPLE_AVOIR,
+    grammar::INFINITIVE,
+    grammar::NEGATION,
+    grammar::PREPOSITION,
     typo::SPACE_BEFORE_MISSING,
     typo::SPACE_BEFORE_BREAKING,
     typo::SPACE_AFTER_MISSING,
@@ -73,6 +82,11 @@ impl RawIssue {
         self.suggestions.push(s.into());
         self
     }
+
+    pub fn with_suggestions(mut self, s: Vec<String>) -> RawIssue {
+        self.suggestions = s;
+        self
+    }
 }
 
 /// Tout ce dont une règle a besoin.
@@ -107,6 +121,16 @@ impl<'a> Context<'a> {
         }
     }
 
+    /// Indice du mot précédent, s'il n'en est séparé que par des blancs.
+    pub fn prev(&self, i: usize) -> Option<usize> {
+        (i > 0 && self.words[i].joined_to_prev).then(|| i - 1)
+    }
+
+    /// Indice du mot suivant, s'il n'en est séparé que par des blancs.
+    pub fn next(&self, i: usize) -> Option<usize> {
+        (i + 1 < self.words.len() && self.words[i + 1].joined_to_prev).then_some(i + 1)
+    }
+
     /// Entrée du lexique pour le mot d'indice `i`.
     pub fn form(&self, i: usize) -> Option<&'a Form> {
         self.words.get(i).and_then(|w| self.lexicon.find(&w.norm))
@@ -117,5 +141,6 @@ pub fn run_all(ctx: &Context, out: &mut Vec<RawIssue>) {
     typo::check(ctx, out);
     spelling::check(ctx, out);
     homophones::check(ctx, out);
+    grammar::check(ctx, out);
     locutions::check(ctx, out);
 }

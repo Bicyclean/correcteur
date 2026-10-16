@@ -1,0 +1,53 @@
+# Déterminants : forme, genre.nombre, forme de l'autre genre, forme de l'autre nombre, source.
+# Classe fermée décrite pour ce projet. « e » : genre ou nombre indifférent.
+# Les possessifs mon, ton, son s'emploient aussi devant un nom féminin à initiale vocalique (mon école) : e.s.
+# « - » : pas de contrepartie.
+le	m.s	la	les	REF-GRAM-FR
+la	f.s	le	les	REF-GRAM-FR
+l’	e.s	-	les	REF-GRAM-FR
+les	e.p	-	-	REF-GRAM-FR
+un	m.s	une	des	REF-GRAM-FR
+une	f.s	un	des	REF-GRAM-FR
+des	e.p	-	-	REF-GRAM-FR
+du	m.s	de la	des	REF-GRAM-FR
+au	m.s	à la	aux	REF-GRAM-FR
+aux	e.p	-	-	REF-GRAM-FR
+ce	m.s	cette	ces	REF-GRAM-FR
+cet	m.s	cette	ces	REF-GRAM-FR
+cette	f.s	ce	ces	REF-GRAM-FR
+ces	e.p	-	-	REF-GRAM-FR
+mon	e.s	ma	mes	REF-GRAM-FR
+ton	e.s	ta	tes	REF-GRAM-FR
+son	e.s	sa	ses	REF-GRAM-FR
+ma	f.s	mon	mes	REF-GRAM-FR
+ta	f.s	ton	tes	REF-GRAM-FR
+sa	f.s	son	ses	REF-GRAM-FR
+mes	e.p	-	-	REF-GRAM-FR
+tes	e.p	-	-	REF-GRAM-FR
+ses	e.p	-	-	REF-GRAM-FR
+notre	e.s	-	nos	REF-GRAM-FR
+votre	e.s	-	vos	REF-GRAM-FR
+nos	e.p	-	-	REF-GRAM-FR
+vos	e.p	-	-	REF-GRAM-FR
+leurs	e.p	-	-	REF-GRAM-FR
+quel	m.s	quelle	quels	REF-GRAM-FR
+quelle	f.s	quel	quelles	REF-GRAM-FR
+quels	m.p	quelles	quel	REF-GRAM-FR
+quelles	f.p	quels	quelle	REF-GRAM-FR
+chaque	e.s	-	-	REF-GRAM-FR
+plusieurs	e.p	-	-	REF-GRAM-FR
+quelques	e.p	-	-	REF-GRAM-FR
+certains	m.p	certaines	-	REF-GRAM-FR
+certaines	f.p	certains	-	REF-GRAM-FR
+aucun	m.s	aucune	-	REF-GRAM-FR
+aucune	f.s	aucun	-	REF-GRAM-FR
+deux	e.p	-	-	REF-GRAM-FR
+trois	e.p	-	-	REF-GRAM-FR
+quatre	e.p	-	-	REF-GRAM-FR
+cinq	e.p	-	-	REF-GRAM-FR
+six	e.p	-	-	REF-GRAM-FR
+sept	e.p	-	-	REF-GRAM-FR
+huit	e.p	-	-	REF-GRAM-FR
+neuf	e.p	-	-	REF-GRAM-FR
+dix	e.p	-	-	REF-GRAM-FR
+leur	e.s	-	leurs	REF-GRAM-FR

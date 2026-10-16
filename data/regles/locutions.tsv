@@ -17,3 +17,14 @@ d’ ou	d’où	HOMO_OU_RELATIF	REF-GRAM-FR
 au moment ou	au moment où	HOMO_OU_RELATIF	REF-GRAM-FR
 partout ou	partout où	HOMO_OU_RELATIF	REF-GRAM-FR
 où bien	ou bien	HOMO_OU_CONJONCTION	REF-GRAM-FR
+# Constructions et prépositions : « =lemme » reconnaît toutes les formes du lemme ;
+# « $1 » reprend le texte du premier mot trouvé.
+=pallier à	$1	GRAM_PREPOSITION	REF-GRAM-FR
+=aller au docteur	$1 chez le docteur	GRAM_PREPOSITION	REF-GRAM-FR
+=aller au médecin	$1 chez le médecin	GRAM_PREPOSITION	REF-GRAM-FR
+=aller au dentiste	$1 chez le dentiste	GRAM_PREPOSITION	REF-GRAM-FR
+=aller au coiffeur	$1 chez le coiffeur	GRAM_PREPOSITION	REF-GRAM-FR
+=demander à ce que	$1 que	GRAM_PREPOSITION	REF-GRAM-FR
+en rapport à	par rapport à	GRAM_PREPOSITION	REF-GRAM-FR
+malgré que	bien que	GRAM_PREPOSITION	REF-GRAM-FR
+malgré qu’	bien qu’	GRAM_PREPOSITION	REF-GRAM-FR

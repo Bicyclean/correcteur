@@ -1,0 +1,25 @@
+# Noms qui s'emploient aux deux genres : épicènes (un/une enfant) ou homographes
+# de genres différents (le/la somme). Pour ces noms, le genre n'est pas vérifié.
+# Sert à corriger Lexique 3.83, qui laisse parfois le genre vide au singulier et
+# le précise au pluriel. Liste établie pour ce projet (source : REF-GRAM-FR).
+enfant
+enfant-roi
+enfant-robot
+malade
+architecte
+esclave
+ministre
+géographe
+social-démocrate
+radical-socialiste
+somme
+merci
+coche
+office
+carpe
+enseigne
+pendule
+garenne
+paillasse
+gîte
+aria

@@ -7,62 +7,70 @@
 use std::collections::{HashMap, HashSet};
 use std::fmt;
 
+use crate::lexicon::Gn;
 use crate::text::normalize_apostrophes;
 use crate::Category;
+
+/// Fichiers de `data/regles/` lus par le moteur. Tous sont obligatoires.
+pub const RULE_FILES: &[&str] = &[
+    "regles/regles.tsv",
+    "regles/locutions.tsv",
+    "regles/elisions.txt",
+    "regles/abreviations.txt",
+    "regles/verbes_a.txt",
+    "regles/determinants.tsv",
+    "regles/pronoms_sujets.tsv",
+    "regles/mots_grammaticaux.tsv",
+    "regles/h_aspire.txt",
+    "regles/noms_deux_genres.txt",
+];
 
 /// Contenu brut des fichiers de données, tel que lu sur disque ou reçu par le
 /// module WebAssembly.
 #[derive(Debug, Clone, Default)]
 pub struct EngineData {
-    /// Un ou plusieurs lexiques TSV (`data/lexique/*.tsv`).
+    /// Un ou plusieurs lexiques TSV (`data/lexique/*.tsv`), triés par nom.
     pub lexicons: Vec<(String, String)>,
-    /// `data/regles/regles.tsv`.
-    pub rules: String,
-    /// `data/regles/locutions.tsv`.
-    pub locutions: String,
-    /// `data/regles/elisions.txt`.
-    pub elisions: String,
-    /// `data/regles/abreviations.txt`.
-    pub abbreviations: String,
-    /// `data/regles/verbes_a.txt`.
-    pub verbs_with_a: String,
+    /// Fichiers de règles, par chemin relatif (voir [`RULE_FILES`]).
+    pub rule_files: HashMap<String, String>,
 }
 
 impl EngineData {
     /// Range un fichier selon son chemin relatif au dossier `data/`
     /// (`lexique/….tsv`, `regles/regles.tsv`…). Sert quand les fichiers ne
     /// sont pas lus sur disque, par exemple dans le module WebAssembly.
+    /// Les fichiers que le moteur n'utilise pas sont ignorés.
     pub fn add_file(&mut self, path: &str, content: String) -> Result<(), DataError> {
-        let slot = match path {
-            "regles/regles.tsv" => &mut self.rules,
-            "regles/locutions.tsv" => &mut self.locutions,
-            "regles/elisions.txt" => &mut self.elisions,
-            "regles/abreviations.txt" => &mut self.abbreviations,
-            "regles/verbes_a.txt" => &mut self.verbs_with_a,
-            p if p.starts_with("lexique/") && p.ends_with(".tsv") => {
-                self.lexicons.push((p.to_string(), content));
-                self.lexicons.sort_by(|a, b| a.0.cmp(&b.0));
-                return Ok(());
-            }
-            // Fichiers utiles seulement aux outils (import, documentation).
-            p if p.starts_with("regles/") || !p.ends_with(".tsv") => return Ok(()),
-            _ => {
-                return Err(DataError {
-                    file: path.to_string(),
-                    line: 0,
-                    message: "fichier de données inattendu".into(),
-                })
-            }
-        };
-        *slot = content;
+        if path.starts_with("lexique/") && path.ends_with(".tsv") {
+            self.lexicons.push((path.to_string(), content));
+            self.lexicons.sort_by(|a, b| a.0.cmp(&b.0));
+        } else if RULE_FILES.contains(&path) {
+            self.rule_files.insert(path.to_string(), content);
+        } else if !path.starts_with("regles/") && path.ends_with(".tsv") {
+            return Err(DataError {
+                file: path.to_string(),
+                line: 0,
+                message: "fichier de données inattendu".into(),
+            });
+        }
         Ok(())
+    }
+
+    fn file(&self, name: &str) -> Result<&str, DataError> {
+        self.rule_files
+            .get(name)
+            .map(String::as_str)
+            .ok_or_else(|| DataError {
+                file: name.to_string(),
+                line: 0,
+                message: "fichier manquant".into(),
+            })
     }
 
     #[cfg(not(target_arch = "wasm32"))]
     pub fn read_dir(dir: &std::path::Path) -> Result<EngineData, DataError> {
-        let read = |rel: &str| -> Result<String, DataError> {
-            let path = dir.join(rel);
-            std::fs::read_to_string(&path).map_err(|e| DataError {
+        let read = |path: &std::path::Path| -> Result<String, DataError> {
+            std::fs::read_to_string(path).map_err(|e| DataError {
                 file: path.display().to_string(),
                 line: 0,
                 message: e.to_string(),
@@ -79,24 +87,15 @@ impl EngineData {
             .filter(|p| p.extension().is_some_and(|x| x == "tsv"))
             .collect();
         lex_paths.sort();
-        let mut lexicons = Vec::new();
+        let mut data = EngineData::default();
         for p in lex_paths {
-            let name = p.display().to_string();
-            let content = std::fs::read_to_string(&p).map_err(|e| DataError {
-                file: name.clone(),
-                line: 0,
-                message: e.to_string(),
-            })?;
-            lexicons.push((name, content));
+            data.lexicons.push((p.display().to_string(), read(&p)?));
         }
-        Ok(EngineData {
-            lexicons,
-            rules: read("regles/regles.tsv")?,
-            locutions: read("regles/locutions.tsv")?,
-            elisions: read("regles/elisions.txt")?,
-            abbreviations: read("regles/abreviations.txt")?,
-            verbs_with_a: read("regles/verbes_a.txt")?,
-        })
+        for name in RULE_FILES {
+            data.rule_files
+                .insert(name.to_string(), read(&dir.join(name))?);
+        }
+        Ok(data)
     }
 }
 
@@ -131,13 +130,38 @@ pub struct RuleInfo {
     pub source: String,
 }
 
+/// Élément d'une locution : mot exact, ou toute forme d'un lemme (`=pallier`).
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub(crate) enum LocToken {
+    Word(String),
+    Lemma(String),
+}
+
 /// Locution fautive reconnue mot à mot, avec sa correction.
 #[derive(Debug, Clone)]
 pub(crate) struct Locution {
     /// Mots attendus, en minuscules, apostrophes typographiques.
-    pub words: Vec<String>,
+    pub words: Vec<LocToken>,
+    /// Correction ; `$1`, `$2`… reprennent le texte du 1er, 2e… mot trouvé.
     pub replacement: String,
     pub rule: &'static str,
+}
+
+#[derive(Debug, Clone)]
+pub(crate) struct Determiner {
+    pub gn: Gn,
+    /// Forme de l'autre genre (le → la).
+    pub other_gender: Option<String>,
+    /// Forme de l'autre nombre (le → les).
+    pub other_number: Option<String>,
+}
+
+#[derive(Debug, Clone)]
+pub(crate) struct Subject {
+    /// `1s`, `3p`…
+    pub person: String,
+    /// Genre et nombre imposés au participe ou à l'adjectif attribut.
+    pub gn: Gn,
 }
 
 /// Données prêtes à l'emploi.
@@ -147,6 +171,21 @@ pub(crate) struct Data {
     pub elisions: HashSet<String>,
     pub abbreviations: HashSet<String>,
     pub verbs_with_a: HashSet<String>,
+    pub determiners: HashMap<String, Determiner>,
+    pub subjects: HashMap<String, Subject>,
+    /// Classe → mots (voir `mots_grammaticaux.tsv`).
+    pub word_classes: HashMap<String, HashSet<String>>,
+    pub h_aspire: HashSet<String>,
+    /// Noms employés aux deux genres (genre non vérifié).
+    pub two_gender_nouns: HashSet<String>,
+}
+
+impl Data {
+    pub fn is(&self, word: &str, class: &str) -> bool {
+        self.word_classes
+            .get(class)
+            .is_some_and(|set| set.contains(word))
+    }
 }
 
 /// Lignes utiles d'un fichier : (numéro, contenu).
@@ -167,7 +206,7 @@ fn word_list(content: &str) -> HashSet<String> {
 impl Data {
     pub fn parse(src: &EngineData) -> Result<Data, DataError> {
         let mut rules = HashMap::new();
-        for (n, line) in data_lines(&src.rules) {
+        for (n, line) in data_lines(src.file("regles/regles.tsv")?) {
             let err = |message: String| DataError {
                 file: "regles/regles.tsv".into(),
                 line: n,
@@ -206,7 +245,7 @@ impl Data {
         }
 
         let mut locutions = Vec::new();
-        for (n, line) in data_lines(&src.locutions) {
+        for (n, line) in data_lines(src.file("regles/locutions.tsv")?) {
             let err = |message: String| DataError {
                 file: "regles/locutions.tsv".into(),
                 line: n,
@@ -226,11 +265,14 @@ impl Data {
                 .find(|id| **id == cols[2])
                 .copied()
                 .ok_or_else(|| err(format!("règle « {} » inconnue", cols[2])))?;
-            let words: Vec<String> = normalize_apostrophes(cols[0])
+            let words: Vec<LocToken> = normalize_apostrophes(cols[0])
                 .to_lowercase()
                 .split(' ')
                 .filter(|w| !w.is_empty())
-                .map(str::to_string)
+                .map(|w| match w.strip_prefix('=') {
+                    Some(lemma) => LocToken::Lemma(lemma.to_string()),
+                    None => LocToken::Word(w.to_string()),
+                })
                 .collect();
             if words.is_empty() {
                 return Err(err("locution vide".into()));
@@ -242,12 +284,71 @@ impl Data {
             });
         }
 
+        let table =
+            |name: &'static str, ncols: usize| -> Result<Vec<(usize, Vec<String>)>, DataError> {
+                let mut rows = Vec::new();
+                for (n, line) in data_lines(src.file(name)?) {
+                    let cols: Vec<String> = line.split('\t').map(normalize_apostrophes).collect();
+                    if cols.len() != ncols {
+                        return Err(DataError {
+                            file: name.into(),
+                            line: n,
+                            message: format!("{ncols} colonnes attendues, {} trouvées", cols.len()),
+                        });
+                    }
+                    rows.push((n, cols));
+                }
+                Ok(rows)
+            };
+        let gn = |name: &str, n: usize, s: &str| {
+            Gn::parse(s).ok_or_else(|| DataError {
+                file: name.into(),
+                line: n,
+                message: format!("genre et nombre « {s} » invalides"),
+            })
+        };
+        let other = |s: &str| (s != "-").then(|| s.to_string());
+
+        let mut determiners = HashMap::new();
+        for (n, c) in table("regles/determinants.tsv", 5)? {
+            let d = Determiner {
+                gn: gn("regles/determinants.tsv", n, &c[1])?,
+                other_gender: other(&c[2]),
+                other_number: other(&c[3]),
+            };
+            determiners.insert(c[0].clone(), d);
+        }
+        let mut subjects = HashMap::new();
+        for (n, c) in table("regles/pronoms_sujets.tsv", 5)? {
+            let s = Subject {
+                person: c[1].clone(),
+                gn: gn(
+                    "regles/pronoms_sujets.tsv",
+                    n,
+                    &format!("{}.{}", c[2], c[3]),
+                )?,
+            };
+            subjects.insert(c[0].clone(), s);
+        }
+        let mut word_classes: HashMap<String, HashSet<String>> = HashMap::new();
+        for (_, c) in table("regles/mots_grammaticaux.tsv", 3)? {
+            word_classes
+                .entry(c[1].clone())
+                .or_default()
+                .insert(c[0].clone());
+        }
+
         Ok(Data {
             rules,
             locutions,
-            elisions: word_list(&src.elisions),
-            abbreviations: word_list(&src.abbreviations),
-            verbs_with_a: word_list(&src.verbs_with_a),
+            elisions: word_list(src.file("regles/elisions.txt")?),
+            abbreviations: word_list(src.file("regles/abreviations.txt")?),
+            verbs_with_a: word_list(src.file("regles/verbes_a.txt")?),
+            determiners,
+            subjects,
+            word_classes,
+            h_aspire: word_list(src.file("regles/h_aspire.txt")?),
+            two_gender_nouns: word_list(src.file("regles/noms_deux_genres.txt")?),
         })
     }
 }
