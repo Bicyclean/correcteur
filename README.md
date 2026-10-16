@@ -16,7 +16,7 @@ Tout le traitement est local : le texte ne quitte jamais l'appareil.
 | 2 | Add-in Word (Windows, macOS) | **Fonctionne dans Word pour le web** (Safari) ; essais dans Word pour Mac et Windows à faire |
 | 3 | Accords et grammaire | **Fait** — accords sujet-verbe et groupe nominal, participes, négation, quelques constructions |
 | 4 | Application de bureau Tauri | **Fait** — éditeur, raccourci global ⌘⇧E / Ctrl+Maj+E pour le presse-papiers ; construite sur macOS, raccourci global et Windows à vérifier |
-| 5 | Extension LibreOffice | **Fait** — vérificateur grammatical (Proofreader), testé dans LibreOffice sans interface ; à essayer dans Writer |
+| 5 | Extension LibreOffice | **Fait** — vérificateur grammatical (Proofreader), essayé dans Writer (LibreOfficeDev 26.8, macOS) ; Windows et Linux à essayer |
 | 6 | Conjugaison, synonymes, version 2 | À faire |
 
 Ce que le moteur détecte aujourd'hui :
