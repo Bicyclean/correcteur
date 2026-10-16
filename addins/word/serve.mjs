@@ -26,6 +26,7 @@ const types = {
 
 function handler(req, res) {
   const url = new URL(req.url, "http://localhost");
+  res.on("finish", () => console.log(`${res.statusCode} ${req.method} ${url.pathname}`));
   const rel = decodeURIComponent(url.pathname === "/" ? "/taskpane.html" : url.pathname);
   const file = path.normalize(path.join(dist, rel));
   if (!file.startsWith(dist + path.sep) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
@@ -39,13 +40,28 @@ function handler(req, res) {
   fs.createReadStream(file).pipe(res);
 }
 
+/** Écoute sur les deux adresses locales : « localhost » peut désigner l'une ou l'autre. */
+function listen(create) {
+  for (const host of ["127.0.0.1", "::1"]) {
+    const server = create();
+    server.on("error", (e) => console.log(`${host} : ${e.message}`));
+    server.listen(port, host);
+  }
+}
+
 const certDir = path.join(os.homedir(), ".office-addin-dev-certs");
 const cert = path.join(certDir, "localhost.crt");
 const key = path.join(certDir, "localhost.key");
 if (fs.existsSync(cert) && fs.existsSync(key)) {
-  https.createServer({ cert: fs.readFileSync(cert), key: fs.readFileSync(key) }, handler).listen(port, "127.0.0.1");
+  const options = { cert: fs.readFileSync(cert), key: fs.readFileSync(key) };
+  listen(() => {
+    const server = https.createServer(options, handler);
+    // Un navigateur qui refuse le certificat coupe la connexion : le signaler.
+    server.on("tlsClientError", (e) => console.log(`connexion TLS refusée par le client : ${e.message}`));
+    return server;
+  });
   console.log(`https://localhost:${port}/taskpane.html`);
 } else {
-  http.createServer(handler).listen(port, "127.0.0.1");
+  listen(() => http.createServer(handler));
   console.log(`http://localhost:${port}/taskpane.html (sans certificat : aperçu navigateur seulement, Word exige HTTPS)`);
 }

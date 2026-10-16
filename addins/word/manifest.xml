@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   Manifeste de l'add-in Word. Les adresses https://localhost:3000 servent au
-  développement ; `node build.mjs --url https://exemple.org/correcteur` produit
-  dans dist/ une copie pointant vers l'adresse de publication.
+  développement. L'option url de build.mjs (voir LISEZMOI.md) produit dans
+  dist/ une copie pointant vers l'adresse de publication. Pas de double tiret
+  dans ce commentaire : XML l'interdit.
 -->
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -10,7 +11,7 @@
            xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
            xsi:type="TaskPaneApp">
   <Id>dac89d70-bb23-4f03-9cbd-91f7544a1d4b</Id>
-  <Version>0.1.0.0</Version>
+  <Version>1.0.0.0</Version>
   <ProviderName>Projet correcteur</ProviderName>
   <DefaultLocale>fr-FR</DefaultLocale>
   <DisplayName DefaultValue="Correcteur"/>
