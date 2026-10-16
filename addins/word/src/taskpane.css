@@ -1,0 +1,132 @@
+:root {
+  --bg: #ffffff;
+  --surface: #f6f6f4;
+  --text: #1d1d1b;
+  --muted: #66665f;
+  --border: #dedcd6;
+  --accent: #2f5bb7;
+  --accent-text: #ffffff;
+  --mark: #fde7a9;
+  --error: #b42318;
+  --cat-orthographe: #c2410c;
+  --cat-homophone: #7c3aed;
+  --cat-grammaire: #0f766e;
+  --cat-typographie: #2563eb;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1f1f1d;
+    --surface: #2a2a27;
+    --text: #ecebe6;
+    --muted: #a8a69e;
+    --border: #3d3c38;
+    --accent: #8fb0f5;
+    --accent-text: #10213f;
+    --mark: #6b5418;
+    --error: #f2948a;
+    --cat-orthographe: #fb923c;
+    --cat-homophone: #b79cfa;
+    --cat-grammaire: #5eead4;
+    --cat-typographie: #93b4fb;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 12px;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.45 "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+header { display: grid; gap: 8px; margin-bottom: 12px; }
+.title { display: flex; align-items: center; gap: 8px; }
+h1 { font-size: 16px; margin: 0; font-weight: 600; }
+button { font: inherit; cursor: pointer; }
+.primary {
+  background: var(--accent);
+  color: var(--accent-text);
+  border: 0;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-weight: 600;
+}
+.primary[disabled] { opacity: 0.5; cursor: default; }
+#status { margin: 0; font-size: 12px; color: var(--muted); min-height: 1.4em; }
+#status[data-kind="error"] { color: var(--error); }
+.muted { color: var(--muted); font-size: 12px; }
+#demo textarea {
+  width: 100%;
+  font: inherit;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  resize: vertical;
+}
+#filters { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 8px; }
+.chip {
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 12px;
+}
+.chip[aria-pressed="true"] { background: var(--surface); border-color: var(--text); }
+.chip .count { margin-left: 6px; color: var(--muted); }
+#issues { display: grid; gap: 8px; }
+.empty { color: var(--muted); text-align: center; padding: 24px 0; margin: 0; }
+.card {
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--cat, var(--border));
+  border-radius: 6px;
+  padding: 8px 10px;
+  background: var(--bg);
+  cursor: pointer;
+}
+.card:hover, .card:focus-visible { background: var(--surface); outline: none; }
+.card[data-category="orthographe"], .chip[data-category="orthographe"] { --cat: var(--cat-orthographe); }
+.card[data-category="homophone"], .chip[data-category="homophone"] { --cat: var(--cat-homophone); }
+.card[data-category="grammaire"], .chip[data-category="grammaire"] { --cat: var(--cat-grammaire); }
+.card[data-category="typographie"], .chip[data-category="typographie"] { --cat: var(--cat-typographie); }
+.chip[data-category]::before {
+  content: "";
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--cat);
+  margin-right: 6px;
+}
+.message { margin: 0 0 4px; font-weight: 600; }
+.excerpt { margin: 0 0 6px; color: var(--muted); overflow-wrap: anywhere; }
+.excerpt mark { background: var(--mark); color: var(--text); border-radius: 2px; padding: 0 1px; }
+.suggestions { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+.suggestion {
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+  border-radius: 4px;
+  padding: 1px 8px;
+}
+.suggestion:hover { background: var(--accent); color: var(--accent-text); }
+.explanation summary { font-size: 12px; color: var(--muted); cursor: pointer; }
+.explanation p { margin: 4px 0; font-size: 13px; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 2px; }
+.link {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--muted);
+  font-size: 12px;
+  text-decoration: underline;
+}
+#options { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 8px; }
+#options summary { cursor: pointer; font-weight: 600; }
+fieldset { border: 0; padding: 0; margin: 10px 0; }
+legend { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+.stack { display: grid; gap: 4px; }
+#dictionary { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+#dictionary li { display: flex; justify-content: space-between; gap: 8px; }
+footer { margin-top: 16px; font-size: 12px; color: var(--muted); }

@@ -1,0 +1,21 @@
+{
+  "name": "correcteur-word",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Add-in Word du correcteur : panneau latéral, analyse locale en WebAssembly.",
+  "license": "GPL-3.0-or-later",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "build:js": "node build.mjs --sans-wasm",
+    "typecheck": "tsc --noEmit",
+    "test": "node build.mjs --tests && node --test \"dist-tests/*.test.mjs\"",
+    "start": "node build.mjs && node serve.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "@types/office-js": "1.0.612",
+    "esbuild": "0.28.2",
+    "typescript": "7.0.2"
+  }
+}
