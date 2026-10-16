@@ -4,6 +4,10 @@
 //! `freqlivres`, `infover`. Une ligne verbale qui porte plusieurs analyses
 //! (`ind:pre:3s;par:pas;`) donne une lecture par analyse ; la fréquence est
 //! portée par la première seulement, pour que leur somme reste celle de la forme.
+//!
+//! Les locutions de plusieurs mots (« tandis qu’ », « à l’improviste ») ne sont
+//! pas reprises telles quelles ; leurs mots absents du reste du lexique
+//! (« tandis », « improviste ») sont ajoutés seuls, sans fréquence.
 
 use std::collections::BTreeSet;
 
@@ -15,6 +19,8 @@ pub struct Report {
     pub readings: usize,
     /// Lignes écartées : catégorie absente ou inutile (liaison), forme à espaces.
     pub skipped: usize,
+    /// Mots ajoutés parce qu'ils n'apparaissent que dans des locutions.
+    pub from_locutions: usize,
 }
 
 /// Convertit le contenu de `Lexique383.tsv` en lignes au format `data/lexique`.
@@ -45,6 +51,9 @@ pub fn convert_lexique383(
 
     let mut report = Report::default();
     let mut out = BTreeSet::new();
+    let mut known = std::collections::HashSet::new();
+    // Mots des locutions, avec la catégorie de la locution.
+    let mut locution_words: Vec<(String, &'static str)> = Vec::new();
     for (n, line) in lines.enumerate() {
         report.lines += 1;
         let cols: Vec<&str> = line.trim_end_matches('\r').split('\t').collect();
@@ -55,10 +64,22 @@ pub fn convert_lexique383(
             report.skipped += 1;
             continue;
         };
-        if form.is_empty() || form.contains(' ') {
+        if form.contains(' ') {
+            for part in form.split(' ') {
+                // « l’aveuglette » → « l’ », « aveuglette »
+                let word = part.rsplit('’').next().unwrap_or(part);
+                if !word.is_empty() {
+                    locution_words.push((word.to_string(), pos));
+                }
+            }
             report.skipped += 1;
             continue;
         }
+        if form.is_empty() {
+            report.skipped += 1;
+            continue;
+        }
+        known.insert(form.clone());
         let parse_freq = |i: usize| -> Result<f64, String> {
             let v = get(i);
             if v.is_empty() {
@@ -96,6 +117,12 @@ pub fn convert_lexique383(
                 fmt_freq(f)
             ));
             report.readings += 1;
+        }
+    }
+    for (word, pos) in locution_words {
+        if known.insert(word.clone()) {
+            out.insert(format!("{word}\t{word}\t{pos}\t\t0\t{SOURCE}"));
+            report.from_locutions += 1;
         }
     }
     Ok((out.into_iter().collect(), report))
@@ -191,15 +218,19 @@ mod tests {
         l'\tl\tl'\tART:def\tm\ts\t0\t0\t8129.41\t12746.77\t\n\
         l'\tl\tl'\tLIA\t\t\t0\t0\t0\t412.57\t\n\
         a priori\ta\ta priori\tADV\t\t\t0\t0\t1\t1\t\n\
+        tandis qu'\tt\ttandis qu'\tCON\t\t\t0\t0\t1\t1\t\n\
         lave\tlav\tlaver\tVER\t\t\t0\t0\t16.98\t7.64\timp:pre:2s;ind:pre:1s;cnd:pre:3s;\n";
 
     #[test]
     fn conversion() {
         let (lines, report) = convert_lexique383(SAMPLE, &["soeur"]).unwrap();
-        assert_eq!(report.lines, 8);
+        assert_eq!(report.lines, 9);
+        // Mots de locutions absents par ailleurs : « a », « priori », « tandis » (pas « qu’ »).
+        assert_eq!(report.from_locutions, 3, "{lines:?}");
+        assert!(lines.contains(&"tandis\ttandis\tCON\t\t0\tLEXIQUE383".to_string()));
         assert!(lines.contains(&"sœur\tsœur\tNOM\tf.s\t1\tLEXIQUE383".to_string()));
         assert!(lines.contains(&"moelle\tmoelle\tNOM\tf.s\t1\tLEXIQUE383".to_string()));
-        assert_eq!(report.skipped, 2);
+        assert_eq!(report.skipped, 3);
         assert!(lines.contains(&"fait\tfaire\tVER\tind.pres.3s\t2105.63\tLEXIQUE383".to_string()));
         assert!(lines.contains(&"fait\tfaire\tVER\tppas.m.s\t0\tLEXIQUE383".to_string()));
         assert!(lines.contains(&"fait\tfait\tNOM\tm.s\t354.99\tLEXIQUE383".to_string()));

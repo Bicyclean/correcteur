@@ -9,6 +9,7 @@ a	a	NOM	m.e	70	LEXIQUE383
 a	avoir	AUX	ind.pres.3s	4638.8	LEXIQUE383
 a	avoir	VER	ind.pres.3s	3583.87	LEXIQUE383
 aa	aa	NOM	m.s	0.01	LEXIQUE383
+ab	ab	ADV		0	LEXIQUE383
 abaca	abaca	NOM	m.s	0.01	LEXIQUE383
 abaissa	abaisser	VER	ind.ps.3s	1.32	LEXIQUE383
 abaissai	abaisser	VER	ind.ps.1s	0.09	LEXIQUE383
@@ -558,6 +559,7 @@ abrupt	abrupt	NOM	m.s	0.17	LEXIQUE383
 abrupte	abrupt	ADJ	f.s	1.64	LEXIQUE383
 abruptement	abruptement	ADV		1.05	LEXIQUE383
 abruptes	abrupt	ADJ	f.p	0.9	LEXIQUE383
+abrupto	abrupto	ADV		0	LEXIQUE383
 abrupts	abrupt	ADJ	m.p	0.48	LEXIQUE383
 abrupts	abrupt	NOM	m.p	0.07	LEXIQUE383
 abruti	abruti	ADJ	m.s	4.14	LEXIQUE383
@@ -645,6 +647,7 @@ absenterait	absenter	VER	cond.pres.3s	0.04	LEXIQUE383
 absentes	absent	ADJ	f.p	0.33	LEXIQUE383
 absentes	absent	NOM	f.p	0.11	LEXIQUE383
 absentes	absenter	VER	ind.pres.2s	0.04	LEXIQUE383
+absentia	absentia	ADV		0	LEXIQUE383
 absents	absent	ADJ	m.p	3.35	LEXIQUE383
 absents	absent	NOM	m.p	1.31	LEXIQUE383
 absentèrent	absenter	VER	ind.ps.3p	0.04	LEXIQUE383
@@ -769,6 +772,7 @@ abstins	abstenir	VER	ind.ps.1s	0.2	LEXIQUE383
 abstint	abstenir	VER	ind.ps.3s	0.51	LEXIQUE383
 abstraction	abstraction	NOM	f.s	1.38	LEXIQUE383
 abstractions	abstraction	NOM	f.p	0.46	LEXIQUE383
+abstracto	abstracto	ADV		0	LEXIQUE383
 abstraire	abstraire	VER	inf	0.38	LEXIQUE383
 abstrais	abstraire	VER	ind.pres.1s	0.04	LEXIQUE383
 abstrait	abstraire	VER	ind.pres.3s	0.76	LEXIQUE383
@@ -795,6 +799,7 @@ absurdes	absurde	NOM	m.p	0.11	LEXIQUE383
 absurdistes	absurdiste	NOM	e.p	0.04	LEXIQUE383
 absurdité	absurdité	NOM	f.s	3.49	LEXIQUE383
 absurdités	absurdité	NOM	f.p	0.82	LEXIQUE383
+absurdo	absurdo	ADV		0	LEXIQUE383
 abus	abus	NOM	m.e	6.67	LEXIQUE383
 abusa	abuser	VER	ind.ps.3s	0.11	LEXIQUE383
 abusai	abuser	VER	ind.ps.1s	0.04	LEXIQUE383
@@ -1990,6 +1995,7 @@ achèveront	achever	VER	ind.fut.3p	0.17	LEXIQUE383
 achèves	achever	VER	ind.pres.2s	0.2	LEXIQUE383
 achélème	achélème	NOM	m.s	0.47	LEXIQUE383
 achélèmes	achélème	NOM	m.p	0.37	LEXIQUE383
+acid	acid	NOM		0	LEXIQUE383
 acide	acide	ADJ	e.s	4.38	LEXIQUE383
 acide	acide	NOM	m.s	6.14	LEXIQUE383
 acides	acide	ADJ	e.p	1.03	LEXIQUE383
@@ -2269,6 +2275,7 @@ acétone	acétone	NOM	f.s	0.24	LEXIQUE383
 acétylcholine	acétylcholine	NOM	f.s	0.12	LEXIQUE383
 acétylsalicylique	acétylsalicylique	ADJ	m.s	0.01	LEXIQUE383
 acétylène	acétylène	NOM	m.s	1.07	LEXIQUE383
+ad	ad	ADJ		0	LEXIQUE383
 ada	ada	NOM	m.s	0.03	LEXIQUE383
 adage	adage	NOM	m.s	0.57	LEXIQUE383
 adages	adage	NOM	m.p	0.11	LEXIQUE383
@@ -2922,6 +2929,7 @@ adéquates	adéquat	ADJ	f.p	0.48	LEXIQUE383
 adéquation	adéquation	NOM	f.s	0.24	LEXIQUE383
 adéquats	adéquat	ADJ	m.p	0.51	LEXIQUE383
 aegipans	aegipan	NOM	m.p	0.04	LEXIQUE383
+aeternam	aeternam	ADV		0	LEXIQUE383
 affabilité	affabilité	NOM	f.s	0.68	LEXIQUE383
 affabilités	affabilité	NOM	f.p	0.04	LEXIQUE383
 affable	affable	ADJ	e.s	1.74	LEXIQUE383
@@ -3564,6 +3572,7 @@ afro-cubain	afro-cubain	NOM	m.s	0.04	LEXIQUE383
 afro-cubaine	afro-cubain	ADJ	f.s	0.01	LEXIQUE383
 afro-cubaine	afro-cubain	NOM	f.s	0.01	LEXIQUE383
 afro-cubains	afro-cubain	ADJ	m.p	0.04	LEXIQUE383
+after	after	NOM		0	LEXIQUE383
 after-shave	after-shave	NOM	m.e	0.54	LEXIQUE383
 aga	aga	NOM	m.s	3.3	LEXIQUE383
 agace	agace	NOM	f.s	0.22	LEXIQUE383
@@ -3838,6 +3847,7 @@ agnostique	agnostique	ADJ	f.s	0.24	LEXIQUE383
 agnostique	agnostique	NOM	e.s	0.05	LEXIQUE383
 agnostiques	agnostique	ADJ	e.p	0.04	LEXIQUE383
 agnostiques	agnostique	NOM	e.p	0.04	LEXIQUE383
+agnus	agnus	NOM		0	LEXIQUE383
 agnus-dei	agnus-dei	NOM	m.e	0.04	LEXIQUE383
 agonie	agonie	NOM	f.s	8.91	LEXIQUE383
 agonie	agonir	VER	ppas.f.s	0.05	LEXIQUE383
@@ -4094,6 +4104,7 @@ aguerris	aguerri	ADJ	m.p	0.21	LEXIQUE383
 aguerris	aguerrir	VER	ppas.m.p	0.04	LEXIQUE383
 aguerrissait	aguerrir	VER	ind.impf.3s	0.04	LEXIQUE383
 aguerrit	aguerrir	VER	ind.pres.3s	0.01	LEXIQUE383
+aguets	aguets	ADV		0	LEXIQUE383
 aguichage	aguichage	NOM	m.s	0.01	LEXIQUE383
 aguichait	aguicher	VER	ind.impf.3s	0.12	LEXIQUE383
 aguichant	aguichant	ADJ	m.s	0.06	LEXIQUE383
@@ -4594,6 +4605,7 @@ akkadien	akkadien	NOM	m.s	0.01	LEXIQUE383
 akkadienne	akkadienne	ADJ	f.s	0.01	LEXIQUE383
 ako	ako	NOM	m.s	0.04	LEXIQUE383
 akvavit	akvavit	NOM	m.s	0.11	LEXIQUE383
+al	al	ADV		0	LEXIQUE383
 alabandines	alabandine	NOM	f.p	0.04	LEXIQUE383
 alacrité	alacrité	NOM	f.s	0.31	LEXIQUE383
 alain	alain	NOM	e.s	0.07	LEXIQUE383
@@ -4734,6 +4746,7 @@ alderman	alderman	NOM	m.s	0.07	LEXIQUE383
 aldol	aldol	NOM	m.s	0.03	LEXIQUE383
 aldéhyde	aldéhyde	NOM	m.s	0.04	LEXIQUE383
 ale	ale	NOM	f.s	1.12	LEXIQUE383
+alea	alea	ADV		0	LEXIQUE383
 alenti	alentir	VER	ppas.m.s	0.07	LEXIQUE383
 alentie	alentir	VER	ppas.f.s	0.04	LEXIQUE383
 alenties	alentir	VER	ppas.f.p	0.04	LEXIQUE383
@@ -4937,7 +4950,9 @@ aliénés	aliéner	VER	ppas.m.p	0.08	LEXIQUE383
 aliénés	aliéné	ADJ	m.p	0.04	LEXIQUE383
 aliénés	aliéné	NOM	m.p	1.02	LEXIQUE383
 alkali	alkali	NOM	m.s	0.03	LEXIQUE383
+all	all	ADV		0	LEXIQUE383
 alla	aller	VER	ind.ps.3s	36.12	LEXIQUE383
+allah	allah	INT		0	LEXIQUE383
 allai	aller	VER	ind.ps.1s	10.02	LEXIQUE383
 allaient	aller	VER	ind.impf.3p	48.71	LEXIQUE383
 allais	aller	VER	ind.impf.1s	99.85	LEXIQUE383
@@ -5439,6 +5454,7 @@ alémaniques	alémanique	ADJ	e.p	0.04	LEXIQUE383
 aléoutien	aléoutien	ADJ	m.s	0.01	LEXIQUE383
 alésait	aléser	VER	ind.impf.3s	0.04	LEXIQUE383
 aléser	aléser	VER	inf	0.04	LEXIQUE383
+am	am	INT		0	LEXIQUE383
 amabilité	amabilité	NOM	f.s	3.29	LEXIQUE383
 amabilités	amabilité	NOM	f.p	0.83	LEXIQUE383
 amadou	amadou	NOM	m.s	0.89	LEXIQUE383
@@ -5680,6 +5696,7 @@ amenées	amener	VER	ppas.f.p	0.8	LEXIQUE383
 amenés	amener	VER	ppas.m.p	5.43	LEXIQUE383
 amer	amer	ADJ	m.s	8.75	LEXIQUE383
 amer	amer	NOM	m.s	0.6	LEXIQUE383
+americana	americana	NOM		0	LEXIQUE383
 amerlo	amerlo	NOM	e.s	0.07	LEXIQUE383
 amerloque	amerloque	NOM	e.s	0.81	LEXIQUE383
 amerloques	amerloque	NOM	e.p	0.59	LEXIQUE383
@@ -5728,6 +5745,7 @@ amicales	amical	NOM	f.p	0.04	LEXIQUE383
 amicales	amicale	NOM	f.p	0.04	LEXIQUE383
 amicalités	amicalité	NOM	f.p	0.04	LEXIQUE383
 amicaux	amical	ADJ	m.p	1.52	LEXIQUE383
+amicis	amicis	NOM		0	LEXIQUE383
 amidon	amidon	NOM	m.s	0.61	LEXIQUE383
 amidonnaient	amidonner	VER	ind.impf.3p	0.04	LEXIQUE383
 amidonnent	amidonner	VER	ind.pres.3p	0.01	LEXIQUE383
@@ -6414,6 +6432,7 @@ ancrés	ancrer	VER	ppas.m.p	0.32	LEXIQUE383
 ancrés	ancré	ADJ	m.p	0.17	LEXIQUE383
 ancêtre	ancêtre	NOM	e.s	3.95	LEXIQUE383
 ancêtres	ancêtre	NOM	e.p	13.54	LEXIQUE383
+and	and	NOM		0	LEXIQUE383
 anda	anda	NOM	m.s	0.64	LEXIQUE383
 andain	andain	NOM	m.s	0.04	LEXIQUE383
 andains	andain	NOM	m.p	0.07	LEXIQUE383
@@ -8044,6 +8063,7 @@ appauvrissions	appauvrir	VER	ind.impf.1p	0.04	LEXIQUE383
 appauvrissons	appauvrir	VER	imp.pres.1p	0.04	LEXIQUE383
 appauvrit	appauvrir	VER	ind.pres.3s	0.09	LEXIQUE383
 appauvrit	appauvrir	VER	ind.ps.3s	0	LEXIQUE383
+appeal	appeal	NOM		0	LEXIQUE383
 appeau	appeau	NOM	m.s	0.17	LEXIQUE383
 appeaux	appeau	NOM	m.p	0.08	LEXIQUE383
 appel	appel	NOM	m.s	68.78	LEXIQUE383
@@ -9758,6 +9778,7 @@ arsouilles	arsouille	ADJ	m.p	0.04	LEXIQUE383
 arsouilles	arsouille	NOM	e.p	0.07	LEXIQUE383
 arsénieux	arsénieux	ADJ	m.s	0.04	LEXIQUE383
 art	art	NOM	m.s	73.71	LEXIQUE383
+arte	arte	NOM		0	LEXIQUE383
 artefact	artefact	NOM	m.s	0.17	LEXIQUE383
 artefacts	artefact	NOM	m.p	0.24	LEXIQUE383
 arthrite	arthrite	NOM	f.s	1.01	LEXIQUE383
@@ -11865,6 +11886,7 @@ auditoriums	auditorium	NOM	m.p	0.07	LEXIQUE383
 auditrice	auditeur	NOM	f.s	0.07	LEXIQUE383
 auditrices	auditeur	NOM	f.p	0.15	LEXIQUE383
 audits	audit	NOM	m.p	0.03	LEXIQUE383
+auditu	auditu	ADV		0	LEXIQUE383
 auge	auge	NOM	f.s	1.12	LEXIQUE383
 auges	auge	NOM	f.p	0.25	LEXIQUE383
 augment	augment	NOM	m.s	0.1	LEXIQUE383
@@ -12055,6 +12077,7 @@ autarcique	autarcique	ADJ	e.s	0.11	LEXIQUE383
 autarciques	autarcique	ADJ	f.p	0.04	LEXIQUE383
 autel	autel	NOM	m.s	10.46	LEXIQUE383
 autels	autel	NOM	m.p	1.34	LEXIQUE383
+autem	autem	NOM		0	LEXIQUE383
 auteur	auteur	NOM	m.s	24.96	LEXIQUE383
 auteure	auteur	NOM	f.s	0.01	LEXIQUE383
 auteurs	auteur	NOM	m.p	7.73	LEXIQUE383
@@ -12727,6 +12750,7 @@ aveuglerait	aveugler	VER	cond.pres.3s	0.06	LEXIQUE383
 aveugles	aveugle	ADJ	e.p	6.49	LEXIQUE383
 aveugles	aveugle	NOM	e.p	4.65	LEXIQUE383
 aveugles	aveugler	VER	ind.pres.2s	0.1	LEXIQUE383
+aveuglette	aveuglette	ADV		0	LEXIQUE383
 aveuglez	aveugler	VER	imp.pres.2p	0.01	LEXIQUE383
 aveuglons	aveugler	VER	imp.pres.1p	0.01	LEXIQUE383
 aveuglât	aveugler	VER	sub.impf.3s	0.04	LEXIQUE383
@@ -13015,6 +13039,7 @@ aya	aya	NOM	f.s	0.01	LEXIQUE383
 ayans	ayan	NOM	m.p	0.04	LEXIQUE383
 ayant	avoir	AUX	ppre	84.76	LEXIQUE383
 ayant	avoir	VER	ppre	2.38	LEXIQUE383
+ayants	ayants	NOM		0	LEXIQUE383
 ayatollah	ayatollah	NOM	m.s	0.32	LEXIQUE383
 ayatollahs	ayatollah	NOM	m.p	0.09	LEXIQUE383
 aye-aye	aye-aye	NOM	m.s	0.01	LEXIQUE383
@@ -13383,6 +13408,7 @@ bafouées	bafouer	VER	ppas.f.p	0.06	LEXIQUE383
 bafouées	bafoué	ADJ	f.p	0.04	LEXIQUE383
 bafoués	bafouer	VER	ppas.m.p	0.29	LEXIQUE383
 bafoués	bafoué	ADJ	m.p	0.14	LEXIQUE383
+bag	bag	NOM		0	LEXIQUE383
 bagage	bagage	NOM	m.s	5.32	LEXIQUE383
 bagagerie	bagagerie	NOM	f.s	0.07	LEXIQUE383
 bagages	bagage	NOM	m.p	21.72	LEXIQUE383
@@ -13421,6 +13447,7 @@ bagatelle	bagatelle	NOM	f.s	1.83	LEXIQUE383
 bagatelles	bagatelle	NOM	f.p	0.5	LEXIQUE383
 bagnard	bagnard	NOM	m.s	0.79	LEXIQUE383
 bagnards	bagnard	NOM	m.p	0.8	LEXIQUE383
+bagnat	bagnat	NOM		0	LEXIQUE383
 bagne	bagne	NOM	m.s	2.9	LEXIQUE383
 bagnes	bagne	NOM	m.p	0.28	LEXIQUE383
 bagnole	bagnole	NOM	f.s	23.73	LEXIQUE383
@@ -13910,6 +13937,7 @@ balivernes	baliverne	NOM	f.p	2	LEXIQUE383
 balkanique	balkanique	ADJ	e.s	0.41	LEXIQUE383
 balkaniques	balkanique	ADJ	e.p	0.34	LEXIQUE383
 balkanisés	balkaniser	VER	ppas.m.p	0.04	LEXIQUE383
+ball	ball	NOM		0	LEXIQUE383
 ball-trap	ball-trap	NOM	m.s	0.17	LEXIQUE383
 ballade	ballade	NOM	f.s	2.29	LEXIQUE383
 ballades	ballade	NOM	f.p	0.58	LEXIQUE383
@@ -14101,6 +14129,7 @@ bancroche	bancroche	ADJ	e.s	0.01	LEXIQUE383
 bancroches	bancroche	ADJ	e.p	0.07	LEXIQUE383
 bancroches	bancroche	NOM	e.p	0.04	LEXIQUE383
 bancs	banc	NOM	m.p	9.96	LEXIQUE383
+band	band	NOM		0	LEXIQUE383
 banda	bander	VER	ind.ps.3s	0.28	LEXIQUE383
 bandage	bandage	NOM	m.s	2.07	LEXIQUE383
 bandages	bandage	NOM	m.p	1.79	LEXIQUE383
@@ -15248,8 +15277,10 @@ bedonnantes	bedonnant	ADJ	f.p	0.17	LEXIQUE383
 bedonnants	bedonnant	ADJ	m.p	0.12	LEXIQUE383
 bedonne	bedonner	VER	ind.pres.3s	0.04	LEXIQUE383
 bedons	bedon	NOM	m.p	0.04	LEXIQUE383
+beef	beef	NOM		0	LEXIQUE383
 beefsteak	beefsteak	NOM	m.s	0.2	LEXIQUE383
 beefsteaks	beefsteak	NOM	m.p	0.08	LEXIQUE383
+been	been	NOM		0	LEXIQUE383
 beeper	beeper	NOM	m.s	0.17	LEXIQUE383
 beethovénien	beethovénien	ADJ	m.s	0.04	LEXIQUE383
 beffroi	beffroi	NOM	m.s	0.6	LEXIQUE383
@@ -15296,6 +15327,7 @@ belles-mères	beau-père	NOM	f.p	0.11	LEXIQUE383
 belles-sœurs	beau-frère	NOM	f.p	0.29	LEXIQUE383
 bellevillois	bellevillois	ADJ	m.e	0.04	LEXIQUE383
 bellevilloise	bellevillois	ADJ	f.s	0.07	LEXIQUE383
+belli	belli	NOM		0	LEXIQUE383
 belliciste	belliciste	ADJ	f.s	0.06	LEXIQUE383
 belliciste	belliciste	NOM	e.s	0.03	LEXIQUE383
 bellicistes	belliciste	ADJ	e.p	0.12	LEXIQUE383
@@ -15329,6 +15361,7 @@ belvédère	belvédère	NOM	m.s	0.36	LEXIQUE383
 belvédères	belvédère	NOM	m.p	0.11	LEXIQUE383
 ben	ben	ADV		12.27	LEXIQUE383
 ben	ben	NOM	m.e	42.81	LEXIQUE383
+bene	bene	ADV		0	LEXIQUE383
 benedictus	benedictus	NOM	m.e	0.09	LEXIQUE383
 bengalais	bengalais	ADJ	m.s	0.01	LEXIQUE383
 bengalais	bengalais	NOM	m.e	0.14	LEXIQUE383
@@ -15841,6 +15874,7 @@ bifurquer	bifurquer	VER	inf	0.17	LEXIQUE383
 bifurqueront	bifurquer	VER	ind.fut.3p	0.04	LEXIQUE383
 bifurqué	bifurquer	VER	ppas.m.s	0.48	LEXIQUE383
 bifurquée	bifurquer	VER	ppas.f.s	0.07	LEXIQUE383
+big	big	NOM		0	LEXIQUE383
 big-bang	big-bang	NOM	m.e	0.22	LEXIQUE383
 bigaille	bigaille	NOM	f.s	0.14	LEXIQUE383
 bigame	bigame	ADJ	m.s	0.12	LEXIQUE383
@@ -16129,6 +16163,7 @@ birmans	birman	ADJ	m.p	0.06	LEXIQUE383
 birmans	birman	NOM	m.p	0.12	LEXIQUE383
 biroute	biroute	NOM	f.s	0.49	LEXIQUE383
 biroutes	biroute	NOM	f.p	0.07	LEXIQUE383
+birth	birth	NOM		0	LEXIQUE383
 biréfringence	biréfringence	NOM	f.s	0.01	LEXIQUE383
 bis	bis	ADJ	m.e	1.34	LEXIQUE383
 bis	bis	ADV		0.43	LEXIQUE383
@@ -16293,6 +16328,7 @@ bizuts	bizut	NOM	m.p	0.12	LEXIQUE383
 bizuté	bizuter	VER	ppas.m.s	0.02	LEXIQUE383
 bière	bière	NOM	f.s	51.95	LEXIQUE383
 bières	bière	NOM	f.p	7.94	LEXIQUE383
+bla	bla	NOM		0	LEXIQUE383
 bla-bla	bla-bla	NOM	m.e	1.3	LEXIQUE383
 bla-bla-bla	bla-bla-bla	NOM	m.e	0.38	LEXIQUE383
 blabla	blabla	NOM	m.e	1.11	LEXIQUE383
@@ -16650,6 +16686,7 @@ blondissait	blondir	VER	ind.impf.3s	0.1	LEXIQUE383
 blondit	blondir	VER	ind.pres.3s	0.07	LEXIQUE383
 blonds	blond	ADJ	m.p	10.91	LEXIQUE383
 blonds	blond	NOM	m.p	0.72	LEXIQUE383
+bloody	bloody	NOM		0	LEXIQUE383
 bloom	bloom	NOM	m.s	0.01	LEXIQUE383
 bloomer	bloomer	NOM	m.s	0.01	LEXIQUE383
 bloqua	bloquer	VER	ind.ps.3s	0.65	LEXIQUE383
@@ -16733,6 +16770,7 @@ blousons	blouson	NOM	m.p	1.58	LEXIQUE383
 blousé	blouser	VER	ppas.m.s	0.14	LEXIQUE383
 blousée	blouser	VER	ppas.f.s	0.07	LEXIQUE383
 blousés	blouser	VER	ppas.m.p	0.08	LEXIQUE383
+blue	blue	NOM		0	LEXIQUE383
 blue-jean	blue-jean	NOM	m.s	0.57	LEXIQUE383
 blue-jeans	blue-jean	NOM	m.p	0.53	LEXIQUE383
 blues	blues	NOM	m.e	6.74	LEXIQUE383
@@ -16823,7 +16861,9 @@ blêmissante	blêmissant	ADJ	f.s	0.04	LEXIQUE383
 blêmit	blêmir	VER	ind.pres.3s	0.71	LEXIQUE383
 blêmit	blêmir	VER	ind.ps.3s	0	LEXIQUE383
 boa	boa	NOM	m.s	1.76	LEXIQUE383
+board	board	NOM		0	LEXIQUE383
 boas	boa	NOM	m.p	0.2	LEXIQUE383
+boat	boat	NOM		0	LEXIQUE383
 bob	bob	NOM	m.s	0.48	LEXIQUE383
 bobard	bobard	NOM	m.s	0.7	LEXIQUE383
 bobards	bobard	NOM	m.p	1.84	LEXIQUE383
@@ -19047,6 +19087,7 @@ briarde	briard	ADJ	f.s	0.04	LEXIQUE383
 briards	briard	NOM	m.p	0.04	LEXIQUE383
 bribe	bribe	NOM	f.s	0.79	LEXIQUE383
 bribes	bribe	NOM	f.p	7.01	LEXIQUE383
+bric	bric	ADV		0	LEXIQUE383
 bric-à-brac	bric-à-brac	NOM	m.e	1.62	LEXIQUE383
 bricheton	bricheton	NOM	m.s	0.34	LEXIQUE383
 brick	brick	NOM	m.s	0.72	LEXIQUE383
@@ -19662,6 +19703,7 @@ broutèrent	brouter	VER	ind.ps.3p	0.04	LEXIQUE383
 brouté	brouter	VER	ppas.m.s	0.22	LEXIQUE383
 broutée	brouter	VER	ppas.f.s	0.04	LEXIQUE383
 broutés	brouter	VER	ppas.m.p	0.04	LEXIQUE383
+brown	brown	NOM		0	LEXIQUE383
 browning	browning	NOM	m.s	0.07	LEXIQUE383
 brownings	browning	NOM	m.p	0.04	LEXIQUE383
 broya	broyer	VER	ind.ps.3s	0.11	LEXIQUE383
@@ -19883,6 +19925,7 @@ brûle	brûler	VER	ind.pres.1s	0	LEXIQUE383
 brûle	brûler	VER	ind.pres.3s	0	LEXIQUE383
 brûle	brûler	VER	sub.pres.3s	0	LEXIQUE383
 brûle-gueule	brûle-gueule	NOM	m.s	0.2	LEXIQUE383
+brûle-pourpoint	brûle-pourpoint	ADV		0	LEXIQUE383
 brûlent	brûler	VER	ind.pres.3p	5.07	LEXIQUE383
 brûler	brûler	VER	inf	22.14	LEXIQUE383
 brûlera	brûler	VER	ind.fut.3s	1.11	LEXIQUE383
@@ -19931,6 +19974,7 @@ bu	bu	ADJ	m.s	2.29	LEXIQUE383
 bua	buer	VER	ind.ps.3s	0.04	LEXIQUE383
 buanderie	buanderie	NOM	f.s	1.18	LEXIQUE383
 buanderies	buanderie	NOM	f.p	0.07	LEXIQUE383
+bubble	bubble	NOM		0	LEXIQUE383
 bubble-gum	bubble-gum	NOM	m.s	0.07	LEXIQUE383
 bubon	bubon	NOM	m.s	0.08	LEXIQUE383
 bubonique	bubonique	ADJ	e.s	0.16	LEXIQUE383
@@ -19946,6 +19990,7 @@ bucco-génital	bucco-génital	ADJ	m.s	0.03	LEXIQUE383
 bucco-génitales	bucco-génital	ADJ	f.p	0.01	LEXIQUE383
 bucco-génitaux	bucco-génital	ADJ	m.p	0.01	LEXIQUE383
 buccogénitales	buccogénital	ADJ	f.p	0.01	LEXIQUE383
+buco	buco	NOM		0	LEXIQUE383
 bucoliastes	bucoliaste	NOM	m.p	0.04	LEXIQUE383
 bucolique	bucolique	ADJ	e.s	0.54	LEXIQUE383
 bucoliques	bucolique	ADJ	m.p	0.15	LEXIQUE383
@@ -19961,6 +20006,7 @@ budgétaires	budgétaire	ADJ	e.p	0.36	LEXIQUE383
 budgétisation	budgétisation	NOM	f.s	0.01	LEXIQUE383
 budgétivores	budgétivore	NOM	e.p	0.04	LEXIQUE383
 bue	bu	ADJ	f.s	1.4	LEXIQUE383
+buen	buen	NOM		0	LEXIQUE383
 bues	bu	ADJ	f.p	0.26	LEXIQUE383
 buffalo	buffalo	NOM	e.s	0.03	LEXIQUE383
 buffet	buffet	NOM	m.s	13.38	LEXIQUE383
@@ -21103,6 +21149,7 @@ caduques	caduque	NOM	f.p	0.04	LEXIQUE383
 cadènes	cadène	NOM	f.p	0.51	LEXIQUE383
 caecum	caecum	NOM	m.s	0.01	LEXIQUE383
 caesium	caesium	NOM	m.s	0.06	LEXIQUE383
+caetera	caetera	ADV		0	LEXIQUE383
 caf	caf	ADJ	e.s	0.07	LEXIQUE383
 caf	caf	ADV		0.01	LEXIQUE383
 cafard	cafard	ADJ	m.s	0.38	LEXIQUE383
@@ -21542,6 +21589,7 @@ californium	californium	NOM	m.s	0.01	LEXIQUE383
 califourchon	califourchon	ADV		2.32	LEXIQUE383
 calisson	calisson	NOM	m.s	0.07	LEXIQUE383
 calissons	calisson	NOM	m.p	0.04	LEXIQUE383
+call	call	NOM		0	LEXIQUE383
 call-girl	call-girl	NOM	f.s	0.56	LEXIQUE383
 call-girls	call-girl	NOM	f.p	0.04	LEXIQUE383
 calla	calla	NOM	f.s	0.1	LEXIQUE383
@@ -21966,6 +22014,7 @@ cana	caner	VER	ind.ps.3s	0.04	LEXIQUE383
 canada	canada	NOM	f.s	0.29	LEXIQUE383
 canadair	canadair	NOM	m.s	0.05	LEXIQUE383
 canadairs	canadair	NOM	m.p	0.08	LEXIQUE383
+canadian	canadian	NOM		0	LEXIQUE383
 canadien	canadien	ADJ	m.s	1.98	LEXIQUE383
 canadien	canadien	NOM	m.s	0.74	LEXIQUE383
 canadienne	canadienne	ADJ	f.s	1.05	LEXIQUE383
@@ -22237,6 +22286,7 @@ cantinière	cantinier	NOM	f.s	0.36	LEXIQUE383
 cantinières	cantinier	NOM	f.p	0.11	LEXIQUE383
 cantique	cantique	NOM	m.s	1.67	LEXIQUE383
 cantiques	cantique	NOM	m.p	2.48	LEXIQUE383
+canto	canto	NOM		0	LEXIQUE383
 canton	canton	NOM	m.s	1.96	LEXIQUE383
 cantonade	cantonade	NOM	f.s	1.73	LEXIQUE383
 cantonais	cantonais	ADJ	m.s	0.14	LEXIQUE383
@@ -22319,6 +22369,7 @@ cape	cape	NOM	f.s	7.87	LEXIQUE383
 capelage	capelage	NOM	m.s	0.05	LEXIQUE383
 capeline	capeline	NOM	f.s	1.09	LEXIQUE383
 capelines	capeline	NOM	f.p	0.21	LEXIQUE383
+capella	capella	ADV		0	LEXIQUE383
 capelé	capeler	VER	ppas.m.s	0.07	LEXIQUE383
 caper	caper	VER	inf	0.01	LEXIQUE383
 capes	cape	NOM	f.p	1.1	LEXIQUE383
@@ -22430,6 +22481,7 @@ capots	capot	NOM	m.p	0.49	LEXIQUE383
 capoté	capoter	VER	ppas.m.s	0.17	LEXIQUE383
 capotée	capoter	VER	ppas.f.s	0.04	LEXIQUE383
 cappa	cappa	NOM	f.s	0.01	LEXIQUE383
+cappella	cappella	ADV		0	LEXIQUE383
 cappuccino	cappuccino	NOM	m.s	0.93	LEXIQUE383
 cappuccinos	cappuccino	NOM	m.p	0.1	LEXIQUE383
 capricant	capricant	ADJ	m.s	0.04	LEXIQUE383
@@ -22542,6 +22594,7 @@ capucines	capucine	NOM	f.p	0.54	LEXIQUE383
 capucino	capucino	NOM	m.e	0.04	LEXIQUE383
 capucins	capucin	NOM	m.p	0.28	LEXIQUE383
 capulet	capulet	NOM	m.s	0.04	LEXIQUE383
+caput	caput	NOM		0	LEXIQUE383
 capétien	capétien	ADJ	m.s	0.1	LEXIQUE383
 capétienne	capétien	ADJ	f.s	0.04	LEXIQUE383
 capétiennes	capétien	ADJ	f.p	0.04	LEXIQUE383
@@ -23426,6 +23479,7 @@ casuistes	casuiste	NOM	m.p	0.04	LEXIQUE383
 casuistique	casuistique	ADJ	e.s	0.07	LEXIQUE383
 casuistique	casuistique	NOM	f.s	0.21	LEXIQUE383
 casuistiques	casuistique	ADJ	e.p	0.04	LEXIQUE383
+casus	casus	NOM		0	LEXIQUE383
 casé	caser	VER	ppas.m.s	0.73	LEXIQUE383
 casée	caser	VER	ppas.f.s	0.36	LEXIQUE383
 casées	caser	VER	ppas.f.p	0.08	LEXIQUE383
@@ -23567,6 +23621,7 @@ cathéter	cathéter	NOM	m.s	0.36	LEXIQUE383
 cathétérisme	cathétérisme	NOM	m.s	0.01	LEXIQUE383
 cati	cati	NOM	m.s	0.35	LEXIQUE383
 catiche	catiche	NOM	m.s	0.04	LEXIQUE383
+catimini	catimini	ADV		0	LEXIQUE383
 catin	catin	NOM	f.s	1.75	LEXIQUE383
 catins	catin	NOM	f.p	0.42	LEXIQUE383
 cation	cation	NOM	m.s	0.01	LEXIQUE383
@@ -23618,6 +23673,7 @@ cauchemars	cauchemar	NOM	m.p	8.55	LEXIQUE383
 cauchois	cauchois	ADJ	m.e	0.07	LEXIQUE383
 cauchoise	cauchois	NOM	f.s	0.04	LEXIQUE383
 cauchoises	cauchois	ADJ	f.p	0.07	LEXIQUE383
+cauda	cauda	ADV		0	LEXIQUE383
 caudal	caudal	ADJ	m.s	0.02	LEXIQUE383
 caudale	caudal	ADJ	f.s	0.08	LEXIQUE383
 caudales	caudal	ADJ	f.p	0.04	LEXIQUE383
@@ -24189,6 +24245,7 @@ cessé	cesser	VER	ppas.m.s	37.55	LEXIQUE383
 cessée	cesser	VER	ppas.f.s	0.01	LEXIQUE383
 ceste	ceste	NOM	m.s	0.04	LEXIQUE383
 cet	cet	DET	m.s	498.71	LEXIQUE383
+cetera	cetera	ADV		0	LEXIQUE383
 cette	cette	DET	f.s	2111.47	LEXIQUE383
 ceux	ceux	PRO		255.94	LEXIQUE383
 ceux-ci	ceux-ci	PRO		12.61	LEXIQUE383
@@ -25299,6 +25356,7 @@ chaînons	chaînon	NOM	m.p	0.12	LEXIQUE383
 chaîné	chaîner	VER	ppas.m.s	0.04	LEXIQUE383
 cheap	cheap	ADJ	m.s	0.32	LEXIQUE383
 cheap	cheap	NOM	m.s	0.02	LEXIQUE383
+check	check	NOM		0	LEXIQUE383
 check-list	check-list	NOM	f.s	0.11	LEXIQUE383
 check-up	check-up	NOM	m.e	0.34	LEXIQUE383
 cheddar	cheddar	NOM	m.s	0.27	LEXIQUE383
@@ -25550,6 +25608,7 @@ chevroté	chevroter	VER	ppas.m.s	0.04	LEXIQUE383
 chevrotée	chevroter	VER	ppas.f.s	0.04	LEXIQUE383
 chevêche	chevêche	NOM	f.s	0.14	LEXIQUE383
 chevêches	chevêche	NOM	f.p	0.07	LEXIQUE383
+chewing	chewing	NOM		0	LEXIQUE383
 chewing-gum	chewing-gum	NOM	m.s	1.55	LEXIQUE383
 chewing-gums	chewing-gum	NOM	m.p	0.21	LEXIQUE383
 chez	chez	PRE		761.36	LEXIQUE383
@@ -26064,6 +26123,7 @@ cholédoque	cholédoque	ADJ	m.s	0.02	LEXIQUE383
 choléra	choléra	NOM	m.s	2.44	LEXIQUE383
 choléras	choléra	NOM	m.p	0.04	LEXIQUE383
 cholériques	cholérique	NOM	e.p	0.04	LEXIQUE383
+chop	chop	NOM		0	LEXIQUE383
 chopaient	choper	VER	ind.impf.3p	0.04	LEXIQUE383
 chopais	choper	VER	ind.impf.1s	0.1	LEXIQUE383
 chopais	choper	VER	ind.impf.2s	0	LEXIQUE383
@@ -26263,6 +26323,7 @@ choyées	choyé	ADJ	f.p	0.07	LEXIQUE383
 choyés	choyer	VER	ppas.m.p	0.07	LEXIQUE383
 choyés	choyé	ADJ	m.p	0.08	LEXIQUE383
 christ	christ	NOM	m.s	2.05	LEXIQUE383
+christi	christi	NOM		0	LEXIQUE383
 christiania	christiania	NOM	m.s	0.04	LEXIQUE383
 christianisme	christianisme	NOM	m.s	3.21	LEXIQUE383
 christianisés	christianiser	VER	ppas.m.p	0.07	LEXIQUE383
@@ -27098,6 +27159,7 @@ cithare	cithare	NOM	f.s	0.44	LEXIQUE383
 cithares	cithare	NOM	f.p	0.2	LEXIQUE383
 citiez	citer	VER	ind.impf.2p	0.06	LEXIQUE383
 citions	citer	VER	ind.impf.1p	0.04	LEXIQUE383
+citizen	citizen	NOM		0	LEXIQUE383
 citons	citer	VER	imp.pres.1p	0.2	LEXIQUE383
 citons	citer	VER	ind.pres.1p	0	LEXIQUE383
 citoyen	citoyen	NOM	m.s	8.4	LEXIQUE383
@@ -27506,6 +27568,7 @@ claustrophobe	claustrophobe	ADJ	m.s	0.48	LEXIQUE383
 claustrophobe	claustrophobe	NOM	e.s	0.09	LEXIQUE383
 claustrophobie	claustrophobie	NOM	f.s	0.17	LEXIQUE383
 claustrée	claustrer	VER	ppas.f.s	0.07	LEXIQUE383
+clausus	clausus	NOM		0	LEXIQUE383
 clavaire	clavaire	NOM	f.s	0.04	LEXIQUE383
 clavaires	clavaire	NOM	f.p	0.07	LEXIQUE383
 claveaux	claveau	NOM	m.p	0.07	LEXIQUE383
@@ -27720,6 +27783,7 @@ clochette	clochette	NOM	f.s	2.54	LEXIQUE383
 clochettes	clochette	NOM	f.p	2.05	LEXIQUE383
 clochât	clocher	VER	sub.impf.3s	0.04	LEXIQUE383
 cloché	clocher	VER	ppas.m.s	0.01	LEXIQUE383
+clock	clock	NOM		0	LEXIQUE383
 clodo	clodo	NOM	m.s	2.76	LEXIQUE383
 clodos	clodo	NOM	m.p	1.32	LEXIQUE383
 cloison	cloison	NOM	f.s	7.14	LEXIQUE383
@@ -28145,6 +28209,7 @@ code	coder	VER	ind.pres.3s	0	LEXIQUE383
 code-barre	code-barre	NOM	m.s	0.04	LEXIQUE383
 code-barres	code-barres	NOM	m.e	0.09	LEXIQUE383
 code-clé	code-clé	NOM	m.s	0.01	LEXIQUE383
+codec	codec	INT		0	LEXIQUE383
 coder	coder	VER	inf	0.12	LEXIQUE383
 codes	code	NOM	m.p	4.42	LEXIQUE383
 codes	coder	VER	ind.pres.2s	0.03	LEXIQUE383
@@ -28194,6 +28259,7 @@ coexisteront	coexister	VER	ind.fut.3p	0.04	LEXIQUE383
 coexistez	coexister	VER	ind.pres.2p	0.01	LEXIQUE383
 coexistons	coexister	VER	ind.pres.1p	0.01	LEXIQUE383
 coexisté	coexister	VER	ppas.m.s	0.01	LEXIQUE383
+coffee	coffee	NOM		0	LEXIQUE383
 coffin	coffin	NOM	m.s	0.17	LEXIQUE383
 coffio	coffio	NOM	m.s	0.31	LEXIQUE383
 coffios	coffio	NOM	m.p	0.07	LEXIQUE383
@@ -29021,6 +29087,7 @@ comestible	comestible	ADJ	e.s	1.13	LEXIQUE383
 comestible	comestible	NOM	m.s	0.05	LEXIQUE383
 comestibles	comestible	ADJ	e.p	0.65	LEXIQUE383
 comestibles	comestible	NOM	m.p	0.11	LEXIQUE383
+comic	comic	NOM		0	LEXIQUE383
 comice	comice	NOM	e.s	0.04	LEXIQUE383
 comices	comice	NOM	m.p	0.14	LEXIQUE383
 comics	comics	NOM	m.p	0.55	LEXIQUE383
@@ -29104,6 +29171,7 @@ commandés	commander	VER	ppas.m.p	1.2	LEXIQUE383
 commandés	commandé	ADJ	m.p	0.14	LEXIQUE383
 comme	comme	ADV		471.66	LEXIQUE383
 comme	comme	CON		2877.7	LEXIQUE383
+commedia	commedia	NOM		0	LEXIQUE383
 commence	commencer	VER	imp.pres.2s	113	LEXIQUE383
 commence	commencer	VER	ind.pres.1s	0	LEXIQUE383
 commence	commencer	VER	ind.pres.3s	0	LEXIQUE383
@@ -32746,6 +32814,7 @@ contrarierai	contrarier	VER	ind.fut.1s	0.07	LEXIQUE383
 contrarierait	contrarier	VER	cond.pres.3s	0.22	LEXIQUE383
 contrariez	contrarier	VER	imp.pres.2p	0.12	LEXIQUE383
 contrariez	contrarier	VER	ind.pres.2p	0	LEXIQUE383
+contrario	contrario	ADV		0	LEXIQUE383
 contrarions	contrarier	VER	imp.pres.1p	0.05	LEXIQUE383
 contrariât	contrarier	VER	sub.impf.3s	0.04	LEXIQUE383
 contrarié	contrarier	VER	ppas.m.s	2.42	LEXIQUE383
@@ -33745,6 +33814,7 @@ corbillard	corbillard	NOM	m.s	2.65	LEXIQUE383
 corbillards	corbillard	NOM	m.p	0.26	LEXIQUE383
 corbin	corbin	NOM	m.s	0.3	LEXIQUE383
 corbières	corbières	NOM	m.e	0.07	LEXIQUE383
+corda	corda	ADV		0	LEXIQUE383
 cordage	cordage	NOM	m.s	0.39	LEXIQUE383
 cordages	cordage	NOM	m.p	1.68	LEXIQUE383
 corde	corde	NOM	f.s	30.33	LEXIQUE383
@@ -33815,6 +33885,7 @@ corinthiens	corinthien	NOM	m.p	0.26	LEXIQUE383
 cormier	cormier	NOM	m.s	0.04	LEXIQUE383
 cormoran	cormoran	NOM	m.s	0.33	LEXIQUE383
 cormorans	cormoran	NOM	m.p	0.41	LEXIQUE383
+corn	corn	NOM		0	LEXIQUE383
 corn-flakes	corn-flakes	NOM	m.p	0.11	LEXIQUE383
 corna	corner	VER	ind.ps.3s	0.14	LEXIQUE383
 cornac	cornac	NOM	m.s	0.22	LEXIQUE383
@@ -34258,6 +34329,7 @@ cosy	cosy	NOM	m.s	0.5	LEXIQUE383
 cosy-corner	cosy-corner	NOM	m.s	0.23	LEXIQUE383
 cosy-corners	cosy-corner	NOM	m.p	0.04	LEXIQUE383
 cosys	cosy	NOM	m.p	0.04	LEXIQUE383
+cot	cot	INT		0	LEXIQUE383
 cota	coter	VER	ind.ps.3s	0.1	LEXIQUE383
 cotait	coter	VER	ind.impf.3s	0.01	LEXIQUE383
 cotation	cotation	NOM	f.s	0.14	LEXIQUE383
@@ -35551,6 +35623,7 @@ crayonnés	crayonner	VER	ppas.m.p	0.04	LEXIQUE383
 crayonnés	crayonné	ADJ	m.p	0.04	LEXIQUE383
 crayons	crayon	NOM	m.p	3.94	LEXIQUE383
 crayons-feutres	crayon-feutre	NOM	m.p	0.07	LEXIQUE383
+cream	cream	NOM		0	LEXIQUE383
 credo	credo	NOM	m.e	1.81	LEXIQUE383
 creek	creek	NOM	m.s	0.52	LEXIQUE383
 creeks	creek	NOM	m.p	0.04	LEXIQUE383
@@ -35875,6 +35948,7 @@ criée	criée	NOM	f.s	0.7	LEXIQUE383
 criées	crier	VER	ppas.f.p	0.04	LEXIQUE383
 criées	criée	NOM	f.p	0.04	LEXIQUE383
 criés	crier	VER	ppas.m.p	0.31	LEXIQUE383
+croa	croa	ADV		0	LEXIQUE383
 croa-croa	croa-croa	ADV		0.14	LEXIQUE383
 croassa	croasser	VER	ind.ps.3s	0.07	LEXIQUE383
 croassaient	croasser	VER	ind.impf.3p	0.07	LEXIQUE383
@@ -36025,6 +36099,7 @@ cromorne	cromorne	NOM	m.s	0.27	LEXIQUE383
 cronstadt	cronstadt	NOM	e.s	0.04	LEXIQUE383
 crooner	crooner	NOM	m.s	0.15	LEXIQUE383
 crooners	crooner	NOM	m.p	0.05	LEXIQUE383
+cropetons	cropetons	ADV		0	LEXIQUE383
 croqua	croquer	VER	ind.ps.3s	0.41	LEXIQUE383
 croquai	croquer	VER	ind.ps.1s	0.07	LEXIQUE383
 croquaient	croquer	VER	ind.impf.3p	0.17	LEXIQUE383
@@ -36147,6 +36222,7 @@ croup	croup	NOM	m.s	0.35	LEXIQUE383
 croupade	croupade	NOM	f.s	0.07	LEXIQUE383
 croupe	croupe	NOM	f.s	5.79	LEXIQUE383
 croupes	croupe	NOM	f.p	1.72	LEXIQUE383
+croupetons	croupetons	ADV		0	LEXIQUE383
 croupi	croupi	ADJ	m.s	0.14	LEXIQUE383
 croupi	croupir	VER	ppas.m.s	0.22	LEXIQUE383
 croupie	croupi	ADJ	f.s	0.52	LEXIQUE383
@@ -36958,6 +37034,7 @@ culottée	culotté	ADJ	f.s	0.24	LEXIQUE383
 culottées	culotter	VER	ppas.f.p	0.08	LEXIQUE383
 culottés	culotter	VER	ppas.m.p	0.2	LEXIQUE383
 culottés	culotté	ADJ	m.p	0.04	LEXIQUE383
+culpa	culpa	NOM		0	LEXIQUE383
 culpabilisais	culpabiliser	VER	ind.impf.1s	0.17	LEXIQUE383
 culpabilisait	culpabiliser	VER	ind.impf.3s	0.09	LEXIQUE383
 culpabilisant	culpabilisant	ADJ	m.s	0.08	LEXIQUE383
@@ -37883,6 +37960,7 @@ dardé	darder	VER	ppas.m.s	0.31	LEXIQUE383
 dardée	darder	VER	ppas.f.s	0.3	LEXIQUE383
 dardées	darder	VER	ppas.f.p	0.2	LEXIQUE383
 dardés	darder	VER	ppas.m.p	0.1	LEXIQUE383
+dare	dare	ADV		0	LEXIQUE383
 dare-dare	dare-dare	ADV		0.72	LEXIQUE383
 darioles	dariole	NOM	f.p	0.01	LEXIQUE383
 darne	darne	NOM	f.s	0.07	LEXIQUE383
@@ -37936,6 +38014,7 @@ dauber	dauber	VER	inf	0.08	LEXIQUE383
 daubes	daube	NOM	f.p	0.08	LEXIQUE383
 daubière	daubière	NOM	f.s	0.01	LEXIQUE383
 daubé	dauber	VER	ppas.m.s	0.01	LEXIQUE383
+daumont	daumont	ADV		0	LEXIQUE383
 dauphin	dauphin	NOM	m.s	1.49	LEXIQUE383
 dauphinat	dauphinat	NOM	m.s	0.1	LEXIQUE383
 dauphine	dauphin	NOM	f.s	4.79	LEXIQUE383
@@ -37987,8 +38066,11 @@ degrés	degré	NOM	m.p	12.39	LEXIQUE383
 dehors	dehors	ADV		144.92	LEXIQUE383
 dehors	dehors	INT		15.42	LEXIQUE383
 dehors	dehors	NOM	m.e	27.61	LEXIQUE383
+dei	dei	ADV		0	LEXIQUE383
 delco	delco	NOM	m.s	0.31	LEXIQUE383
+delicti	delicti	NOM		0	LEXIQUE383
 delirium	delirium	NOM	m.s	0.25	LEXIQUE383
+della	della	NOM		0	LEXIQUE383
 delphinidés	delphinidé	NOM	m.p	0.01	LEXIQUE383
 delphinium	delphinium	NOM	m.s	0.01	LEXIQUE383
 delphiniums	delphinium	NOM	m.p	0.01	LEXIQUE383
@@ -38295,6 +38377,7 @@ dentaires	dentaire	NOM	f.p	0.02	LEXIQUE383
 dental	dental	ADJ	m.s	0.06	LEXIQUE383
 dentale	dental	ADJ	f.s	0.04	LEXIQUE383
 dentales	dental	ADJ	f.p	0.17	LEXIQUE383
+dente	dente	ADV		0	LEXIQUE383
 dentelle	dentelle	NOM	f.s	10.27	LEXIQUE383
 dentelles	dentelle	NOM	f.p	4.15	LEXIQUE383
 dentellière	dentellier	ADJ	f.s	0.04	LEXIQUE383
@@ -38328,6 +38411,7 @@ dentée	denté	ADJ	f.s	0.05	LEXIQUE383
 dentées	denter	VER	ppas.f.p	0.04	LEXIQUE383
 dentées	denté	ADJ	f.p	0.07	LEXIQUE383
 dentés	denté	ADJ	m.p	0.01	LEXIQUE383
+deo	deo	NOM		0	LEXIQUE383
 depuis	depuis	ADV		130.62	LEXIQUE383
 depuis	depuis	PRE		513.29	LEXIQUE383
 der	der	NOM	e.s	4.05	LEXIQUE383
@@ -38722,7 +38806,10 @@ dettes	dette	NOM	f.p	10.2	LEXIQUE383
 deuche	deuche	NOM	f.s	0.04	LEXIQUE383
 deuil	deuil	NOM	m.s	17.86	LEXIQUE383
 deuils	deuil	NOM	m.p	1.36	LEXIQUE383
+deum	deum	NOM		0	LEXIQUE383
+deus	deus	NOM		0	LEXIQUE383
 deusio	deusio	ADV		0.1	LEXIQUE383
+deutsche	deutsche	ADJ		0	LEXIQUE383
 deutérium	deutérium	NOM	m.s	0.04	LEXIQUE383
 deutéronome	deutéronome	NOM	m.s	0.22	LEXIQUE383
 deux	deux	DET	e.e	1283.46	LEXIQUE383
@@ -39136,6 +39223,7 @@ dieffenbachia	dieffenbachia	NOM	f.s	0.04	LEXIQUE383
 diem	diem	NOM	m.s	0.29	LEXIQUE383
 dieppoise	dieppois	ADJ	f.s	0.17	LEXIQUE383
 dieppoises	dieppois	ADJ	f.p	0.04	LEXIQUE383
+dies	dies	NOM		0	LEXIQUE383
 diesel	diesel	NOM	m.s	1.07	LEXIQUE383
 diesels	diesel	NOM	m.p	0.23	LEXIQUE383
 dieu	dieu	NOM	m.s	610.71	LEXIQUE383
@@ -39310,6 +39398,7 @@ dignitaire	dignitaire	NOM	e.s	0.61	LEXIQUE383
 dignitaires	dignitaire	NOM	e.p	1.87	LEXIQUE383
 dignité	dignité	NOM	f.s	23.51	LEXIQUE383
 dignités	dignité	NOM	f.p	0.18	LEXIQUE383
+dignus	dignus	ADV		0	LEXIQUE383
 digresse	digresser	VER	imp.pres.2s	0.08	LEXIQUE383
 digresse	digresser	VER	ind.pres.1s	0	LEXIQUE383
 digression	digression	NOM	f.s	0.2	LEXIQUE383
@@ -39511,6 +39600,7 @@ dioptries	dioptrie	NOM	f.p	0.07	LEXIQUE383
 diorama	diorama	NOM	m.s	0.09	LEXIQUE383
 dioramas	diorama	NOM	m.p	0.15	LEXIQUE383
 diorite	diorite	NOM	f.s	0.02	LEXIQUE383
+dios	dios	NOM		0	LEXIQUE383
 dioxine	dioxine	NOM	f.s	0.06	LEXIQUE383
 dioxines	dioxine	NOM	f.p	0.01	LEXIQUE383
 dioxyde	dioxyde	NOM	m.s	0.28	LEXIQUE383
@@ -40925,6 +41015,7 @@ dna	dna	NOM	m.s	0.04	LEXIQUE383
 do	do	NOM	m.e	10.22	LEXIQUE383
 doberman	doberman	NOM	m.s	0.52	LEXIQUE383
 dobermans	doberman	NOM	m.p	0.47	LEXIQUE383
+doble	doble	NOM		0	LEXIQUE383
 doc	doc	NOM	m.s	2.29	LEXIQUE383
 doche	doche	NOM	f.s	0.04	LEXIQUE383
 docile	docile	ADJ	e.s	4.55	LEXIQUE383
@@ -41010,6 +41101,7 @@ dodus	dodu	ADJ	m.p	0.52	LEXIQUE383
 dodécagone	dodécagone	NOM	m.s	0.04	LEXIQUE383
 dodécaphoniste	dodécaphoniste	NOM	e.s	0.04	LEXIQUE383
 dodécaèdre	dodécaèdre	NOM	m.s	0.09	LEXIQUE383
+dog	dog	NOM		0	LEXIQUE383
 dog-cart	dog-cart	NOM	m.s	0.02	LEXIQUE383
 dogaresse	dogaresse	NOM	f.s	0.04	LEXIQUE383
 dogaresses	dogaresse	NOM	f.p	0.04	LEXIQUE383
@@ -41021,6 +41113,7 @@ dogmatiques	dogmatique	ADJ	e.p	0.28	LEXIQUE383
 dogmatisme	dogmatisme	NOM	m.s	0.22	LEXIQUE383
 dogme	dogme	NOM	m.s	0.92	LEXIQUE383
 dogmes	dogme	NOM	m.p	0.78	LEXIQUE383
+dogs	dogs	NOM		0	LEXIQUE383
 dogue	dogue	NOM	m.s	0.48	LEXIQUE383
 dogues	dogue	NOM	m.p	0.3	LEXIQUE383
 doguin	doguin	NOM	m.s	0.04	LEXIQUE383
@@ -41066,6 +41159,7 @@ dolomies	dolomie	NOM	f.p	0.11	LEXIQUE383
 dolomite	dolomite	NOM	f.s	0.04	LEXIQUE383
 dolorisme	dolorisme	NOM	m.s	0.04	LEXIQUE383
 doloriste	doloriste	NOM	e.s	0.04	LEXIQUE383
+dolorosa	dolorosa	NOM		0	LEXIQUE383
 doléance	doléance	NOM	f.s	0.07	LEXIQUE383
 doléances	doléance	NOM	f.p	1.04	LEXIQUE383
 dom	dom	NOM	m.s	0.36	LEXIQUE383
@@ -41708,6 +41802,7 @@ douées	doué	ADJ	f.p	0.44	LEXIQUE383
 doués	douer	VER	ppas.m.p	1.3	LEXIQUE383
 doués	doué	ADJ	m.p	1.36	LEXIQUE383
 down	down	ADJ	m.s	0.27	LEXIQUE383
+downing	downing	NOM		0	LEXIQUE383
 doyen	doyen	NOM	m.s	4.5	LEXIQUE383
 doyenne	doyen	NOM	f.s	0.46	LEXIQUE383
 doyenné	doyenné	NOM	m.s	0.04	LEXIQUE383
@@ -41851,6 +41946,7 @@ drastiques	drastique	ADJ	f.p	0.04	LEXIQUE383
 drave	drave	NOM	f.s	0.04	LEXIQUE383
 draveurs	draveur	NOM	m.p	0.04	LEXIQUE383
 dreadlocks	dreadlocks	NOM	f.p	0.06	LEXIQUE383
+dream	dream	NOM		0	LEXIQUE383
 drelin	drelin	NOM	m.s	0.21	LEXIQUE383
 drepou	drepou	NOM	f.s	0.04	LEXIQUE383
 dressa	dresser	VER	ind.ps.3s	4.96	LEXIQUE383
@@ -50711,6 +50807,7 @@ e	e	NOM	m.e	44.95	LEXIQUE383
 e-commerce	e-commerce	NOM	m.s	0.01	LEXIQUE383
 e-mail	e-mail	NOM	m.s	2.08	LEXIQUE383
 e-mails	e-mail	NOM	m.p	1.16	LEXIQUE383
+east	east	NOM		0	LEXIQUE383
 eau	eau	NOM	f.s	354.23	LEXIQUE383
 eau-de-vie	eau-de-vie	NOM	f.s	3.89	LEXIQUE383
 eau-forte	eau-forte	NOM	f.s	0.29	LEXIQUE383
@@ -50718,6 +50815,7 @@ eau-minute	eau-minute	NOM	f.s	0.01	LEXIQUE383
 eaux	eau	NOM	f.p	28.59	LEXIQUE383
 eaux-de-vie	eau-de-vie	NOM	f.p	0.06	LEXIQUE383
 eaux-fortes	eaux-fortes	NOM	f.p	0.07	LEXIQUE383
+ecce	ecce	ADV		0	LEXIQUE383
 ecchymose	ecchymose	NOM	f.s	0.29	LEXIQUE383
 ecchymoses	ecchymose	NOM	f.p	0.78	LEXIQUE383
 ecchymosé	ecchymoser	VER	ppas.m.s	0.01	LEXIQUE383
@@ -50745,6 +50843,7 @@ eczémateuses	eczémateux	ADJ	f.p	0.04	LEXIQUE383
 eczémateux	eczémateux	ADJ	m.p	0.04	LEXIQUE383
 eczémateux	eczémateux	NOM	m.e	0.04	LEXIQUE383
 edelweiss	edelweiss	NOM	m.e	0.27	LEXIQUE383
+edge	edge	NOM		0	LEXIQUE383
 edwardienne	edwardien	ADJ	f.s	0.04	LEXIQUE383
 efface	effacer	VER	imp.pres.2s	8.94	LEXIQUE383
 efface	effacer	VER	ind.pres.1s	0	LEXIQUE383
@@ -51148,6 +51247,7 @@ eidétique	eidétique	ADJ	f.s	0.01	LEXIQUE383
 einsteinienne	einsteinien	ADJ	f.s	0.04	LEXIQUE383
 ektachromes	ektachrome	NOM	m.p	0.07	LEXIQUE383
 eldorado	eldorado	NOM	m.s	0.02	LEXIQUE383
+eleison	eleison	NOM		0	LEXIQUE383
 elfe	elfe	NOM	m.s	0.96	LEXIQUE383
 elfes	elfe	NOM	m.p	1.38	LEXIQUE383
 elle	elle	PRO		5756.01	LEXIQUE383
@@ -52792,6 +52892,7 @@ encaissés	encaisser	VER	ppas.m.p	0.15	LEXIQUE383
 encaissés	encaissé	ADJ	m.p	0.09	LEXIQUE383
 encalminé	encalminé	ADJ	m.s	0.04	LEXIQUE383
 encalminés	encalminé	ADJ	m.p	0.07	LEXIQUE383
+encan	encan	ADV		0	LEXIQUE383
 encanaillais	encanailler	VER	ind.impf.2s	0.01	LEXIQUE383
 encanaillait	encanailler	VER	ind.impf.3s	0.11	LEXIQUE383
 encanaille	encanailler	VER	imp.pres.2s	0.23	LEXIQUE383
@@ -53113,6 +53214,7 @@ encombrées	encombrer	VER	ppas.f.p	1.29	LEXIQUE383
 encombrées	encombré	ADJ	f.p	0.35	LEXIQUE383
 encombrés	encombrer	VER	ppas.m.p	1.13	LEXIQUE383
 encombrés	encombré	ADJ	m.p	0.27	LEXIQUE383
+encontre	encontre	PRE		0	LEXIQUE383
 encor	encor	ADV		0.34	LEXIQUE383
 encorbellement	encorbellement	NOM	m.s	0.35	LEXIQUE383
 encorbellements	encorbellement	NOM	m.p	0.18	LEXIQUE383
@@ -53266,6 +53368,7 @@ encéphalite	encéphalite	NOM	f.s	0.28	LEXIQUE383
 encéphalogramme	encéphalogramme	NOM	m.s	0.39	LEXIQUE383
 encéphalographie	encéphalographie	NOM	f.s	0.05	LEXIQUE383
 encéphalopathie	encéphalopathie	NOM	f.s	0.03	LEXIQUE383
+end	end	NOM		0	LEXIQUE383
 endettait	endetter	VER	ind.impf.3s	0.04	LEXIQUE383
 endettant	endetter	VER	ppre	0.04	LEXIQUE383
 endette	endetter	VER	ind.pres.3s	0.08	LEXIQUE383
@@ -53466,6 +53569,7 @@ endossés	endosser	VER	ppas.m.p	0.03	LEXIQUE383
 endothermique	endothermique	ADJ	f.s	0.01	LEXIQUE383
 endroit	endroit	NOM	m.s	152.7	LEXIQUE383
 endroits	endroit	NOM	m.p	25.2	LEXIQUE383
+ends	ends	NOM		0	LEXIQUE383
 enduira	enduire	VER	ind.fut.3s	0.01	LEXIQUE383
 enduirais	enduire	VER	cond.pres.1s	0.04	LEXIQUE383
 enduirait	enduire	VER	cond.pres.3s	0.04	LEXIQUE383
@@ -56141,6 +56245,7 @@ enverrons	envoyer	VER	ind.fut.1p	0.75	LEXIQUE383
 enverront	envoyer	VER	ind.fut.3p	1.37	LEXIQUE383
 envers	envers	NOM	m.e	17.27	LEXIQUE383
 envers	envers	PRE		31.69	LEXIQUE383
+envi	envi	ADV		0	LEXIQUE383
 envia	envier	VER	ind.ps.3s	0.23	LEXIQUE383
 enviable	enviable	ADJ	e.s	1.58	LEXIQUE383
 enviables	enviable	ADJ	e.p	0.21	LEXIQUE383
@@ -56347,6 +56452,7 @@ enzymatique	enzymatique	ADJ	e.s	0.03	LEXIQUE383
 enzyme	enzyme	NOM	f.s	0.63	LEXIQUE383
 enzymes	enzyme	NOM	f.p	0.55	LEXIQUE383
 epsilon	epsilon	NOM	m.e	0.33	LEXIQUE383
+erectus	erectus	NOM		0	LEXIQUE383
 erg	erg	NOM	m.s	0.01	LEXIQUE383
 ergastule	ergastule	NOM	m.s	0.04	LEXIQUE383
 ergastules	ergastule	NOM	m.p	0.07	LEXIQUE383
@@ -57360,6 +57466,7 @@ eux	eux	PRO		399.81	LEXIQUE383
 eux-mêmes	eux-mêmes	PRO		29	LEXIQUE383
 event	event	NOM	m.s	0.07	LEXIQUE383
 evzones	evzone	NOM	m.p	0.04	LEXIQUE383
+ex	ex	NOM		0	LEXIQUE383
 ex-abbé	ex-abbé	NOM	m.s	0.04	LEXIQUE383
 ex-acteur	ex-acteur	NOM	m.s	0.04	LEXIQUE383
 ex-adjudant	ex-adjudant	NOM	m.s	0.07	LEXIQUE383
@@ -58968,6 +59075,7 @@ extensibles	extensible	ADJ	m.p	0.08	LEXIQUE383
 extension	extension	NOM	f.s	2.5	LEXIQUE383
 extensions	extension	NOM	f.p	0.18	LEXIQUE383
 extensive	extensif	ADJ	f.s	0.02	LEXIQUE383
+extenso	extenso	ADV		0	LEXIQUE383
 extermina	exterminer	VER	ind.ps.3s	0.1	LEXIQUE383
 exterminaient	exterminer	VER	ind.impf.3p	0.09	LEXIQUE383
 exterminais	exterminer	VER	ind.impf.1s	0.05	LEXIQUE383
@@ -59166,6 +59274,7 @@ extrayant	extraire	VER	ppre	0.22	LEXIQUE383
 extrayez	extraire	VER	imp.pres.2p	0.09	LEXIQUE383
 extrayez	extraire	VER	ind.pres.2p	0	LEXIQUE383
 extrayions	extraire	VER	ind.impf.1p	0.01	LEXIQUE383
+extremis	extremis	ADV		0	LEXIQUE383
 extroverti	extroverti	ADJ	m.s	0.01	LEXIQUE383
 extrovertie	extroverti	ADJ	f.s	0.01	LEXIQUE383
 extrusion	extrusion	NOM	f.s	0.01	LEXIQUE383
@@ -59453,6 +59562,7 @@ faction	faction	NOM	f.s	2.21	LEXIQUE383
 factionnaire	factionnaire	NOM	e.s	0.47	LEXIQUE383
 factionnaires	factionnaire	NOM	e.p	0.39	LEXIQUE383
 factions	faction	NOM	f.p	0.92	LEXIQUE383
+facto	facto	ADV		0	LEXIQUE383
 factor	factor	NOM	m.s	0.01	LEXIQUE383
 factorielle	factoriel	NOM	f.s	0.04	LEXIQUE383
 factorielles	factoriel	NOM	f.p	0.04	LEXIQUE383
@@ -59752,6 +59862,7 @@ familiarisée	familiariser	VER	ppas.f.s	0.15	LEXIQUE383
 familiarisés	familiariser	VER	ppas.m.p	0.04	LEXIQUE383
 familiarité	familiarité	NOM	f.s	4.03	LEXIQUE383
 familiarités	familiarité	NOM	f.p	0.33	LEXIQUE383
+familias	familias	NOM		0	LEXIQUE383
 familiaux	familial	ADJ	m.p	2.08	LEXIQUE383
 familier	familier	ADJ	m.s	13.04	LEXIQUE383
 familier	familier	NOM	m.s	1.53	LEXIQUE383
@@ -60068,6 +60179,7 @@ fassent	faire	VER	sub.pres.3p	8.18	LEXIQUE383
 fasses	faire	VER	sub.pres.2s	11.52	LEXIQUE383
 fassiez	faire	VER	sub.pres.2p	5.55	LEXIQUE383
 fassions	faire	VER	sub.pres.1p	1.86	LEXIQUE383
+fast	fast	NOM		0	LEXIQUE383
 fast-food	fast-food	NOM	m.s	0.95	LEXIQUE383
 fast-foods	fast-food	NOM	m.p	0.21	LEXIQUE383
 faste	faste	ADJ	e.s	0.57	LEXIQUE383
@@ -60934,6 +61046,7 @@ feutrées	feutré	ADJ	f.p	0.28	LEXIQUE383
 feutrés	feutrer	VER	ppas.m.p	0.51	LEXIQUE383
 feutrés	feutré	ADJ	m.p	0.63	LEXIQUE383
 feux	feu	NOM	m.p	27.43	LEXIQUE383
+few	few	NOM		0	LEXIQUE383
 fez	fez	NOM	m.s	0.78	LEXIQUE383
 fi	fi	INT		4.79	LEXIQUE383
 fia	fier	VER	ind.ps.3s	0.07	LEXIQUE383
@@ -61644,6 +61757,7 @@ fistules	fistule	NOM	f.p	0.01	LEXIQUE383
 fit	faire	VER	ind.ps.3s	245.15	LEXIQUE383
 fitness	fitness	NOM	m.e	0.2	LEXIQUE383
 fitzgéraldiennes	fitzgéraldien	ADJ	f.p	0.04	LEXIQUE383
+five	five	NOM		0	LEXIQUE383
 fivete	fivete	NOM	f.s	0.1	LEXIQUE383
 fixa	fixer	VER	ind.ps.3s	5.37	LEXIQUE383
 fixage	fixage	NOM	m.s	0.07	LEXIQUE383
@@ -61807,6 +61921,7 @@ flairez	flairer	VER	ind.pres.2p	0.01	LEXIQUE383
 flairé	flairer	VER	ppas.m.s	1.75	LEXIQUE383
 flairée	flairer	VER	ppas.f.s	0.07	LEXIQUE383
 flairés	flairer	VER	ppas.m.p	0.09	LEXIQUE383
+flakes	flakes	NOM		0	LEXIQUE383
 flamand	flamand	ADJ	m.s	0.47	LEXIQUE383
 flamand	flamand	NOM	m.s	1.1	LEXIQUE383
 flamande	flamand	ADJ	f.s	0.41	LEXIQUE383
@@ -62001,6 +62116,7 @@ flatulences	flatulence	NOM	f.p	0.23	LEXIQUE383
 flatulent	flatulent	ADJ	m.s	0.01	LEXIQUE383
 flatulents	flatulent	ADJ	m.p	0.04	LEXIQUE383
 flatuosité	flatuosité	NOM	f.s	0.04	LEXIQUE383
+flatus	flatus	NOM		0	LEXIQUE383
 flave	flave	ADJ	e.s	0.04	LEXIQUE383
 flaveur	flaveur	NOM	f.s	0.01	LEXIQUE383
 flegmatique	flegmatique	ADJ	m.s	0.38	LEXIQUE383
@@ -62789,6 +62905,7 @@ fonçait	foncer	VER	ind.impf.3s	2.04	LEXIQUE383
 fonçant	foncer	VER	ppre	1.28	LEXIQUE383
 fonçons	foncer	VER	imp.pres.1p	0.29	LEXIQUE383
 fonçons	foncer	VER	ind.pres.1p	0	LEXIQUE383
+food	food	NOM		0	LEXIQUE383
 foot	foot	NOM	m.s	14.86	LEXIQUE383
 football	football	NOM	m.s	10.11	LEXIQUE383
 footballeur	footballeur	NOM	m.s	1.27	LEXIQUE383
@@ -62872,6 +62989,7 @@ forcés	forcé	ADJ	m.p	1.62	LEXIQUE383
 fore	forer	VER	imp.pres.2s	0.2	LEXIQUE383
 fore	forer	VER	ind.pres.1s	0	LEXIQUE383
 fore	forer	VER	ind.pres.3s	0	LEXIQUE383
+foreign	foreign	NOM		0	LEXIQUE383
 forent	forer	VER	ind.pres.3p	0.04	LEXIQUE383
 forer	forer	VER	inf	0.64	LEXIQUE383
 forestier	forestier	ADJ	m.s	2.11	LEXIQUE383
@@ -63120,6 +63238,7 @@ fortifiés	fortifié	ADJ	m.p	0.14	LEXIQUE383
 fortifs	fortif	NOM	f.p	0.51	LEXIQUE383
 fortin	fortin	NOM	m.s	1.51	LEXIQUE383
 fortins	fortin	NOM	m.p	0.31	LEXIQUE383
+fortiori	fortiori	ADV		0	LEXIQUE383
 fortissimo	fortissimo	ADV		0.24	LEXIQUE383
 fortissimo	fortissimo	NOM	m.s	0.15	LEXIQUE383
 fortitude	fortitude	NOM	f.s	0.06	LEXIQUE383
@@ -63831,6 +63950,7 @@ franc-maçonnerie	franc-maçonnerie	NOM	f.s	0.49	LEXIQUE383
 franc-parler	franc-parler	NOM	m.s	0.4	LEXIQUE383
 franc-tireur	franc-tireur	NOM	m.s	0.46	LEXIQUE383
 francatu	francatu	NOM	m.s	0.04	LEXIQUE383
+francesca	francesca	NOM		0	LEXIQUE383
 francfort	francfort	NOM	f.s	0.07	LEXIQUE383
 francforts	francfort	NOM	f.p	0.05	LEXIQUE383
 franche	franc	ADJ	f.s	6.48	LEXIQUE383
@@ -63892,6 +64012,7 @@ franciscain	franciscain	NOM	m.s	0.15	LEXIQUE383
 franciscaine	franciscain	ADJ	f.s	0.11	LEXIQUE383
 franciscains	franciscain	ADJ	m.p	0.6	LEXIQUE383
 franciscains	franciscain	NOM	m.p	0.46	LEXIQUE383
+francisco	francisco	NOM		0	LEXIQUE383
 franciser	franciser	VER	inf	0.1	LEXIQUE383
 francisque	francisque	NOM	f.s	0.2	LEXIQUE383
 francisques	francisque	NOM	f.p	0.04	LEXIQUE383
@@ -64151,6 +64272,7 @@ fredonné	fredonner	VER	ppas.m.s	0.22	LEXIQUE383
 fredonnée	fredonner	VER	ppas.f.s	0.04	LEXIQUE383
 fredonnées	fredonner	VER	ppas.f.p	0.04	LEXIQUE383
 fredonnés	fredonner	VER	ppas.m.p	0.04	LEXIQUE383
+free	free	NOM		0	LEXIQUE383
 free-jazz	free-jazz	NOM	m.e	0.04	LEXIQUE383
 free-lance	free-lance	ADJ	e.s	0.06	LEXIQUE383
 free-lance	free-lance	NOM	e.s	0.14	LEXIQUE383
@@ -64287,6 +64409,7 @@ frictionné	frictionner	VER	ppas.m.s	0.14	LEXIQUE383
 frictions	friction	NOM	f.p	1.04	LEXIQUE383
 fridolin	fridolin	NOM	m.s	0.01	LEXIQUE383
 fridolins	fridolin	NOM	m.p	0.24	LEXIQUE383
+friend	friend	NOM		0	LEXIQUE383
 frigidaire	frigidaire	NOM	m.s	2.17	LEXIQUE383
 frigidaires	frigidaire	NOM	m.p	0.16	LEXIQUE383
 frigide	frigide	ADJ	e.s	0.67	LEXIQUE383
@@ -64770,6 +64893,7 @@ frustrées	frustré	NOM	f.p	0.06	LEXIQUE383
 frustrés	frustrer	VER	ppas.m.p	0.61	LEXIQUE383
 frustrés	frustré	ADJ	m.p	0.28	LEXIQUE383
 frustrés	frustré	NOM	m.p	0.37	LEXIQUE383
+frutti	frutti	ADV		0	LEXIQUE383
 frère	frère	NOM	m.s	226.91	LEXIQUE383
 frères	frère	NOM	m.p	76.47	LEXIQUE383
 frète	fréter	VER	ind.pres.1s	0.04	LEXIQUE383
@@ -64912,6 +65036,7 @@ frôlé	frôler	VER	ppas.m.s	1.94	LEXIQUE383
 frôlée	frôler	VER	ppas.f.s	0.35	LEXIQUE383
 frôlées	frôler	VER	ppas.f.p	0.07	LEXIQUE383
 frôlés	frôler	VER	ppas.m.p	0.34	LEXIQUE383
+fu	fu	NOM		0	LEXIQUE383
 fuchsia	fuchsia	ADJ	e.e	0.2	LEXIQUE383
 fuchsia	fuchsia	NOM	m.s	0.09	LEXIQUE383
 fuchsias	fuchsia	NOM	m.p	0.1	LEXIQUE383
@@ -65136,6 +65261,7 @@ funéraire	funéraire	ADJ	e.s	2.11	LEXIQUE383
 funéraires	funéraire	ADJ	e.p	1.02	LEXIQUE383
 funérarium	funérarium	NOM	m.s	0.31	LEXIQUE383
 funérariums	funérarium	NOM	m.p	0.01	LEXIQUE383
+fur	fur	NOM		0	LEXIQUE383
 furax	furax	ADJ	m.e	2.66	LEXIQUE383
 furent	être	AUX	ind.ps.3p	24.85	LEXIQUE383
 furent	être	VER	ind.ps.3p	20.92	LEXIQUE383
@@ -66828,11 +66954,14 @@ gendarmes	gendarme	NOM	m.p	17.86	LEXIQUE383
 gendelettres	gendelettre	NOM	m.p	0.04	LEXIQUE383
 gendre	gendre	NOM	m.s	6.61	LEXIQUE383
 gendres	gendre	NOM	m.p	0.3	LEXIQUE383
+generation	generation	NOM		0	LEXIQUE383
+generis	generis	ADJ		0	LEXIQUE383
 genet	genet	NOM	m.s	0.01	LEXIQUE383
 genevois	genevois	ADJ	m.e	0.14	LEXIQUE383
 genevois	genevois	NOM	m.e	0.07	LEXIQUE383
 genevoises	genevois	ADJ	f.p	0.14	LEXIQUE383
 genevoises	genevois	NOM	f.p	0.04	LEXIQUE383
+gengis	gengis	NOM		0	LEXIQUE383
 gengiskhanide	gengiskhanide	ADJ	e.s	0.04	LEXIQUE383
 genièvre	genièvre	NOM	m.s	1.4	LEXIQUE383
 genou	genou	NOM	m.s	17.68	LEXIQUE383
@@ -66972,6 +67101,7 @@ gestapiste	gestapiste	NOM	m.s	0.07	LEXIQUE383
 gestapo	gestapo	NOM	f.s	1.19	LEXIQUE383
 gestation	gestation	NOM	f.s	1.15	LEXIQUE383
 gestations	gestation	NOM	f.p	0.04	LEXIQUE383
+gestatoria	gestatoria	NOM		0	LEXIQUE383
 geste	geste	NOM	e.s	101.72	LEXIQUE383
 gestes	geste	NOM	e.p	54.2	LEXIQUE383
 gesticula	gesticuler	VER	ind.ps.3s	0.07	LEXIQUE383
@@ -67152,6 +67282,7 @@ ginkgo	ginkgo	NOM	m.s	0.03	LEXIQUE383
 gins	gin	NOM	m.p	0.08	LEXIQUE383
 ginseng	ginseng	NOM	m.s	0.34	LEXIQUE383
 giocoso	giocoso	ADJ	m.s	0.04	LEXIQUE383
+giorno	giorno	ADV		0	LEXIQUE383
 gipsy	gipsy	NOM	e.s	0.01	LEXIQUE383
 girafe	girafe	NOM	f.s	2.3	LEXIQUE383
 girafeau	girafeau	NOM	m.s	0.01	LEXIQUE383
@@ -67279,6 +67410,7 @@ glacés	glacé	ADJ	m.p	2.58	LEXIQUE383
 gladiateur	gladiateur	NOM	m.s	1.06	LEXIQUE383
 gladiateurs	gladiateur	NOM	m.p	1.17	LEXIQUE383
 gladiatrices	gladiatrice	NOM	f.p	0.02	LEXIQUE383
+glagla	glagla	ADV		0	LEXIQUE383
 glaglate	glaglater	VER	ind.pres.1s	0.23	LEXIQUE383
 glaglate	glaglater	VER	ind.pres.3s	0	LEXIQUE383
 glaglater	glaglater	VER	inf	0.04	LEXIQUE383
@@ -67481,6 +67613,7 @@ gloires	gloire	NOM	f.p	1.42	LEXIQUE383
 glomérule	glomérule	NOM	m.s	0.04	LEXIQUE383
 glop	glop	NOM	f.s	0.14	LEXIQUE383
 gloria	gloria	NOM	m.s	1.74	LEXIQUE383
+gloriam	gloriam	ADV		0	LEXIQUE383
 gloriette	gloriette	NOM	f.s	0.18	LEXIQUE383
 gloriettes	gloriette	NOM	f.p	0.04	LEXIQUE383
 glorieuse	glorieuse	NOM	f.s	0.27	LEXIQUE383
@@ -67585,6 +67718,7 @@ glèbe	glèbe	NOM	f.s	0.7	LEXIQUE383
 glèbes	glèbe	NOM	f.p	0.04	LEXIQUE383
 glène	glène	NOM	f.s	0.04	LEXIQUE383
 glénoïde	glénoïde	ADJ	f.s	0.01	LEXIQUE383
+gna	gna	INT		0	LEXIQUE383
 gnafron	gnafron	NOM	m.s	0.11	LEXIQUE383
 gnafrons	gnafron	NOM	m.p	0.07	LEXIQUE383
 gnagnagna	gnagnagna	INT		0.68	LEXIQUE383
@@ -68595,6 +68729,8 @@ grassouillet	grassouillet	ADJ	m.s	0.77	LEXIQUE383
 grassouillets	grassouillet	ADJ	m.p	0.1	LEXIQUE383
 grassouillette	grassouillet	ADJ	f.s	0.51	LEXIQUE383
 grassouillettes	grassouillet	ADJ	f.p	0.14	LEXIQUE383
+grata	grata	ADJ		0	LEXIQUE383
+gratias	gratias	NOM		0	LEXIQUE383
 gratifia	gratifier	VER	ind.ps.3s	0.37	LEXIQUE383
 gratifiaient	gratifier	VER	ind.impf.3p	0.07	LEXIQUE383
 gratifiait	gratifier	VER	ind.impf.3s	0.11	LEXIQUE383
@@ -69516,6 +69652,7 @@ grossièrement	grossièrement	ADV		3.01	LEXIQUE383
 grossières	grossier	ADJ	f.p	1.96	LEXIQUE383
 grossièreté	grossièreté	NOM	f.s	3.38	LEXIQUE383
 grossièretés	grossièreté	NOM	f.p	1.04	LEXIQUE383
+grosso	grosso	ADV		0	LEXIQUE383
 grotesque	grotesque	ADJ	e.s	7.06	LEXIQUE383
 grotesque	grotesque	NOM	m.s	1.33	LEXIQUE383
 grotesquement	grotesquement	ADV		0.49	LEXIQUE383
@@ -69969,6 +70106,7 @@ guindée	guindé	ADJ	f.s	0.44	LEXIQUE383
 guindées	guindé	ADJ	f.p	0.18	LEXIQUE383
 guindés	guinder	VER	ppas.m.p	0.04	LEXIQUE383
 guindés	guindé	ADJ	m.p	0.22	LEXIQUE383
+guingois	guingois	ADV		0	LEXIQUE383
 guinguette	guinguette	NOM	f.s	1.25	LEXIQUE383
 guinguettes	guinguette	NOM	f.p	0.34	LEXIQUE383
 guinée	guinée	NOM	f.s	0.09	LEXIQUE383
@@ -69990,6 +70128,7 @@ guitaristes	guitariste	NOM	e.p	0.77	LEXIQUE383
 guitoune	guitoune	NOM	f.s	1.75	LEXIQUE383
 guitounes	guitoune	NOM	f.p	1.08	LEXIQUE383
 gulden	gulden	NOM	m.s	0.05	LEXIQUE383
+gum	gum	NOM		0	LEXIQUE383
 gun	gun	NOM	m.s	0.61	LEXIQUE383
 guna	guna	NOM	m.e	0.02	LEXIQUE383
 guns	gun	NOM	m.p	0.21	LEXIQUE383
@@ -70562,11 +70701,13 @@ gîté	gîter	VER	ppas.m.s	0.07	LEXIQUE383
 ha	ha	INT		14.62	LEXIQUE383
 ha	ha	NOM	m.e	1.74	LEXIQUE383
 habanera	habanera	NOM	f.s	0.01	LEXIQUE383
+habens	habens	NOM		0	LEXIQUE383
 habile	habile	ADJ	e.s	9.36	LEXIQUE383
 habilement	habilement	ADV		2.89	LEXIQUE383
 habiles	habile	ADJ	e.p	2.44	LEXIQUE383
 habileté	habileté	NOM	f.s	6.28	LEXIQUE383
 habiletés	habileté	NOM	f.p	0.18	LEXIQUE383
+habilis	habilis	NOM		0	LEXIQUE383
 habilitation	habilitation	NOM	f.s	0.13	LEXIQUE383
 habilitations	habilitation	NOM	f.p	0.01	LEXIQUE383
 habilite	habiliter	VER	imp.pres.2s	0.02	LEXIQUE383
@@ -71030,6 +71171,7 @@ happent	happer	VER	ind.pres.3p	0.23	LEXIQUE383
 happer	happer	VER	inf	0.56	LEXIQUE383
 happerait	happer	VER	cond.pres.3s	0.04	LEXIQUE383
 happeurs	happeur	NOM	m.p	0.04	LEXIQUE383
+happy	happy	NOM		0	LEXIQUE383
 happé	happer	VER	ppas.m.s	1.17	LEXIQUE383
 happée	happer	VER	ppas.f.s	0.73	LEXIQUE383
 happées	happer	VER	ppas.f.p	0.21	LEXIQUE383
@@ -71225,6 +71367,7 @@ harpyes	harpye	NOM	f.p	0.04	LEXIQUE383
 hart	hart	NOM	f.s	0.17	LEXIQUE383
 harts	hart	NOM	f.p	0.07	LEXIQUE383
 haruspices	haruspice	NOM	m.p	0.08	LEXIQUE383
+has	has	NOM		0	LEXIQUE383
 hasard	hasard	NOM	m.s	82.98	LEXIQUE383
 hasarda	hasarder	VER	ind.ps.3s	0.68	LEXIQUE383
 hasardai	hasarder	VER	ind.ps.1s	0.27	LEXIQUE383
@@ -71629,6 +71772,7 @@ hideusement	hideusement	ADV		0.18	LEXIQUE383
 hideuses	hideux	ADJ	f.p	0.83	LEXIQUE383
 hideux	hideux	ADJ	m.e	3.6	LEXIQUE383
 hier	hier	ADV		158.21	LEXIQUE383
+high	high	NOM		0	LEXIQUE383
 high-life	high-life	NOM	m.s	0.21	LEXIQUE383
 high-tech	high-tech	ADJ	e.e	0.18	LEXIQUE383
 high-tech	high-tech	NOM	m.p	0.07	LEXIQUE383
@@ -71825,6 +71969,7 @@ hobbies	hobby	NOM	m.p	0.41	LEXIQUE383
 hobby	hobby	NOM	m.s	1.25	LEXIQUE383
 hobereau	hobereau	NOM	m.s	0.52	LEXIQUE383
 hobereaux	hobereau	NOM	m.p	0.41	LEXIQUE383
+hoc	hoc	ADJ		0	LEXIQUE383
 hocha	hocher	VER	ind.ps.3s	7.14	LEXIQUE383
 hochai	hocher	VER	ind.ps.1s	0.2	LEXIQUE383
 hochaient	hocher	VER	ind.impf.3p	0.57	LEXIQUE383
@@ -71857,6 +72002,7 @@ hodgkinien	hodgkinien	ADJ	m.s	0.01	LEXIQUE383
 hodja	hodja	NOM	m.s	0.1	LEXIQUE383
 hoirie	hoirie	NOM	f.s	0.14	LEXIQUE383
 hoiries	hoirie	NOM	f.p	0.04	LEXIQUE383
+hold	hold	NOM		0	LEXIQUE383
 hold-up	hold-up	NOM	m.e	5.48	LEXIQUE383
 holding	holding	NOM	e.s	0.41	LEXIQUE383
 holdings	holding	NOM	e.p	0.1	LEXIQUE383
@@ -71984,6 +72130,7 @@ homériques	homérique	ADJ	f.p	0.21	LEXIQUE383
 hon	hon	INT		0.79	LEXIQUE383
 hondurien	hondurien	ADJ	m.s	0.01	LEXIQUE383
 hondurien	hondurien	NOM	m.s	0.01	LEXIQUE383
+hong	hong	NOM		0	LEXIQUE383
 hongkongais	hongkongais	NOM	m.e	0.07	LEXIQUE383
 hongre	hongre	ADJ	m.s	0.16	LEXIQUE383
 hongre	hongre	NOM	m.s	0.21	LEXIQUE383
@@ -72044,6 +72191,7 @@ honorez	honorer	VER	ind.pres.2p	0	LEXIQUE383
 honoriez	honorer	VER	ind.impf.2p	0.05	LEXIQUE383
 honorifique	honorifique	ADJ	e.s	0.57	LEXIQUE383
 honorifiques	honorifique	ADJ	e.p	0.09	LEXIQUE383
+honoris	honoris	ADV		0	LEXIQUE383
 honorons	honorer	VER	imp.pres.1p	0.26	LEXIQUE383
 honorons	honorer	VER	ind.pres.1p	0	LEXIQUE383
 honorât	honorer	VER	sub.impf.3s	0.04	LEXIQUE383
@@ -73323,6 +73471,7 @@ ibères	ibère	ADJ	m.p	0.04	LEXIQUE383
 ibérique	ibérique	ADJ	e.s	0.29	LEXIQUE383
 ibériques	ibérique	ADJ	e.p	0.07	LEXIQUE383
 icarienne	icarienne	ADJ	f.s	0.02	LEXIQUE383
+ice	ice	NOM		0	LEXIQUE383
 ice-cream	ice-cream	NOM	m.s	0.14	LEXIQUE383
 ice-creams	ice-cream	NOM	m.p	0.04	LEXIQUE383
 iceberg	iceberg	NOM	m.s	1.29	LEXIQUE383
@@ -74674,6 +74823,7 @@ improvisez	improviser	VER	ind.pres.2p	0	LEXIQUE383
 improvisions	improviser	VER	ind.impf.1p	0.04	LEXIQUE383
 improvisons	improviser	VER	imp.pres.1p	0.1	LEXIQUE383
 improvisons	improviser	VER	ind.pres.1p	0	LEXIQUE383
+improviste	improviste	ADV		0	LEXIQUE383
 improvisèrent	improviser	VER	ind.ps.3p	0.07	LEXIQUE383
 improvisé	improviser	VER	ppas.m.s	1.05	LEXIQUE383
 improvisé	improvisé	ADJ	m.s	1.47	LEXIQUE383
@@ -75165,6 +75315,7 @@ incestueuse	incestueux	NOM	f.s	0.04	LEXIQUE383
 incestueuses	incestueux	ADJ	f.p	0.18	LEXIQUE383
 incestueuses	incestueux	NOM	f.p	0.04	LEXIQUE383
 incestueux	incestueux	ADJ	m.e	0.76	LEXIQUE383
+inch	inch	INT		0	LEXIQUE383
 inchangeable	inchangeable	ADJ	f.s	0.05	LEXIQUE383
 inchangé	inchangé	ADJ	m.s	0.53	LEXIQUE383
 inchangée	inchangé	ADJ	f.s	0.57	LEXIQUE383
@@ -75328,6 +75479,7 @@ inclémente	inclément	ADJ	f.s	0.04	LEXIQUE383
 incoercible	incoercible	ADJ	e.s	0.23	LEXIQUE383
 incoerciblement	incoerciblement	ADV		0.1	LEXIQUE383
 incoercibles	incoercible	ADJ	e.p	0.14	LEXIQUE383
+incognita	incognita	NOM		0	LEXIQUE383
 incognito	incognito	ADV		2.12	LEXIQUE383
 incognito	incognito	NOM	m.s	0.9	LEXIQUE383
 incognitos	incognito	NOM	m.p	0.04	LEXIQUE383
@@ -76405,6 +76557,7 @@ infinitif	infinitif	NOM	m.s	0.04	LEXIQUE383
 infinitifs	infinitif	NOM	m.p	0.04	LEXIQUE383
 infinitive	infinitif	ADJ	f.s	0.01	LEXIQUE383
 infinitude	infinitude	NOM	f.s	0.07	LEXIQUE383
+infinitum	infinitum	ADV		0	LEXIQUE383
 infinité	infinité	NOM	f.s	1.55	LEXIQUE383
 infinités	infinité	NOM	f.p	0.04	LEXIQUE383
 infinitésimal	infinitésimal	ADJ	m.s	0.15	LEXIQUE383
@@ -76923,6 +77076,7 @@ initierait	initier	VER	cond.pres.3s	0.04	LEXIQUE383
 initierons	initier	VER	ind.fut.1p	0.04	LEXIQUE383
 initiez	initier	VER	imp.pres.2p	0.05	LEXIQUE383
 initiez	initier	VER	ind.pres.2p	0	LEXIQUE383
+initio	initio	ADV		0	LEXIQUE383
 initiâmes	initier	VER	ind.ps.1p	0.04	LEXIQUE383
 initiât	initier	VER	sub.impf.3s	0.04	LEXIQUE383
 initièrent	initier	VER	ind.ps.3p	0.1	LEXIQUE383
@@ -77601,6 +77755,7 @@ instante	instant	ADJ	f.s	0.1	LEXIQUE383
 instantes	instant	ADJ	f.p	0.24	LEXIQUE383
 instants	instant	ADJ	m.p	3.79	LEXIQUE383
 instants	instant	NOM	m.p	30.8	LEXIQUE383
+instar	instar	PRE		0	LEXIQUE383
 instaura	instaurer	VER	ind.ps.3s	0.3	LEXIQUE383
 instaurai	instaurer	VER	ind.ps.1s	0.04	LEXIQUE383
 instaurait	instaurer	VER	ind.impf.3s	0.23	LEXIQUE383
@@ -78695,6 +78850,7 @@ intransmissible	intransmissible	ADJ	m.s	0.08	LEXIQUE383
 intransportable	intransportable	ADJ	f.s	0.08	LEXIQUE383
 intransportables	intransportable	ADJ	m.p	0.04	LEXIQUE383
 intraoculaire	intraoculaire	ADJ	f.s	0.01	LEXIQUE383
+intrare	intrare	ADV		0	LEXIQUE383
 intravasculaire	intravasculaire	ADJ	e.s	0.02	LEXIQUE383
 intraveineuse	intraveineux	ADJ	f.s	0.55	LEXIQUE383
 intraveineuses	intraveineux	ADJ	f.p	0.15	LEXIQUE383
@@ -79356,6 +79512,7 @@ inévitabilité	inévitabilité	NOM	f.s	0.02	LEXIQUE383
 inévitable	inévitable	ADJ	e.s	10.17	LEXIQUE383
 inévitablement	inévitablement	ADV		2.26	LEXIQUE383
 inévitables	inévitable	ADJ	e.p	1.79	LEXIQUE383
+io	io	ADV		0	LEXIQUE383
 iode	iode	NOM	m.s	2.37	LEXIQUE383
 iodle	iodler	VER	imp.pres.2s	0.01	LEXIQUE383
 iodle	iodler	VER	ind.pres.1s	0	LEXIQUE383
@@ -79387,10 +79544,12 @@ iota	iota	NOM	m.e	0.28	LEXIQUE383
 ipomée	ipomée	NOM	f.s	0.04	LEXIQUE383
 ippon	ippon	NOM	m.s	0.01	LEXIQUE383
 ipse	ipse	NOM	m.s	0.08	LEXIQUE383
+ipso	ipso	ADV		0	LEXIQUE383
 ipéca	ipéca	NOM	m.s	0.23	LEXIQUE383
 ipécas	ipéca	NOM	m.p	0.04	LEXIQUE383
 ira	aller	VER	ind.fut.3s	88.33	LEXIQUE383
 ira	ira	NOM	f.s	0.03	LEXIQUE383
+irae	irae	NOM		0	LEXIQUE383
 irai	aller	VER	ind.fut.1s	49.83	LEXIQUE383
 iraient	aller	VER	cond.pres.3p	3.56	LEXIQUE383
 irais	aller	VER	cond.pres.1s	16.05	LEXIQUE383
@@ -79437,6 +79596,7 @@ irise	iriser	VER	ind.pres.3s	0.08	LEXIQUE383
 irisent	iriser	VER	ind.pres.3p	0.07	LEXIQUE383
 iriser	iriser	VER	inf	0.04	LEXIQUE383
 iriserait	iriser	VER	cond.pres.3s	0.04	LEXIQUE383
+irish	irish	NOM		0	LEXIQUE383
 irisé	iriser	VER	ppas.m.s	0.1	LEXIQUE383
 irisé	irisé	ADJ	m.s	0.2	LEXIQUE383
 irisée	iriser	VER	ppas.f.s	0.1	LEXIQUE383
@@ -79767,6 +79927,7 @@ issus	issu	ADJ	m.p	1.73	LEXIQUE383
 isthme	isthme	NOM	m.s	0.36	LEXIQUE383
 isthmes	isthme	NOM	m.p	0.04	LEXIQUE383
 isthmique	isthmique	ADJ	f.s	0.01	LEXIQUE383
+it	it	NOM		0	LEXIQUE383
 italianisme	italianisme	NOM	m.s	0.07	LEXIQUE383
 italiano	italiano	NOM	m.s	0.15	LEXIQUE383
 italien	italien	ADJ	m.s	13.26	LEXIQUE383
@@ -79789,6 +79950,7 @@ italo-françaises	italo-français	ADJ	f.p	0.04	LEXIQUE383
 italo-irlandais	italo-irlandais	ADJ	m.e	0.01	LEXIQUE383
 italo-polonais	italo-polonais	ADJ	m.e	0.04	LEXIQUE383
 italo-égyptien	italo-égyptien	ADJ	m.s	0.04	LEXIQUE383
+ite	ite	NOM		0	LEXIQUE383
 item	item	ADV		0.01	LEXIQUE383
 item	item	NOM	m.s	0.79	LEXIQUE383
 ithos	ithos	NOM	m.e	0.04	LEXIQUE383
@@ -79897,6 +80059,7 @@ jacques	jacques	NOM	m.e	3.93	LEXIQUE383
 jacquet	jacquet	NOM	m.s	1.41	LEXIQUE383
 jacquier	jacquier	NOM	m.s	0.34	LEXIQUE383
 jacquot	jacquot	NOM	m.s	0.01	LEXIQUE383
+jacta	jacta	ADV		0	LEXIQUE383
 jactais	jacter	VER	ind.impf.1s	0.04	LEXIQUE383
 jactait	jacter	VER	ind.impf.3s	0.51	LEXIQUE383
 jactance	jactance	NOM	f.s	2.12	LEXIQUE383
@@ -80313,6 +80476,7 @@ jeu	jeu	NOM	m.s	143.74	LEXIQUE383
 jeu-concours	jeu-concours	NOM	m.e	0.12	LEXIQUE383
 jeudi	jeudi	NOM	m.s	22.8	LEXIQUE383
 jeudis	jeudi	NOM	m.p	2	LEXIQUE383
+jeun	jeun	ADV		0	LEXIQUE383
 jeune	jeune	ADJ	e.s	333.77	LEXIQUE383
 jeune	jeune	NOM	e.s	17.96	LEXIQUE383
 jeune-homme	jeune-homme	ADJ	e.s	0.05	LEXIQUE383
@@ -81293,6 +81457,8 @@ kipa	kipa	NOM	f.s	0.95	LEXIQUE383
 kippa	kippa	NOM	f.s	0.3	LEXIQUE383
 kipper	kipper	NOM	m.s	0.02	LEXIQUE383
 kippers	kipper	NOM	m.p	0.04	LEXIQUE383
+kippour	kippour	NOM		0	LEXIQUE383
+kippur	kippur	NOM		0	LEXIQUE383
 kips	kip	NOM	m.p	0.01	LEXIQUE383
 kir	kir	NOM	m.s	0.78	LEXIQUE383
 kirghiz	kirghiz	NOM	m.e	0.1	LEXIQUE383
@@ -81362,6 +81528,7 @@ kommando	kommando	NOM	m.s	0.21	LEXIQUE383
 komsomol	komsomol	NOM	m.s	0.4	LEXIQUE383
 komsomols	komsomol	NOM	m.p	0.14	LEXIQUE383
 kondo	kondo	NOM	m.s	0.06	LEXIQUE383
+kong	kong	NOM		0	LEXIQUE383
 kopeck	kopeck	NOM	m.s	0.89	LEXIQUE383
 kopecks	kopeck	NOM	m.p	0.18	LEXIQUE383
 kopeks	kopek	NOM	m.p	0.07	LEXIQUE383
@@ -81398,6 +81565,7 @@ kula	kula	NOM	f.s	0.04	LEXIQUE383
 kummel	kummel	NOM	m.s	0.18	LEXIQUE383
 kumquat	kumquat	NOM	m.s	0.07	LEXIQUE383
 kumquats	kumquat	NOM	m.p	0.05	LEXIQUE383
+kung	kung	NOM		0	LEXIQUE383
 kung-fu	kung-fu	NOM	m.s	0.51	LEXIQUE383
 kurde	kurde	ADJ	e.s	0.12	LEXIQUE383
 kurde	kurde	NOM	e.s	0.01	LEXIQUE383
@@ -81509,6 +81677,7 @@ laconiquement	laconiquement	ADV		0.31	LEXIQUE383
 laconiques	laconique	ADJ	e.p	0.45	LEXIQUE383
 laconisme	laconisme	NOM	m.s	0.24	LEXIQUE383
 lacrima-christi	lacrima-christi	NOM	m.e	0.04	LEXIQUE383
+lacryma	lacryma	NOM		0	LEXIQUE383
 lacryma-christi	lacryma-christi	NOM	m.s	0.1	LEXIQUE383
 lacrymal	lacrymal	ADJ	m.s	0.09	LEXIQUE383
 lacrymale	lacrymal	ADJ	f.s	0.04	LEXIQUE383
@@ -81989,6 +82158,7 @@ langé	langer	VER	ppas.m.s	0.24	LEXIQUE383
 langée	langer	VER	ppas.f.s	0.04	LEXIQUE383
 lanière	lanière	NOM	f.s	1.53	LEXIQUE383
 lanières	lanière	NOM	f.p	2.24	LEXIQUE383
+lankais	lankais	ADJ		0	LEXIQUE383
 lanlaire	lanlaire	ADV		0.07	LEXIQUE383
 lanoline	lanoline	NOM	f.s	0.12	LEXIQUE383
 lansquenet	lansquenet	NOM	m.s	0.89	LEXIQUE383
@@ -82765,6 +82935,7 @@ libidineuse	libidineux	ADJ	f.s	0.09	LEXIQUE383
 libidineuses	libidineux	ADJ	f.p	0.04	LEXIQUE383
 libidineux	libidineux	ADJ	m.e	0.46	LEXIQUE383
 libido	libido	NOM	f.s	1.5	LEXIQUE383
+libitum	libitum	ADV		0	LEXIQUE383
 libraire	libraire	NOM	e.s	2.96	LEXIQUE383
 libraires	libraire	NOM	e.p	0.76	LEXIQUE383
 librairie	librairie	NOM	f.s	6.63	LEXIQUE383
@@ -82958,6 +83129,7 @@ lieux	lieu	NOM	m.p	41.42	LEXIQUE383
 lieux-dits	lieux-dits	NOM	m.p	0.2	LEXIQUE383
 liez	lier	VER	imp.pres.2p	0.11	LEXIQUE383
 liez	lier	VER	ind.pres.2p	0	LEXIQUE383
+life	life	NOM		0	LEXIQUE383
 lift	lift	NOM	m.s	0.3	LEXIQUE383
 lifter	lifter	VER	inf	0.11	LEXIQUE383
 liftier	liftier	NOM	m.s	0.39	LEXIQUE383
@@ -83091,6 +83263,7 @@ limette	limette	NOM	f.s	0.04	LEXIQUE383
 limez	limer	VER	ind.pres.2p	0.04	LEXIQUE383
 limier	limier	NOM	m.s	0.66	LEXIQUE383
 limiers	limier	NOM	m.p	0.34	LEXIQUE383
+limina	limina	ADV		0	LEXIQUE383
 liminaire	liminaire	ADJ	e.s	0.04	LEXIQUE383
 limions	limer	VER	ind.impf.1p	0.04	LEXIQUE383
 limita	limiter	VER	ind.ps.3s	0.01	LEXIQUE383
@@ -83996,6 +84169,7 @@ louant	louer	VER	ppre	0.39	LEXIQUE383
 loubard	loubard	NOM	m.s	1.02	LEXIQUE383
 loubarde	loubard	NOM	f.s	0.17	LEXIQUE383
 loubards	loubard	NOM	m.p	1.19	LEXIQUE383
+loucedé	loucedé	ADV		0	LEXIQUE383
 loucha	loucher	VER	ind.ps.3s	0.14	LEXIQUE383
 louchai	loucher	VER	ind.ps.1s	0.04	LEXIQUE383
 louchaient	loucher	VER	ind.impf.3p	0.2	LEXIQUE383
@@ -84360,7 +84534,9 @@ lupin	lupin	NOM	m.s	0.17	LEXIQUE383
 lupins	lupin	NOM	m.p	0.18	LEXIQUE383
 lupus	lupus	NOM	m.e	0.78	LEXIQUE383
 lur	lur	NOM	m.s	0.04	LEXIQUE383
+lurelure	lurelure	ADV		0	LEXIQUE383
 lurent	lire	VER	ind.ps.3p	0.28	LEXIQUE383
+lurette	lurette	NOM		0	LEXIQUE383
 lurex	lurex	NOM	m.e	0.17	LEXIQUE383
 luron	luron	NOM	m.s	0.44	LEXIQUE383
 luronne	luron	NOM	f.s	0.14	LEXIQUE383
@@ -85071,6 +85247,7 @@ macérée	macérer	VER	ppas.f.s	0.2	LEXIQUE383
 macérés	macérer	VER	ppas.m.p	0.05	LEXIQUE383
 madame	madame	NOM	f.e	224.02	LEXIQUE383
 madapolam	madapolam	NOM	m.s	0.1	LEXIQUE383
+made	made	ADV		0	LEXIQUE383
 madeleine	madeleine	NOM	f.s	0.66	LEXIQUE383
 madeleines	madeleine	NOM	f.p	0.78	LEXIQUE383
 mademoiselle	mademoiselle	NOM	f.s	68.14	LEXIQUE383
@@ -85442,6 +85619,7 @@ majordome	majordome	NOM	m.s	1.97	LEXIQUE383
 majordomes	majordome	NOM	m.p	0.17	LEXIQUE383
 majore	majorer	VER	ind.pres.1s	0.07	LEXIQUE383
 majore	majorer	VER	ind.pres.3s	0	LEXIQUE383
+majorem	majorem	ADV		0	LEXIQUE383
 majorer	majorer	VER	inf	0.09	LEXIQUE383
 majorette	majorette	NOM	f.s	0.42	LEXIQUE383
 majorettes	majorette	NOM	f.p	0.44	LEXIQUE383
@@ -86236,6 +86414,7 @@ mantille	mantille	NOM	f.s	0.41	LEXIQUE383
 mantilles	mantille	NOM	f.p	0.28	LEXIQUE383
 mantique	mantique	NOM	f.s	0.04	LEXIQUE383
 mantra	mantra	NOM	m.s	0.21	LEXIQUE383
+manu	manu	ADV		0	LEXIQUE383
 manubrium	manubrium	NOM	m.s	0.01	LEXIQUE383
 manucure	manucure	NOM	e.s	1.55	LEXIQUE383
 manucure	manucurer	VER	ind.pres.3s	0.11	LEXIQUE383
@@ -87140,6 +87319,7 @@ masquées	masquer	VER	ppas.f.p	0.24	LEXIQUE383
 masquées	masqué	ADJ	f.p	0.28	LEXIQUE383
 masqués	masquer	VER	ppas.m.p	0.83	LEXIQUE383
 masqués	masqué	ADJ	m.p	0.71	LEXIQUE383
+mass	mass	NOM		0	LEXIQUE383
 massa	masser	VER	ind.ps.3s	0.64	LEXIQUE383
 massacra	massacrer	VER	ind.ps.3s	0.1	LEXIQUE383
 massacraient	massacrer	VER	ind.impf.3p	0.24	LEXIQUE383
@@ -87710,6 +87890,7 @@ maïs	maïs	NOM	m.e	6.38	LEXIQUE383
 maïzena	maïzena	NOM	f.s	0.12	LEXIQUE383
 me	me	NOM	m.s	1.3	LEXIQUE383
 me	me	PRO		4596.88	LEXIQUE383
+mea	mea	NOM		0	LEXIQUE383
 mea-culpa	mea-culpa	NOM	m.e	0.11	LEXIQUE383
 mec	mec	NOM	m.s	151.68	LEXIQUE383
 meccano	meccano	NOM	m.s	0.62	LEXIQUE383
@@ -87742,6 +87923,7 @@ mellifère	mellifère	ADJ	e.s	0.04	LEXIQUE383
 mellifères	mellifère	NOM	m.p	0.04	LEXIQUE383
 melon	melon	NOM	m.s	5.06	LEXIQUE383
 melons	melon	NOM	m.p	1.98	LEXIQUE383
+melting	melting	NOM		0	LEXIQUE383
 melting-pot	melting-pot	NOM	m.s	0.07	LEXIQUE383
 membranaire	membranaire	ADJ	f.s	0.01	LEXIQUE383
 membrane	membrane	NOM	f.s	1.29	LEXIQUE383
@@ -87756,6 +87938,7 @@ membrure	membrure	NOM	f.s	0.18	LEXIQUE383
 membrures	membrure	NOM	f.p	0.14	LEXIQUE383
 membré	membrer	VER	ppas.m.s	0.05	LEXIQUE383
 membré	membré	ADJ	m.s	0.06	LEXIQUE383
+memoriam	memoriam	ADV		0	LEXIQUE383
 mena	mener	VER	ind.ps.3s	2.12	LEXIQUE383
 menace	menace	NOM	f.s	23.54	LEXIQUE383
 menace	menacer	VER	imp.pres.2s	9.73	LEXIQUE383
@@ -88365,6 +88548,7 @@ mexicains	mexicain	ADJ	m.p	0.66	LEXIQUE383
 mexicains	mexicain	NOM	m.p	1.82	LEXIQUE383
 mexico	mexico	ADV		0.31	LEXIQUE383
 mezcal	mezcal	NOM	m.s	0.07	LEXIQUE383
+mezza	mezza	ADV		0	LEXIQUE383
 mezza-voce	mezza-voce	ADV		0.04	LEXIQUE383
 mezzanine	mezzanine	NOM	f.s	0.2	LEXIQUE383
 mezzanines	mezzanine	NOM	f.p	0.11	LEXIQUE383
@@ -88758,6 +88942,7 @@ microstructures	microstructure	NOM	f.p	0.04	LEXIQUE383
 microédition	microédition	NOM	f.s	0.01	LEXIQUE383
 miction	miction	NOM	f.s	0.01	LEXIQUE383
 mictions	miction	NOM	f.p	0.04	LEXIQUE383
+middle	middle	NOM		0	LEXIQUE383
 middle-west	middle-west	NOM	m.s	0.1	LEXIQUE383
 midi	midi	DET	e.e	0.04	LEXIQUE383
 midi	midi	NOM	m.e	51.63	LEXIQUE383
@@ -88914,6 +89099,7 @@ militantes	militant	NOM	f.p	0.1	LEXIQUE383
 militantisme	militantisme	NOM	m.s	0.4	LEXIQUE383
 militants	militant	ADJ	m.p	0.44	LEXIQUE383
 militants	militant	NOM	m.p	3.58	LEXIQUE383
+militari	militari	ADV		0	LEXIQUE383
 militarisation	militarisation	NOM	f.s	0.02	LEXIQUE383
 militariser	militariser	VER	inf	0.01	LEXIQUE383
 militarisme	militarisme	NOM	m.s	0.12	LEXIQUE383
@@ -88935,6 +89121,7 @@ milites	militer	VER	ind.pres.2s	0.06	LEXIQUE383
 militons	militer	VER	ind.pres.1p	0.01	LEXIQUE383
 militèrent	militer	VER	ind.ps.3p	0.04	LEXIQUE383
 milité	militer	VER	ppas.m.s	0.55	LEXIQUE383
+milk	milk	NOM		0	LEXIQUE383
 milk-bar	milk-bar	NOM	m.s	0.09	LEXIQUE383
 milk-bars	milk-bar	NOM	m.p	0.04	LEXIQUE383
 milk-shake	milk-shake	NOM	m.s	0.71	LEXIQUE383
@@ -89377,6 +89564,7 @@ misogynie	misogynie	NOM	f.s	0.62	LEXIQUE383
 misons	miser	VER	imp.pres.1p	0.1	LEXIQUE383
 misons	miser	VER	ind.pres.1p	0	LEXIQUE383
 miss	miss	NOM	f.e	24.47	LEXIQUE383
+missa	missa	NOM		0	LEXIQUE383
 missel	missel	NOM	m.s	1.79	LEXIQUE383
 missels	missel	NOM	m.p	0.2	LEXIQUE383
 missent	mettre	VER	sub.impf.3p	0.2	LEXIQUE383
@@ -89642,6 +89830,7 @@ modeler	modeler	VER	inf	1.59	LEXIQUE383
 modeleur	modeleur	NOM	m.s	0.02	LEXIQUE383
 modelez	modeler	VER	imp.pres.2p	0.14	LEXIQUE383
 modelez	modeler	VER	ind.pres.2p	0	LEXIQUE383
+models	models	NOM		0	LEXIQUE383
 modelé	modeler	VER	ppas.m.s	0.78	LEXIQUE383
 modelé	modelé	NOM	m.s	0.64	LEXIQUE383
 modelée	modeler	VER	ppas.f.s	0.59	LEXIQUE383
@@ -89651,6 +89840,7 @@ modelés	modelé	NOM	m.p	0.2	LEXIQUE383
 modem	modem	NOM	m.s	0.18	LEXIQUE383
 modems	modem	NOM	m.p	0.03	LEXIQUE383
 moderato	moderato	ADV		0.41	LEXIQUE383
+modern	modern	ADJ		0	LEXIQUE383
 modern-style	modern-style	NOM	m.s	0.14	LEXIQUE383
 moderne	moderne	ADJ	e.s	20.62	LEXIQUE383
 moderne	moderne	NOM	e.s	1.04	LEXIQUE383
@@ -89726,6 +89916,7 @@ modique	modique	ADJ	e.s	0.53	LEXIQUE383
 modiques	modique	ADJ	f.p	0.11	LEXIQUE383
 modiste	modiste	NOM	e.s	0.65	LEXIQUE383
 modistes	modiste	NOM	e.p	0.21	LEXIQUE383
+modo	modo	ADV		0	LEXIQUE383
 modula	moduler	VER	ind.ps.3s	0.2	LEXIQUE383
 modulable	modulable	ADJ	m.s	0.05	LEXIQUE383
 modulables	modulable	ADJ	m.p	0.06	LEXIQUE383
@@ -89749,6 +89940,7 @@ modulé	moduler	VER	ppas.m.s	0.48	LEXIQUE383
 modulée	moduler	VER	ppas.f.s	0.35	LEXIQUE383
 modulées	moduler	VER	ppas.f.p	0.07	LEXIQUE383
 modulés	moduler	VER	ppas.m.p	0.23	LEXIQUE383
+modus	modus	NOM		0	LEXIQUE383
 modèle	modeler	VER	imp.pres.2s	0.78	LEXIQUE383
 modèle	modeler	VER	ind.pres.3s	0	LEXIQUE383
 modèle	modèle	ADJ	e.s	6.48	LEXIQUE383
@@ -90791,6 +90983,7 @@ mortelles	mortel	ADJ	f.p	1.76	LEXIQUE383
 mortelles	mortel	NOM	f.p	0.17	LEXIQUE383
 mortels	mortel	ADJ	m.p	2.66	LEXIQUE383
 mortels	mortel	NOM	m.p	3.31	LEXIQUE383
+mortem	mortem	ADV		0	LEXIQUE383
 mortes	mort	ADJ	f.p	14.59	LEXIQUE383
 mortes	mort	NOM	f.p	1.36	LEXIQUE383
 mortes	mourir	VER	ppas.f.p	4.18	LEXIQUE383
@@ -90825,6 +91018,7 @@ morts	mourir	VER	ppas.m.p	34.74	LEXIQUE383
 morts-vivants	mort-vivant	NOM	m.p	0.8	LEXIQUE383
 mortuaire	mortuaire	ADJ	e.s	3.1	LEXIQUE383
 mortuaires	mortuaire	ADJ	e.p	0.56	LEXIQUE383
+mortuum	mortuum	NOM		0	LEXIQUE383
 morue	morue	NOM	f.s	4.16	LEXIQUE383
 morues	morue	NOM	f.p	0.47	LEXIQUE383
 morula	morula	NOM	f.s	0.01	LEXIQUE383
@@ -90939,6 +91133,7 @@ motte	motte	NOM	f.s	1.62	LEXIQUE383
 mottereau	mottereau	NOM	m.s	0.04	LEXIQUE383
 mottes	motte	NOM	f.p	3.23	LEXIQUE383
 motteux	motteux	NOM	m.e	0.04	LEXIQUE383
+motu	motu	ADV		0	LEXIQUE383
 motus	motus	INT		0.95	LEXIQUE383
 mou	mou	ADJ	m.s	11.31	LEXIQUE383
 mou	mou	NOM	m.s	3.48	LEXIQUE383
@@ -91353,6 +91548,7 @@ muai	muer	VER	ind.ps.1s	0.04	LEXIQUE383
 muaient	muer	VER	ind.impf.3p	0.07	LEXIQUE383
 muait	muer	VER	ind.impf.3s	0.52	LEXIQUE383
 muant	muer	VER	ppre	0.1	LEXIQUE383
+much	much	ADJ		0	LEXIQUE383
 muchacho	muchacho	NOM	m.s	0.52	LEXIQUE383
 muchachos	muchacho	NOM	m.p	0.31	LEXIQUE383
 muchas	mucher	VER	ind.ps.2s	0.26	LEXIQUE383
@@ -91541,6 +91737,7 @@ mulâtres	mulâtre	ADJ	m.p	0.12	LEXIQUE383
 mulâtres	mulâtre	NOM	m.p	0.31	LEXIQUE383
 mulâtresse	mulâtresse	NOM	f.s	0.11	LEXIQUE383
 mulâtresses	mulâtresse	NOM	f.p	0.14	LEXIQUE383
+mundi	mundi	ADV		0	LEXIQUE383
 mungo	mungo	NOM	m.s	0.01	LEXIQUE383
 muni	muni	ADJ	m.s	0.1	LEXIQUE383
 muni	munir	VER	ppas.m.s	3.88	LEXIQUE383
@@ -91648,6 +91845,7 @@ murmuré	murmurer	VER	ppas.m.s	5.72	LEXIQUE383
 murmurée	murmurer	VER	ppas.f.s	0.14	LEXIQUE383
 murmurées	murmurer	VER	ppas.f.p	0.41	LEXIQUE383
 murmurés	murmurer	VER	ppas.m.p	0.23	LEXIQUE383
+muros	muros	ADV		0	LEXIQUE383
 murs	mur	NOM	m.p	87.62	LEXIQUE383
 murène	murène	NOM	f.s	0.3	LEXIQUE383
 murènes	murène	NOM	f.p	0.21	LEXIQUE383
@@ -91733,6 +91931,7 @@ muses	muse	NOM	f.p	0.57	LEXIQUE383
 musette	musette	NOM	f.s	7.26	LEXIQUE383
 musettes	musette	NOM	f.p	2.34	LEXIQUE383
 musettes-repas	musette-repas	NOM	f.p	0.04	LEXIQUE383
+music	music	NOM		0	LEXIQUE383
 music-hall	music-hall	NOM	m.s	2.74	LEXIQUE383
 music-halls	music-hall	NOM	m.p	0.34	LEXIQUE383
 musical	musical	ADJ	m.s	10.47	LEXIQUE383
@@ -91808,6 +92007,7 @@ mutabilité	mutabilité	NOM	f.s	0.01	LEXIQUE383
 mutable	mutable	ADJ	e.s	0.01	LEXIQUE383
 mutables	mutable	ADJ	e.p	0.01	LEXIQUE383
 mutagène	mutagène	ADJ	m.s	0.01	LEXIQUE383
+mutandis	mutandis	ADV		0	LEXIQUE383
 mutant	mutant	ADJ	m.s	0.28	LEXIQUE383
 mutant	mutant	NOM	m.s	1.1	LEXIQUE383
 mutant	muter	VER	ppre	0.12	LEXIQUE383
@@ -91819,6 +92019,7 @@ mutants	mutant	ADJ	m.p	0.22	LEXIQUE383
 mutants	mutant	NOM	m.p	1.5	LEXIQUE383
 mutation	mutation	NOM	f.s	3.92	LEXIQUE383
 mutations	mutation	NOM	f.p	1	LEXIQUE383
+mutatis	mutatis	ADV		0	LEXIQUE383
 mute	muter	VER	ind.pres.1s	0.19	LEXIQUE383
 mute	muter	VER	ind.pres.3s	0	LEXIQUE383
 mutent	muter	VER	ind.pres.3p	0.04	LEXIQUE383
@@ -92439,6 +92640,7 @@ mégalosaure	mégalosaure	NOM	m.s	0.01	LEXIQUE383
 mégaphone	mégaphone	NOM	m.s	0.56	LEXIQUE383
 mégaphones	mégaphone	NOM	m.p	0.18	LEXIQUE383
 mégapole	mégapole	NOM	f.s	0.14	LEXIQUE383
+mégarde	mégarde	ADV		0	LEXIQUE383
 mégaron	mégaron	NOM	m.s	0.07	LEXIQUE383
 mégathériums	mégathérium	NOM	m.p	0.04	LEXIQUE383
 mégatonne	mégatonne	NOM	f.s	0.02	LEXIQUE383
@@ -93952,6 +94154,7 @@ nigauderie	nigauderie	NOM	f.s	0.04	LEXIQUE383
 nigauds	nigaud	ADJ	m.p	0.15	LEXIQUE383
 nigauds	nigaud	NOM	m.p	0.34	LEXIQUE383
 nigelle	nigel	NOM	f.s	0.01	LEXIQUE383
+night	night	ADJ		0	LEXIQUE383
 night-club	night-club	NOM	m.s	0.89	LEXIQUE383
 night-clubs	night-club	NOM	m.p	0.18	LEXIQUE383
 niguedouille	niguedouille	NOM	e.s	0.04	LEXIQUE383
@@ -93963,11 +94166,13 @@ nigérians	nigérian	NOM	m.p	0.07	LEXIQUE383
 nigérien	nigérien	ADJ	m.s	0.09	LEXIQUE383
 nigérien	nigérien	NOM	m.s	0.01	LEXIQUE383
 nigériens	nigérien	NOM	m.p	0.05	LEXIQUE383
+nihil	nihil	ADV		0	LEXIQUE383
 nihilisme	nihilisme	NOM	m.s	0.67	LEXIQUE383
 nihiliste	nihiliste	ADJ	e.s	0.32	LEXIQUE383
 nihiliste	nihiliste	NOM	e.s	0.24	LEXIQUE383
 nihilistes	nihiliste	ADJ	m.p	0.1	LEXIQUE383
 nihilistes	nihiliste	NOM	e.p	0.04	LEXIQUE383
+nihilo	nihilo	ADV		0	LEXIQUE383
 nikkei	nikkei	NOM	m.s	0.03	LEXIQUE383
 nil	nil	NOM	e.s	0.06	LEXIQUE383
 nim	nim	NOM	m.s	0.93	LEXIQUE383
@@ -94035,6 +94240,7 @@ nirvana	nirvana	NOM	m.s	0.75	LEXIQUE383
 nirvanas	nirvana	NOM	m.p	0.04	LEXIQUE383
 nirvâna	nirvâna	NOM	m.s	1.05	LEXIQUE383
 nisan	nisan	NOM	m.s	0.1	LEXIQUE383
+nitouche	nitouche	NOM		0	LEXIQUE383
 nitratant	nitrater	VER	ppre	0.01	LEXIQUE383
 nitrate	nitrate	NOM	m.s	0.4	LEXIQUE383
 nitrates	nitrate	NOM	m.p	0.21	LEXIQUE383
@@ -94085,6 +94291,7 @@ niée	nier	VER	ppas.f.s	0.21	LEXIQUE383
 niée	nié	ADJ	f.s	0.08	LEXIQUE383
 niés	nier	VER	ppas.m.p	0.04	LEXIQUE383
 niés	nié	ADJ	m.p	0.04	LEXIQUE383
+no	no	NOM		0	LEXIQUE383
 nobiliaire	nobiliaire	ADJ	e.s	0.28	LEXIQUE383
 nobiliaire	nobiliaire	NOM	m.s	0.04	LEXIQUE383
 nobiliaires	nobiliaire	ADJ	e.p	0.23	LEXIQUE383
@@ -94487,6 +94694,7 @@ nostalgique	nostalgique	NOM	e.s	0.11	LEXIQUE383
 nostalgiquement	nostalgiquement	ADV		0.1	LEXIQUE383
 nostalgiques	nostalgique	ADJ	e.p	0.84	LEXIQUE383
 nostalgiques	nostalgique	NOM	e.p	0.09	LEXIQUE383
+noster	noster	NOM		0	LEXIQUE383
 not	not	NOM	e.e	0.32	LEXIQUE383
 nota	nota	NOM	m.e	0.17	LEXIQUE383
 nota	noter	VER	ind.ps.3s	2.07	LEXIQUE383
@@ -94891,6 +95099,7 @@ nullos	nullos	ADJ	e.s	0.09	LEXIQUE383
 nuls	nul	ADJ	m.p	2.72	LEXIQUE383
 nuls	nul	NOM	m.p	1.55	LEXIQUE383
 nuls	nuls	DET	m.p	0.48	LEXIQUE383
+numerus	numerus	NOM		0	LEXIQUE383
 numide	numide	ADJ	m.s	0.04	LEXIQUE383
 numide	numide	NOM	e.s	0.09	LEXIQUE383
 numides	numide	ADJ	e.p	0.14	LEXIQUE383
@@ -94935,6 +95144,7 @@ numérotées	numéroter	VER	ppas.f.p	0.15	LEXIQUE383
 numérotées	numéroté	ADJ	f.p	0.42	LEXIQUE383
 numérotés	numéroter	VER	ppas.m.p	0.26	LEXIQUE383
 numérotés	numéroté	ADJ	m.p	0.31	LEXIQUE383
+nunc	nunc	ADV		0	LEXIQUE383
 nunchaku	nunchaku	NOM	m.s	0.03	LEXIQUE383
 nunchakus	nunchaku	NOM	m.p	0.1	LEXIQUE383
 nuncupatifs	nuncupatif	ADJ	m.p	0.04	LEXIQUE383
@@ -94965,6 +95175,7 @@ nutritionnelle	nutritionnel	ADJ	f.s	0.07	LEXIQUE383
 nutritionniste	nutritionniste	NOM	e.s	0.12	LEXIQUE383
 nutritive	nutritif	ADJ	f.s	0.29	LEXIQUE383
 nutritives	nutritif	ADJ	f.p	0.16	LEXIQUE383
+nutum	nutum	ADV		0	LEXIQUE383
 nuée	nuée	NOM	f.s	2.27	LEXIQUE383
 nuées	nuer	VER	ppas.f.p	0.04	LEXIQUE383
 nuées	nuée	NOM	f.p	3.75	LEXIQUE383
@@ -95585,6 +95796,7 @@ obsolète	obsolète	ADJ	e.s	0.45	LEXIQUE383
 obsolètes	obsolète	ADJ	e.p	0.21	LEXIQUE383
 obstacle	obstacle	NOM	m.s	10.35	LEXIQUE383
 obstacles	obstacle	NOM	m.p	7.98	LEXIQUE383
+obstat	obstat	ADV		0	LEXIQUE383
 obstina	obstiner	VER	ind.ps.3s	0.46	LEXIQUE383
 obstinai	obstiner	VER	ind.ps.1s	0.07	LEXIQUE383
 obstinaient	obstiner	VER	ind.impf.3p	0.38	LEXIQUE383
@@ -96056,6 +96268,7 @@ odoriférants	odoriférant	ADJ	m.p	0.14	LEXIQUE383
 odyssée	odyssée	NOM	f.s	0.59	LEXIQUE383
 odyssées	odyssée	NOM	f.p	0.04	LEXIQUE383
 odéon	odéon	NOM	m.s	0.17	LEXIQUE383
+of	of	NOM		0	LEXIQUE383
 off	off	ADJ	e.e	1.91	LEXIQUE383
 off-shore	off-shore	NOM	m.s	0.04	LEXIQUE383
 offensa	offenser	VER	ind.ps.3s	0.05	LEXIQUE383
@@ -96340,6 +96553,7 @@ oliviers	olivier	NOM	m.p	4.99	LEXIQUE383
 olivine	olivine	NOM	f.s	0.03	LEXIQUE383
 olivâtre	olivâtre	ADJ	e.s	0.41	LEXIQUE383
 olivâtres	olivâtre	ADJ	f.p	0.17	LEXIQUE383
+olla	olla	NOM		0	LEXIQUE383
 ollé	ollé	INT		0.01	LEXIQUE383
 olmèque	olmèque	ADJ	e.s	0.01	LEXIQUE383
 olmèques	olmèque	NOM	e.p	0.04	LEXIQUE383
@@ -96623,6 +96837,7 @@ opaques	opaque	ADJ	e.p	1.85	LEXIQUE383
 ope	ope	NOM	e.s	0.04	LEXIQUE383
 open	open	ADJ	e.e	0.88	LEXIQUE383
 open	open	NOM	m.s	0.55	LEXIQUE383
+operandi	operandi	NOM		0	LEXIQUE383
 opercule	opercule	NOM	m.s	0.04	LEXIQUE383
 ophidien	ophidien	NOM	m.s	0.01	LEXIQUE383
 ophidiens	ophidien	NOM	m.p	0.04	LEXIQUE383
@@ -96975,6 +97190,7 @@ oratrice	orateur	NOM	f.s	0.03	LEXIQUE383
 oraux	oral	ADJ	m.p	0.18	LEXIQUE383
 orbe	orbe	NOM	m.s	0.73	LEXIQUE383
 orbes	orbe	NOM	m.p	0.17	LEXIQUE383
+orbi	orbi	ADV		0	LEXIQUE383
 orbiculaire	orbiculaire	ADJ	m.s	0.07	LEXIQUE383
 orbitaire	orbitaire	ADJ	f.s	0.05	LEXIQUE383
 orbitaires	orbitaire	ADJ	f.p	0.01	LEXIQUE383
@@ -97085,6 +97301,7 @@ oreilles	oreille	NOM	f.p	64.88	LEXIQUE383
 oreillette	oreillette	NOM	f.s	0.41	LEXIQUE383
 oreillettes	oreillette	NOM	f.p	0.54	LEXIQUE383
 oreillons	oreillon	NOM	m.p	0.81	LEXIQUE383
+ores	ores	ADV		0	LEXIQUE383
 orfraie	orfraie	NOM	f.s	0.08	LEXIQUE383
 orfèvre	orfèvre	NOM	e.s	0.92	LEXIQUE383
 orfèvrerie	orfèvrerie	NOM	f.s	0.28	LEXIQUE383
@@ -97478,6 +97695,7 @@ osseuses	osseux	ADJ	f.p	0.75	LEXIQUE383
 osseux	osseux	ADJ	m.e	2.79	LEXIQUE383
 ossification	ossification	NOM	f.s	0.07	LEXIQUE383
 ossifié	ossifier	VER	ppas.m.s	0.04	LEXIQUE383
+osso	osso	NOM		0	LEXIQUE383
 ossuaire	ossuaire	NOM	m.s	0.41	LEXIQUE383
 ossuaires	ossuaire	NOM	m.p	0.08	LEXIQUE383
 ossue	ossu	ADJ	f.s	0.04	LEXIQUE383
@@ -97526,6 +97744,7 @@ otarie	otarie	NOM	f.s	0.41	LEXIQUE383
 otaries	otarie	NOM	f.p	0.7	LEXIQUE383
 otite	otite	NOM	f.s	0.66	LEXIQUE383
 otites	otite	NOM	f.p	0.33	LEXIQUE383
+oto	oto	NOM		0	LEXIQUE383
 oto-rhino	oto-rhino	NOM	e.s	0.78	LEXIQUE383
 oto-rhino-laryngologique	oto-rhino-laryngologique	ADJ	f.s	0.04	LEXIQUE383
 oto-rhino-laryngologiste	oto-rhino-laryngologiste	NOM	e.s	0.01	LEXIQUE383
@@ -97926,6 +98145,7 @@ ovipare	ovipare	ADJ	e.s	0.01	LEXIQUE383
 ovipares	ovipare	ADJ	e.p	0.01	LEXIQUE383
 ovni	ovni	NOM	m.e	0.6	LEXIQUE383
 ovnis	ovni	NOM	m.p	1.02	LEXIQUE383
+ovo	ovo	ADV		0	LEXIQUE383
 ovocyte	ovocyte	NOM	m.s	0.07	LEXIQUE383
 ovocytes	ovocyte	NOM	m.p	0.15	LEXIQUE383
 ovoïdal	ovoïdal	ADJ	m.s	0.3	LEXIQUE383
@@ -97994,6 +98214,7 @@ pa	pa	NOM	f.s	4.43	LEXIQUE383
 pacage	pacage	NOM	m.s	0.17	LEXIQUE383
 pacages	pacage	NOM	m.p	0.2	LEXIQUE383
 pacas	paca	ADJ	m.p	0.01	LEXIQUE383
+pace	pace	NOM		0	LEXIQUE383
 pacemaker	pacemaker	NOM	m.s	0.38	LEXIQUE383
 pacemakers	pacemaker	NOM	m.p	0.07	LEXIQUE383
 pacha	pacha	NOM	m.s	9.13	LEXIQUE383
@@ -98191,6 +98412,7 @@ paimpolaise	paimpolais	NOM	f.s	0.2	LEXIQUE383
 paimpolaises	paimpolais	NOM	f.p	0.04	LEXIQUE383
 pain	pain	NOM	m.s	81.06	LEXIQUE383
 pains	pain	NOM	m.p	5.42	LEXIQUE383
+painting	painting	NOM		0	LEXIQUE383
 pair	pair	ADJ	m.s	0.72	LEXIQUE383
 pair	pair	NOM	m.s	3.09	LEXIQUE383
 paire	pair	ADJ	f.s	0.78	LEXIQUE383
@@ -100329,6 +100551,7 @@ patouille	patouiller	VER	imp.pres.2s	0.05	LEXIQUE383
 patouille	patouiller	VER	ind.pres.3s	0	LEXIQUE383
 patouillons	patouiller	VER	ind.pres.1p	0.04	LEXIQUE383
 patraque	patraque	ADJ	e.s	0.89	LEXIQUE383
+patres	patres	ADV		0	LEXIQUE383
 patri	patri	ADV		0.11	LEXIQUE383
 patriarcal	patriarcal	ADJ	m.s	0.22	LEXIQUE383
 patriarcale	patriarcal	ADJ	f.s	0.28	LEXIQUE383
@@ -100544,6 +100767,7 @@ pavées	pavé	ADJ	f.p	0.46	LEXIQUE383
 pavés	paver	VER	ppas.m.p	0.07	LEXIQUE383
 pavés	pavé	ADJ	m.p	0.4	LEXIQUE383
 pavés	pavé	NOM	m.p	7.15	LEXIQUE383
+pax	pax	NOM		0	LEXIQUE383
 paxon	paxon	NOM	m.s	0.07	LEXIQUE383
 paya	payer	VER	ind.ps.3s	2.95	LEXIQUE383
 payable	payable	ADJ	e.s	0.46	LEXIQUE383
@@ -100669,6 +100893,7 @@ pectorale	pectoral	ADJ	f.s	0.15	LEXIQUE383
 pectorales	pectoral	ADJ	f.p	0.22	LEXIQUE383
 pectoraux	pectoral	ADJ	m.p	0.23	LEXIQUE383
 pectoraux	pectoral	NOM	m.p	1.21	LEXIQUE383
+pecus	pecus	NOM		0	LEXIQUE383
 pedigree	pedigree	NOM	m.s	1.21	LEXIQUE383
 pedigrees	pedigree	NOM	m.p	0.05	LEXIQUE383
 pedzouille	pedzouille	NOM	m.s	0.22	LEXIQUE383
@@ -101668,6 +101893,7 @@ persistons	persister	VER	ind.pres.1p	0	LEXIQUE383
 persistèrent	persister	VER	ind.ps.3p	0.04	LEXIQUE383
 persisté	persister	VER	ppas.m.s	0.34	LEXIQUE383
 perso	perso	ADJ	e.s	1.27	LEXIQUE383
+persona	persona	ADJ		0	LEXIQUE383
 personnage	personnage	NOM	m.s	35.22	LEXIQUE383
 personnage-clé	personnage-clé	NOM	m.s	0.01	LEXIQUE383
 personnages	personnage	NOM	m.p	24.06	LEXIQUE383
@@ -102043,6 +102269,7 @@ petons	peton	NOM	m.p	0.24	LEXIQUE383
 petros	petro	NOM	m.p	0.64	LEXIQUE383
 pets	pet	NOM	m.p	0.83	LEXIQUE383
 pets-de-nonne	pet-de-nonne	NOM	m.p	0.2	LEXIQUE383
+petto	petto	ADV		0	LEXIQUE383
 petzouille	petzouille	NOM	e.s	0.04	LEXIQUE383
 petzouilles	petzouille	NOM	e.p	0.08	LEXIQUE383
 peu	peu	ADV		407.28	LEXIQUE383
@@ -103394,6 +103621,7 @@ pistée	pister	VER	ppas.f.s	0.01	LEXIQUE383
 pistées	pister	VER	ppas.f.p	0.04	LEXIQUE383
 pistés	pister	VER	ppas.m.p	0.04	LEXIQUE383
 pisé	pisé	NOM	m.s	0.24	LEXIQUE383
+pit	pit	NOM		0	LEXIQUE383
 pit-bull	pit-bull	NOM	m.s	0.13	LEXIQUE383
 pit-bulls	pit-bull	NOM	m.p	0.03	LEXIQUE383
 pita	pita	NOM	m.s	0.35	LEXIQUE383
@@ -103434,6 +103662,7 @@ pitre	pitre	NOM	m.s	1.62	LEXIQUE383
 pitrerie	pitrerie	NOM	f.s	0.25	LEXIQUE383
 pitreries	pitrerie	NOM	f.p	0.89	LEXIQUE383
 pitres	pitre	NOM	m.p	0.21	LEXIQUE383
+pittore	pittore	ADV		0	LEXIQUE383
 pittoresque	pittoresque	ADJ	e.s	3	LEXIQUE383
 pittoresque	pittoresque	NOM	m.s	1.84	LEXIQUE383
 pittoresques	pittoresque	ADJ	e.p	1.1	LEXIQUE383
@@ -103927,6 +104156,7 @@ planisphères	planisphère	NOM	m.p	0.07	LEXIQUE383
 planitude	planitude	NOM	f.s	0.07	LEXIQUE383
 planning	planning	NOM	m.s	2.68	LEXIQUE383
 plannings	planning	NOM	m.p	0.11	LEXIQUE383
+plano	plano	ADV		0	LEXIQUE383
 planqua	planquer	VER	ind.ps.3s	0.04	LEXIQUE383
 planquaient	planquer	VER	ind.impf.3p	0.27	LEXIQUE383
 planquais	planquer	VER	ind.impf.1s	0.23	LEXIQUE383
@@ -104115,6 +104345,7 @@ plat	plat	NOM	e.s	33.06	LEXIQUE383
 plat-bord	plat-bord	NOM	m.s	0.27	LEXIQUE383
 plat-ventre	plat-ventre	ADJ	m.s	0.04	LEXIQUE383
 plat-ventre	plat-ventre	NOM	m.s	0.09	LEXIQUE383
+plata	plata	NOM		0	LEXIQUE383
 platane	platane	NOM	m.s	2.28	LEXIQUE383
 platanes	platane	NOM	m.p	4.94	LEXIQUE383
 plate	plat	ADJ	f.s	10.29	LEXIQUE383
@@ -104745,6 +104976,7 @@ podium	podium	NOM	m.s	1.54	LEXIQUE383
 podiums	podium	NOM	m.p	0.09	LEXIQUE383
 podologue	podologue	NOM	e.s	0.06	LEXIQUE383
 podomètre	podomètre	NOM	m.s	0.01	LEXIQUE383
+podrida	podrida	NOM		0	LEXIQUE383
 pogne	pogne	NOM	f.s	4.5	LEXIQUE383
 pognes	pogne	NOM	f.p	2.57	LEXIQUE383
 pognon	pognon	NOM	m.s	12.91	LEXIQUE383
@@ -105312,6 +105544,7 @@ polémiques	polémique	NOM	f.p	0.21	LEXIQUE383
 polémiques	polémiquer	VER	ind.pres.2s	0.01	LEXIQUE383
 polémiste	polémiste	NOM	e.s	0.28	LEXIQUE383
 polémistes	polémiste	NOM	e.p	0.04	LEXIQUE383
+pom-pom	pom-pom	NOM		0	LEXIQUE383
 pomelo	pomelo	NOM	m.s	0.01	LEXIQUE383
 pomerols	pomerol	NOM	m.p	0.04	LEXIQUE383
 pommade	pommade	NOM	f.s	2.19	LEXIQUE383
@@ -105595,6 +105828,7 @@ populations	population	NOM	f.p	5.45	LEXIQUE383
 populeuse	populeux	ADJ	f.s	0.14	LEXIQUE383
 populeuses	populeux	ADJ	f.p	0.07	LEXIQUE383
 populeux	populeux	ADJ	m.e	0.38	LEXIQUE383
+populi	populi	ADV		0	LEXIQUE383
 populisme	populisme	NOM	m.s	0.05	LEXIQUE383
 populismes	populisme	NOM	m.p	0.04	LEXIQUE383
 populiste	populiste	ADJ	e.s	0.22	LEXIQUE383
@@ -106043,6 +106277,7 @@ postera	poster	VER	ind.fut.3s	0.04	LEXIQUE383
 posterai	poster	VER	ind.fut.1s	0.34	LEXIQUE383
 posterait	poster	VER	cond.pres.3s	0.04	LEXIQUE383
 posteras	poster	VER	ind.fut.2s	0.05	LEXIQUE383
+posteriori	posteriori	ADV		0	LEXIQUE383
 posterons	poster	VER	ind.fut.1p	0.1	LEXIQUE383
 posters	poster	ADJ	m.p	0.05	LEXIQUE383
 posters	poster	NOM	m.p	0.91	LEXIQUE383
@@ -107132,6 +107367,7 @@ prion	prion	NOM	m.s	0.21	LEXIQUE383
 prions	prier	VER	imp.pres.1p	3.81	LEXIQUE383
 prions	prier	VER	ind.pres.1p	0	LEXIQUE383
 prions	prion	NOM	m.p	1.61	LEXIQUE383
+priori	priori	ADV		0	LEXIQUE383
 prioritaire	prioritaire	ADJ	e.s	1.39	LEXIQUE383
 prioritaires	prioritaire	ADJ	e.p	0.42	LEXIQUE383
 priorité	priorité	NOM	f.s	6.69	LEXIQUE383
@@ -107703,6 +107939,7 @@ profonds	profond	ADJ	m.p	5.32	LEXIQUE383
 profonds	profond	NOM	m.p	0.27	LEXIQUE383
 profondément	profondément	ADV		26.8	LEXIQUE383
 profs	prof	NOM	e.p	6.3	LEXIQUE383
+profundis	profundis	NOM		0	LEXIQUE383
 profus	profus	ADJ	m.s	0.07	LEXIQUE383
 profuse	profus	ADJ	f.s	0.14	LEXIQUE383
 profuses	profus	ADJ	f.p	0.04	LEXIQUE383
@@ -108600,6 +108837,7 @@ protéique	protéique	ADJ	e.s	0.06	LEXIQUE383
 protéolytique	protéolytique	ADJ	f.s	0.04	LEXIQUE383
 protêt	protêt	NOM	m.s	0.04	LEXIQUE383
 protêts	protêt	NOM	m.p	0.04	LEXIQUE383
+prou	prou	ADV		0	LEXIQUE383
 proudhonisme	proudhonisme	NOM	m.s	0.04	LEXIQUE383
 proue	proue	NOM	f.s	3.32	LEXIQUE383
 proues	proue	NOM	f.p	0.07	LEXIQUE383
@@ -110407,6 +110645,7 @@ punaisées	punaiser	VER	ppas.f.p	0.07	LEXIQUE383
 punaisés	punaiser	VER	ppas.m.p	0.05	LEXIQUE383
 punch	punch	NOM	m.s	3.31	LEXIQUE383
 puncheur	puncheur	NOM	m.s	0.01	LEXIQUE383
+punching	punching	NOM		0	LEXIQUE383
 punching-ball	punching-ball	NOM	m.s	0.62	LEXIQUE383
 punchs	punch	NOM	m.p	0.08	LEXIQUE383
 punctiforme	punctiforme	ADJ	f.s	0.01	LEXIQUE383
@@ -111524,6 +111763,7 @@ q	q	NOM	m.e	2.05	LEXIQUE383
 qu	qu	CON		11.81	LEXIQUE383
 qu	qu	PRO		2.56	LEXIQUE383
 qu	qu	PRO		9.01	LEXIQUE383
+qua	qua	ADV		0	LEXIQUE383
 quadra	quadra	NOM	e.s	0.01	LEXIQUE383
 quadragénaire	quadragénaire	ADJ	e.s	0.24	LEXIQUE383
 quadragénaire	quadragénaire	NOM	e.s	0.46	LEXIQUE383
@@ -111644,6 +111884,7 @@ quant	quant	NOM	f.s	20.12	LEXIQUE383
 quant-à-moi	quant-à-moi	NOM	m.e	0.07	LEXIQUE383
 quant-à-soi	quant-à-soi	NOM	m.e	0.61	LEXIQUE383
 quanta	quantum	NOM	m.p	0.09	LEXIQUE383
+quanti	quanti	ADV		0	LEXIQUE383
 quantifiable	quantifiable	ADJ	e.s	0.07	LEXIQUE383
 quantifier	quantifier	VER	inf	0.14	LEXIQUE383
 quantifiée	quantifier	VER	ppas.f.s	0.01	LEXIQUE383
@@ -111912,6 +112153,7 @@ queursoir	queursoir	NOM	m.s	0.04	LEXIQUE383
 queutard	queutard	NOM	m.s	0.1	LEXIQUE383
 queuté	queuter	VER	ppas.m.s	0.04	LEXIQUE383
 queutée	queuter	VER	ppas.f.s	0.04	LEXIQUE383
+queux	queux	NOM		0	LEXIQUE383
 qui	qui	PRO		6621.44	LEXIQUE383
 qui	qui	PRO		98.44	LEXIQUE383
 qui-vive	qui-vive	INT		0.07	LEXIQUE383
@@ -112065,6 +112307,7 @@ quiétisme	quiétisme	NOM	m.s	0.17	LEXIQUE383
 quiétiste	quiétiste	NOM	e.s	0.04	LEXIQUE383
 quiétude	quiétude	NOM	f.s	2.85	LEXIQUE383
 quiétudes	quiétude	NOM	f.p	0.04	LEXIQUE383
+quo	quo	NOM		0	LEXIQUE383
 quoaillant	quoailler	VER	ppre	0.04	LEXIQUE383
 quoi	quoi	ADJ	m.s	884.55	LEXIQUE383
 quoi	quoi	INT		1.18	LEXIQUE383
@@ -114991,6 +115234,7 @@ rebroussant	rebrousser	VER	ppre	0.21	LEXIQUE383
 rebrousse	rebrousser	VER	imp.pres.2s	0.66	LEXIQUE383
 rebrousse	rebrousser	VER	ind.pres.1s	0	LEXIQUE383
 rebrousse	rebrousser	VER	ind.pres.3s	0	LEXIQUE383
+rebrousse-poil	rebrousse-poil	ADV		0	LEXIQUE383
 rebroussement	rebroussement	NOM	m.s	0.04	LEXIQUE383
 rebroussent	rebrousser	VER	ind.pres.3p	0.12	LEXIQUE383
 rebrousser	rebrousser	VER	inf	1.29	LEXIQUE383
@@ -116078,6 +116322,7 @@ recélait	recéler	VER	ind.impf.3s	0.18	LEXIQUE383
 recélant	recéler	VER	ppre	0.04	LEXIQUE383
 recéler	recéler	VER	inf	0.07	LEXIQUE383
 recépages	recépage	NOM	m.p	0.04	LEXIQUE383
+red	red	NOM		0	LEXIQUE383
 redan	redan	NOM	m.s	0.14	LEXIQUE383
 reddition	reddition	NOM	f.s	2.73	LEXIQUE383
 redemanda	redemander	VER	ind.ps.3s	0.3	LEXIQUE383
@@ -117011,6 +117256,7 @@ reichsmark	reichsmark	NOM	m.e	0.01	LEXIQUE383
 reichstag	reichstag	NOM	m.s	0.77	LEXIQUE383
 reichswehr	reichswehr	NOM	f.s	0.07	LEXIQUE383
 rein	rein	NOM	m.s	3.15	LEXIQUE383
+reina	reina	NOM		0	LEXIQUE383
 reine	reine	NOM	f.s	43.13	LEXIQUE383
 reine-claude	reine-claude	NOM	f.s	0.07	LEXIQUE383
 reine-mère	reine-mère	NOM	f.s	0.17	LEXIQUE383
@@ -119758,6 +120004,7 @@ requiem	requiem	NOM	m.s	1.68	LEXIQUE383
 requiems	requiem	NOM	m.p	0.04	LEXIQUE383
 requiers	requérir	VER	ind.pres.1s	0.38	LEXIQUE383
 requiert	requérir	VER	ind.pres.3s	1.64	LEXIQUE383
+requiescat	requiescat	NOM		0	LEXIQUE383
 requin	requin	NOM	m.s	4.88	LEXIQUE383
 requin-baleine	requin-baleine	NOM	m.s	0.01	LEXIQUE383
 requin-tigre	requin-tigre	NOM	m.s	0.02	LEXIQUE383
@@ -120853,6 +121100,7 @@ retrempait	retremper	VER	ind.impf.3s	0.04	LEXIQUE383
 retremper	retremper	VER	inf	0.27	LEXIQUE383
 retrempé	retremper	VER	ppas.m.s	0.07	LEXIQUE383
 retriever	retriever	NOM	m.s	0.09	LEXIQUE383
+retro	retro	ADV		0	LEXIQUE383
 retroussa	retrousser	VER	ind.ps.3s	0.28	LEXIQUE383
 retroussage	retroussage	NOM	m.s	0.04	LEXIQUE383
 retroussaient	retrousser	VER	ind.impf.3p	0.1	LEXIQUE383
@@ -121382,6 +121630,7 @@ rhumerie	rhumerie	NOM	f.s	0.09	LEXIQUE383
 rhumes	rhume	NOM	m.p	0.57	LEXIQUE383
 rhynchites	rhynchite	NOM	m.p	0.04	LEXIQUE383
 rhyolite	rhyolite	NOM	f.s	0.01	LEXIQUE383
+rhythm	rhythm	NOM		0	LEXIQUE383
 rhythm’n’blues	rhythm’n’blues	NOM	m.e	0.01	LEXIQUE383
 rhénan	rhénan	ADJ	m.s	0.1	LEXIQUE383
 rhénane	rhénan	ADJ	f.s	0.2	LEXIQUE383
@@ -121431,6 +121680,7 @@ riboulant	ribouler	VER	ppre	0.07	LEXIQUE383
 riboulants	riboulant	ADJ	m.p	0.04	LEXIQUE383
 ribouldingue	ribouldingue	NOM	f.s	0.21	LEXIQUE383
 ribouler	ribouler	VER	inf	0.04	LEXIQUE383
+ric	ric	ADV		0	LEXIQUE383
 ric-rac	ric-rac	ADV		0.26	LEXIQUE383
 ric-à-rac	ric-à-rac	ADV		0.1	LEXIQUE383
 ricain	ricain	ADJ	m.s	0.29	LEXIQUE383
@@ -121595,6 +121845,7 @@ riflette	riflette	NOM	f.s	0.3	LEXIQUE383
 rift	rift	NOM	m.s	0.12	LEXIQUE383
 rigaudon	rigaudon	NOM	m.s	0.01	LEXIQUE383
 rigaudons	rigaudon	NOM	m.p	0.04	LEXIQUE383
+right	right	ADV		0	LEXIQUE383
 rigide	rigide	ADJ	e.s	4.69	LEXIQUE383
 rigidement	rigidement	ADV		0.07	LEXIQUE383
 rigides	rigide	ADJ	e.p	1.91	LEXIQUE383
@@ -121978,7 +122229,9 @@ riz-pain-sel	riz-pain-sel	NOM	m.s	0.04	LEXIQUE383
 rizière	rizière	NOM	f.s	3.22	LEXIQUE383
 rizières	rizière	NOM	f.p	1.9	LEXIQUE383
 roadster	roadster	NOM	m.s	0.15	LEXIQUE383
+roast	roast	NOM		0	LEXIQUE383
 roast-beef	roast-beef	NOM	m.s	0.07	LEXIQUE383
+robbia	robbia	NOM		0	LEXIQUE383
 robe	robe	NOM	f.s	92.34	LEXIQUE383
 rober	rober	VER	inf	0.01	LEXIQUE383
 robert	robert	NOM	m.s	0.85	LEXIQUE383
@@ -122045,6 +122298,7 @@ rockets	rocket	NOM	m.p	0.17	LEXIQUE383
 rockeur	rockeur	NOM	m.s	0.09	LEXIQUE383
 rockeurs	rockeur	NOM	m.p	0.03	LEXIQUE383
 rockeuse	rockeur	NOM	f.s	0.11	LEXIQUE383
+rocking	rocking	NOM		0	LEXIQUE383
 rocking-chair	rocking-chair	NOM	m.s	0.61	LEXIQUE383
 rocking-chairs	rocking-chair	NOM	m.p	0.11	LEXIQUE383
 rocks	rock	NOM	m.p	0.53	LEXIQUE383
@@ -127403,6 +127657,7 @@ sampangs	sampang	NOM	m.p	0.04	LEXIQUE383
 sample	sample	NOM	m.s	0.04	LEXIQUE383
 sampler	sampler	NOM	m.s	0.05	LEXIQUE383
 samurai	samurai	NOM	m.s	0.34	LEXIQUE383
+san	san	NOM		0	LEXIQUE383
 sana	sana	NOM	m.s	1.42	LEXIQUE383
 sanas	sana	NOM	m.p	0.07	LEXIQUE383
 sanatorium	sanatorium	NOM	m.s	2.89	LEXIQUE383
@@ -127553,6 +127808,7 @@ santal	santal	NOM	m.s	0.48	LEXIQUE383
 santals	santal	NOM	m.p	0.14	LEXIQUE383
 santiag	santiag	NOM	f.s	0.04	LEXIQUE383
 santiags	santiag	NOM	m.p	0.74	LEXIQUE383
+santis	santis	NOM		0	LEXIQUE383
 santoche	santoche	NOM	f.s	0.04	LEXIQUE383
 santon	santon	NOM	m.s	0.01	LEXIQUE383
 santons	santon	NOM	m.p	0.17	LEXIQUE383
@@ -128419,6 +128675,7 @@ scellés	sceller	VER	ppas.m.p	0.46	LEXIQUE383
 scellés	scellé	ADJ	m.p	0.42	LEXIQUE383
 scellés	scellé	NOM	m.p	1.56	LEXIQUE383
 scenarii	scenarii	NOM	m.p	0.04	LEXIQUE383
+scenic	scenic	NOM		0	LEXIQUE383
 scepticisme	scepticisme	NOM	m.s	2.81	LEXIQUE383
 sceptique	sceptique	ADJ	e.s	3.4	LEXIQUE383
 sceptique	sceptique	NOM	e.s	0.49	LEXIQUE383
@@ -128477,6 +128734,7 @@ schnoques	schnoque	NOM	e.p	0.08	LEXIQUE383
 schnouf	schnouf	NOM	f.s	0.01	LEXIQUE383
 schnouff	schnouff	NOM	f.s	0.01	LEXIQUE383
 schnouffe	schnouffer	VER	ind.pres.3s	0.04	LEXIQUE383
+schools	schools	NOM		0	LEXIQUE383
 schooner	schooner	NOM	m.s	0.01	LEXIQUE383
 schooners	schooner	NOM	m.p	0.01	LEXIQUE383
 schpile	schpile	NOM	m.s	0.64	LEXIQUE383
@@ -128966,7 +129224,9 @@ sectoriels	sectoriel	ADJ	m.p	0.04	LEXIQUE383
 sectorisation	sectorisation	NOM	f.s	0.01	LEXIQUE383
 secundo	secundo	ADV		1.26	LEXIQUE383
 sedan	sedan	NOM	m.s	0.06	LEXIQUE383
+sedia	sedia	NOM		0	LEXIQUE383
 sedums	sedum	NOM	m.p	0.04	LEXIQUE383
+see	see	NOM		0	LEXIQUE383
 seersucker	seersucker	NOM	m.s	0.01	LEXIQUE383
 segment	segment	NOM	m.s	0.62	LEXIQUE383
 segmentaire	segmentaire	ADJ	e.s	0.01	LEXIQUE383
@@ -129007,6 +129267,7 @@ self	self	NOM	m.s	0.47	LEXIQUE383
 self-control	self-control	NOM	m.s	0.25	LEXIQUE383
 self-contrôle	self-contrôle	NOM	m.s	0.13	LEXIQUE383
 self-défense	self-défense	NOM	f.s	0.09	LEXIQUE383
+self-made	self-made	NOM		0	LEXIQUE383
 self-made-man	self-made-man	NOM	m.s	0.05	LEXIQUE383
 self-made-men	self-made-men	NOM	m.p	0.04	LEXIQUE383
 self-service	self-service	NOM	m.s	0.41	LEXIQUE383
@@ -129191,6 +129452,7 @@ sensoriel	sensoriel	ADJ	m.s	0.15	LEXIQUE383
 sensorielle	sensoriel	ADJ	f.s	0.29	LEXIQUE383
 sensorielles	sensoriel	ADJ	f.p	0.12	LEXIQUE383
 sensoriels	sensoriel	ADJ	m.p	0.16	LEXIQUE383
+sensu	sensu	ADV		0	LEXIQUE383
 sensualiste	sensualiste	NOM	e.s	0.04	LEXIQUE383
 sensualité	sensualité	NOM	f.s	3.92	LEXIQUE383
 sensualités	sensualité	NOM	f.p	0.04	LEXIQUE383
@@ -129320,6 +129582,7 @@ septuor	septuor	NOM	m.s	0.01	LEXIQUE383
 septuple	septuple	ADJ	m.s	0.01	LEXIQUE383
 septuple	septuple	NOM	m.s	0.01	LEXIQUE383
 sepuku	sepuku	NOM	m.s	0.04	LEXIQUE383
+seq	seq	ADV		0	LEXIQUE383
 sequin	sequin	NOM	m.s	0.04	LEXIQUE383
 sequins	sequin	NOM	m.p	0.24	LEXIQUE383
 sera	être	AUX	ind.fut.3s	113.05	LEXIQUE383
@@ -129648,6 +129911,7 @@ sevré	sevrer	VER	ppas.m.s	0.51	LEXIQUE383
 sevrée	sevrer	VER	ppas.f.s	0.43	LEXIQUE383
 sevrées	sevrer	VER	ppas.f.p	0.01	LEXIQUE383
 sevrés	sevrer	VER	ppas.m.p	0.22	LEXIQUE383
+sex	sex	NOM		0	LEXIQUE383
 sex-appeal	sex-appeal	NOM	m.s	0.53	LEXIQUE383
 sex-shop	sex-shop	NOM	m.s	0.38	LEXIQUE383
 sex-shops	sex-shop	NOM	m.p	0.14	LEXIQUE383
@@ -129693,6 +129957,7 @@ señor	señor	NOM	m.s	4.88	LEXIQUE383
 shabbat	shabbat	NOM	m.s	2.5	LEXIQUE383
 shah	shah	NOM	m.s	0.83	LEXIQUE383
 shahs	shah	NOM	m.p	0.04	LEXIQUE383
+shake	shake	NOM		0	LEXIQUE383
 shake-hand	shake-hand	NOM	m.s	0.07	LEXIQUE383
 shaker	shaker	NOM	m.s	0.66	LEXIQUE383
 shakespearien	shakespearien	ADJ	m.s	0.21	LEXIQUE383
@@ -129722,6 +129987,7 @@ shanghaien	shanghaien	ADJ	m.s	0.01	LEXIQUE383
 shanghaien	shanghaien	NOM	m.s	0.01	LEXIQUE383
 shanghaiens	shanghaien	NOM	m.p	0.01	LEXIQUE383
 shantung	shantung	NOM	m.s	0.54	LEXIQUE383
+shave	shave	NOM		0	LEXIQUE383
 shed	shed	NOM	m.s	0.09	LEXIQUE383
 shekels	shekel	NOM	m.p	0.52	LEXIQUE383
 sheriff	sheriff	NOM	m.s	1.38	LEXIQUE383
@@ -129776,8 +130042,10 @@ shoots	shoot	NOM	m.p	0.18	LEXIQUE383
 shooté	shooter	VER	ppas.m.s	0.98	LEXIQUE383
 shootée	shooter	VER	ppas.f.s	0.3	LEXIQUE383
 shootés	shooter	VER	ppas.m.p	0.1	LEXIQUE383
+shop	shop	NOM		0	LEXIQUE383
 shopping	shopping	NOM	m.s	3.05	LEXIQUE383
 shoppings	shopping	NOM	m.p	0.09	LEXIQUE383
+shops	shops	NOM		0	LEXIQUE383
 short	short	NOM	m.s	5.17	LEXIQUE383
 shorts	short	NOM	m.p	1.16	LEXIQUE383
 shoshones	shoshone	NOM	e.p	0.04	LEXIQUE383
@@ -130261,6 +130529,7 @@ sincèrement	sincèrement	ADV		13.34	LEXIQUE383
 sincères	sincère	ADJ	e.p	4.08	LEXIQUE383
 sincérité	sincérité	NOM	f.s	6.71	LEXIQUE383
 sindon	sindon	NOM	m.s	0.14	LEXIQUE383
+sine	sine	ADV		0	LEXIQUE383
 singe	singe	NOM	m.s	18.3	LEXIQUE383
 singe	singer	VER	ind.pres.1s	0.17	LEXIQUE383
 singe	singer	VER	ind.pres.3s	0	LEXIQUE383
@@ -130662,6 +130931,7 @@ snobé	snober	VER	ppas.m.s	0.18	LEXIQUE383
 snobée	snober	VER	ppas.f.s	0.04	LEXIQUE383
 snobés	snober	VER	ppas.m.p	0.05	LEXIQUE383
 snow-boots	snow-boot	NOM	m.p	0.04	LEXIQUE383
+soap	soap	NOM		0	LEXIQUE383
 soap-opéra	soap-opéra	NOM	m.s	0.07	LEXIQUE383
 sobre	sobre	ADJ	e.s	4.52	LEXIQUE383
 sobrement	sobrement	ADV		0.67	LEXIQUE383
@@ -130702,6 +130972,7 @@ socialos	socialo	NOM	e.p	0.08	LEXIQUE383
 sociaux	social	ADJ	m.p	4.22	LEXIQUE383
 sociaux-démocrates	social-démocrate	NOM	m.p	0.21	LEXIQUE383
 sociaux-démocrates	sociaux-démocrates	ADJ	m.e	0.12	LEXIQUE383
+society	society	NOM		0	LEXIQUE383
 sociniens	socinien	NOM	m.p	0.04	LEXIQUE383
 socio	socio	ADV		0.12	LEXIQUE383
 socio	socio	NOM	f.s	0.01	LEXIQUE383
@@ -132500,6 +132771,7 @@ souvenons	souvenir	VER	imp.pres.1p	0.62	LEXIQUE383
 souvenons	souvenir	VER	ind.pres.1p	0	LEXIQUE383
 souvent	souvent	ADV		211.25	LEXIQUE383
 souventefois	souventefois	ADV		0.07	LEXIQUE383
+souventes	souventes	ADV		0	LEXIQUE383
 souvenu	souvenir	VER	ppas.m.s	3.54	LEXIQUE383
 souvenue	souvenir	VER	ppas.f.s	1.12	LEXIQUE383
 souvenus	souvenir	VER	ppas.m.p	0.1	LEXIQUE383
@@ -132755,6 +133027,7 @@ spirite	spirite	NOM	e.s	0.04	LEXIQUE383
 spirites	spirite	ADJ	f.p	0.04	LEXIQUE383
 spirites	spirite	NOM	e.p	0.02	LEXIQUE383
 spiritisme	spiritisme	NOM	m.s	1.01	LEXIQUE383
+spiritual	spiritual	NOM		0	LEXIQUE383
 spiritualisaient	spiritualiser	VER	ind.impf.3p	0.04	LEXIQUE383
 spiritualise	spiritualiser	VER	ind.pres.3s	0.1	LEXIQUE383
 spiritualiser	spiritualiser	VER	inf	0.04	LEXIQUE383
@@ -132765,6 +133038,7 @@ spiritualistes	spiritualiste	NOM	e.p	0.01	LEXIQUE383
 spiritualisé	spiritualiser	VER	ppas.m.s	0.26	LEXIQUE383
 spiritualité	spiritualité	NOM	f.s	0.94	LEXIQUE383
 spiritualités	spiritualité	NOM	f.p	0.04	LEXIQUE383
+spirituals	spirituals	NOM		0	LEXIQUE383
 spirituel	spirituel	ADJ	m.s	5.88	LEXIQUE383
 spirituel	spirituel	NOM	m.s	0.41	LEXIQUE383
 spirituelle	spirituel	ADJ	f.s	5.02	LEXIQUE383
@@ -133002,6 +133276,8 @@ squelettique	squelettique	ADJ	e.s	1.19	LEXIQUE383
 squelettiques	squelettique	ADJ	e.p	0.73	LEXIQUE383
 squire	squire	NOM	m.s	0.04	LEXIQUE383
 squires	squire	NOM	m.p	0.01	LEXIQUE383
+sri	sri	ADJ		0	LEXIQUE383
+stabat	stabat	NOM		0	LEXIQUE383
 stabilisa	stabiliser	VER	ind.ps.3s	0.01	LEXIQUE383
 stabilisait	stabiliser	VER	ind.impf.3s	0.07	LEXIQUE383
 stabilisant	stabilisant	NOM	m.s	0.01	LEXIQUE383
@@ -133160,6 +133436,7 @@ statistiquement	statistiquement	ADV		0.49	LEXIQUE383
 statistiquer	statistiquer	VER	inf	0.04	LEXIQUE383
 statistiques	statistique	ADJ	e.p	0.46	LEXIQUE383
 statistiques	statistique	NOM	f.p	3.95	LEXIQUE383
+statu	statu	NOM		0	LEXIQUE383
 statuaient	statuer	VER	ind.impf.3p	0.04	LEXIQUE383
 statuaire	statuaire	ADJ	f.s	0.1	LEXIQUE383
 statuaire	statuaire	NOM	e.s	0.44	LEXIQUE383
@@ -133365,6 +133642,7 @@ stops	stop	NOM	m.p	0.21	LEXIQUE383
 storage	storage	NOM	m.s	0.01	LEXIQUE383
 store	store	NOM	m.s	2.74	LEXIQUE383
 stores	store	NOM	m.p	2.6	LEXIQUE383
+story	story	NOM		0	LEXIQUE383
 story-board	story-board	NOM	m.s	0.12	LEXIQUE383
 story-boards	story-board	NOM	m.p	0.01	LEXIQUE383
 stout	stout	NOM	m.s	0.3	LEXIQUE383
@@ -133381,6 +133659,7 @@ strabisme	strabisme	NOM	m.s	0.45	LEXIQUE383
 strabismes	strabisme	NOM	m.p	0.04	LEXIQUE383
 stradivarius	stradivarius	NOM	m.e	0.06	LEXIQUE383
 straight	straight	ADJ	e.s	0.27	LEXIQUE383
+stram	stram	INT		0	LEXIQUE383
 stramoine	stramoine	NOM	f.s	0.01	LEXIQUE383
 stramonium	stramonium	NOM	m.s	0.02	LEXIQUE383
 strangula	stranguler	VER	ind.ps.3s	0.04	LEXIQUE383
@@ -133418,6 +133697,7 @@ stratégique	stratégique	ADJ	e.s	4.61	LEXIQUE383
 stratégiquement	stratégiquement	ADV		0.42	LEXIQUE383
 stratégiques	stratégique	ADJ	e.p	2.06	LEXIQUE383
 stratégiste	stratégiste	NOM	e.s	0.01	LEXIQUE383
+street	street	NOM		0	LEXIQUE383
 strelitzia	strelitzia	NOM	m.s	0.01	LEXIQUE383
 streptococcie	streptococcie	NOM	f.s	0.01	LEXIQUE383
 streptococcique	streptococcique	ADJ	f.s	0.01	LEXIQUE383
@@ -133452,6 +133732,7 @@ strict	strict	ADJ	m.s	5.2	LEXIQUE383
 stricte	strict	ADJ	f.s	3.92	LEXIQUE383
 strictement	strictement	ADV		6.43	LEXIQUE383
 strictes	strict	ADJ	f.p	1.2	LEXIQUE383
+stricto	stricto	ADV		0	LEXIQUE383
 stricts	strict	ADJ	m.p	0.71	LEXIQUE383
 stridence	stridence	NOM	f.s	0.48	LEXIQUE383
 stridences	stridence	NOM	f.p	0.51	LEXIQUE383
@@ -133531,6 +133812,7 @@ structurée	structuré	ADJ	f.s	0.07	LEXIQUE383
 structurés	structuré	ADJ	m.p	0.07	LEXIQUE383
 strudel	strudel	NOM	m.s	0.22	LEXIQUE383
 strudels	strudel	NOM	m.p	0.22	LEXIQUE383
+struggle	struggle	NOM		0	LEXIQUE383
 strychnine	strychnine	NOM	f.s	0.47	LEXIQUE383
 strychnos	strychnos	NOM	m.e	0.01	LEXIQUE383
 stryges	stryge	NOM	f.p	0.04	LEXIQUE383
@@ -134255,6 +134537,7 @@ sues	su	ADJ	f.p	0.01	LEXIQUE383
 sues	suer	VER	ind.pres.2s	0.24	LEXIQUE383
 sueur	sueur	NOM	f.s	33.78	LEXIQUE383
 sueurs	sueur	NOM	f.p	2.25	LEXIQUE383
+suey	suey	NOM		0	LEXIQUE383
 suez	suer	VER	imp.pres.2p	0.21	LEXIQUE383
 suez	suer	VER	ind.pres.2p	0	LEXIQUE383
 suffi	suffire	VER	ppas.m.s	11.24	LEXIQUE383
@@ -134323,6 +134606,7 @@ suffragette	suffragette	NOM	f.s	0.2	LEXIQUE383
 suffragettes	suffragette	NOM	f.p	0.04	LEXIQUE383
 suffète	suffète	NOM	m.s	0.04	LEXIQUE383
 suffît	suffire	VER	sub.impf.3s	0.39	LEXIQUE383
+sugar	sugar	NOM		0	LEXIQUE383
 suggestibilité	suggestibilité	NOM	f.s	0.01	LEXIQUE383
 suggestif	suggestif	ADJ	m.s	0.27	LEXIQUE383
 suggestifs	suggestif	ADJ	m.p	0.08	LEXIQUE383
@@ -135547,6 +135831,7 @@ sursis	surseoir	VER	ppas.m.e	0.15	LEXIQUE383
 sursis	sursis	NOM	m.e	5.48	LEXIQUE383
 sursitaire	sursitaire	ADJ	e.s	0.01	LEXIQUE383
 sursitaires	sursitaire	NOM	e.p	0.04	LEXIQUE383
+sursum	sursum	ADV		0	LEXIQUE383
 surtaxe	surtaxe	NOM	f.s	0.1	LEXIQUE383
 surtaxer	surtaxer	VER	inf	0.01	LEXIQUE383
 surtaxes	surtaxe	NOM	f.p	0.04	LEXIQUE383
@@ -137027,6 +137312,7 @@ take-off	take-off	NOM	m.e	0.04	LEXIQUE383
 tala	tala	NOM	m.s	0.21	LEXIQUE383
 talait	taler	VER	ind.impf.3s	0.07	LEXIQUE383
 talas	tala	NOM	m.p	0.1	LEXIQUE383
+talavera	talavera	NOM		0	LEXIQUE383
 talbin	talbin	NOM	m.s	0.24	LEXIQUE383
 talbins	talbin	NOM	m.p	0.53	LEXIQUE383
 talc	talc	NOM	m.s	1.44	LEXIQUE383
@@ -137196,6 +137482,7 @@ tancée	tancer	VER	ppas.f.s	0.04	LEXIQUE383
 tancés	tancer	VER	ppas.m.p	0.04	LEXIQUE383
 tandem	tandem	NOM	m.s	1.21	LEXIQUE383
 tandems	tandem	NOM	m.p	0.1	LEXIQUE383
+tandis	tandis	CON		0	LEXIQUE383
 tandoori	tandoori	NOM	m.s	0.03	LEXIQUE383
 tangage	tangage	NOM	m.s	0.66	LEXIQUE383
 tangara	tangara	NOM	m.s	0.03	LEXIQUE383
@@ -137381,6 +137668,7 @@ tapinerais	tapiner	VER	cond.pres.1s	0.01	LEXIQUE383
 tapines	tapiner	VER	ind.pres.2s	0.06	LEXIQUE383
 tapineuse	tapineur	NOM	f.s	0.13	LEXIQUE383
 tapineuses	tapineur	NOM	f.p	0.18	LEXIQUE383
+tapinois	tapinois	ADV		0	LEXIQUE383
 tapins	tapin	NOM	m.p	0.94	LEXIQUE383
 tapiné	tapiner	VER	ppas.m.s	0.04	LEXIQUE383
 tapinée	tapiner	VER	ppas.f.s	0.04	LEXIQUE383
@@ -137871,6 +138159,7 @@ taxés	taxer	VER	ppas.m.p	0.05	LEXIQUE383
 taxés	taxé	ADJ	m.p	0.03	LEXIQUE383
 taylorisme	taylorisme	NOM	m.s	0.04	LEXIQUE383
 taylorisé	tayloriser	VER	ppas.m.s	0.04	LEXIQUE383
+taï	taï	NOM		0	LEXIQUE383
 taïaut	taïaut	INT		0.47	LEXIQUE383
 taïga	taïga	NOM	f.s	1.19	LEXIQUE383
 taïgas	taïga	NOM	f.p	0.04	LEXIQUE383
@@ -137889,6 +138178,7 @@ tcherkesse	tcherkesse	NOM	m.s	0.04	LEXIQUE383
 tchernoziom	tchernoziom	NOM	m.s	0.07	LEXIQUE383
 tchetnik	tchetnik	NOM	m.s	0.41	LEXIQUE383
 tchetniks	tchetnik	NOM	m.p	0.01	LEXIQUE383
+tchin	tchin	INT		0	LEXIQUE383
 tchin-tchin	tchin-tchin	INT		0.12	LEXIQUE383
 tchèque	tchèque	ADJ	e.s	1.26	LEXIQUE383
 tchèque	tchèque	NOM	e.s	0.61	LEXIQUE383
@@ -137908,6 +138198,7 @@ team	team	NOM	m.s	6.94	LEXIQUE383
 teams	team	NOM	m.p	0.12	LEXIQUE383
 teaser	teaser	NOM	m.s	0.02	LEXIQUE383
 tec	tec	NOM	m.e	0.01	LEXIQUE383
+tech	tech	ADJ		0	LEXIQUE383
 technicien	technicien	ADJ	m.s	0.67	LEXIQUE383
 technicien	technicien	NOM	m.s	1.5	LEXIQUE383
 technicienne	technicien	ADJ	f.s	0.21	LEXIQUE383
@@ -138939,6 +139230,7 @@ timbrées	timbrer	VER	ppas.f.p	0.07	LEXIQUE383
 timbrées	timbré	ADJ	f.p	0.08	LEXIQUE383
 timbrés	timbrer	VER	ppas.m.p	0.15	LEXIQUE383
 timbrés	timbré	ADJ	m.p	0.38	LEXIQUE383
+time	time	NOM		0	LEXIQUE383
 time-sharing	time-sharing	NOM	m.s	0.01	LEXIQUE383
 timide	timide	ADJ	e.s	16.86	LEXIQUE383
 timidement	timidement	ADV		5.66	LEXIQUE383
@@ -139616,6 +139908,7 @@ tonnes	tonner	VER	ind.pres.2s	0.07	LEXIQUE383
 tonnes	tonner	VER	sub.pres.2s	0	LEXIQUE383
 tonnez	tonner	VER	imp.pres.2p	0.04	LEXIQUE383
 tonné	tonner	VER	ppas.m.s	0.2	LEXIQUE383
+tono	tono	ADV		0	LEXIQUE383
 tons	ton	NOM	m.p	4.71	LEXIQUE383
 tonsure	tonsure	NOM	f.s	0.83	LEXIQUE383
 tonsures	tonsure	NOM	f.p	0.04	LEXIQUE383
@@ -139624,6 +139917,7 @@ tonte	tonte	NOM	f.s	0.46	LEXIQUE383
 tonton	tonton	NOM	m.s	12.91	LEXIQUE383
 tontons	tonton	NOM	m.p	0.31	LEXIQUE383
 tonus	tonus	NOM	m.e	0.47	LEXIQUE383
+too	too	ADJ		0	LEXIQUE383
 top	top	NOM	m.s	10.63	LEXIQUE383
 top-modèle	top-modèle	NOM	f.s	0.1	LEXIQUE383
 top-modèles	top-modèle	NOM	f.p	0.01	LEXIQUE383
@@ -141576,6 +141870,7 @@ travestissement	travestissement	NOM	m.s	0.41	LEXIQUE383
 travestissements	travestissement	NOM	m.p	0.1	LEXIQUE383
 travestissez	travestir	VER	ind.pres.2p	0.04	LEXIQUE383
 travestit	travestir	VER	ind.pres.3s	0.08	LEXIQUE383
+traviole	traviole	ADV		0	LEXIQUE383
 travois	travois	NOM	m.e	0.01	LEXIQUE383
 travée	travée	NOM	f.s	0.83	LEXIQUE383
 travées	travée	NOM	f.p	1.04	LEXIQUE383
@@ -141779,6 +142074,7 @@ tremblées	trembler	VER	ppas.f.p	0.04	LEXIQUE383
 tremblées	tremblé	ADJ	f.p	0.08	LEXIQUE383
 tremblés	trembler	VER	ppas.m.p	0.07	LEXIQUE383
 tremblés	tremblé	ADJ	m.p	0.14	LEXIQUE383
+tremens	tremens	NOM		0	LEXIQUE383
 tremolos	tremolo	NOM	m.p	0.04	LEXIQUE383
 trempa	tremper	VER	ind.ps.3s	0.91	LEXIQUE383
 trempage	trempage	NOM	m.s	0.1	LEXIQUE383
@@ -142595,6 +142891,7 @@ tropismes	tropisme	NOM	m.p	0.04	LEXIQUE383
 troposphère	troposphère	NOM	f.s	0.11	LEXIQUE383
 troposphérique	troposphérique	ADJ	f.s	0.07	LEXIQUE383
 troposphériques	troposphérique	ADJ	e.p	0.04	LEXIQUE383
+troppo	troppo	ADV		0	LEXIQUE383
 tropézienne	tropézien	NOM	f.s	0.07	LEXIQUE383
 tropéziens	tropézien	ADJ	m.p	0.04	LEXIQUE383
 troqua	troquer	VER	ind.ps.3s	0.22	LEXIQUE383
@@ -143129,6 +143426,7 @@ tsigane	tsigane	NOM	e.s	0.11	LEXIQUE383
 tsiganes	tsigane	ADJ	e.p	0.04	LEXIQUE383
 tsiganes	tsigane	NOM	e.p	0.14	LEXIQUE383
 tsoin-tsoin	tsoin-tsoin	NOM	m.s	0.24	LEXIQUE383
+tss	tss	NOM		0	LEXIQUE383
 tss-tss	tss-tss	NOM	m.e	0.04	LEXIQUE383
 tsuica	tsuica	NOM	f.s	0.07	LEXIQUE383
 tsunami	tsunami	NOM	m.s	0.27	LEXIQUE383
@@ -143198,6 +143496,7 @@ tue-loups	tue-loup	NOM	m.p	0.01	LEXIQUE383
 tue-mouche	tue-mouche	ADJ	m.s	0.04	LEXIQUE383
 tue-mouches	tue-mouche	ADJ	e.p	0.31	LEXIQUE383
 tue-mouches	tue-mouche	NOM	m.p	0.21	LEXIQUE383
+tue-tête	tue-tête	ADV		0	LEXIQUE383
 tuent	tuer	VER	ind.pres.3p	8.7	LEXIQUE383
 tuer	tuer	VER	inf	205.86	LEXIQUE383
 tuera	tuer	VER	ind.fut.3s	10.34	LEXIQUE383
@@ -143418,6 +143717,7 @@ tutoyé	tutoyer	VER	ppas.m.s	0.21	LEXIQUE383
 tutoyée	tutoyer	VER	ppas.f.s	0.11	LEXIQUE383
 tutoyés	tutoyer	VER	ppas.m.p	0.08	LEXIQUE383
 tutrice	tuteur	NOM	f.s	0.46	LEXIQUE383
+tutti	tutti	ADV		0	LEXIQUE383
 tutu	tutu	NOM	m.s	1.8	LEXIQUE383
 tutus	tutu	NOM	m.p	0.41	LEXIQUE383
 tutute	tutut	NOM	f.s	0.17	LEXIQUE383
@@ -144050,6 +144350,7 @@ ulcérés	ulcérer	VER	ppas.m.p	0.07	LEXIQUE383
 ulcérés	ulcéré	ADJ	m.p	0.04	LEXIQUE383
 ulna	ulna	NOM	f.s	0.01	LEXIQUE383
 ulnaire	ulnaire	ADJ	m.s	0.01	LEXIQUE383
+ultima	ultima	NOM		0	LEXIQUE383
 ultimatum	ultimatum	NOM	m.s	1.39	LEXIQUE383
 ultimatums	ultimatum	NOM	m.p	0.04	LEXIQUE383
 ultime	ultime	ADJ	e.s	14.75	LEXIQUE383
@@ -144253,6 +144554,7 @@ unième	unième	ADJ	e.s	0.49	LEXIQUE383
 uns	uns	PRO		39.32	LEXIQUE383
 untel	untel	NOM	m.s	1.9	LEXIQUE383
 unît	unir	VER	sub.impf.3s	0.04	LEXIQUE383
+up	up	NOM		0	LEXIQUE383
 upanisads	upanisad	NOM	f.p	0.04	LEXIQUE383
 upanishad	upanishad	NOM	m.e	0.05	LEXIQUE383
 upas	upas	ADV		0.01	LEXIQUE383
@@ -144280,6 +144582,7 @@ urbanistes	urbaniste	NOM	e.p	0.28	LEXIQUE383
 urbanisé	urbaniser	VER	ppas.m.s	0.04	LEXIQUE383
 urbanisée	urbaniser	VER	ppas.f.s	0.01	LEXIQUE383
 urbanité	urbanité	NOM	f.s	0.2	LEXIQUE383
+urbi	urbi	ADV		0	LEXIQUE383
 urdu	urdu	NOM	m.s	0.01	LEXIQUE383
 ures	ure	NOM	m.p	0.04	LEXIQUE383
 uretère	uretère	NOM	m.s	0.02	LEXIQUE383
@@ -144446,6 +144749,7 @@ usées	usé	ADJ	f.p	1.6	LEXIQUE383
 usés	user	VER	ppas.m.p	1.57	LEXIQUE383
 usés	usé	ADJ	m.p	2.22	LEXIQUE383
 ut	ut	NOM	m.e	0.78	LEXIQUE383
+utero	utero	ADJ		0	LEXIQUE383
 utile	utile	ADJ	e.s	30.23	LEXIQUE383
 utile	utile	NOM	m.s	1.69	LEXIQUE383
 utilement	utilement	ADV		0.76	LEXIQUE383
@@ -144602,6 +144906,7 @@ vacuité	vacuité	NOM	f.s	0.84	LEXIQUE383
 vacuole	vacuole	NOM	f.s	0.01	LEXIQUE383
 vacuolisation	vacuolisation	NOM	f.s	0.01	LEXIQUE383
 vacuum	vacuum	NOM	m.s	0.17	LEXIQUE383
+vade	vade	ADV		0	LEXIQUE383
 vadrouillais	vadrouiller	VER	ind.impf.2s	0.04	LEXIQUE383
 vadrouillait	vadrouiller	VER	ind.impf.3s	0.04	LEXIQUE383
 vadrouille	vadrouille	NOM	f.s	1.25	LEXIQUE383
@@ -144618,6 +144923,7 @@ vadrouilleuse	vadrouilleur	NOM	f.s	0.04	LEXIQUE383
 vadrouilleuses	vadrouilleur	NOM	f.p	0.04	LEXIQUE383
 vadrouillez	vadrouiller	VER	ind.pres.2p	0.01	LEXIQUE383
 vadrouillé	vadrouiller	VER	ppas.m.s	0.07	LEXIQUE383
+vae	vae	ADV		0	LEXIQUE383
 vagabond	vagabond	ADJ	m.s	1.13	LEXIQUE383
 vagabond	vagabond	NOM	m.s	3.24	LEXIQUE383
 vagabonda	vagabonder	VER	ind.ps.3s	0.04	LEXIQUE383
@@ -145076,6 +145382,7 @@ varierai	varier	VER	ind.fut.1s	0.04	LEXIQUE383
 varieraient	varier	VER	cond.pres.3p	0.04	LEXIQUE383
 varierait	varier	VER	cond.pres.3s	0.07	LEXIQUE383
 varieront	varier	VER	ind.fut.3p	0.04	LEXIQUE383
+varietur	varietur	ADV		0	LEXIQUE383
 variole	variole	NOM	f.s	1.38	LEXIQUE383
 variorum	variorum	NOM	m.s	0.04	LEXIQUE383
 variqueuses	variqueux	ADJ	f.p	0.07	LEXIQUE383
@@ -145418,6 +145725,7 @@ vendît	vendre	VER	sub.impf.3s	0.04	LEXIQUE383
 vendômois	vendômois	ADJ	m.e	0.04	LEXIQUE383
 venelle	venelle	NOM	f.s	1.02	LEXIQUE383
 venelles	venelle	NOM	f.p	0.88	LEXIQUE383
+venenum	venenum	ADV		0	LEXIQUE383
 venette	venette	NOM	f.s	0.04	LEXIQUE383
 veneur	veneur	NOM	m.s	1.28	LEXIQUE383
 veneurs	veneur	NOM	m.p	0.17	LEXIQUE383
@@ -145639,6 +145947,7 @@ vergue	vergue	NOM	f.s	0.33	LEXIQUE383
 vergues	vergue	NOM	f.p	0.12	LEXIQUE383
 vergé	vergé	ADJ	m.s	0.14	LEXIQUE383
 vergés	vergé	ADJ	m.p	0.04	LEXIQUE383
+veritas	veritas	ADV		0	LEXIQUE383
 verjus	verjus	NOM	m.e	0.14	LEXIQUE383
 verlan	verlan	NOM	m.s	0.21	LEXIQUE383
 vermeil	vermeil	ADJ	m.s	1.06	LEXIQUE383
@@ -146102,6 +146411,7 @@ victimaire	victimaire	NOM	m.s	0.04	LEXIQUE383
 victime	victime	NOM	f.s	47.46	LEXIQUE383
 victimes	victime	NOM	f.p	28.77	LEXIQUE383
 victimologie	victimologie	NOM	f.s	0.02	LEXIQUE383
+victis	victis	ADV		0	LEXIQUE383
 victoire	victoire	NOM	f.s	44.27	LEXIQUE383
 victoires	victoire	NOM	f.p	4.83	LEXIQUE383
 victoria	victoria	NOM	e.s	0.18	LEXIQUE383
@@ -146367,6 +146677,7 @@ vilement	vilement	ADV		0.07	LEXIQUE383
 vilenie	vilenie	NOM	f.s	0.6	LEXIQUE383
 vilenies	vilenie	NOM	f.p	0.27	LEXIQUE383
 viles	vil	ADJ	f.p	0.21	LEXIQUE383
+vili	vili	ADV		0	LEXIQUE383
 vilipendaient	vilipender	VER	ind.impf.3p	0.01	LEXIQUE383
 vilipendant	vilipender	VER	ppre	0.04	LEXIQUE383
 vilipender	vilipender	VER	inf	0.11	LEXIQUE383
@@ -146447,6 +146758,7 @@ vingtième	vingtième	NOM	e.s	0.65	LEXIQUE383
 vingtièmes	vingtième	ADJ	e.e	0.04	LEXIQUE383
 vinicole	vinicole	ADJ	e.s	0.02	LEXIQUE383
 vinificatrice	vinificateur	NOM	f.s	0.01	LEXIQUE383
+vino	vino	ADV		0	LEXIQUE383
 vinrent	venir	VER	ind.ps.3p	6.03	LEXIQUE383
 vins	venir	VER	ind.ps.1s	1.03	LEXIQUE383
 vins	venir	VER	ind.ps.2s	0	LEXIQUE383
@@ -146833,6 +147145,7 @@ vissées	vissé	ADJ	f.p	0.04	LEXIQUE383
 vissés	visser	VER	ppas.m.p	0.44	LEXIQUE383
 vissés	vissé	ADJ	m.p	0.05	LEXIQUE383
 vista	vista	NOM	f.s	0.5	LEXIQUE383
+visu	visu	ADV		0	LEXIQUE383
 visualisaient	visualiser	VER	ind.impf.3p	0.04	LEXIQUE383
 visualisais	visualiser	VER	ind.impf.1s	0.03	LEXIQUE383
 visualisais	visualiser	VER	ind.impf.2s	0	LEXIQUE383
@@ -146869,11 +147182,13 @@ visés	visé	ADJ	m.p	0.32	LEXIQUE383
 visés	visé	NOM	m.p	0.04	LEXIQUE383
 vit	vivre	VER	ind.pres.3s	57.11	LEXIQUE383
 vit	voir	VER	ind.ps.3s	63.91	LEXIQUE383
+vitae	vitae	NOM		0	LEXIQUE383
 vital	vital	ADJ	m.s	4.52	LEXIQUE383
 vitale	vital	ADJ	f.s	3.61	LEXIQUE383
 vitales	vital	ADJ	f.p	1.04	LEXIQUE383
 vitaliser	vitaliser	VER	inf	0.01	LEXIQUE383
 vitalité	vitalité	NOM	f.s	3.79	LEXIQUE383
+vitam	vitam	ADV		0	LEXIQUE383
 vitamine	vitamine	NOM	f.s	0.83	LEXIQUE383
 vitaminer	vitaminer	VER	inf	0.04	LEXIQUE383
 vitamines	vitamine	NOM	f.p	3.21	LEXIQUE383
@@ -146926,6 +147241,7 @@ vitrioleurs	vitrioleur	NOM	m.p	0.04	LEXIQUE383
 vitriolique	vitriolique	ADJ	f.s	0.04	LEXIQUE383
 vitriols	vitriol	NOM	m.p	0.04	LEXIQUE383
 vitriolé	vitrioler	VER	ppas.m.s	0.1	LEXIQUE383
+vitro	vitro	ADJ		0	LEXIQUE383
 vitrophanie	vitrophanie	NOM	f.s	0.04	LEXIQUE383
 vitré	vitrer	VER	ppas.m.s	0.23	LEXIQUE383
 vitré	vitré	ADJ	m.s	0.84	LEXIQUE383
@@ -146972,6 +147288,7 @@ vive	vive	NOM	f.s	0.97	LEXIQUE383
 vive	vivre	VER	sub.pres.1s	8.59	LEXIQUE383
 vive	vivre	VER	sub.pres.3s	0	LEXIQUE383
 vivement	vivement	ADV		17.86	LEXIQUE383
+vivendi	vivendi	NOM		0	LEXIQUE383
 vivent	vivre	VER	ind.pres.3p	24.95	LEXIQUE383
 vivent	vivre	VER	sub.pres.3p	0	LEXIQUE383
 vives	vif	ADJ	f.p	7.21	LEXIQUE383
@@ -147000,6 +147317,7 @@ vivions	vivre	VER	ind.impf.1p	5.17	LEXIQUE383
 vivisecteur	vivisecteur	NOM	m.s	0.02	LEXIQUE383
 vivisection	vivisection	NOM	f.s	0.24	LEXIQUE383
 vivisections	vivisection	NOM	f.p	0.14	LEXIQUE383
+vivo	vivo	ADV		0	LEXIQUE383
 vivons	vivre	VER	imp.pres.1p	10.02	LEXIQUE383
 vivons	vivre	VER	ind.pres.1p	0	LEXIQUE383
 vivota	vivoter	VER	ind.ps.3s	0.04	LEXIQUE383
@@ -147057,6 +147375,7 @@ vocatifs	vocatif	NOM	m.p	0.07	LEXIQUE383
 vocation	vocation	NOM	f.s	15.34	LEXIQUE383
 vocations	vocation	NOM	f.p	0.7	LEXIQUE383
 vocaux	vocal	ADJ	m.p	0.17	LEXIQUE383
+voce	voce	ADV		0	LEXIQUE383
 vocifère	vociférer	VER	imp.pres.2s	0.45	LEXIQUE383
 vocifère	vociférer	VER	ind.pres.1s	0	LEXIQUE383
 vocifère	vociférer	VER	ind.pres.3s	0	LEXIQUE383
@@ -147075,6 +147394,7 @@ vocifération	vocifération	NOM	f.s	0.07	LEXIQUE383
 vociférations	vocifération	NOM	f.p	0.95	LEXIQUE383
 vociférer	vociférer	VER	inf	0.42	LEXIQUE383
 vociférés	vociférer	VER	ppas.m.p	0.04	LEXIQUE383
+vocis	vocis	NOM		0	LEXIQUE383
 vocodeur	vocodeur	NOM	m.s	0.01	LEXIQUE383
 vodka	vodka	NOM	f.s	12.59	LEXIQUE383
 vodkas	vodka	NOM	f.p	0.11	LEXIQUE383
@@ -147429,6 +147749,7 @@ vomitif	vomitif	NOM	m.s	0.12	LEXIQUE383
 vomitifs	vomitif	ADJ	m.p	0.04	LEXIQUE383
 vomitifs	vomitif	NOM	m.p	0.04	LEXIQUE383
 vomitives	vomitif	ADJ	f.p	0.07	LEXIQUE383
+vomito	vomito	NOM		0	LEXIQUE383
 vomitoire	vomitoire	NOM	m.s	0.01	LEXIQUE383
 vomitoires	vomitoire	NOM	m.p	0.04	LEXIQUE383
 vont	aller	VER	ind.pres.3p	198.99	LEXIQUE383
@@ -147579,6 +147900,7 @@ vouées	vouer	VER	ppas.f.p	0.48	LEXIQUE383
 vouées	voué	ADJ	f.p	0.04	LEXIQUE383
 voués	vouer	VER	ppas.m.p	1.04	LEXIQUE383
 voués	voué	ADJ	m.p	0.08	LEXIQUE383
+vox	vox	ADV		0	LEXIQUE383
 voyage	voyage	NOM	m.s	111.37	LEXIQUE383
 voyage	voyager	VER	imp.pres.2s	7.3	LEXIQUE383
 voyage	voyager	VER	ind.pres.1s	0	LEXIQUE383
@@ -147763,6 +148085,7 @@ vulgarisée	vulgarisé	ADJ	f.s	0.04	LEXIQUE383
 vulgarité	vulgarité	NOM	f.s	3.46	LEXIQUE383
 vulgarités	vulgarité	NOM	f.p	0.26	LEXIQUE383
 vulgate	vulgate	NOM	f.s	0.1	LEXIQUE383
+vulgum	vulgum	NOM		0	LEXIQUE383
 vulnérabilité	vulnérabilité	NOM	f.s	0.89	LEXIQUE383
 vulnérable	vulnérable	ADJ	e.s	6.17	LEXIQUE383
 vulnérables	vulnérable	ADJ	e.p	1.7	LEXIQUE383
@@ -148116,12 +148439,14 @@ wagons	wagon	NOM	m.p	9.19	LEXIQUE383
 wagons-citernes	wagon-citerne	NOM	m.p	0.04	LEXIQUE383
 wagons-lits	wagon-lit	NOM	m.p	1.08	LEXIQUE383
 wagons-restaurants	wagon-restaurant	NOM	m.p	0.1	LEXIQUE383
+wait	wait	NOM		0	LEXIQUE383
 wali	wali	NOM	m.s	0.01	LEXIQUE383
 walkie-talkie	walkie-talkie	NOM	m.s	0.1	LEXIQUE383
 walkies-talkies	walkie-talkie	NOM	m.p	0.01	LEXIQUE383
 walkman	walkman	NOM	m.s	1.17	LEXIQUE383
 walkmans	walkman	NOM	m.p	0.06	LEXIQUE383
 walkyrie	walkyrie	NOM	f.s	0.14	LEXIQUE383
+wall	wall	NOM		0	LEXIQUE383
 wallaby	wallaby	NOM	m.s	0.07	LEXIQUE383
 wallace	wallace	NOM	f.s	0.46	LEXIQUE383
 wallon	wallon	ADJ	m.s	0.04	LEXIQUE383
@@ -148144,9 +148469,12 @@ waters	water	NOM	m.p	1.41	LEXIQUE383
 watt	watt	NOM	m.s	0.01	LEXIQUE383
 wattman	wattman	NOM	m.s	0.1	LEXIQUE383
 watts	watt	NOM	m.p	1.28	LEXIQUE383
+wave	wave	NOM		0	LEXIQUE383
 wax	wax	NOM	m.e	0.41	LEXIQUE383
+way	way	NOM		0	LEXIQUE383
 web	web	NOM	m.s	1.17	LEXIQUE383
 webcam	webcam	NOM	f.s	0.15	LEXIQUE383
+week	week	NOM		0	LEXIQUE383
 week-end	week-end	NOM	m.s	25.78	LEXIQUE383
 week-ends	week-end	NOM	m.p	2.65	LEXIQUE383
 weimarienne	weimarien	ADJ	f.s	0.04	LEXIQUE383
@@ -148191,6 +148519,7 @@ witz	witz	NOM	m.e	0.01	LEXIQUE383
 wombat	wombat	NOM	m.s	0.02	LEXIQUE383
 woofer	woofer	NOM	m.s	0.01	LEXIQUE383
 woofers	woofer	NOM	m.p	0.01	LEXIQUE383
+world	world	NOM		0	LEXIQUE383
 wouah	wouah	INT		0.68	LEXIQUE383
 wurtembergeois	wurtembergeois	ADJ	m.e	0.04	LEXIQUE383
 wurtembergeois	wurtembergeois	NOM	m.e	0.04	LEXIQUE383
@@ -148274,6 +148603,7 @@ yogi	yogi	NOM	m.s	0.46	LEXIQUE383
 yogis	yogi	NOM	m.p	0.06	LEXIQUE383
 yogourt	yogourt	NOM	m.s	0.19	LEXIQUE383
 yole	yole	NOM	f.s	0.26	LEXIQUE383
+yom	yom	NOM		0	LEXIQUE383
 york	york	NOM	m.s	0.54	LEXIQUE383
 yorkshire	yorkshire	NOM	m.s	0.01	LEXIQUE383
 you-you	you-you	NOM	m.s	0.04	LEXIQUE383
@@ -150978,6 +151308,7 @@ zézettes	zézette	NOM	f.p	0.14	LEXIQUE383
 élysée	élysée	NOM	m.s	1.94	LEXIQUE383
 élyséen	élyséen	ADJ	m.s	0.04	LEXIQUE383
 élyséenne	élyséen	ADJ	f.s	0.04	LEXIQUE383
+élysées	élysées	NOM		0	LEXIQUE383
 élytre	élytre	NOM	m.s	0.01	LEXIQUE383
 élytres	élytre	NOM	m.p	0.88	LEXIQUE383
 élève	élever	VER	imp.pres.2s	12.41	LEXIQUE383

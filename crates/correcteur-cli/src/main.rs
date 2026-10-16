@@ -263,10 +263,11 @@ fn import_lexique383(a: &Args) -> Result<ExitCode, String> {
     }
     std::fs::write(&output, text).map_err(|e| format!("{} : {e}", output.display()))?;
     println!(
-        "{} lignes lues, {} écartées, {} lectures écrites dans {}",
+        "{} lignes lues, {} écartées, {} lectures et {} mots de locutions écrits dans {}",
         report.lines,
         report.skipped,
         report.readings,
+        report.from_locutions,
         output.display()
     );
     Ok(ExitCode::SUCCESS)
