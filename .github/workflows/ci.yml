@@ -95,3 +95,34 @@ jobs:
         with:
           name: bureau-${{ matrix.os }}
           path: apps/bureau/src-tauri/target/release/bundle
+
+  libreoffice:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: addins/libreoffice
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.os == 'macos-latest' && 'x86_64-apple-darwin,aarch64-apple-darwin' || '' }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Extension (.oxt)
+        run: python construire.py
+      - name: Test dans LibreOffice (sans interface)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libreoffice-writer python3-uno
+          python tests/tester.py dist/*.oxt --soffice /usr/bin/soffice
+      - name: Paquet
+        uses: actions/upload-artifact@v4
+        with:
+          name: libreoffice-${{ matrix.os }}
+          path: addins/libreoffice/dist/*.oxt

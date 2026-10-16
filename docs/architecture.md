@@ -24,6 +24,8 @@ l'appareil.
 | `crates/correcteur-core` | Moteur : découpage, lexique, règles, suggestions, corpus. |
 | `crates/correcteur-cli` | Commande `correcteur` : `analyser`, `evaluer`, `mesurer`, `importer-lexique383`. |
 | `crates/correcteur-wasm` | Module WebAssembly : interface C minimale, échanges en JSON. |
+| `crates/correcteur-ffi` | Bibliothèque native à interface C (`libcorrecteur`), pour LibreOffice. |
+| `addins/libreoffice` | Extension LibreOffice (Python UNO, service Proofreader) ; voir son `LISEZMOI.md`. |
 | `addins/word` | Add-in Word (TypeScript, Office.js) ; voir `addins/word/LISEZMOI.md`. |
 | `apps/bureau` | Application de bureau (Tauri, moteur natif) ; voir `apps/bureau/LISEZMOI.md`. |
 | `web/commun` | Interface partagée par l'add-in et l'application : panneau, réglages, positions. |
@@ -34,8 +36,7 @@ l'appareil.
 | `corpus/fr/evaluation/` | Phrases libres pour mesurer précision et rappel. |
 | `docs/` | Architecture, format des données, provenance, résultats. |
 
-À venir (ordre de livraison) : extension LibreOffice (étape 5), conjugaison et
-synonymes (étape 6).
+À venir (ordre de livraison) : conjugaison et synonymes (étape 6), puis version 2.
 
 ## Interface du moteur
 
@@ -123,7 +124,11 @@ message vide.
   sont en UTF-16. Module : 220 Ko ; avec le lexique complet, construction en
   130 ms et 40 Mo de mémoire (mesures Node, Apple Silicon).
 - Bibliothèque native : liée directement à l'application Tauri (commandes
-  `analyser`, `infos`) ; interface C pour LibreOffice à l'étape 5.
+  `analyser`, `infos`), et compilée avec une interface C
+  (`crates/correcteur-ffi` : `cr_engine_new`, `cr_check`, `cr_string_free`,
+  `cr_engine_free`, `cr_last_error`) pour l'extension LibreOffice, qui la
+  charge avec ctypes. Options et résultats suivent le même format que le
+  module WebAssembly (`correcteur_core::interop`).
 
 ## Performance
 
