@@ -15,7 +15,7 @@ Tout le traitement est local : le texte ne quitte jamais l'appareil.
 | 1 | Moteur Rust : typographie, orthographe de base, homophones, tests | **Fait** — lexique Lexique 3.83 importé (125 000 formes) |
 | 2 | Add-in Word (Windows, macOS) | **Fonctionne dans Word pour le web** (Safari) ; essais dans Word pour Mac et Windows à faire |
 | 3 | Accords et grammaire | **Fait** — accords sujet-verbe et groupe nominal, participes, négation, quelques constructions |
-| 4 | Application de bureau Tauri | À faire |
+| 4 | Application de bureau Tauri | **Fait** — éditeur, raccourci global ⌘⇧E / Ctrl+Maj+E pour le presse-papiers ; testée sur macOS |
 | 5 | Extension LibreOffice | À faire |
 | 6 | Conjugaison, synonymes, version 2 | À faire |
 
@@ -53,6 +53,7 @@ cargo run --release -p correcteur-cli -- mesurer
 ```
 
 Add-in Word : voir [addins/word/LISEZMOI.md](addins/word/LISEZMOI.md).
+Application de bureau : voir [apps/bureau/LISEZMOI.md](apps/bureau/LISEZMOI.md).
 
 ## Documentation
 

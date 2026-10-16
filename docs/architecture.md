@@ -25,6 +25,8 @@ l'appareil.
 | `crates/correcteur-cli` | Commande `correcteur` : `analyser`, `evaluer`, `mesurer`, `importer-lexique383`. |
 | `crates/correcteur-wasm` | Module WebAssembly : interface C minimale, échanges en JSON. |
 | `addins/word` | Add-in Word (TypeScript, Office.js) ; voir `addins/word/LISEZMOI.md`. |
+| `apps/bureau` | Application de bureau (Tauri, moteur natif) ; voir `apps/bureau/LISEZMOI.md`. |
+| `web/commun` | Interface partagée par l'add-in et l'application : panneau, réglages, positions. |
 | `data/lexique/*.tsv` | Lexiques de formes fléchies (chargés dans l'ordre alphabétique). |
 | `data/regles/` | Description des règles, locutions, listes (élisions, abréviations…). |
 | `data/SOURCES.tsv` | Ressources utilisées et leurs licences. |
@@ -32,9 +34,8 @@ l'appareil.
 | `corpus/fr/evaluation/` | Phrases libres pour mesurer précision et rappel. |
 | `docs/` | Architecture, format des données, provenance, résultats. |
 
-À venir (ordre de livraison) : règles d'accord
-(étape 3), `apps/bureau` Tauri (étape 4), `addins/libreoffice` (étape 5),
-conjugaison et synonymes (étape 6).
+À venir (ordre de livraison) : extension LibreOffice (étape 5), conjugaison et
+synonymes (étape 6).
 
 ## Interface du moteur
 
@@ -121,7 +122,8 @@ message vide.
   résultat JSON (`cr_output_ptr`, `cr_output_len`). Les positions renvoyées
   sont en UTF-16. Module : 220 Ko ; avec le lexique complet, construction en
   130 ms et 40 Mo de mémoire (mesures Node, Apple Silicon).
-- Bibliothèque native avec interface C pour LibreOffice et Tauri (étapes 4 et 5).
+- Bibliothèque native : liée directement à l'application Tauri (commandes
+  `analyser`, `infos`) ; interface C pour LibreOffice à l'étape 5.
 
 ## Performance
 

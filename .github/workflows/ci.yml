@@ -60,3 +60,38 @@ jobs:
         with:
           name: addin-word
           path: addins/word/dist
+
+  bureau:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: apps/bureau
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/bureau/package-lock.json
+      - run: npm ci
+      - name: Types
+        run: npm run typecheck
+      - name: Format et lint (Rust)
+        working-directory: apps/bureau/src-tauri
+        run: |
+          cargo fmt --check
+          cargo clippy -- -D warnings
+      - name: Application (paquets d'installation)
+        run: npm run build
+      - name: Paquets
+        uses: actions/upload-artifact@v4
+        with:
+          name: bureau-${{ matrix.os }}
+          path: apps/bureau/src-tauri/target/release/bundle
