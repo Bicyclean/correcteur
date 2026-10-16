@@ -41,8 +41,27 @@ utilisé par le code ou par `locutions.tsv` doit figurer ici.
 `locution fautive`, `correction`, `identifiant de règle`, `source`.
 
 Les mots de la locution sont séparés par des espaces ; une élision est un mot
-à part : `d’ ou` reconnaît « d’ou ». La comparaison ignore la casse ; la
-majuscule initiale du texte est reportée sur la correction.
+à part : `d’ ou` reconnaît « d’ou ». `=lemme` reconnaît toutes les formes d'un
+lemme (`=pallier à` reconnaît « palliait à »), et `$1`, `$2`… reprennent dans
+la correction le texte du 1er, 2e… mot trouvé (`$1 chez le docteur`). La
+comparaison ignore la casse ; la majuscule initiale du texte est reportée sur
+la correction.
+
+## Tables de grammaire
+
+- `determinants.tsv` : `forme`, `genre.nombre`, `autre genre`, `autre nombre`,
+  `source`. Classe fermée décrite pour le projet, plutôt que tirée du lexique
+  (Lexique 3.83 donne « l’ » comme masculin seulement). `-` : pas de contrepartie.
+- `pronoms_sujets.tsv` : `pronom`, `personne` (`1s`…`3p`), `genre` et `nombre`
+  imposés au participe ou à l'attribut (`e` : indifférent), `source`.
+- `mots_grammaticaux.tsv` : `mot`, `classe`, `source`. Classes : `clitique`
+  (peut se placer entre sujet et verbe), `objet` (complément d'objet),
+  `charniere` (peut ouvrir une proposition), `adverbe` (peut s'intercaler
+  entre auxiliaire et participe), `negation` (pas, jamais…), `antecedent`
+  (que, combien : complément placé avant le verbe).
+- `h_aspire.txt` : mots ou lemmes à h aspiré, devant lesquels on n'élide pas.
+- `noms_deux_genres.txt` : noms employés aux deux genres, dont le genre n'est
+  pas vérifié (épicènes et homographes que Lexique décrit mal).
 
 ## Listes simples
 

@@ -72,9 +72,28 @@ dictionnaire personnel.
      `suggest.rs` ;
    - `homophones.rs` examine le mot précédent et le mot suivant et leurs
      lectures dans le lexique (catégorie, traits) ;
-   - `locutions.rs` reconnaît les suites de mots de `locutions.tsv`.
+   - `grammar.rs` vérifie les accords (sujet-verbe, groupe nominal,
+     participes avec être et avoir), l'infinitif employé à la place du
+     participe et la négation sans « ne » ;
+   - `locutions.rs` reconnaît les suites de mots de `locutions.tsv`, y compris
+     les constructions prépositionnelles critiquées.
 4. **Mise en forme** (`lib.rs`) : tri, dédoublonnage, filtrage selon les
    options, textes tirés de `regles.tsv`, positions UTF-16.
+
+## Grammaire : principe de prudence
+
+Les règles de grammaire n'utilisent que le voisinage immédiat du verbe ou du
+nom, sans analyse complète de la phrase. Le sujet n'est retenu que s'il est
+sûr : pronom personnel juste avant le verbe (avec d'éventuels pronoms
+compléments ou « ne » entre les deux), ou groupe nominal simple
+(déterminant, adjectif, nom, adjectif) en début de proposition. Un sujet
+coordonné (« lui et elle ») est écarté. L'accord du participe avec avoir
+n'est vérifié qu'en l'absence de complément placé avant (pronom objet, « que »,
+« combien »). Dans le doute, rien n'est signalé : les erreurs plus lointaines
+(« les enfants de mon frère joue ») ne sont pas encore détectées.
+
+Les corrections proposées sont générées à partir du lexique : forme du même
+lemme avec la personne, le genre ou le nombre attendus.
 
 ## Suggestions orthographiques
 
