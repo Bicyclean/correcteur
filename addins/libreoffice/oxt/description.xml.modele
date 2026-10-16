@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Modèle : construire.py remplace @VERSION@ et @PLATEFORMES@. -->
+<description xmlns="http://openoffice.org/extensions/description/2006"
+             xmlns:d="http://openoffice.org/extensions/description/2006"
+             xmlns:l="http://libreoffice.org/extensions/description/2011"
+             xmlns:xlink="http://www.w3.org/1999/xlink">
+  <identifier value="org.correcteur.libreoffice"/>
+  <version value="@VERSION@"/>
+  <platform value="@PLATEFORMES@"/>
+  <display-name>
+    <name lang="fr">Correcteur (français)</name>
+  </display-name>
+  <extension-description>
+    <src lang="fr" xlink:href="description/desc_fr.txt"/>
+  </extension-description>
+  <dependencies>
+    <l:LibreOffice-minimal-version value="7.0" d:name="LibreOffice 7.0"/>
+  </dependencies>
+</description>
