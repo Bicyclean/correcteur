@@ -4,7 +4,10 @@
 //! correcteur analyser [--donnees DOSSIER] [FICHIER]     (entrée standard par défaut)
 //! correcteur evaluer  [--donnees DOSSIER] [--corpus DOSSIER] [--sortie FICHIER.md]
 //! correcteur mesurer  [--donnees DOSSIER] [--mots N] [--tours N]
+//! correcteur importer-lexique383 Lexique383.tsv [--sortie FICHIER.tsv]
 //! ```
+
+mod import;
 
 use std::io::Read;
 use std::path::{Path, PathBuf};
@@ -65,9 +68,12 @@ fn parse_args(args: &[String]) -> Result<Args, String> {
 
 fn run(args: &[String]) -> Result<ExitCode, String> {
     let Some(command) = args.first() else {
-        return Err("commande attendue : analyser, evaluer ou mesurer".into());
+        return Err("commande attendue : analyser, evaluer, mesurer ou importer-lexique383".into());
     };
     let a = parse_args(&args[1..])?;
+    if command == "importer-lexique383" {
+        return import_lexique383(&a);
+    }
     let engine = Engine::from_dir(&a.data).map_err(|e| e.to_string())?;
     match command.as_str() {
         "analyser" => analyze(&engine, &a),
@@ -219,4 +225,49 @@ fn bench(engine: &Engine, a: &Args) -> Result<ExitCode, String> {
     } else {
         ExitCode::from(1)
     })
+}
+
+const LEXIQUE383_HEADER: &str = "\
+# Dérivé de Lexique 3.83 (http://www.lexique.org), par Boris New, Christophe Pallier et coll.
+# Licence : CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/).
+# Ce fichier est distribué sous la même licence. Ne pas modifier à la main :
+# régénérer avec `correcteur importer-lexique383 Lexique383.tsv`.
+# Modifications : colonnes réduites, catégories et traits convertis, apostrophes
+# typographiques, ligature œ (data/regles/ligatures.txt), fréquence = moyenne
+# de freqfilms2 et freqlivres.
+";
+
+fn import_lexique383(a: &Args) -> Result<ExitCode, String> {
+    let input = a
+        .positional
+        .first()
+        .ok_or("chemin de Lexique383.tsv attendu")?;
+    let content = std::fs::read_to_string(input).map_err(|e| format!("{input} : {e}"))?;
+    let lig_path = a.data.join("regles/ligatures.txt");
+    let ligatures =
+        std::fs::read_to_string(&lig_path).map_err(|e| format!("{} : {e}", lig_path.display()))?;
+    let stems: Vec<&str> = ligatures
+        .lines()
+        .map(str::trim)
+        .filter(|l| !l.is_empty() && !l.starts_with('#'))
+        .collect();
+    let (lines, report) = import::convert_lexique383(&content, &stems)?;
+    let output = a
+        .output
+        .clone()
+        .unwrap_or_else(|| a.data.join("lexique/10-lexique383.tsv"));
+    let mut text = String::from(LEXIQUE383_HEADER);
+    for l in &lines {
+        text.push_str(l);
+        text.push('\n');
+    }
+    std::fs::write(&output, text).map_err(|e| format!("{} : {e}", output.display()))?;
+    println!(
+        "{} lignes lues, {} écartées, {} lectures écrites dans {}",
+        report.lines,
+        report.skipped,
+        report.readings,
+        output.display()
+    );
+    Ok(ExitCode::SUCCESS)
 }

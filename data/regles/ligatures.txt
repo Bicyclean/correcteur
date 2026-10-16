@@ -1,0 +1,27 @@
+# Radicaux qui s'écrivent avec la ligature œ (source : REF-GRAM-FR).
+# Utilisé à l'import de Lexique 3.83, qui écrit « oe » : dans toute forme qui
+# contient l'un de ces radicaux, « oe » devient « œ ». Les autres « oe »
+# (coefficient, moelle, coexister) restent tels quels.
+coeur
+soeur
+oeuf
+oeuvr
+oeil
+choeur
+noeud
+voeu
+moeurs
+foet
+oecum
+oedèm
+oedém
+oedip
+oenolog
+oenophil
+oenoth
+oesophag
+oestr
+coelacanth
+coeliaque
+phoenix
+poecile
