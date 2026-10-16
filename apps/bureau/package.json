@@ -1,0 +1,20 @@
+{
+  "name": "correcteur-bureau",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Application de bureau du correcteur (Tauri) : éditeur, correction du presse-papiers.",
+  "license": "GPL-3.0-or-later",
+  "type": "module",
+  "scripts": {
+    "build:web": "node build.mjs",
+    "typecheck": "tsc --noEmit",
+    "dev": "tauri dev",
+    "build": "tauri build",
+    "tauri": "tauri"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "2.12.3",
+    "esbuild": "0.28.2",
+    "typescript": "7.0.2"
+  }
+}

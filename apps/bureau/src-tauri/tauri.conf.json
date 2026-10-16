@@ -1,0 +1,47 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Correcteur",
+  "version": "0.2.0",
+  "identifier": "org.correcteur.bureau",
+  "build": {
+    "frontendDist": "../dist",
+    "beforeDevCommand": "node build.mjs",
+    "beforeBuildCommand": "node build.mjs"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "label": "principale",
+        "title": "Correcteur",
+        "width": 1100,
+        "height": 720,
+        "minWidth": 480,
+        "minHeight": 400
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src ipc: http://ipc.localhost"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "category": "Productivity",
+    "shortDescription": "Correcteur libre du français",
+    "longDescription": "Correcteur libre du français : orthographe, homophones, grammaire et typographie. Tout le traitement est local.",
+    "copyright": "Licence GPL-3.0-or-later ; lexique dérivé de Lexique 3.83 (CC BY-SA 4.0)",
+    "license": "GPL-3.0-or-later",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "resources": {
+      "../../../data/lexique/": "data/lexique/",
+      "../../../data/regles/": "data/regles/"
+    }
+  }
+}

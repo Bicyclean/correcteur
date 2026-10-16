@@ -1,0 +1,21 @@
+[package]
+name = "correcteur-bureau"
+description = "Application de bureau du correcteur : éditeur et correction du presse-papiers."
+version = "0.2.0"
+edition = "2021"
+license = "GPL-3.0-or-later"
+rust-version = "1.82"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+correcteur-core = { path = "../../../crates/correcteur-core" }
+tauri = { version = "2", features = ["tray-icon"] }
+tauri-plugin-global-shortcut = "2"
+tauri-plugin-clipboard-manager = "2"
+serde = { version = "1", features = ["derive"] }
+
+[profile.release]
+lto = true
+codegen-units = 1

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Correcteur</title>
+  <link rel="stylesheet" href="panneau.css">
+  <link rel="stylesheet" href="bureau.css">
+  <script type="module" src="main.js"></script>
+</head>
+<body>
+  <header class="toolbar">
+    <div class="title">
+      <img src="icone-32.png" alt="" width="20" height="20">
+      <h1>Correcteur</h1>
+    </div>
+    <div class="tools">
+      <button id="coller" type="button">Coller</button>
+      <button id="copier" type="button">Copier</button>
+      <button id="copier-masquer" type="button">Copier et fermer</button>
+      <button id="analyze" class="primary" type="button" disabled>Analyser</button>
+    </div>
+  </header>
+
+  <div class="workspace">
+    <section class="editor" aria-label="Texte à corriger">
+      <div class="backdrop" id="backdrop" aria-hidden="true"></div>
+      <textarea id="texte" spellcheck="false" autofocus
+        placeholder="Écrivez ou collez votre texte ici. Depuis n'importe quelle application, copiez un texte puis utilisez le raccourci indiqué en bas pour le corriger."></textarea>
+    </section>
+
+    <aside class="panel">
+      <p id="status" role="status" aria-live="polite"></p>
+      <nav id="filters" aria-label="Filtrer par catégorie"></nav>
+      <div id="issues"></div>
+
+      <details id="options">
+        <summary>Réglages</summary>
+        <fieldset>
+          <legend>Catégories vérifiées</legend>
+          <div id="opt-categories" class="stack"></div>
+        </fieldset>
+        <fieldset>
+          <legend>Typographie</legend>
+          <div class="stack">
+            <label><input type="checkbox" id="opt-fine"> Espace fine avant ; ! ?</label>
+            <label><input type="checkbox" id="opt-apostrophe"> Apostrophe typographique (’)</label>
+            <label><input type="checkbox" id="opt-guillemets"> Guillemets français (« »)</label>
+            <label><input type="checkbox" id="opt-points"> Points de suspension (…)</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Orthographe</legend>
+          <div class="stack">
+            <label><input type="checkbox" id="opt-noms"> Vérifier les noms propres</label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Dictionnaire personnel</legend>
+          <ul id="dictionary"></ul>
+        </fieldset>
+        <button id="opt-reset-rules" class="link" type="button">Réactiver toutes les règles</button>
+      </details>
+    </aside>
+  </div>
+
+  <footer class="statusbar">
+    <span id="raccourcis"></span>
+    <span>Analyse locale : le texte ne quitte pas votre ordinateur.</span>
+  </footer>
+</body>
+</html>

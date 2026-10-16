@@ -1,6 +1,8 @@
 [workspace]
 resolver = "2"
 members = ["crates/correcteur-core", "crates/correcteur-cli", "crates/correcteur-wasm"]
+# L'application Tauri a ses propres dépendances lourdes : elle est construite à part.
+exclude = ["apps/bureau/src-tauri"]
 
 [workspace.package]
 version = "0.2.0"

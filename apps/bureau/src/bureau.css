@@ -1,0 +1,104 @@
+/* Mise en page de l'application de bureau ; couleurs et cartes : panneau.css. */
+html, body { height: 100%; }
+body {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 0;
+  overflow: hidden;
+}
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  margin: 0;
+}
+.tools { display: flex; gap: 6px; flex-wrap: wrap; }
+.tools button:not(.primary) {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  min-height: 0;
+}
+.panel {
+  border-left: 1px solid var(--border);
+  padding: 12px;
+  overflow-y: auto;
+}
+#status { margin-bottom: 4px; }
+
+/* Éditeur : la zone de texte est transparente au-dessus d'un calque qui
+   reproduit le texte et surligne les erreurs. Les deux doivent avoir
+   exactement la même typographie et les mêmes marges. */
+.editor { position: relative; min-height: 0; }
+.editor textarea, .backdrop {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 20px 24px;
+  border: 0;
+  font: 16px/1.6 "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  letter-spacing: normal;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: normal;
+  tab-size: 4;
+  overflow-y: auto;
+}
+.editor textarea {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  background: transparent;
+  color: var(--text);
+  caret-color: var(--text);
+  outline: none;
+}
+.backdrop {
+  color: transparent;
+  pointer-events: none;
+  background: var(--bg);
+}
+.backdrop mark {
+  color: transparent;
+  background: transparent;
+  border-radius: 2px;
+  border-bottom: 2px solid var(--cat);
+  background: color-mix(in srgb, var(--cat) 14%, transparent);
+}
+.backdrop mark[data-category="orthographe"] { --cat: var(--cat-orthographe); }
+.backdrop mark[data-category="homophone"] { --cat: var(--cat-homophone); }
+.backdrop mark[data-category="grammaire"] { --cat: var(--cat-grammaire); }
+.backdrop mark[data-category="typographie"] { --cat: var(--cat-typographie); }
+
+.statusbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 6px 12px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0;
+}
+kbd {
+  font: 11px ui-monospace, monospace;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0 4px;
+  background: var(--surface);
+}
+
+@media (max-width: 760px) {
+  .workspace { grid-template-columns: 1fr; grid-template-rows: 1fr 45%; }
+  .panel { border-left: 0; border-top: 1px solid var(--border); }
+}
