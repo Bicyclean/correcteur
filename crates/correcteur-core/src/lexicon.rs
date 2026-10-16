@@ -195,8 +195,19 @@ impl Lexicon {
         self.by_text.get(text).map(|&id| self.form(id))
     }
 
-    /// Recherche tolérante à la majuscule de début de phrase et aux mots en capitales.
+    /// Recherche tolérante à la majuscule de début de phrase, aux mots en
+    /// capitales et à « oe » saisi à la place de la ligature « œ ».
     pub fn find(&self, text: &str) -> Option<&Form> {
+        self.find_case(text).or_else(|| {
+            let lig = text
+                .replace("oe", "œ")
+                .replace("Oe", "Œ")
+                .replace("OE", "Œ");
+            (lig != text).then(|| self.find_case(&lig)).flatten()
+        })
+    }
+
+    fn find_case(&self, text: &str) -> Option<&Form> {
         if let Some(f) = self.get(text) {
             return Some(f);
         }

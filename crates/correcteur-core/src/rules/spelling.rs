@@ -35,7 +35,12 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
         {
             continue;
         }
-        let suggestions = suggest(ctx.lexicon, &w.norm, ctx.options.max_suggestions);
+        let suggestions = suggest(
+            ctx.lexicon,
+            &ctx.data.elisions,
+            &w.norm,
+            ctx.options.max_suggestions,
+        );
         let mut issue = RawIssue::new(w.start, w.end, UNKNOWN).arg(w.text);
         issue.suggestions = suggestions;
         out.push(issue);

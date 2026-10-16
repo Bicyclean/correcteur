@@ -17,7 +17,9 @@ chargement.
 | source | `CONTRIB-INIT` | Code défini dans `data/SOURCES.tsv`. |
 
 Une forme homographe a une ligne par lecture (`fait` : verbe conjugué,
-participe, nom). Plusieurs fichiers peuvent coexister ; ils sont fusionnés.
+participe, nom). Plusieurs fichiers peuvent coexister ; ils sont fusionnés et
+les fréquences d'une même forme s'additionnent. Les fichiers importés (voir
+`data/lexique/LISEZMOI.md`) ne se modifient pas à la main.
 
 **Traits.** Genre et nombre pour les noms, adjectifs, déterminants :
 `m`, `f`, `e` (épicène) puis `s`, `p`, `e` (invariable), par exemple `f.p`.
@@ -48,6 +50,9 @@ majuscule initiale du texte est reportée sur la correction.
 - `abreviations.txt` : abréviations dont le point ne termine pas la phrase
   (sensible à la casse : `M`, `etc`).
 - `verbes_a.txt` : lemmes de verbes construits avec « à » + infinitif.
+- `ligatures.txt` : radicaux écrits avec « œ » (cœur, sœur, œuvre…). Sert à
+  l'import de Lexique 3.83, qui écrit « oe ». À la recherche, « oe » saisi à la
+  place de « œ » est accepté (« soeur » est reconnu).
 
 ## Corpus — `corpus/fr/**/*.tsv`
 

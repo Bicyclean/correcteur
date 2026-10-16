@@ -26,6 +26,7 @@ ni règle, ni message, ni libellé d'interface, ni documentation.
 |---|---|
 | `CONTRIB-INIT` | Rédigé par le contributeur initial pour ce projet (lexique d'amorce, règles, messages, corpus). |
 | `REF-GRAM-FR` | Règle de grammaire générale, décrite dans les grammaires de référence du français (par exemple *Le Bon Usage* de Grevisse, la *Grammaire méthodique du français* de Riegel, Pellat et Rioul). Les ouvrages servent à vérifier la règle ; aucun texte n'en est repris. |
+| `LEXIQUE383` | Lexique 3.83 (lexique.org), CC BY-SA 4.0 ; voir `data/lexique/LISEZMOI.md`. |
 | `REF-TYPO-FR` | Usage typographique français courant, décrit notamment dans le *Lexique des règles typographiques en usage à l'Imprimerie nationale*. Même principe. |
 
 Les sources sont indiquées dans la dernière colonne de chaque fichier de
@@ -33,13 +34,14 @@ Les sources sont indiquées dans la dernière colonne de chaque fichier de
 
 ## Ressources externes envisagées
 
-Aucune n'est intégrée à ce jour. Les licences ci-dessous sont celles annoncées
-publiquement ; elles doivent être **vérifiées sur la source** (fichier de
-licence de la version téléchargée) avant toute intégration.
+Les licences des ressources « candidates » sont celles annoncées publiquement ;
+elles doivent être **vérifiées sur la source** (fichier de licence de la
+version téléchargée) avant toute intégration. Une ressource intégrée est
+consignée dans `data/SOURCES.tsv` avec l'empreinte de l'archive utilisée.
 
 | Ressource | Usage prévu | Licence annoncée | Compatibilité GPL-3.0 | Statut |
 |---|---|---|---|---|
-| Lexique 3.83 (lexique.org) | Formes, lemmes, catégories, fréquences | CC BY-SA 4.0 | Oui, à sens unique (CC BY-SA 4.0 → GPLv3) | Candidat principal |
+| Lexique 3.83 (lexique.org) | Formes, lemmes, catégories, fréquences | CC BY-SA 4.0 (vérifiée dans `README-Lexique.txt` de l'archive) | Oui, à sens unique (CC BY-SA 4.0 → GPLv3). Le fichier dérivé reste sous CC BY-SA 4.0. | **Intégré** (`data/lexique/10-lexique383.tsv`) |
 | Dictionnaire de Grammalecte (Dicollecte) | Formes fléchies, couverture | MPL 2.0 | Oui (licence secondaire GPL), sauf mention contraire | Candidat |
 | Règles de Grammalecte | Inspiration et réutilisation de règles | GPL-3.0 | Oui ; conserver les mentions d'attribution | Candidat |
 | Morphalou 3 (ATILF) | Formes fléchies | LGPL-LR | **Incertaine** : à examiner | À étudier |

@@ -1,7 +1,8 @@
 # correcteur
 
 Correcteur et assistant de rédaction libre et gratuit pour le français.
-Licence : GPL-3.0 ou ultérieure (voir `LICENSE`).
+Licence : GPL-3.0 ou ultérieure (voir `LICENSE`). Le lexique dérivé de
+Lexique 3.83 reste sous CC BY-SA 4.0 (voir `data/lexique/LISEZMOI.md`).
 
 > Nom provisoire : le nom définitif du projet reste à choisir.
 
@@ -11,7 +12,7 @@ Tout le traitement est local : le texte ne quitte jamais l'appareil.
 
 | Étape | Contenu | État |
 |---|---|---|
-| 1 | Moteur Rust : typographie, orthographe de base, homophones, tests | **En cours** — moteur et tests en place, lexique complet à importer |
+| 1 | Moteur Rust : typographie, orthographe de base, homophones, tests | **Fait** — lexique Lexique 3.83 importé (125 000 formes) |
 | 2 | Add-in Word (Windows, macOS) | À faire |
 | 3 | Accords et grammaire | À faire |
 | 4 | Application de bureau Tauri | À faire |
@@ -26,8 +27,8 @@ Ce que le moteur détecte aujourd'hui :
   espaces manquantes ou en trop, guillemets français, apostrophes, tirets
   d'incise, majuscule en début de phrase, points de suspension.
 
-Le lexique actuel est un lexique d'amorce de quelques centaines de formes : il
-suffit aux tests, pas à un usage réel.
+Lexique : Lexique 3.83 (125 000 formes, sans noms propres), complété d'un
+petit lexique rédigé à la main.
 
 ## Utilisation
 

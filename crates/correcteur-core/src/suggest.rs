@@ -20,8 +20,16 @@ const MAX_DISTANCE: f32 = 2.0;
 const FREQ_WEIGHT: f32 = 0.08;
 /// Pénalité d'une coupure en deux mots.
 const SPLIT_PENALTY: f32 = 0.6;
+/// Coût d'une apostrophe d'élision oubliée (« quil » → « qu’il »).
+const MISSING_APOSTROPHE: f32 = 0.5;
 
-pub fn suggest(lexicon: &Lexicon, word: &str, max: usize) -> Vec<String> {
+/// `elisions` : formes élidées connues (`qu’`, `l’`…), pour proposer une apostrophe oubliée.
+pub fn suggest(
+    lexicon: &Lexicon,
+    elisions: &HashSet<String>,
+    word: &str,
+    max: usize,
+) -> Vec<String> {
     if max == 0 {
         return Vec::new();
     }
@@ -55,6 +63,22 @@ pub fn suggest(lexicon: &Lexicon, word: &str, max: usize) -> Vec<String> {
     let chars: Vec<(usize, char)> = lower.char_indices().collect();
     for &(i, _) in chars.iter().skip(1) {
         let (a, b) = lower.split_at(i);
+        if elisions.contains(&format!("{a}’")) {
+            // L'élision ne se fait que devant une voyelle ou un h muet ; devant h,
+            // le coût est plus élevé (« chein » ne doit pas donner « c’hein »).
+            let cost = match b.chars().next() {
+                Some(c) if "aâàeéèêëiîïoôuûùyœ".contains(c) => Some(MISSING_APOSTROPHE),
+                Some('h') => Some(2.0 * MISSING_APOSTROPHE),
+                _ => None,
+            };
+            if let (Some(cost), Some(fb)) = (cost, lexicon.get(b)) {
+                let score = cost - FREQ_WEIGHT * (1.0 + fb.freq).ln();
+                scored.push((score, format!("{a}’{b}")));
+            }
+        }
+        if elisions.contains(&format!("{a}’")) {
+            continue; // « qu il » n'est jamais la bonne coupure
+        }
         if let (Some(fa), Some(fb)) = (lexicon.get(a), lexicon.get(b)) {
             let short_ok = |s: &str| s.chars().count() > 1 || matches!(s, "a" | "à" | "y" | "ô");
             if short_ok(a) && short_ok(b) {
