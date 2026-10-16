@@ -1,0 +1,121 @@
+//! Règles d'analyse. Chaque module ajoute des [`RawIssue`] ; le moteur y joint
+//! ensuite les textes décrits dans `data/regles/regles.tsv`.
+
+mod homophones;
+mod locutions;
+mod spelling;
+mod typo;
+
+use std::collections::HashSet;
+
+use crate::analysis::{analyze, Word};
+use crate::data::Data;
+use crate::lexicon::{Form, Lexicon};
+use crate::text::ignored_spans;
+use crate::Options;
+
+/// Identifiants des règles implémentées dans le code. Chacun doit être décrit
+/// dans `data/regles/regles.tsv` (vérifié au chargement).
+pub const CODE_RULES: &[&str] = &[
+    spelling::UNKNOWN,
+    homophones::A_ACCENT,
+    homophones::A_SANS_ACCENT,
+    homophones::OU_ACCENT,
+    homophones::OU_SANS_ACCENT,
+    homophones::CE_SE,
+    homophones::SE_CE,
+    homophones::C_S,
+    homophones::ET_EST,
+    typo::SPACE_BEFORE_MISSING,
+    typo::SPACE_BEFORE_BREAKING,
+    typo::SPACE_AFTER_MISSING,
+    typo::QUOTE_SPACE,
+    typo::STRAIGHT_QUOTES,
+    typo::STRAIGHT_APOSTROPHE,
+    typo::APOSTROPHE_SPACE,
+    typo::DASH_INCISE,
+    typo::DOUBLE_HYPHEN,
+    typo::MULTIPLE_SPACES,
+    typo::SPACE_BEFORE_COMMA,
+    typo::SPACE_INSIDE_PARENS,
+    typo::CAPITAL_START,
+    typo::ELLIPSIS,
+];
+
+/// Problème avant mise en forme : position, règle, arguments du message.
+#[derive(Debug, Clone)]
+pub struct RawIssue {
+    pub start: usize,
+    pub end: usize,
+    pub rule: &'static str,
+    /// Valeurs des marqueurs `{0}`, `{1}`… du message.
+    pub args: Vec<String>,
+    pub suggestions: Vec<String>,
+}
+
+impl RawIssue {
+    pub fn new(start: usize, end: usize, rule: &'static str) -> RawIssue {
+        RawIssue {
+            start,
+            end,
+            rule,
+            args: Vec::new(),
+            suggestions: Vec::new(),
+        }
+    }
+
+    pub fn arg(mut self, a: impl Into<String>) -> RawIssue {
+        self.args.push(a.into());
+        self
+    }
+
+    pub fn suggest(mut self, s: impl Into<String>) -> RawIssue {
+        self.suggestions.push(s.into());
+        self
+    }
+}
+
+/// Tout ce dont une règle a besoin.
+pub struct Context<'a> {
+    pub text: &'a str,
+    pub options: &'a Options,
+    pub lexicon: &'a Lexicon,
+    pub data: &'a Data,
+    pub user_words: &'a HashSet<String>,
+    pub ignored: Vec<(usize, usize)>,
+    pub words: Vec<Word<'a>>,
+}
+
+impl<'a> Context<'a> {
+    pub fn new(
+        text: &'a str,
+        options: &'a Options,
+        lexicon: &'a Lexicon,
+        data: &'a Data,
+        user_words: &'a HashSet<String>,
+    ) -> Context<'a> {
+        let ignored = ignored_spans(text);
+        let words = analyze(text, lexicon, data, user_words, &ignored);
+        Context {
+            text,
+            options,
+            lexicon,
+            data,
+            user_words,
+            ignored,
+            words,
+        }
+    }
+
+    /// Entrée du lexique pour le mot d'indice `i`.
+    pub fn form(&self, i: usize) -> Option<&'a Form> {
+        self.words.get(i).and_then(|w| self.lexicon.find(&w.norm))
+    }
+}
+
+pub fn run_all(ctx: &Context, out: &mut Vec<RawIssue>) {
+    typo::check(ctx, out);
+    spelling::check(ctx, out);
+    homophones::check(ctx, out);
+    locutions::check(ctx, out);
+}

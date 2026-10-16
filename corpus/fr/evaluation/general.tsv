@@ -1,0 +1,30 @@
+# Corpus d'évaluation — phrases libres, annotées par catégorie.
+# Sert à mesurer précision et rappel ; n'est pas une suite de tests.
+# Certaines erreurs ne sont pas encore détectées par le moteur : elles sont
+# volontairement présentes pour que le rappel mesuré reste honnête.
+typographie	Bonjour⟦ →{fine}⟧! Comment allez-vous⟦ →{fine}⟧?	CONTRIB-INIT
+typographie	Il est midi⟦.→. ⟧Il pleut.	CONTRIB-INIT
+typographie	Je ne sais pas⟦...→…⟧	CONTRIB-INIT
+typographie	⟦"→«{nbsp}⟧Viens{nbsp}!⟦"→{nbsp}»⟧ dit-elle.	CONTRIB-INIT
+typographie	Le train part à 8{nbsp}h{nbsp}30 de la gare de Lyon.	CONTRIB-INIT
+typographie	Elle m’a dit{nbsp}: «{nbsp}Reviens demain{nbsp}».	CONTRIB-INIT
+typographie	Combien coûte ce livre{fine}?	CONTRIB-INIT
+typographie	Il a acheté du pain⟦ →⟧, du lait et des œufs.	CONTRIB-INIT
+orthographe	Nous avons visité un ⟦musé→musée⟧ magnifique.	CONTRIB-INIT
+orthographe	Le ⟦gouvernment→gouvernement⟧ a annoncé des mesures.	CONTRIB-INIT
+orthographe	Il fait ⟦tro→trop⟧ chaud.	CONTRIB-INIT
+orthographe	Nous irons à la ⟦bibliotèque→bibliothèque⟧ demain.	CONTRIB-INIT
+orthographe	Les enfants jouent dans le jardin pendant que leurs parents discutent.	CONTRIB-INIT
+orthographe	Les élèves ont rendu leurs devoirs à temps.	CONTRIB-INIT
+homophone	Elle ⟦à→a⟧ oublié son parapluie.	CONTRIB-INIT
+homophone	On ⟦à→a⟧ beaucoup ri.	CONTRIB-INIT
+homophone	Je ne sais pas ⟦ou→où⟧ il habite.	CONTRIB-INIT
+homophone	Il ⟦ce→se⟧ promène le dimanche.	CONTRIB-INIT
+homophone	C’est ⟦sa→ça⟧ le problème.	CONTRIB-INIT
+homophone	Il a une maison à la campagne où il passe ses vacances.	CONTRIB-INIT
+homophone	Ou tu viens avec nous, ou tu restes ici.	CONTRIB-INIT
+homophone	Ce qu’il dit est vrai et ce qu’il fait est juste.	CONTRIB-INIT
+homophone	Il s’est levé tôt et il est parti travailler.	CONTRIB-INIT
+grammaire	Les enfants ⟦mange→mangent⟧ des pommes.	CONTRIB-INIT
+grammaire	Les fleurs sont ⟦fané→fanées⟧.	CONTRIB-INIT
+grammaire	Elle est ⟦partit→partie⟧ hier.	CONTRIB-INIT

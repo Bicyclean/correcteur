@@ -1,0 +1,29 @@
+# Abréviations suivies d'un point qui ne termine pas la phrase (source : REF-TYPO-FR).
+# Sensible à la casse.
+etc
+M
+MM
+Mme
+Mmes
+Mlle
+Mlles
+Dr
+Pr
+Me
+St
+Ste
+p
+pp
+ex
+cf
+env
+av
+apr
+vol
+chap
+fig
+éd
+coll
+réf
+tél
+art

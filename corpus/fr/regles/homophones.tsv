@@ -1,0 +1,39 @@
+# Corpus de règles — homophones grammaticaux.
+HOMO_A_VERBE	Il ⟦à→a⟧ faim.	CONTRIB-INIT
+HOMO_A_VERBE	Le chat ⟦à→a⟧ mangé la souris.	CONTRIB-INIT
+HOMO_A_VERBE	Il y ⟦à→a⟧ du soleil.	CONTRIB-INIT
+HOMO_A_VERBE	Il pense à sa mère.	CONTRIB-INIT
+HOMO_A_VERBE	C’est à elle à qui je pense.	CONTRIB-INIT
+HOMO_A_VERBE	Elle va à la plage.	CONTRIB-INIT
+HOMO_A_VERBE	Il est tout à fait prêt.	CONTRIB-INIT
+HOMO_A_PREPOSITION	⟦A→À⟧ Paris, il fait beau.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Il commence ⟦a→à⟧ pleuvoir.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Il est parti ⟦a cause de→à cause de⟧ la pluie.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Il faut une ⟦machine a laver→machine à laver⟧.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Il marche ⟦jusqu’a→jusqu’à⟧ la gare.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Il a commencé hier.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Elle a peur.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Il a commencé à pleuvoir.	CONTRIB-INIT
+HOMO_OU_RELATIF	⟦Ou→Où⟧ est la gare{fine}?	CONTRIB-INIT
+HOMO_OU_RELATIF	Je ne sais pas ⟦d’ou→d’où⟧ il vient.	CONTRIB-INIT
+HOMO_OU_RELATIF	Il pleuvait ⟦au moment ou→au moment où⟧ il est parti.	CONTRIB-INIT
+HOMO_OU_RELATIF	Ou bien tu viens, ou bien tu restes.	CONTRIB-INIT
+HOMO_OU_RELATIF	Tu veux du thé ou du café{fine}?	CONTRIB-INIT
+HOMO_OU_CONJONCTION	Tu viens ⟦où bien→ou bien⟧ tu restes.	CONTRIB-INIT
+HOMO_OU_CONJONCTION	Où vas-tu{fine}?	CONTRIB-INIT
+HOMO_CE_SE	Il ⟦ce→se⟧ lave les mains.	CONTRIB-INIT
+HOMO_CE_SE	Il faut partir pour ⟦ce→se⟧ reposer.	CONTRIB-INIT
+HOMO_CE_SE	Il mange ce gâteau.	CONTRIB-INIT
+HOMO_CE_SE	Ce livre est beau.	CONTRIB-INIT
+HOMO_SE_CE	Je comprends ⟦se→ce⟧ que tu dis.	CONTRIB-INIT
+HOMO_SE_CE	Je pars ⟦se→ce⟧ matin.	CONTRIB-INIT
+HOMO_SE_CE	Il se lave.	CONTRIB-INIT
+HOMO_SE_CE	Elle se demande pourquoi.	CONTRIB-INIT
+HOMO_C_S	Il ⟦c’→s’⟧est trompé.	CONTRIB-INIT
+HOMO_C_S	Elle ⟦c’→s’⟧habille vite.	CONTRIB-INIT
+HOMO_C_S	C’est vrai.	CONTRIB-INIT
+HOMO_C_S	Lui, c’est mon ami.	CONTRIB-INIT
+HOMO_ET_EST	Il ⟦et→est⟧ content.	CONTRIB-INIT
+HOMO_ET_EST	C’⟦et→est⟧ vrai.	CONTRIB-INIT
+HOMO_ET_EST	Lui et elle sont partis.	CONTRIB-INIT
+HOMO_ET_EST	Elle et sa sœur dansent.	CONTRIB-INIT

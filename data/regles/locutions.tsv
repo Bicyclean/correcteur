@@ -1,0 +1,19 @@
+# Locutions fautives reconnues mot à mot : locution, correction, règle, source.
+# Les mots sont séparés par une espace ; une élision forme un mot à part (« d’ ou »).
+a cause de	à cause de	HOMO_A_PREPOSITION	REF-GRAM-FR
+a partir de	à partir de	HOMO_A_PREPOSITION	REF-GRAM-FR
+a travers	à travers	HOMO_A_PREPOSITION	REF-GRAM-FR
+a côté de	à côté de	HOMO_A_PREPOSITION	REF-GRAM-FR
+a peu près	à peu près	HOMO_A_PREPOSITION	REF-GRAM-FR
+a propos de	à propos de	HOMO_A_PREPOSITION	REF-GRAM-FR
+a moins que	à moins que	HOMO_A_PREPOSITION	REF-GRAM-FR
+a condition que	à condition que	HOMO_A_PREPOSITION	REF-GRAM-FR
+a l’aide de	à l’aide de	HOMO_A_PREPOSITION	REF-GRAM-FR
+au fur et a mesure	au fur et à mesure	HOMO_A_PREPOSITION	REF-GRAM-FR
+jusqu’ a	jusqu’à	HOMO_A_PREPOSITION	REF-GRAM-FR
+machine a laver	machine à laver	HOMO_A_PREPOSITION	REF-GRAM-FR
+salle a manger	salle à manger	HOMO_A_PREPOSITION	REF-GRAM-FR
+d’ ou	d’où	HOMO_OU_RELATIF	REF-GRAM-FR
+au moment ou	au moment où	HOMO_OU_RELATIF	REF-GRAM-FR
+partout ou	partout où	HOMO_OU_RELATIF	REF-GRAM-FR
+où bien	ou bien	HOMO_OU_CONJONCTION	REF-GRAM-FR

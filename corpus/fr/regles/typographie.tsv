@@ -1,0 +1,48 @@
+# Corpus de règles — typographie. Format : docs/format-donnees.md.
+# Ligne annotée = test positif ; ligne sans annotation = test négatif (aucun signalement).
+TYPO_ESPACE_AVANT_MANQUANTE	Quelle belle journée⟦!→{fine}!⟧	CONTRIB-INIT
+TYPO_ESPACE_AVANT_MANQUANTE	Il a dit⟦:→{nbsp}:⟧ rien de plus.	CONTRIB-INIT
+TYPO_ESPACE_AVANT_MANQUANTE	Quelle belle journée{fine}!	CONTRIB-INIT
+TYPO_ESPACE_AVANT_MANQUANTE	Rendez-vous à 10:30 devant la gare.	CONTRIB-INIT
+TYPO_ESPACE_AVANT_MANQUANTE	Vous venez{fine}?!	CONTRIB-INIT
+TYPO_ESPACE_AVANT_SECABLE	Vous venez⟦ →{fine}⟧?	CONTRIB-INIT
+TYPO_ESPACE_AVANT_SECABLE	Il a dit⟦ →{nbsp}⟧: rien de plus.	CONTRIB-INIT
+TYPO_ESPACE_AVANT_SECABLE	Vous venez{nbsp}?	CONTRIB-INIT
+TYPO_ESPACE_APRES_MANQUANTE	Il pleut{fine}⟦;→; ⟧il fait froid.	CONTRIB-INIT
+TYPO_ESPACE_APRES_MANQUANTE	Oui⟦,→, ⟧merci.	CONTRIB-INIT
+TYPO_ESPACE_APRES_MANQUANTE	Il est parti⟦.→. ⟧Elle est restée.	CONTRIB-INIT
+TYPO_ESPACE_APRES_MANQUANTE	Le nombre 3,14 est connu.	CONTRIB-INIT
+TYPO_ESPACE_APRES_MANQUANTE	Voir le site www.exemple.org pour la suite.	CONTRIB-INIT
+TYPO_ESPACE_GUILLEMETS	Il a crié ⟦«→«{nbsp}⟧au secours{nbsp}» dans la rue.	CONTRIB-INIT
+TYPO_ESPACE_GUILLEMETS	Il a crié «{nbsp}au secours⟦ →{nbsp}⟧» dans la rue.	CONTRIB-INIT
+TYPO_ESPACE_GUILLEMETS	Il a crié «{nbsp}au secours⟦»→{nbsp}»⟧ dans la rue.	CONTRIB-INIT
+TYPO_ESPACE_GUILLEMETS	Il a crié «{nbsp}au secours{nbsp}» dans la rue.	CONTRIB-INIT
+TYPO_GUILLEMETS_FRANCAIS	Il a dit ⟦"→«{nbsp}⟧bonjour⟦"→{nbsp}»⟧ en entrant.	CONTRIB-INIT
+TYPO_GUILLEMETS_FRANCAIS	Il a dit ⟦“→«{nbsp}⟧bonjour⟦”→{nbsp}»⟧ en entrant.	CONTRIB-INIT
+TYPO_GUILLEMETS_FRANCAIS	Elle a dit «{nbsp}il a crié “stop” puis il est parti{nbsp}».	CONTRIB-INIT
+TYPO_APOSTROPHE_DROITE	Il fait beau aujourd⟦'→’⟧hui.	CONTRIB-INIT
+TYPO_APOSTROPHE_DROITE	L⟦'→’⟧enfant dort.	CONTRIB-INIT
+TYPO_APOSTROPHE_DROITE	L’enfant dort aujourd’hui.	CONTRIB-INIT
+TYPO_ESPACE_APRES_APOSTROPHE	L⟦’ →’⟧enfant dort.	CONTRIB-INIT
+TYPO_ESPACE_APRES_APOSTROPHE	Il ne sait pas ce qu⟦’ →’⟧il veut.	CONTRIB-INIT
+TYPO_ESPACE_APRES_APOSTROPHE	Il ne sait pas ce qu’il veut.	CONTRIB-INIT
+TYPO_TIRET_INCISE	Mon frère ⟦-→–⟧ le plus jeune ⟦-→–⟧ arrive demain.	CONTRIB-INIT
+TYPO_TIRET_INCISE	Mon frère – le plus jeune – arrive demain.	CONTRIB-INIT
+TYPO_TIRET_INCISE	Il a peut-être raison.	CONTRIB-INIT
+TYPO_DOUBLE_TRAIT	Il hésita ⟦--→–⟧ puis il sortit.	CONTRIB-INIT
+TYPO_DOUBLE_TRAIT	Il hésita – puis il sortit.	CONTRIB-INIT
+TYPO_ESPACES_MULTIPLES	Le chat⟦  → ⟧dort.	CONTRIB-INIT
+TYPO_ESPACES_MULTIPLES	Le chat dort.	CONTRIB-INIT
+TYPO_ESPACE_AVANT_VIRGULE	Le chat⟦ →⟧, le chien et la souris.	CONTRIB-INIT
+TYPO_ESPACE_AVANT_VIRGULE	Le chat dort⟦ →⟧.	CONTRIB-INIT
+TYPO_ESPACE_AVANT_VIRGULE	Le chat, le chien et la souris.	CONTRIB-INIT
+TYPO_ESPACE_PARENTHESES	Le chat (⟦ →⟧gris) dort.	CONTRIB-INIT
+TYPO_ESPACE_PARENTHESES	Le chat (gris⟦ →⟧) dort.	CONTRIB-INIT
+TYPO_ESPACE_PARENTHESES	Le chat (gris) dort.	CONTRIB-INIT
+TYPO_MAJUSCULE_PHRASE	⟦le→Le⟧ chat dort.	CONTRIB-INIT
+TYPO_MAJUSCULE_PHRASE	Le chat dort. ⟦il→Il⟧ rêve.	CONTRIB-INIT
+TYPO_MAJUSCULE_PHRASE	Il a vu des chats, des chiens, etc. et il est parti.	CONTRIB-INIT
+TYPO_MAJUSCULE_PHRASE	Hélas{fine}! dit-il.	CONTRIB-INIT
+TYPO_MAJUSCULE_PHRASE	Il hésita… puis il sortit.	CONTRIB-INIT
+TYPO_POINTS_SUSPENSION	Il hésita⟦...→…⟧	CONTRIB-INIT
+TYPO_POINTS_SUSPENSION	Il hésita…	CONTRIB-INIT

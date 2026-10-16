@@ -1,0 +1,26 @@
+# Verbes (lemmes) construits avec « à » devant un infinitif : « il commence à pleuvoir ».
+# Source : REF-GRAM-FR (constructions verbales usuelles).
+aider
+amuser
+apprendre
+arriver
+autoriser
+chercher
+commencer
+consentir
+continuer
+encourager
+habituer
+hésiter
+inviter
+mettre
+obliger
+parvenir
+penser
+persister
+préparer
+renoncer
+réussir
+servir
+songer
+tenir

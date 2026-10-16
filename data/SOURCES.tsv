@@ -1,0 +1,5 @@
+# Ressources utilisées par les données du dépôt.
+# code	ressource	licence	statut	notes
+CONTRIB-INIT	Texte rédigé par les contributeurs du projet	GPL-3.0-or-later	intégré	Lexique d'amorce, règles, messages, corpus. Voir docs/provenance.md.
+REF-GRAM-FR	Grammaires de référence du français (consultation)	sans objet	référence	Sert à vérifier une règle ; aucune formulation n'est reprise.
+REF-TYPO-FR	Usages typographiques français (consultation)	sans objet	référence	Sert à vérifier une règle ; aucune formulation n'est reprise.
