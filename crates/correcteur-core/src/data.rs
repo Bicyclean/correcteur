@@ -29,6 +29,35 @@ pub struct EngineData {
 }
 
 impl EngineData {
+    /// Range un fichier selon son chemin relatif au dossier `data/`
+    /// (`lexique/….tsv`, `regles/regles.tsv`…). Sert quand les fichiers ne
+    /// sont pas lus sur disque, par exemple dans le module WebAssembly.
+    pub fn add_file(&mut self, path: &str, content: String) -> Result<(), DataError> {
+        let slot = match path {
+            "regles/regles.tsv" => &mut self.rules,
+            "regles/locutions.tsv" => &mut self.locutions,
+            "regles/elisions.txt" => &mut self.elisions,
+            "regles/abreviations.txt" => &mut self.abbreviations,
+            "regles/verbes_a.txt" => &mut self.verbs_with_a,
+            p if p.starts_with("lexique/") && p.ends_with(".tsv") => {
+                self.lexicons.push((p.to_string(), content));
+                self.lexicons.sort_by(|a, b| a.0.cmp(&b.0));
+                return Ok(());
+            }
+            // Fichiers utiles seulement aux outils (import, documentation).
+            p if p.starts_with("regles/") || !p.ends_with(".tsv") => return Ok(()),
+            _ => {
+                return Err(DataError {
+                    file: path.to_string(),
+                    line: 0,
+                    message: "fichier de données inattendu".into(),
+                })
+            }
+        };
+        *slot = content;
+        Ok(())
+    }
+
     #[cfg(not(target_arch = "wasm32"))]
     pub fn read_dir(dir: &std::path::Path) -> Result<EngineData, DataError> {
         let read = |rel: &str| -> Result<String, DataError> {

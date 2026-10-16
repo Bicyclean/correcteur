@@ -1,0 +1,13 @@
+[package]
+name = "correcteur-wasm"
+description = "Module WebAssembly du moteur, pour l'add-in Word. Interface sans dépendance, échanges en JSON."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+correcteur-core = { path = "../correcteur-core" }

@@ -12,3 +12,10 @@ dependencies = [
 [[package]]
 name = "correcteur-core"
 version = "0.1.0"
+
+[[package]]
+name = "correcteur-wasm"
+version = "0.1.0"
+dependencies = [
+ "correcteur-core",
+]
