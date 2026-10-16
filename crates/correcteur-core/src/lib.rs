@@ -8,6 +8,7 @@
 mod analysis;
 pub mod corpus;
 mod data;
+pub mod interop;
 mod lexicon;
 mod rules;
 mod suggest;
