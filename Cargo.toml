@@ -1,0 +1,13 @@
+[workspace]
+resolver = "2"
+members = ["crates/correcteur-core", "crates/correcteur-cli"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "GPL-3.0-or-later"
+rust-version = "1.82"
+
+[profile.release]
+lto = true
+codegen-units = 1
