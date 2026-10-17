@@ -27,3 +27,14 @@ coll
 réf
 tél
 art
+# Abréviations anglaises fréquentes dans les noms de sociétés et de personnes.
+Bros
+Inc
+Ltd
+Co
+Corp
+Jr
+Sr
+Mr
+Mrs
+Ms

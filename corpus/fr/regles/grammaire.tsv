@@ -149,3 +149,44 @@ GRAM_PARTICIPE_AVOIR_LES	Je les ai vues hier.	CONTRIB-INIT
 GRAM_PARTICIPE_AVOIR_LES	Je les ai fait venir.	CONTRIB-INIT
 GRAM_PARTICIPE_AVOIR_LES	Je les en ai remercié.	CONTRIB-INIT
 GRAM_PARTICIPE_AVOIR_LES	Il les a pris avec lui.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il croisa les bras pour ⟦serré→serrer⟧ ce trésor.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il faut ⟦traversé→traverser⟧ le lac.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il n’y a rien de prévu.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il a fermé la porte.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Le régiment arrive vers la mi-décembre.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Les porte-parole du conseil défendent le projet.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	On voit deux socles, dont un porte un brûleur.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Le rapport de la SA indique le contraire.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Elle est construite selon ⟦un configuration→une configuration⟧ particulière.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	⟦Certains scènes→Certaines scènes⟧ sont coupées.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Ils travaillent dans les domaines industriel, agricole et maritime.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Les versions indienne et irlandaise diffèrent.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Le trio ajoute une partie au violoncelle jouée par un ami.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Il brosse un panorama de la poésie et de la musique arméniennes.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Les milices sont par la suite rebaptisées.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Le roi prend ses repas seul.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Il a la peau brun foncé.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Il y a un cratère ⟦appelée→appelé⟧ Reusch.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Le parti mobilise les masses ⟦déshérités→déshéritées⟧.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Les samedi et dimanche, le marché est ouvert.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Six habitants sur dix résident en ville.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	La capitaine du navire donne ses ordres.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Il apprend ⟦les geste→les gestes⟧ du métier.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	La majorité sont restés chez eux.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Une tribune en bois est construite.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Sa fiabilité ainsi que sa taille ont fait son succès.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Les types A et B sont fréquents.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Cette manœuvre n’⟦échappent→échappe⟧ à personne.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il étudie l’œuvre d’Honoré de Balzac.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il semble fasciné par la musique.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Le texte est approuvé, puis publié au journal.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il joue des rôles de roué et de snob.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Aussi bien le poète que la jeune femme sont devenus célèbres.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	La production est quoi qu’il en soit certaine.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Il n’est nulle question de partir.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ils sont jaune, magenta et cyan.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	L’histoire est ⟦abordé→abordée⟧ du point de vue du héros.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	La priorité est ⟦données→donnée⟧ à l’école.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	L’enfant ⟦sont→est⟧ parti.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Je tiens pour avéré que tout va bien.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il attendait que quelqu’un d’autorisé le renseigne.	CONTRIB-INIT

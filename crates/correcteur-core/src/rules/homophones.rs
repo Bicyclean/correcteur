@@ -9,7 +9,7 @@
 use super::grammar::noun_gender;
 use super::{Context, RawIssue};
 use crate::lexicon::{Form, Pos};
-use crate::text::{capitalize, is_capitalized};
+use crate::text::{capitalize, is_all_upper, is_capitalized};
 
 pub const A_ACCENT: &str = "HOMO_A_VERBE";
 pub const A_SANS_ACCENT: &str = "HOMO_A_PREPOSITION";
@@ -18,6 +18,7 @@ pub const OU_SANS_ACCENT: &str = "HOMO_OU_CONJONCTION";
 pub const CE_SE: &str = "HOMO_CE_SE";
 pub const SE_CE: &str = "HOMO_SE_CE";
 pub const C_S: &str = "HOMO_C_S";
+pub const S_C: &str = "HOMO_S_C";
 pub const ET_EST: &str = "HOMO_ET_EST";
 pub const ON_ONT: &str = "HOMO_ON_ONT";
 pub const ONT_ON: &str = "HOMO_ONT_ON";
@@ -79,13 +80,18 @@ const PREPOSITIONS_BEFORE_PRONOUN: &[&str] = &[
 pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
     for i in 0..ctx.words.len() {
         let w = &ctx.words[i];
-        if w.ignored {
+        // « la SA », « OU logique » : sigles et mots en capitales.
+        if w.ignored
+            || (w.text.chars().filter(|c| c.is_alphabetic()).count() > 1 && is_all_upper(w.text))
+        {
             continue;
         }
         let fix = match w.lower.as_str() {
             "à" => check_a_accent(ctx, i).then_some((A_ACCENT, "a")),
             "a" => check_a(ctx, i).then_some((A_SANS_ACCENT, "à")),
             "ou" => check_ou(ctx, i).then_some((OU_ACCENT, "où")),
+            "où" => check_ou_accent(ctx, i).then_some((OU_SANS_ACCENT, "ou")),
+            "s’" => check_s(ctx, i).then_some((S_C, "c’")),
             "ce" => check_ce(ctx, i).then_some((CE_SE, "se")),
             "se" => check_se(ctx, i).then_some((SE_CE, "ce")),
             "c’" => check_c(ctx, i).then_some((C_S, "s’")),
@@ -161,10 +167,12 @@ fn check_a_accent(ctx: &Context, i: usize) -> bool {
         lower_is(ctx, p, &["y"]) && lower_is(ctx, p.and_then(|p| ctx.prev(p)), &["il"]);
     // Mot qui ne peut être que participe ou adjectif : « lui » (aussi participe
     // de « luire ») est d'abord un pronom, « à lui » est correct.
-    let before_participle = form(ctx, n).is_some_and(|f| {
-        f.has(super::super::lexicon::Reading::is_past_participle)
-            && f.only(|r| (r.pos.is_verb() && !r.is_infinitive()) || r.pos == Pos::Adj)
-    });
+    // « à René d’Anjou » : nom propre, pas le participe de renaître.
+    let before_participle = !n.is_some_and(|k| is_capitalized(ctx.words[k].text))
+        && form(ctx, n).is_some_and(|f| {
+            f.has(super::super::lexicon::Reading::is_past_participle)
+                && f.only(|r| (r.pos.is_verb() && !r.is_infinitive()) || r.pos == Pos::Adj)
+        });
     // « c’est elle qui à raison » : « qui » sujet, puis une locution avec avoir.
     let after_qui = lower_is(ctx, p, &["qui"])
         && lower_is(
@@ -175,18 +183,112 @@ fn check_a_accent(ctx: &Context, i: usize) -> bool {
                 "honte", "sommeil", "hâte", "mal",
             ],
         );
-    (after_subject && n.is_some()) || after_il_y || before_participle || after_qui
+    // « on vous à vu », « il en à fait », « il n’y à pas » : pronoms entre le
+    // sujet et le verbe.
+    let mut k = p;
+    let mut clitics = 0;
+    while k.is_some_and(|q| {
+        matches!(
+            ctx.words[q].lower.as_str(),
+            "ne" | "n’"
+                | "y"
+                | "en"
+                | "me"
+                | "m’"
+                | "te"
+                | "t’"
+                | "se"
+                | "s’"
+                | "nous"
+                | "vous"
+                | "lui"
+                | "leur"
+                | "le"
+                | "la"
+                | "l’"
+                | "les"
+        )
+    }) {
+        clitics += 1;
+        k = k.and_then(|q| ctx.prev(q));
+    }
+    let subject_then_clitics = clitics > 0
+        && is_preverbal_subject(ctx, k)
+        && !k
+            .and_then(|q| ctx.prev(q))
+            .is_some_and(|q| form(ctx, Some(q)).is_some_and(|f| f.has_pos(Pos::Pre)));
+    // « à été » n'existe pas : « a été ». Participe après un nom ou un pronom
+    // sujet (« la promesse à été acceptée », « la mère Giry à repris »).
+    let etre = lower_is(ctx, n, &["été"]);
+    // Participe sans autre lecture de nom, pronom ou adverbe : « à vue », « à
+    // mort », « quant à lui », « à plus de » sont des compléments.
+    let pp_after_subject = form(ctx, n).is_some_and(|f| {
+        f.has(super::super::lexicon::Reading::is_past_participle)
+            && !f.has(|r| matches!(r.pos, Pos::Nom | Pos::Pro | Pos::Adv | Pos::Pre))
+    }) && !n.is_some_and(|k| is_capitalized(ctx.words[k].text))
+        && p.is_some_and(|q| {
+            let qw = &ctx.words[q];
+            (is_capitalized(qw.text) && !qw.sentence_start)
+                || matches!(qw.lower.as_str(), "lui" | "eux" | "aussi" | "cela" | "ça")
+                || form(ctx, Some(q)).is_some_and(|f| f.only(|r| r.pos == Pos::Nom))
+        })
+        && !lower_is(ctx, n.and_then(|n| ctx.next(n)), &["de", "d’", "à"]);
+    (after_subject && n.is_some())
+        || after_il_y
+        || before_participle
+        || after_qui
+        || (subject_then_clitics && n.is_some())
+        || etre
+        || pp_after_subject
 }
 
 /// « A Paris » en début de phrase → « À » ; « il commence a pleuvoir » → « à ».
 fn check_a(ctx: &Context, i: usize) -> bool {
     let w = &ctx.words[i];
     let n = ctx.next(i);
+    // « A. W. Mackenzie » : initiale. « A History of Chile », « Tom Jones, a
+    // Foundling » : article anglais devant un mot inconnu du lexique.
+    // « a priori », « a contrario » : locutions latines, sans accent.
+    // Titres anglais : « A Concise History », « Contrasts : a Concerto for… ».
+    let n2 = n.and_then(|n| ctx.next(n));
+    let unknown = |k: Option<usize>| k.is_some_and(|k| ctx.form(k).is_none());
+    let english = lower_is(
+        ctx,
+        n2,
+        &["of", "in", "the", "and", "for", "to", "from", "with", "on"],
+    ) || (n.is_some_and(|k| is_capitalized(ctx.words[k].text))
+        && n2.is_some_and(|k| is_capitalized(ctx.words[k].text) || ctx.form(k).is_none()));
+    if ctx.text[w.end..].starts_with('.')
+        || unknown(n)
+        || unknown(ctx.prev(i))
+        || english
+        || lower_is(
+            ctx,
+            n,
+            &[
+                "priori",
+                "posteriori",
+                "contrario",
+                "fortiori",
+                "minima",
+                "maxima",
+                "capella",
+                "cappella",
+            ],
+        )
+    {
+        return false;
+    }
     if w.sentence_start && !w.compound_part {
         // En tête de phrase, le verbe « a » n'a pas de sujet : c'est la préposition.
+        // « la Warner Bros. a décidé » : point d'abréviation, puis le verbe.
         return n.is_some_and(|n| ctx.words[n].lower != "t")
             && !form(ctx, n)
-                .is_some_and(|f| f.only(super::super::lexicon::Reading::is_past_participle));
+                .is_some_and(|f| f.has(super::super::lexicon::Reading::is_past_participle));
+    }
+    // « il réalise A Carioca » : « A » en capitale au milieu d'une phrase, titre.
+    if w.text == "A" {
+        return false;
     }
     let p = ctx.prev(i);
     let after_a_verb = form(ctx, p)
@@ -204,8 +306,17 @@ fn check_a(ctx: &Context, i: usize) -> bool {
     {
         return false;
     }
-    let verb_with_subject = form(ctx, p)
-        .is_some_and(|f| f.has(super::super::lexicon::Reading::is_finite_verb))
+    // « Ce qu’il dit a du sens » : après une relative, « a » est le verbe principal.
+    let relative_before = p.is_some_and(|q| {
+        (q.saturating_sub(4)..q).any(|k| {
+            matches!(
+                ctx.words[k].lower.as_str(),
+                "qui" | "que" | "qu’" | "quoi" | "dont" | "où"
+            )
+        })
+    });
+    let verb_with_subject = !relative_before
+        && form(ctx, p).is_some_and(|f| f.has(super::super::lexicon::Reading::is_finite_verb))
         && p.and_then(|p| ctx.prev(p)).is_some_and(|s| {
             ctx.data.subjects.contains_key(ctx.words[s].lower.as_str())
                 && !ctx.words[s].compound_part
@@ -219,14 +330,135 @@ fn check_a(ctx: &Context, i: usize) -> bool {
                 "moi" | "toi" | "lui" | "eux" | "elles" | "nous" | "vous"
             )
     });
-    verb_with_subject && nominal
+    if verb_with_subject && nominal {
+        return true;
+    }
+    // Le verbe « a » est suivi d'un participe (« a été », « a fini ») ou d'une
+    // locution avec avoir (« a raison », « a lieu ») : on s'abstient alors.
+    let pp = |k: Option<usize>| {
+        form(ctx, k).is_some_and(|f| f.has(super::super::lexicon::Reading::is_past_participle))
+    };
+    // « a longtemps été », « a déjà fini » : participe après un adverbe.
+    let verbal_after = pp(n)
+        || (form(ctx, n).is_some_and(|f| f.has_pos(Pos::Adv)) && pp(n2))
+        || lower_is(ctx, n, AVOIR_NOUNS);
+    if verbal_after {
+        return false;
+    }
+    // Locutions prépositives ou adverbiales : « tout a coup », « a jamais »,
+    // « a cause de », « a la mode »…
+    let nn = n.and_then(|n| ctx.next(n));
+    // Un sujet juste avant (« il a jamais vu », « Pierre a peine ») : verbe avoir.
+    let subject_before = p.is_some_and(|q| {
+        let qw = &ctx.words[q];
+        ctx.data.subjects.contains_key(qw.lower.as_str())
+            || (is_capitalized(qw.text) && !qw.sentence_start)
+            || form(ctx, Some(q)).is_some_and(|f| f.has(|r| matches!(r.pos, Pos::Nom | Pos::Pro)))
+    });
+    let locution = !subject_before
+        && lower_is(
+            ctx,
+            n,
+            &[
+                "jamais",
+                "travers",
+                "peine",
+                "présent",
+                "nouveau",
+                "propos",
+                "condition",
+                "côté",
+                "partir",
+                "cause",
+            ],
+        )
+        || (lower_is(ctx, p, &["tout"]) && lower_is(ctx, n, &["coup", "fait", "l’heure"]))
+        || (lower_is(ctx, n, &["la"])
+            && lower_is(ctx, nn, &["fois", "mode", "suite", "place", "fin"]))
+        || (lower_is(ctx, n, &["peu"]) && lower_is(ctx, nn, &["près"]));
+    // Après une forme d'être (« c’est a ce moment »), un infinitif (« se
+    // dévouer a la science ») ou un verbe conjugué sans nom possible (« vous
+    // aurez a manger ») : deux verbes conjugués ne se suivent pas.
+    // « le musée de Vienne a longtemps été » : nom propre sujet (« Vienne »
+    // n'est pas le verbe venir).
+    let name_before =
+        p.is_some_and(|q| is_capitalized(ctx.words[q].text) && !ctx.words[q].sentence_start);
+    let after_verb = !relative_before
+        && !name_before
+        && form(ctx, p).is_some_and(|f| {
+            let lone_verb = !f.has(|r| matches!(r.pos, Pos::Nom | Pos::Adj | Pos::Pro | Pos::Adv));
+            f.has(|r| r.lemma == "être" && r.is_finite_verb())
+                || (lone_verb && f.has(|r| r.is_finite_verb() || r.is_infinitive()))
+        });
+    // Nom propre après « a », sans sujet devant : « naturelle a Raoul ».
+    let name_after = n
+        .is_some_and(|k| is_capitalized(ctx.words[k].text) && !ctx.words[k].sentence_start)
+        && p.is_some()
+        && !p.is_some_and(|q| {
+            is_capitalized(ctx.words[q].text)
+                || ctx.data.subjects.contains_key(ctx.words[q].lower.as_str())
+                || form(ctx, Some(q)).is_some_and(|f| f.has_pos(Pos::Nom))
+        });
+    locution || after_verb || name_after
 }
+
+/// Noms qui forment avec avoir une locution sans déterminant (« il a raison »).
+const AVOIR_NOUNS: &[&str] = &[
+    "raison",
+    "tort",
+    "faim",
+    "soif",
+    "peur",
+    "besoin",
+    "envie",
+    "froid",
+    "chaud",
+    "honte",
+    "sommeil",
+    "hâte",
+    "mal",
+    "lieu",
+    "trait",
+    "affaire",
+    "droit",
+    "coutume",
+    "horreur",
+    "confiance",
+    "cours",
+    "beau",
+    "l’air",
+    "pitié",
+    "soin",
+    "part",
+    "recours",
+    "accès",
+];
 
 /// « Ou est-il ? » → « Où ».
 fn check_ou(ctx: &Context, i: usize) -> bool {
     let w = &ctx.words[i];
     if !w.sentence_start {
-        return false;
+        // « l’âge ou j’entrerais », « Constantinople ou il était » : après un
+        // nom, devant un pronom sujet, « ou » ne relie rien : c'est le relatif.
+        let p = ctx.prev(i);
+        let after_noun = p.is_some_and(|p| {
+            let pw = &ctx.words[p];
+            (is_capitalized(pw.text) && !pw.sentence_start)
+                || form(ctx, Some(p)).is_some_and(|f| {
+                    f.has_pos(Pos::Nom) && !f.has(|r| r.pos.is_verb() || r.pos == Pos::Adj)
+                })
+        });
+        let n = ctx.next(i);
+        let lowercase_next = n.is_some_and(|k| !is_capitalized(ctx.words[k].text));
+        let subject = lowercase_next
+            && lower_is(
+                ctx,
+                n,
+                &[
+                    "je", "j’", "tu", "il", "elle", "on", "nous", "vous", "ils", "elles", "l’on",
+                ],
+            );
+        return after_noun && subject && !lower_is(ctx, n.and_then(|n| ctx.next(n)), &["ou", "et"]);
     }
     let n = ctx.next(i);
     form(ctx, n).is_some_and(|f| f.has(super::super::lexicon::Reading::is_finite_verb))
@@ -244,6 +476,10 @@ fn ends_with_question(ctx: &Context, from: usize) -> bool {
 /// « il ce lave » → « se » ; « pour ce laver » → « se ».
 fn check_ce(ctx: &Context, i: usize) -> bool {
     let n = ctx.next(i);
+    // « pour ce faire » : locution correcte.
+    if lower_is(ctx, ctx.prev(i), &["pour"]) && lower_is(ctx, n, &["faire"]) {
+        return false;
+    }
     let Some(f) = form(ctx, n) else {
         return false;
     };
@@ -270,10 +506,16 @@ fn check_se(ctx: &Context, i: usize) -> bool {
             det.and_then(|d| ctx.next(d)),
             &["plus", "moins", "mieux"],
         )
-        && !ctx.prev(i).is_some_and(|p| {
-            let pw = ctx.words[p].lower.as_str();
-            ctx.data.subjects.contains_key(pw) || matches!(pw, "qui" | "que" | "qu’")
-        });
+        // Pas de sujet devant (« la sécheresse se sont un jour abattues ») :
+        // début de proposition seulement, et pas de participe ensuite.
+        && ctx.prev(i).is_none_or(|p| matches!(ctx.words[p].lower.as_str(), "et" | "mais" | "car" | "donc" | "puis"))
+        && !(0..4)
+            .scan(det, |k, _| {
+                let cur = *k;
+                *k = k.and_then(|x| ctx.next(x));
+                Some(cur)
+            })
+            .any(|k| form(ctx, k).is_some_and(|f| f.has(super::super::lexicon::Reading::is_past_participle)));
     etre_then_det
         || lower_is(ctx, n, &["qui", "que", "qu’", "dont", "quoi"])
         || form(ctx, n).is_some_and(|f| f.only(|r| r.pos == Pos::Nom))
@@ -283,13 +525,22 @@ fn check_se(ctx: &Context, i: usize) -> bool {
 /// adverbe (« son déjà partis »).
 fn check_son(ctx: &Context, i: usize) -> bool {
     let n = ctx.next(i);
+    // « ne son pas », « elles son tristes » : jamais le possessif.
+    if lower_is(ctx, ctx.prev(i), &["ne", "ils", "elles"]) {
+        return true;
+    }
+    // Après un sujet pluriel : participe, adverbe ou article (« les mois son
+    // les meilleurs »). « Son » est aussi un nom (« au son du tambour ») et un
+    // possessif devant « pas », « plus » (« son pas est sûr », « son plus
+    // proche parent ») : ces suites seules ne suffisent pas.
     let verbal = form(ctx, n)
         .is_some_and(|f| f.has(super::super::lexicon::Reading::is_past_participle))
         || lower_is(
             ctx,
             n,
             &[
-                "pas", "plus", "tous", "toutes", "très", "bien", "déjà", "encore", "toujours",
+                "pas", "plus", "jamais", "guère", "tous", "toutes", "très", "bien", "déjà",
+                "encore", "toujours", "le", "la", "l’", "les", "un", "une", "des", "du",
             ],
         );
     verbal && plural_subject_before(ctx, i)
@@ -299,13 +550,109 @@ fn check_son(ctx: &Context, i: usize) -> bool {
 /// peut être qu'un nom.
 fn check_sont(ctx: &Context, i: usize) -> bool {
     let p = ctx.prev(i);
-    let after_verb = form(ctx, p).is_some_and(|f| {
-        f.has(|r| r.pos.is_verb()) && !f.has(|r| matches!(r.pos, Pos::Nom | Pos::Pro))
-    }) && !lower_is(ctx, p, &["que", "qu’", "où"]);
+    // « Ce qu’il dit a du sens » : après une relative, « a » est le verbe principal.
+    let relative_before = p.is_some_and(|q| {
+        (q.saturating_sub(4)..q).any(|k| {
+            matches!(
+                ctx.words[k].lower.as_str(),
+                "qui" | "que" | "qu’" | "quoi" | "dont" | "où"
+            )
+        })
+    });
+    // « le musée de Vienne a longtemps été » : nom propre sujet (« Vienne »
+    // n'est pas le verbe venir).
+    let name_before =
+        p.is_some_and(|q| is_capitalized(ctx.words[q].text) && !ctx.words[q].sentence_start);
+    let after_verb = !relative_before
+        && !name_before
+        && form(ctx, p).is_some_and(|f| {
+            f.has(|r| r.pos.is_verb()) && !f.has(|r| matches!(r.pos, Pos::Nom | Pos::Pro))
+        })
+        && !lower_is(ctx, p, &["que", "qu’", "où"]);
     after_verb && form(ctx, ctx.next(i)).is_some_and(|f| f.only(|r| r.pos == Pos::Nom))
 }
 
 /// « il c’est trompé » → « s’ ».
+/// « quatre où cinq », « de Spa où de Toeplitz », « où du moins » → « ou » :
+/// deux éléments de même nature reliés.
+fn check_ou_accent(ctx: &Context, i: usize) -> bool {
+    let (p, n) = (ctx.prev(i), ctx.next(i));
+    // Nombres écrits en lettres ou en chiffres, hors années (« les années 1960
+    // où… » : relatif).
+    let number = |k: Option<usize>| {
+        k.is_some_and(|k| {
+            let w = &ctx.words[k];
+            (w.has_digit && w.text.chars().count() < 4)
+                || matches!(
+                    w.lower.as_str(),
+                    "un" | "une"
+                        | "deux"
+                        | "trois"
+                        | "quatre"
+                        | "cinq"
+                        | "six"
+                        | "sept"
+                        | "huit"
+                        | "neuf"
+                        | "dix"
+                        | "onze"
+                        | "douze"
+                        | "quinze"
+                        | "vingt"
+                        | "trente"
+                        | "quarante"
+                        | "cinquante"
+                        | "soixante"
+                        | "cent"
+                        | "cents"
+                        | "mille"
+                )
+        })
+    };
+    let both_numbers = number(p) && number(n);
+    // Même préposition de part et d'autre : « de Spa où de Toeplitz ».
+    let k = p.and_then(|p| ctx.prev(p));
+    let same_preposition = n.is_some_and(|n| {
+        matches!(
+            ctx.words[n].lower.as_str(),
+            "de" | "d’" | "à" | "en" | "par" | "pour" | "avec" | "sans"
+        ) && k.is_some_and(|k| ctx.words[k].lower == ctx.words[n].lower)
+    });
+    let du_moins =
+        lower_is(ctx, n, &["du"]) && lower_is(ctx, n.and_then(|n| ctx.next(n)), &["moins"]);
+    both_numbers || same_preposition || du_moins
+}
+
+/// « s’est beau », « s’est la vérité », « s’est que » → « c’est » : « s’est »
+/// sans participe passé après (« il s’est levé », « s’est bien amusé »).
+fn check_s(ctx: &Context, i: usize) -> bool {
+    let n = ctx.next(i);
+    if !lower_is(ctx, n, &["est", "était"]) {
+        return false;
+    }
+    // « ne s’est pas », « qui s’est », « il s’est » : construction pronominale.
+    let p = ctx.prev(i);
+    if lower_is(ctx, p, &["ne", "n’", "qui", "que", "qu’"]) || is_preverbal_subject(ctx, p) {
+        return false;
+    }
+    // Un participe dans les mots suivants, éventuellement après des adverbes
+    // (« s’est peu à peu transformée », « s’est en effet déplacé ») : correct.
+    let mut k = n.and_then(|n| ctx.next(n));
+    if k.is_none() {
+        return false;
+    }
+    for _ in 0..5 {
+        let Some(j) = k else { break };
+        if form(ctx, Some(j))
+            .is_some_and(|f| f.has(super::super::lexicon::Reading::is_past_participle))
+        {
+            return false;
+        }
+        k = ctx.next(j);
+    }
+    true
+}
+
 fn check_c(ctx: &Context, i: usize) -> bool {
     is_preverbal_subject(ctx, ctx.prev(i)) && ctx.next(i).is_some()
 }
@@ -391,8 +738,13 @@ fn check_on(ctx: &Context, i: usize) -> bool {
         return false;
     }
     let p = ctx.prev(i).map(|p| ctx.words[p].lower.as_str());
+    // « devant elles on trouve » : pronom complément d'une préposition.
+    let after_preposition = ctx
+        .prev(i)
+        .and_then(|p| ctx.prev(p))
+        .is_some_and(|q| form(ctx, Some(q)).is_some_and(|f| f.has_pos(Pos::Pre)));
     if matches!(p, Some("ils" | "elles")) {
-        return true;
+        return !after_preposition;
     }
     form(ctx, n).is_some_and(|f| {
         f.has(super::super::lexicon::Reading::is_past_participle)
@@ -403,9 +755,45 @@ fn check_on(ctx: &Context, i: usize) -> bool {
 /// « Ont dit que… » en tête de phrase → « On ».
 fn check_ont(ctx: &Context, i: usize) -> bool {
     let w = &ctx.words[i];
-    w.sentence_start
-        && !w.compound_part
+    if w.compound_part {
+        return false;
+    }
+    if w.sentence_start
         && form(ctx, ctx.next(i)).is_some_and(|f| f.has(|r| r.person() == Some("3s")))
+    {
+        return true;
+    }
+    // « ont distinguait », « si ont la lui avait ouverte » : après « ont »
+    // (et ses pronoms), un verbe conjugué ; avoir serait suivi d'un participe.
+    let mut n = ctx.next(i);
+    while n.is_some_and(|k| {
+        matches!(
+            ctx.words[k].lower.as_str(),
+            "le" | "la"
+                | "l’"
+                | "les"
+                | "lui"
+                | "leur"
+                | "me"
+                | "m’"
+                | "te"
+                | "t’"
+                | "se"
+                | "s’"
+                | "nous"
+                | "vous"
+                | "y"
+                | "en"
+                | "ne"
+                | "n’"
+        )
+    }) {
+        n = n.and_then(|k| ctx.next(k));
+    }
+    form(ctx, n).is_some_and(|f| {
+        f.has(super::super::lexicon::Reading::is_finite_verb)
+            && !f.has(|r| r.is_past_participle() || matches!(r.pos, Pos::Nom | Pos::Adj | Pos::Adv))
+    })
 }
 
 /// Le mot qui suit `i` est-il une ponctuation (ou la fin du texte) ?
@@ -423,7 +811,11 @@ fn check_sa(ctx: &Context, i: usize) -> bool {
         return before_punctuation(ctx, i);
     };
     let nw = &ctx.words[nj];
-    if nw.compound_part || matches!(nw.lower.as_str(), "tout" | "toute" | "tous" | "toutes") {
+    // « sa Barra Flyting Toccata » : titre ou nom propre après le possessif.
+    if nw.compound_part
+        || (is_capitalized(nw.text) && !nw.sentence_start)
+        || matches!(nw.lower.as_str(), "tout" | "toute" | "tous" | "toutes")
+    {
         return false;
     }
     if ctx.data.determiners.contains_key(&nw.lower)
@@ -432,16 +824,6 @@ fn check_sa(ctx: &Context, i: usize) -> bool {
         return true;
     }
     // Verbe conjugué qui ne peut pas être un nom féminin : « sa va », « sa dépend ».
-    // « je crois quelle est partie » : être suivi d'un participe ou d'un
-    // adjectif (« quelle est la question » garde son déterminant).
-    let etre = form(ctx, n).is_some_and(|f| f.has(|r| r.lemma == "être" && r.is_finite_verb()));
-    let attribute = form(ctx, n.and_then(|n| ctx.next(n))).is_some_and(|f| {
-        f.has(|r| r.pos == Pos::Adj || r.is_past_participle())
-            && !f.has(|r| matches!(r.pos, Pos::Det | Pos::Pro))
-    });
-    if etre && attribute {
-        return true;
-    }
     form(ctx, n).is_some_and(|f| {
         f.has(super::super::lexicon::Reading::is_finite_verb)
             && !f.has(|r| {

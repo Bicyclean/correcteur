@@ -25,3 +25,16 @@ gîte
 aria
 # « amour » est masculin, mais souvent féminin au pluriel (« les amours passées »).
 amour
+# Noms de métier ou de fonction employés aux deux genres (la capitaine, la juge,
+# la médecin) : usage aujourd'hui courant, que Lexique note au masculin seulement.
+capitaine
+juge
+maire
+médecin
+chef
+peintre
+guide
+auteur
+docteur
+ingénieur
+commandant

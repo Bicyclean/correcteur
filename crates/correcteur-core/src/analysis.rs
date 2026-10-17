@@ -128,9 +128,14 @@ fn is_sentence_start(text: &str, start: usize, prev: Option<&Word>, data: &Data)
             '\n' | '\r' => return true,
             '!' | '?' | '…' => return true,
             '.' => {
-                // « M. Dupont », « p. ex. » : le point d'une abréviation ne termine pas la phrase.
+                // « M. Dupont », « p. ex. » : le point d'une abréviation ne termine
+                // pas la phrase, ni celui d'une initiale (« A. W. Mackenzie »).
                 return match prev {
-                    Some(w) => !data.is_abbreviation(&w.norm),
+                    Some(w) => {
+                        let initial =
+                            w.text.chars().count() == 1 && w.text.chars().all(char::is_uppercase);
+                        !initial && !data.is_abbreviation(&w.norm)
+                    }
                     None => true,
                 };
             }

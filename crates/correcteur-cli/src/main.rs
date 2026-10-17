@@ -1,7 +1,7 @@
 //! `correcteur` : analyse un texte, évalue le moteur sur le corpus, mesure les temps.
 //!
 //! ```text
-//! correcteur analyser [--donnees DOSSIER] [--style] [FICHIER]   (entrée standard par défaut)
+//! correcteur analyser [--donnees DOSSIER] [--style] [--json] [FICHIER]   (entrée standard par défaut)
 //! correcteur evaluer  [--donnees DOSSIER] [--corpus DOSSIER] [--sortie FICHIER.md]
 //! correcteur mesurer  [--donnees DOSSIER] [--mots N] [--tours N]
 //! correcteur importer-lexique383 Lexique383.tsv [--sortie FICHIER.tsv]
@@ -43,6 +43,8 @@ struct Args {
     words: usize,
     rounds: usize,
     style: bool,
+    /// `analyser --json` : problèmes au format JSON du moteur (positions en octets).
+    json: bool,
 }
 
 fn parse_args(args: &[String]) -> Result<Args, String> {
@@ -55,6 +57,7 @@ fn parse_args(args: &[String]) -> Result<Args, String> {
         words: 500,
         rounds: 50,
         style: false,
+        json: false,
     };
     let mut it = args.iter();
     while let Some(arg) = it.next() {
@@ -70,6 +73,7 @@ fn parse_args(args: &[String]) -> Result<Args, String> {
             "--mots" => a.words = value()?.parse().map_err(|_| "--mots : nombre attendu")?,
             "--tours" => a.rounds = value()?.parse().map_err(|_| "--tours : nombre attendu")?,
             "--style" => a.style = true,
+            "--json" => a.json = true,
             _ => a.positional.push(arg.clone()),
         }
     }
@@ -124,6 +128,14 @@ fn analyze(engine: &Engine, a: &Args) -> Result<ExitCode, String> {
         );
     }
     let issues = engine.check(&text, &options);
+    if a.json {
+        println!("{}", correcteur_core::interop::issues_to_json(&issues));
+        return Ok(if issues.is_empty() {
+            ExitCode::SUCCESS
+        } else {
+            ExitCode::from(1)
+        });
+    }
     for i in &issues {
         let (line, col) = line_col(&text, i.start);
         // Les espaces insécables sont rendues visibles.

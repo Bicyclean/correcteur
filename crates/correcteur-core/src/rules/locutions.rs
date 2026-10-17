@@ -24,11 +24,13 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
                 continue;
             }
             let (start, end) = (words[i].start, words[i + n - 1].end);
-            if out
-                .iter()
-                .any(|o| o.rule.starts_with("HOMO_") && o.start < end && start < o.end)
-            {
-                continue; // déjà signalé par une règle plus précise
+            // Déjà signalé par une autre règle d'homophone : elle est plus précise.
+            // Un signalement de la même règle sur un mot de la locution cède, lui,
+            // la place à la locution entière (« a » dans « a cause de »).
+            if out.iter().any(|o| {
+                o.rule.starts_with("HOMO_") && o.rule != loc.rule && o.start < end && start < o.end
+            }) {
+                continue;
             }
             let found = &ctx.text[start..end];
             // « $1 », « $2 »… : texte du mot trouvé à cette place (de droite à gauche
@@ -40,6 +42,9 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
             if is_capitalized(found) {
                 replacement = capitalize(&replacement);
             }
+            // La locution entière remplace le signalement d'un de ses mots par la
+            // même règle (« a » dans « a cause de »).
+            out.retain(|o| !(o.rule == loc.rule && o.start >= start && o.end <= end));
             out.push(
                 RawIssue::new(start, end, loc.rule)
                     .arg(found)

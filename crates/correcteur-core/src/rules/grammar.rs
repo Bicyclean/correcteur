@@ -11,7 +11,7 @@
 use super::{Context, RawIssue};
 use crate::data::{Determiner, Subject};
 use crate::lexicon::{Form, Gn, Pos, Reading};
-use crate::text::{capitalize, is_capitalized};
+use crate::text::{capitalize, is_all_upper, is_capitalized};
 
 pub const SUBJECT_VERB: &str = "GRAM_ACCORD_SUJET_VERBE";
 pub const DETERMINER: &str = "GRAM_ACCORD_DETERMINANT";
@@ -21,6 +21,7 @@ pub const PARTICIPLE_AVOIR: &str = "GRAM_PARTICIPE_AVOIR";
 pub const PARTICIPLE_AVOIR_COD: &str = "GRAM_PARTICIPE_AVOIR_COD";
 pub const SI_CONDITIONAL: &str = "GRAM_SI_CONDITIONNEL";
 pub const PARTICIPLE_AVOIR_LES: &str = "GRAM_PARTICIPE_AVOIR_LES";
+pub const PARTICIPLE_FOR_INFINITIVE: &str = "GRAM_PARTICIPE_POUR_INFINITIF";
 pub const INFINITIVE: &str = "GRAM_INFINITIF_PARTICIPE";
 pub const NEGATION: &str = "GRAM_NEGATION_NE";
 pub const PREPOSITION: &str = "GRAM_PREPOSITION";
@@ -35,6 +36,7 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
         auxiliary(ctx, i, out);
         negation(ctx, i, out);
         si_conditional(ctx, i, out);
+        participle_for_infinitive(ctx, i, out);
     }
 }
 
@@ -293,29 +295,71 @@ fn other_head(ctx: &Context, np: &NounPhrase, adj: &Form) -> bool {
             })
         })
     };
-    // Préposition « de » devant le groupe, ou contractée dans « du », « des ».
-    if let Some(before) = ctx.prev(np.det) {
-        let head_end = match lower(ctx, np.det) {
-            "du" | "des" => Some(before),
-            _ if matches!(lower(ctx, before), "de" | "d’" | "d'") => ctx.prev(before),
-            _ => None,
-        };
-        // Le nom complété, éventuellement suivi d'un adjectif.
-        if head_end.is_some_and(|h| agrees_with(h) || ctx.prev(h).is_some_and(agrees_with)) {
-            return true;
-        }
+    // Préposition devant le groupe (« de », « à », « par »…, ou contractée dans
+    // « du », « des », « au », « aux ») : l'adjectif peut se rapporter au nom
+    // que le groupe complète (« une partie du monde éloignée », « une partie au
+    // violoncelle jouée par… », « une étoile à six branches décorée »).
+    let before = ctx.prev(np.det);
+    let preposition = |k: usize| {
+        matches!(lower(ctx, k), "de" | "d’" | "d'")
+            || ctx
+                .form(k)
+                .is_some_and(|f| f.has_pos(Pos::Pre) && !f.has(|r| r.pos == Pos::Det))
+    };
+    let head_end = match lower(ctx, np.det) {
+        "du" | "des" | "au" | "aux" => before,
+        _ => before.filter(|&b| preposition(b)).and_then(|b| ctx.prev(b)),
+    };
+    // Le nom complété, éventuellement suivi d'un adjectif.
+    if head_end.is_some_and(|h| agrees_with(h) || ctx.prev(h).is_some_and(agrees_with)) {
+        return true;
     }
-    // Coordination : un adjectif pluriel après « …, un zèle » ou « … et un zèle ».
+    // Coordination : un adjectif pluriel après « …, un zèle », « … et un zèle »
+    // ou « … et de la musique ».
     let plural = adj
         .readings
         .iter()
         .filter(|r| adjectival(r))
         .any(|r| r.gn().is_some_and(|g| g.number == Some('p')));
-    let coordinated = np.det.checked_sub(1).is_some_and(|b| {
+    let mut first = np.det;
+    if let Some(b) = before.filter(|&b| matches!(lower(ctx, b), "de" | "d’" | "d'")) {
+        first = b;
+    }
+    let coordinated = first.checked_sub(1).is_some_and(|b| {
         matches!(lower(ctx, b), "et" | "ou" | "ni")
-            || ctx.text[ctx.words[b].end..ctx.words[np.det].start].contains(',')
+            || ctx.text[ctx.words[b].end..ctx.words[first].start].contains(',')
     });
     plural && coordinated
+}
+
+/// Adjectif placé après le groupe qui ne s'accorde pas avec lui par nature :
+/// distributif (« les domaines industriel, agricole et maritime », « les versions
+/// indienne et irlandaise »), « seul » rapporté au sujet (« il prend ses repas
+/// seul »), couleur nuancée invariable (« la peau brun foncé »).
+fn free_adjective(ctx: &Context, np: &NounPhrase, adj: usize, f: &Form) -> bool {
+    let singular = f
+        .readings
+        .iter()
+        .filter(|r| adjectival(r))
+        .all(|r| r.gn().is_none_or(|g| g.number != Some('p')));
+    let noun_plural = ctx.form(np.noun).is_some_and(|nf| {
+        nf.has(|r| r.pos == Pos::Nom && r.gn().is_some_and(|g| g.number == Some('p')))
+    });
+    let next = ctx.next(adj);
+    let enumerated = next.is_some_and(|n| matches!(lower(ctx, n), "et" | "ou"))
+        || ctx.text[ctx.words[adj].end..]
+            .trim_start()
+            .starts_with([',', '('])
+        || ctx.next(adj).is_none() && ctx.text[ctx.words[adj].end..].trim_start().starts_with(',');
+    let distributive = singular && noun_plural && enumerated;
+    let seul = f.has(|r| r.lemma == "seul");
+    let nuance = next.is_some_and(|n| {
+        matches!(
+            lower(ctx, n),
+            "foncé" | "clair" | "vif" | "pâle" | "sombre" | "tendre" | "moyen" | "doré"
+        )
+    });
+    distributive || seul || nuance
 }
 
 /// Vrai si le mot `adj` peut être un adjectif accordé avec le nom qui le suit.
@@ -337,6 +381,13 @@ fn follows_noun(ctx: &Context, adj: usize) -> bool {
         })
 }
 
+/// Mot suivi d'une énumération : « et », « ou », ou un nombre (« les dimanche 4
+/// et mercredi 7 »).
+fn enumerated(ctx: &Context, i: usize) -> bool {
+    ctx.next(i)
+        .is_some_and(|n| matches!(lower(ctx, n), "et" | "ou") || ctx.words[n].has_digit)
+}
+
 /// Mot élidé (« d’ », « l’ ») : jamais un nom.
 fn elided(ctx: &Context, i: usize) -> bool {
     ctx.words[i].text.ends_with(['’', '\''])
@@ -351,7 +402,8 @@ fn elided(ctx: &Context, i: usize) -> bool {
 /// genre que si le lemme a, au même nombre, une forme genrée d'orthographe
 /// différente (« professeur » à côté de « professeure »).
 pub(super) fn noun_gender(ctx: &Context, lemma: &str) -> Option<char> {
-    if ctx.data.two_gender_nouns.contains(lemma) {
+    // « la mi-décembre », « la mi-temps » : féminins que Lexique note masculins.
+    if ctx.data.two_gender_nouns.contains(lemma) || lemma.starts_with("mi-") {
         return None;
     }
     let nouns: Vec<(&str, &Reading)> = ctx
@@ -516,7 +568,11 @@ struct NounPhrase<'d> {
 /// Groupe nominal simple commençant par le déterminant `det`.
 fn find_noun_phrase<'c>(ctx: &'c Context, det: usize) -> Option<NounPhrase<'c>> {
     let w = &ctx.words[det];
-    if w.ignored || w.compound_part {
+    // « la SA écrit » : sigle, pas déterminant.
+    if w.ignored
+        || w.compound_part
+        || (w.text.chars().filter(|c| c.is_alphabetic()).count() > 1 && is_all_upper(w.text))
+    {
         return None;
     }
     let determiner = ctx.data.determiners.get(&w.lower)?;
@@ -526,6 +582,14 @@ fn find_noun_phrase<'c>(ctx: &'c Context, det: usize) -> Option<NounPhrase<'c>> 
     let after_subject = ctx.prev(det).is_some_and(|p| {
         ctx.data.subjects.contains_key(lower(ctx, p)) || is_class(ctx, p, "clitique")
     });
+    // « dont un porte un brûleur », « l’un parle » : pronom « un ».
+    let pronoun_un = matches!(w.lower.as_str(), "un" | "une")
+        && ctx
+            .prev(det)
+            .is_some_and(|p| matches!(lower(ctx, p), "dont" | "l’" | "l'" | "chacun"));
+    if pronoun_un {
+        return None;
+    }
     if pronoun_reading && after_subject {
         return None;
     }
@@ -542,7 +606,9 @@ fn find_noun_phrase<'c>(ctx: &'c Context, det: usize) -> Option<NounPhrase<'c>> 
             && !elided(ctx, n)
             && !is_class(ctx, n, "clitique");
         // « les neuf heures » : nombre, pas adjectif.
-        if fj.has_pos(Pos::Adj) && !fj.has_pos(Pos::Det) && next_is_plain_noun {
+        // « le Pure race espagnole » : majuscule, nom propre ou titre.
+        let capital = is_capitalized(ctx.words[j].text) && !ctx.words[j].sentence_start;
+        if fj.has_pos(Pos::Adj) && !fj.has_pos(Pos::Det) && !capital && next_is_plain_noun {
             pre.push(j);
             j = n;
         } else {
@@ -556,6 +622,10 @@ fn find_noun_phrase<'c>(ctx: &'c Context, det: usize) -> Option<NounPhrase<'c>> 
         || nw.has_digit
         || (is_capitalized(nw.text) && !nw.sentence_start)
         || elided(ctx, noun)
+        // « la mi-décembre », « les porte-parole » : premier élément d'un mot composé.
+        || ctx.text[nw.end..].starts_with('-')
+        || (nw.text.contains('-') && ctx.lexicon.find(&nw.norm).is_none())
+        || (nw.compound_part && ctx.text[..nw.start].ends_with('-'))
         // « ce je ne sais quoi », « mes amis me parlent » : pronom, pas un nom.
         || is_class(ctx, noun, "clitique")
         || ctx.data.subjects.contains_key(nw.lower.as_str())
@@ -631,7 +701,13 @@ fn find_noun_phrase<'c>(ctx: &'c Context, det: usize) -> Option<NounPhrase<'c>> 
         .prev(det)
         .is_some_and(|p| matches!(lower(ctx, p), "tout" | "toute" | "tous" | "toutes"));
     // « une fois arrivés » : le mot suivant se rapporte au sujet, pas à « fois ».
-    let adverbial = adverbial || is_class(ctx, noun, "nom_adverbial");
+    // « dès le départ conscients », « par la suite rebaptisées » : complément de temps.
+    let adverbial = adverbial
+        || is_class(ctx, noun, "nom_adverbial")
+        || ctx
+            .prev(det)
+            .is_some_and(|p| matches!(lower(ctx, p), "dès" | "depuis"))
+        || (lower(ctx, noun) == "suite" && ctx.prev(det).is_some_and(|p| lower(ctx, p) == "par"));
     let post = ctx.next(noun).filter(|&p| {
         let pw = &ctx.words[p];
         !adverbial
@@ -769,8 +845,11 @@ fn noun_phrase(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
                 if ok || f.has(|r| r.pos.is_verb() && r.traits == "ppre") {
                     continue;
                 }
-                // L'adjectif qui suit peut se rapporter à un autre nom.
-                if Some(adj) == np.post && other_head(ctx, &np, f) {
+                // L'adjectif qui suit peut se rapporter à un autre nom, ou ne pas
+                // s'accorder par nature.
+                if Some(adj) == np.post
+                    && (other_head(ctx, &np, f) || free_adjective(ctx, &np, adj, f))
+                {
                     continue;
                 }
                 let suggestions = agree_forms(ctx, f, adjectival, target);
@@ -787,6 +866,19 @@ fn noun_phrase(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
                 out.push(issue);
             }
         }
+        // « Elisabeth et Maria, les marque profondément », « un sort navrant le
+        // place » : « le », « la », « les » devant une forme verbale peuvent être
+        // pronoms ; sans accord possible, on s'abstient.
+        None if is_class(ctx, np.det, "clitique") && noun_form.has(Reading::is_finite_verb) => {}
+        // « les samedi et dimanche », « les dimanche 4 et mercredi 7 » : noms
+        // énumérés au singulier. « six sur dix résident » : nombre puis verbe.
+        None if enumerated(ctx, np.noun)
+            || (np.determiner.gn.number == Some('p')
+                && !matches!(
+                    lower(ctx, np.det),
+                    "les" | "des" | "ces" | "mes" | "tes" | "ses" | "nos" | "vos" | "leurs" | "aux"
+                )
+                && noun_form.has(Reading::is_finite_verb)) => {}
         None if nouns
             .iter()
             .all(|(g, _)| g.number.is_some() && d.number.is_some() && g.number != d.number) =>
@@ -883,6 +975,54 @@ fn subject_of(ctx: &Context, verb: usize) -> Option<FoundSubject> {
     (!coordinated).then_some(s)
 }
 
+/// Sujet coordonné à un autre placé avant lui : « aussi bien le poète que la
+/// jeune femme sont devenus », « les matières comme le cuivre soient
+/// produites », « la peste et la sécheresse se sont abattues ».
+fn coordinated_subject(ctx: &Context, subject: &FoundSubject) -> bool {
+    !subject.pronoun
+        && subject.start.checked_sub(1).is_some_and(|b| {
+            matches!(lower(ctx, b), "comme" | "et" | "ou" | "ni" | "avec")
+                || ctx.text[ctx.words[b].end..ctx.words[subject.start].start].contains(',')
+                // « aussi bien X que Y », « ainsi que », « tant X que Y » ; pas
+                // « je pense que les enfants… ».
+                || (lower(ctx, b) == "que"
+                    && (b.saturating_sub(8)..b).any(|k| {
+                        matches!(lower(ctx, k), "aussi" | "ainsi" | "autant" | "tant")
+                    }))
+        })
+}
+
+/// « la majorité sont », « un grand nombre restent » : accord avec le
+/// complément sous-entendu, admis après un nom collectif.
+fn collective_subject(ctx: &Context, subject: &FoundSubject, verb: usize) -> bool {
+    !subject.pronoun
+        && (subject.start..verb).any(|k| {
+            matches!(
+                lower(ctx, k),
+                "majorité"
+                    | "plupart"
+                    | "nombre"
+                    | "minorité"
+                    | "moitié"
+                    | "totalité"
+                    | "quart"
+                    | "tiers"
+                    | "partie"
+                    | "reste"
+                    | "ensemble"
+                    | "foule"
+                    | "centaine"
+                    | "dizaine"
+                    | "douzaine"
+                    | "millier"
+                    | "infinité"
+                    | "multitude"
+                    | "série"
+                    | "majeure"
+            )
+        })
+}
+
 /// Vrai si l'auxiliaire être d'indice `verb`, mal accordé, est à remplacer par
 /// avoir : pronom complément d'une autre personne que le sujet (« je vous »)
 /// et participe d'un verbe qui se conjugue avec avoir (« dit »).
@@ -967,6 +1107,96 @@ fn si_conditional(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
             .arg(w.text)
             .arg(first)
             .with_suggestions(suggestions),
+    );
+}
+
+/// « pour serré », « de fermé », « il faut traversé » → infinitif : après une
+/// préposition ou un verbe qui appelle un infinitif, un participe en -é d'un
+/// verbe du premier groupe est une confusion de terminaison.
+fn participle_for_infinitive(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
+    let w = &ctx.words[i];
+    // « d’Honoré de Balzac », « Sablé-sur-Sarthe » : nom propre.
+    if is_capitalized(w.text) {
+        return;
+    }
+    let Some(stem) = w.lower.strip_suffix('é') else {
+        return;
+    };
+    let Some(form) = ctx.form(i) else { return };
+    // « le passé », « un fermé » : nom possible, on s'abstient.
+    if !form.has(|r| r.is_past_participle() && r.lemma.ends_with("er")) || form.has_pos(Pos::Nom) {
+        return;
+    }
+    let infinitive = format!("{stem}er");
+    if !ctx
+        .lexicon
+        .get(&infinitive)
+        .is_some_and(|f| f.has(Reading::is_infinitive))
+    {
+        return;
+    }
+    let Some(p) = ctx.prev(i) else { return };
+    let introduces = match lower(ctx, p) {
+        // « rien de prévu », « quelque chose de cassé » : participe correct.
+        // « rien de prévu », « quelqu’un d’autorisé », « quelque chose d’osseux
+        // et de glacé » : adjectif après un pronom indéfini.
+        "de" | "d’" => !(p.saturating_sub(6)..p).any(|q| {
+            matches!(
+                lower(ctx, q),
+                "rien"
+                    | "chose"
+                    | "personne"
+                    | "quoi"
+                    | "plus"
+                    | "moins"
+                    | "quelqu’un"
+                    | "quelqu'un"
+                    | "quiconque"
+            )
+        }),
+        // « tenir pour avéré », « laissé pour mort » : attribut.
+        "pour" => !ctx.prev(p).and_then(|q| ctx.form(q)).is_some_and(|f| {
+            f.has(|r| matches!(r.lemma.as_str(), "tenir" | "laisser" | "donner" | "prendre"))
+        }),
+        "sans" => true,
+        _ => ctx.form(p).is_some_and(|f| {
+            f.has(|r| {
+                r.is_finite_verb()
+                    && matches!(
+                        r.lemma.as_str(),
+                        "falloir"
+                            | "pouvoir"
+                            | "devoir"
+                            | "vouloir"
+                            | "aller"
+                            | "savoir"
+                            | "oser"
+                            | "espérer"
+                            | "compter"
+                            | "préférer"
+                    )
+            }) && !f.has(|r| matches!(r.pos, Pos::Adv | Pos::Con))
+        }),
+    };
+    // Un complément doit suivre, comme après un infinitif (« pour fermer la
+    // porte ») : « des rôles de roué et de snob » n'en a pas.
+    let complement = ctx.next(i).is_some_and(|n| {
+        is_class(ctx, n, "clitique")
+            || ctx.data.determiners.contains_key(lower(ctx, n))
+            || ctx
+                .form(n)
+                .is_some_and(|f| f.has(|r| matches!(r.pos, Pos::Det | Pos::Pre | Pos::Pro)))
+    });
+    if !introduces || !complement {
+        return;
+    }
+    let fixed = same_case(w.text, &infinitive);
+    out.push(
+        RawIssue::new(w.start, w.end, PARTICIPLE_FOR_INFINITIVE)
+            .arg(w.text)
+            .arg(fixed.clone())
+            .arg(ctx.words[p].text)
+            .suggest(fixed),
     );
 }
 
@@ -1064,6 +1294,37 @@ fn subject_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     // Après un groupe nominal, un mot qui peut être adjectif est ambigu.
     if !subject.pronoun && form.has(adjectival) {
         return;
+    }
+    let vw = &ctx.words[i];
+    let chain: Vec<&str> = subject.chain.iter().map(|&c| lower(ctx, c)).collect();
+    // « les types A », « organisées en Écosse », « chevaux Barbe » : nom propre.
+    // « en livres », « en bois » : « en » préposition devant un nom. « les
+    // portes » : déterminant devant un nom. « une crise puis un conflit » : adverbe.
+    let noun_after_clitic = form.has_pos(Pos::Nom)
+        && chain
+            .iter()
+            .any(|c| matches!(*c, "en" | "le" | "la" | "l’" | "les"));
+    if (is_capitalized(vw.text) && !vw.sentence_start)
+        || noun_after_clitic
+        || (!subject.pronoun && form.has(|r| matches!(r.pos, Pos::Con | Pos::Adv)))
+    {
+        return;
+    }
+    if !subject.pronoun {
+        let head = subject.start;
+        let collective = collective_subject(ctx, &subject, i);
+        // « la traduction comme la notice sont », « sa fiabilité ainsi que sa
+        // taille ont » : sujets coordonnés. « 9 % des polytechniciens s’oriente » :
+        // le sujet est la quantité.
+        let before = head.checked_sub(1);
+        let coordinated = coordinated_subject(ctx, &subject)
+            || before.is_some_and(|b| {
+                ctx.words[b].has_digit
+                    || ctx.text[ctx.words[b].end..ctx.words[head].start].contains('%')
+            });
+        if collective || coordinated {
+            return;
+        }
     }
     // « que nous montre le film », « il nous voit, nous aborde » : hors du début
     // de phrase, « nous » et « vous » devant un verbe qui ne s'accorde pas sont
@@ -1202,7 +1463,16 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         // Attribut ou participe : accord avec le sujet (« elles sont parties »).
         // « elle est tout contente », « elle est tout le temps » : « tout »,
         // « fort », « bien »… peuvent être adverbes, donc invariables.
-        if subject.gn == Gn::default() || ft.has_pos(Pos::Adv) {
+        if subject.gn == Gn::default()
+            || ft.has_pos(Pos::Adv)
+            || ft.has_pos(Pos::Det)
+            || collective_subject(ctx, &subject, i)
+            || coordinated_subject(ctx, &subject)
+            || subject.chain.iter().any(|&c| lower(ctx, c) == "en")
+            || enumerated(ctx, t)
+            // « ils sont jaune, magenta et cyan » : attributs distribués.
+            || ctx.text[w.end..].trim_start().starts_with(',')
+        {
             return;
         }
         let adj: Vec<&Reading> = ft.readings.iter().filter(|r| adjectival(r)).collect();
