@@ -112,20 +112,21 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: ${{ matrix.os == 'macos-latest' && 'x86_64-apple-darwin,aarch64-apple-darwin' || '' }}
+      # Sous Linux, le Python du système (celui de python3-uno) : l'environnement
+      # de setup-python fait planter LibreOffice à l'installation de l'extension.
       - uses: actions/setup-python@v5
+        if: matrix.os != 'ubuntu-latest'
         with:
           python-version: "3.12"
       - name: Extension (.oxt)
-        run: python construire.py
+        run: python3 construire.py
       - name: Test dans LibreOffice (sans interface)
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends libreoffice-writer python3-uno libreoffice-script-provider-python
           # Python du système : il a le module uno (python3-uno) et pilote LibreOffice par socket.
-          # setup-python place sa propre libpython dans LD_LIBRARY_PATH : LibreOffice la
-          # chargerait à la place de celle du système et planterait (std::bad_alloc).
-          env -u LD_LIBRARY_PATH /usr/bin/python3 tests/tester.py dist/*.oxt --soffice /usr/bin/soffice
+          /usr/bin/python3 tests/tester.py dist/*.oxt --soffice /usr/bin/soffice
       - name: Paquet
         uses: actions/upload-artifact@v4
         with:

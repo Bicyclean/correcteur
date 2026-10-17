@@ -53,10 +53,10 @@ LibreOffice piloté par socket quand le Python utilisé sait importer `uno`
 (Linux : `/usr/bin/python3`), macro Python exécutée dans LibreOffice sinon
 (macOS, dont le Python embarqué ne peut pas être lancé seul).
 
-Sous Linux, ne lancez pas LibreOffice avec un `LD_LIBRARY_PATH` qui pointe
-vers un autre Python (c'est le cas après `actions/setup-python`) : il chargerait
-cette bibliothèque Python à la place de la sienne et planterait
-(`std::bad_alloc`).
+En intégration continue sous Linux, le test tourne avec le Python du système :
+dans l'environnement préparé par `actions/setup-python`, LibreOffice 24.2
+plante à l'installation de l'extension (`std::bad_alloc`), alors que la même
+extension s'installe normalement ailleurs.
 
 ## Organisation
 
