@@ -602,9 +602,10 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         return;
     };
 
-    // Mot qui suit l'auxiliaire, après d'éventuels adverbes (« n’est pas encore parti »).
+    // Mot qui suit l'auxiliaire, après d'éventuels adverbes (« n’est pas encore parti »)
+    // ou « tous », « toutes » (« ils étaient tous très contents »).
     let mut t = ctx.next(i);
-    for _ in 0..2 {
+    for _ in 0..3 {
         match t {
             Some(j) if is_class(ctx, j, "adverbe") => t = ctx.next(j),
             _ => break,

@@ -34,6 +34,11 @@ GRAM_PARTICIPE_ETRE	Elle s’est lavé les mains.	CONTRIB-INIT
 GRAM_PARTICIPE_ETRE	Il est important de partir.	CONTRIB-INIT
 GRAM_PARTICIPE_ETRE	Nous sommes partis tôt.	CONTRIB-INIT
 GRAM_PARTICIPE_ETRE	Vous êtes parti tôt.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ils étaient tous très ⟦content→contents⟧.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elles sont toutes ⟦parti→parties⟧ tôt.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ils étaient tous très contents.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elle est tout heureuse.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ils sont tous les jours contents.	CONTRIB-INIT
 GRAM_PARTICIPE_AVOIR	Elle a ⟦mangée→mangé⟧ une pomme.	CONTRIB-INIT
 GRAM_PARTICIPE_AVOIR	La pomme qu’elle a mangée était bonne.	CONTRIB-INIT
 GRAM_PARTICIPE_AVOIR	Il les a mangées.	CONTRIB-INIT

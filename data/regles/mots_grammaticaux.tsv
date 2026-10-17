@@ -3,7 +3,7 @@
 #   clitique      pronom ou négation qui peut se placer entre le sujet et le verbe
 #   objet         clitique complément d'objet (accord du participe avec avoir, verbes pronominaux)
 #   charniere     mot après lequel peut commencer une proposition (et, que, quand…)
-#   adverbe       adverbe qui peut s'intercaler entre l'auxiliaire et le participe
+#   adverbe       adverbe (ou « tous », « toutes ») qui peut s'intercaler entre l'auxiliaire et le participe ou l'attribut
 #   negation      second élément de la négation (pas, jamais…)
 #   antecedent    mot qui annonce un complément d'objet placé avant le verbe (que, combien)
 ne	clitique	REF-GRAM-FR
@@ -65,6 +65,14 @@ aussi	adverbe	REF-GRAM-FR
 vraiment	adverbe	REF-GRAM-FR
 souvent	adverbe	REF-GRAM-FR
 enfin	adverbe	REF-GRAM-FR
+si	adverbe	REF-GRAM-FR
+assez	adverbe	REF-GRAM-FR
+plutôt	adverbe	REF-GRAM-FR
+tellement	adverbe	REF-GRAM-FR
+presque	adverbe	REF-GRAM-FR
+tout	adverbe	REF-GRAM-FR
+tous	adverbe	REF-GRAM-FR
+toutes	adverbe	REF-GRAM-FR
 pas	negation	REF-GRAM-FR
 jamais	negation	REF-GRAM-FR
 rien	negation	REF-GRAM-FR

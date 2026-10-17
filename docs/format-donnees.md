@@ -57,7 +57,8 @@ la correction.
 - `mots_grammaticaux.tsv` : `mot`, `classe`, `source`. Classes : `clitique`
   (peut se placer entre sujet et verbe), `objet` (complément d'objet),
   `charniere` (peut ouvrir une proposition), `adverbe` (peut s'intercaler
-  entre auxiliaire et participe), `negation` (pas, jamais…), `antecedent`
+  entre auxiliaire et participe ou attribut ; « tous », « toutes » en font
+  partie : ils étaient tous très contents), `negation` (pas, jamais…), `antecedent`
   (que, combien : complément placé avant le verbe).
 - `h_aspire.txt` : mots ou lemmes à h aspiré, devant lesquels on n'élide pas.
 - `noms_deux_genres.txt` : noms employés aux deux genres, dont le genre n'est
