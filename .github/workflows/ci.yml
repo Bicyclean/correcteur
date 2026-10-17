@@ -85,11 +85,12 @@ jobs:
         run: npm run typecheck
       - name: Interface (requise par la compilation Tauri)
         run: npm run build:web
-      - name: Format et lint (Rust)
+      - name: Format, lint et tests (Rust)
         working-directory: apps/bureau/src-tauri
         run: |
           cargo fmt --check
-          cargo clippy -- -D warnings
+          cargo clippy --all-targets -- -D warnings
+          cargo test
       - name: Application (paquets d'installation)
         run: npm run build
       - name: Paquets

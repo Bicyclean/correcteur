@@ -1,27 +1,36 @@
-// Réglages de l'utilisateur, conservés dans le stockage local du panneau.
-// Rien n'est envoyé sur le réseau.
+// Réglages de l'utilisateur. Par défaut, ils sont conservés dans le stockage
+// local du panneau ; l'application de bureau fournit son propre stockage
+// (fichiers). Rien n'est envoyé sur le réseau.
 
 import { type CheckOptions, DEFAULT_OPTIONS } from "./types";
 
 const KEY = "correcteur.reglages.v1";
 
-export function loadSettings(): CheckOptions {
-  try {
-    const raw = localStorage.getItem(KEY);
-    if (!raw) return structuredClone(DEFAULT_OPTIONS);
-    return sanitize(JSON.parse(raw));
-  } catch {
-    return structuredClone(DEFAULT_OPTIONS);
-  }
+/** Emplacement des réglages. */
+export interface SettingsStore {
+  /** Réglages enregistrés, non vérifiés (voir `sanitize`), ou `null` s'il n'y en a pas. */
+  load(): Promise<unknown>;
+  save(o: CheckOptions): Promise<void>;
 }
 
-export function saveSettings(o: CheckOptions): void {
-  try {
-    localStorage.setItem(KEY, JSON.stringify(o));
-  } catch {
-    // Stockage indisponible (navigation privée…) : les réglages valent pour la session.
-  }
-}
+/** Stockage local du navigateur (add-in Word). */
+export const localStore: SettingsStore = {
+  async load() {
+    try {
+      const raw = localStorage.getItem(KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  },
+  async save(o) {
+    try {
+      localStorage.setItem(KEY, JSON.stringify(o));
+    } catch {
+      // Stockage indisponible (navigation privée…) : les réglages valent pour la session.
+    }
+  },
+};
 
 /** Ne garde que des valeurs du bon type, pour résister à un stockage corrompu. */
 export function sanitize(value: unknown): CheckOptions {

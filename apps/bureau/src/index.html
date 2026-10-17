@@ -11,9 +11,16 @@
 <body>
   <div class="app">
     <header class="toolbar">
-      <div class="doc-stats" id="stats" aria-live="polite">Nouveau texte</div>
+      <div class="doc-info">
+        <span class="doc-name" id="doc-nom">Sans titre</span>
+        <span class="doc-state" id="doc-etat" hidden>Modifié</span>
+        <span class="doc-stats" id="stats" aria-live="polite"></span>
+      </div>
       <div class="tools">
-        <button id="coller" type="button" class="cr-btn cr-btn--ghost" title="Coller le contenu du presse-papiers"></button>
+        <button id="ouvrir" type="button" class="cr-btn cr-btn--ghost"></button>
+        <button id="enregistrer" type="button" class="cr-btn cr-btn--ghost"></button>
+        <span class="tools-sep" aria-hidden="true"></span>
+        <button id="coller" type="button" class="cr-btn cr-btn--ghost" title="Remplacer le texte par le contenu du presse-papiers"></button>
         <button id="copier" type="button" class="cr-btn cr-btn--ghost" title="Copier tout le texte"></button>
         <button id="copier-masquer" type="button" class="cr-btn cr-btn--primary"></button>
       </div>
@@ -26,10 +33,11 @@
         <div class="welcome" id="welcome">
           <div class="welcome-card">
             <h1>Écrivez ou collez votre texte</h1>
-            <p>Il est vérifié pendant la frappe : orthographe, accords, homophones, typographie.</p>
+            <p>Il est vérifié pendant la frappe : orthographe, accords, homophones, typographie. Vous pouvez aussi déposer un fichier texte sur cette fenêtre.</p>
             <div class="welcome-actions">
               <button id="w-coller" type="button" class="cr-btn cr-btn--primary"></button>
-              <button id="w-exemple" type="button" class="cr-btn">Essayer avec un exemple</button>
+              <button id="w-ouvrir" type="button" class="cr-btn"></button>
+              <button id="w-exemple" type="button" class="cr-btn cr-btn--ghost">Essayer avec un exemple</button>
             </div>
             <p class="welcome-tip" id="w-tip"></p>
           </div>

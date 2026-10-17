@@ -7,8 +7,13 @@ html, body { height: 100%; overflow: hidden; }
   height: 48px; padding: 0 var(--space-3) 0 var(--space-5);
   border-bottom: 1px solid var(--border); background: var(--bg);
 }
+.doc-info { display: flex; align-items: baseline; gap: var(--space-3); min-width: 0; }
+.doc-name { font-weight: 600; font-size: var(--text-md); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 32ch; }
+.doc-state { flex: none; padding: 1px 7px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: var(--text-xs); font-weight: 600; }
+.doc-state[hidden] { display: none; }
 .doc-stats { color: var(--text-subtle); font-size: var(--text-sm); font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .tools { display: flex; align-items: center; gap: 4px; }
+.tools-sep { width: 1px; height: 20px; margin: 0 4px; background: var(--border); }
 .tools kbd { margin-left: 4px; background: color-mix(in srgb, var(--accent-fg) 18%, transparent); border-color: transparent; color: inherit; }
 
 .workspace { display: grid; grid-template-columns: minmax(0, 1fr) clamp(320px, 32vw, 400px); min-height: 0; }
@@ -64,6 +69,7 @@ html, body { height: 100%; overflow: hidden; }
   .editor textarea, .backdrop { padding: 24px 20px 80px; }
   .toolbar { padding: 0 var(--space-3); }
   .tools .cr-btn span.label { display: none; }
+  .doc-stats { display: none; }
 }
 
 /* Notifications au-dessus de la barre d'état. */

@@ -7,8 +7,8 @@
 import { type DocumentAccess } from "./document";
 import { type IconName, icon, logo } from "./icones";
 import { type Target, applyToText, locate } from "./mapping";
-import { loadSettings, saveSettings } from "./settings";
-import { type Category, type Checker, type Conjugation, type Issue, type Readability, type Synonyms } from "./types";
+import { type SettingsStore, localStore, sanitize } from "./settings";
+import { type Category, type Checker, type Conjugation, DEFAULT_OPTIONS, type Issue, type Readability, type Synonyms } from "./types";
 
 export interface Found {
   /** Identifiant stable tant que le texte autour de l'erreur ne change pas. */
@@ -34,6 +34,22 @@ export interface PanelSetup {
   onActivate?: (found: Found | null) => void;
   /** Annule la dernière modification du document (bureau). */
   undo?: () => void;
+  /** Emplacement des réglages ; par défaut, le stockage local du navigateur. */
+  store?: SettingsStore;
+  /** Réglages propres à l'hôte, affichés en tête des Réglages. */
+  hostSettings?: { title: string; items: HostSetting[] };
+  /** Version affichée dans « À propos ». */
+  version?: string;
+}
+
+export type HostSetting =
+  | { kind: "switch"; title: string; desc: string; value: boolean; onChange: (v: boolean) => Promise<void> }
+  | { kind: "action"; title: string; desc: string; label: string; run: () => Promise<void> }
+  | { kind: "note"; title: string; desc: string };
+
+/** Message d'une erreur : `Error` en JavaScript, chaîne pour les commandes Tauri. */
+export function errorText(e: unknown): string {
+  return e instanceof Error ? e.message : String(e);
 }
 
 const CATEGORIES: { id: Category; label: string; desc: string }[] = [
@@ -50,7 +66,9 @@ type Tab = "corrections" | "outils" | "reglages";
 const state = {
   setup: null as PanelSetup | null,
   engine: null as Checker | null,
-  options: loadSettings(),
+  options: structuredClone(DEFAULT_OPTIONS),
+  /** Faux si les réglages n'ont pas pu être lus : ne pas écraser ceux enregistrés. */
+  storeOk: true,
   found: [] as Found[],
   ignored: new Set<string>(),
   filter: "tout" as Category | "tout",
@@ -182,6 +200,26 @@ export function notify(message: string, action?: { label: string; run: () => voi
 // ---------------------------------------------------------------------------
 // Analyse
 
+/**
+ * Problèmes par texte de paragraphe, pour les réglages courants : pendant la
+ * frappe, seul le paragraphe modifié est réanalysé.
+ */
+const cache = new Map<string, Issue[]>();
+/** Incrémenté à chaque changement de réglages : une analyse en cours n'alimente plus le cache. */
+let generation = 0;
+
+async function checkParagraph(engine: Checker, text: string): Promise<Issue[]> {
+  const hit = cache.get(text);
+  if (hit) return hit;
+  const gen = generation;
+  const issues = await engine.check(text, state.options);
+  if (gen === generation) {
+    if (cache.size >= 5000) cache.clear();
+    cache.set(text, issues);
+  }
+  return issues;
+}
+
 export async function analyze(): Promise<void> {
   const { engine } = state;
   const doc = state.setup?.doc;
@@ -198,7 +236,7 @@ export async function analyze(): Promise<void> {
     const seen = new Map<string, number>();
     for (const [paragraph, text] of paragraphs.entries()) {
       if (!text.trim()) continue;
-      for (const issue of await engine.check(text, state.options)) {
+      for (const issue of await checkParagraph(engine, text)) {
         const context = text.slice(Math.max(0, issue.start - 20), issue.end + 20);
         const base = `${issue.rule}|${context}`;
         const n = (seen.get(base) ?? 0) + 1;
@@ -216,7 +254,7 @@ export async function analyze(): Promise<void> {
     renderCorrections();
     state.setup?.onAnalyzed?.(visible());
   } catch (e) {
-    notify(`Analyse impossible : ${(e as Error).message}`);
+    notify(`Analyse impossible : ${errorText(e)}`);
   } finally {
     state.busy = false;
     ui.analyze?.removeAttribute("disabled");
@@ -571,12 +609,12 @@ function ignore(f: Found): void {
 
 function addWord(word: string): void {
   if (!state.options.userWords.includes(word)) state.options.userWords.push(word);
-  saveSettings(state.options);
+  persist();
   notify(`« ${word} » ajouté au dictionnaire`, {
     label: "Annuler",
     run: () => {
       state.options.userWords = state.options.userWords.filter((w) => w !== word);
-      saveSettings(state.options);
+      persist();
       renderSettings();
       void analyze();
     },
@@ -587,12 +625,12 @@ function addWord(word: string): void {
 
 function disableRule(rule: string): void {
   if (!state.options.disabledRules.includes(rule)) state.options.disabledRules.push(rule);
-  saveSettings(state.options);
+  persist();
   notify("Règle désactivée", {
     label: "Annuler",
     run: () => {
       state.options.disabledRules = state.options.disabledRules.filter((r) => r !== rule);
-      saveSettings(state.options);
+      persist();
       renderSettings();
       void analyze();
     },
@@ -720,8 +758,20 @@ function synonymsView(s: Synonyms): HTMLElement {
 // ---------------------------------------------------------------------------
 // Onglet Réglages
 
+/** Enregistre les réglages ; les analyses déjà faites ne valent plus. */
+function persist(): void {
+  cache.clear();
+  generation++;
+  const store = state.setup?.store ?? localStore;
+  if (!state.storeOk) {
+    notify("Réglages non enregistrés : ils n'ont pas pu être lus au démarrage.");
+    return;
+  }
+  store.save(state.options).catch((e) => notify(`Réglages non enregistrés : ${errorText(e)}`));
+}
+
 function save(): void {
-  saveSettings(state.options);
+  persist();
   void analyze();
 }
 
@@ -759,6 +809,29 @@ function numberRow(title: string, desc: string, key: "longSentenceWords" | "repe
     } else input.value = String(state.options[key]);
   });
   return row(title, desc, input);
+}
+
+function hostRow(item: HostSetting): HTMLElement {
+  switch (item.kind) {
+    case "switch":
+      return row(
+        item.title,
+        item.desc,
+        switchControl(item.value, (v) => {
+          item.onChange(v).then(
+            () => (item.value = v),
+            (e) => {
+              notify(errorText(e));
+              renderSettings();
+            },
+          );
+        }),
+      );
+    case "action":
+      return row(item.title, item.desc, button(item.label, { size: "sm", onClick: () => void item.run().catch((e) => notify(errorText(e))) }));
+    case "note":
+      return row(item.title, item.desc, el("span", { className: "cr-row-note" }, icon("alert", 16)));
+  }
 }
 
 function renderSettings(): void {
@@ -803,8 +876,10 @@ function renderSettings(): void {
       )
     : [el("div", { className: "cr-empty-row" }, "Aucune. « Désactiver cette règle » sur une suggestion l'ajoute ici.")];
 
+  const host = state.setup?.hostSettings;
   ui.sections.reglages.replaceChildren(
     group("Vérifications", ...categories),
+    ...(host ? [group(host.title, ...host.items.map(hostRow))] : []),
     group(
       "Typographie",
       boolRow("Espace fine avant ; ! ?", "Sinon, une espace insécable normale est proposée. Les deux sont acceptées.", "narrowNbsp"),
@@ -824,7 +899,7 @@ function renderSettings(): void {
       "section",
       { className: "cr-settings-group cr-about" },
       el("h3", {}, "À propos"),
-      el("p", {}, "Correcteur libre du français, sous licence GPL-3.0. L'analyse est faite sur cet ordinateur : aucun texte n'est envoyé."),
+      el("p", {}, `Correcteur libre du français${state.setup?.version ? `, version ${state.setup.version}` : ""}, sous licence GPL-3.0. L'analyse est faite sur cet ordinateur : aucun texte n'est envoyé.`),
       el("p", {}, "Données : Lexique 3.83 et Wiktionnaire (CC BY-SA 4.0), thésaurus de Dicollecte (LGPL)."),
     ),
   );
@@ -892,6 +967,12 @@ function buildShell(setup: PanelSetup): void {
 
 export async function startPanel(setup: PanelSetup): Promise<void> {
   state.setup = setup;
+  try {
+    state.options = sanitize(await (setup.store ?? localStore).load());
+  } catch (e) {
+    state.storeOk = false;
+    queueMicrotask(() => notify(`Réglages illisibles, valeurs par défaut utilisées : ${errorText(e)}`));
+  }
   buildShell(setup);
   renderCorrections();
   renderTools();
@@ -904,7 +985,7 @@ export async function startPanel(setup: PanelSetup): Promise<void> {
     if (setup.analyzeOnReady) await analyze();
   } catch (e) {
     state.phase = "error";
-    state.error = (e as Error).message;
+    state.error = errorText(e);
     renderCorrections();
   }
 }
