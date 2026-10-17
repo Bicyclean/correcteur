@@ -8,8 +8,10 @@
 //! correcteur attribuer-conjugaisons [--donnees DOSSIER]
 //! correcteur conjuguer VERBE [--donnees DOSSIER]
 //! correcteur synonymes MOT [--donnees DOSSIER]
+//! bzcat frwiktionary-…-pages-articles.xml.bz2 | correcteur importer-antonymes [--sortie FICHIER.tsv]
 //! ```
 
+mod antonymes;
 mod conjugaison;
 mod import;
 
@@ -80,6 +82,9 @@ fn run(args: &[String]) -> Result<ExitCode, String> {
     let a = parse_args(&args[1..])?;
     if command == "importer-lexique383" {
         return import_lexique383(&a);
+    }
+    if command == "importer-antonymes" {
+        return import_antonyms(&a);
     }
     let engine = Engine::from_dir(&a.data).map_err(|e| e.to_string())?;
     match command.as_str() {
@@ -346,5 +351,31 @@ fn synonyms(engine: &Engine, a: &Args) -> Result<ExitCode, String> {
     for g in groups {
         println!("  ({}) {}", g.category, g.words.join(", "));
     }
+    Ok(ExitCode::SUCCESS)
+}
+
+/// Lit l'export XML du Wiktionnaire sur l'entrée standard (ou dans le fichier donné).
+fn import_antonyms(a: &Args) -> Result<ExitCode, String> {
+    let (antonyms, report) = match a.positional.first() {
+        Some(path) => {
+            let f = std::fs::File::open(path).map_err(|e| format!("{path} : {e}"))?;
+            antonymes::extract(std::io::BufReader::new(f))
+        }
+        None => antonymes::extract(std::io::stdin().lock()),
+    }
+    .map_err(|e| e.to_string())?;
+    let out = a
+        .output
+        .clone()
+        .unwrap_or_else(|| a.data.join("thesaurus/antonymes.tsv"));
+    std::fs::write(&out, antonymes::render(&antonyms))
+        .map_err(|e| format!("{} : {e}", out.display()))?;
+    println!(
+        "{} pages lues ; {} entrées, {} antonymes écrits dans {}",
+        report.pages,
+        report.entries,
+        report.antonyms,
+        out.display()
+    );
     Ok(ExitCode::SUCCESS)
 }
