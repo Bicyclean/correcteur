@@ -300,12 +300,9 @@ fn other_head(ctx: &Context, np: &NounPhrase, adj: &Form) -> bool {
     // que le groupe complète (« une partie du monde éloignée », « une partie au
     // violoncelle jouée par… », « une étoile à six branches décorée »).
     let before = ctx.prev(np.det);
-    let preposition = |k: usize| {
-        matches!(lower(ctx, k), "de" | "d’" | "d'")
-            || ctx
-                .form(k)
-                .is_some_and(|f| f.has_pos(Pos::Pre) && !f.has(|r| r.pos == Pos::Det))
-    };
+    // « de » et « à » seulement : après « sans », « avec », « pour »…, le
+    // groupe est un complément du verbe (« sans cette préoccupation habituel »).
+    let preposition = |k: usize| matches!(lower(ctx, k), "de" | "d’" | "d'" | "à");
     let head_end = match lower(ctx, np.det) {
         "du" | "des" | "au" | "aux" => before,
         _ => before.filter(|&b| preposition(b)).and_then(|b| ctx.prev(b)),
@@ -992,6 +989,24 @@ fn coordinated_subject(ctx: &Context, subject: &FoundSubject) -> bool {
         })
 }
 
+/// « ils sont jaune, magenta et cyan » : attributs au singulier énumérés après
+/// un sujet pluriel.
+fn distributed_attribute(ctx: &Context, subject: &FoundSubject, t: usize, ft: &Form) -> bool {
+    let singular = ft
+        .readings
+        .iter()
+        .filter(|r| adjectival(r))
+        .all(|r| r.gn().is_none_or(|g| g.number != Some('p')));
+    let next_attribute = (t + 1 < ctx.words.len()
+        && (ctx.text[ctx.words[t].end..ctx.words[t + 1].start].contains(',')
+            || matches!(lower(ctx, t + 1), "et" | "ou"))
+        && ctx.form(t + 1).is_some_and(|f| f.has(adjectival)))
+        || (t + 2 < ctx.words.len()
+            && matches!(lower(ctx, t + 1), "et" | "ou")
+            && ctx.form(t + 2).is_some_and(|f| f.has(adjectival)));
+    subject.gn.number == Some('p') && singular && next_attribute
+}
+
 /// « la majorité sont », « un grand nombre restent » : accord avec le
 /// complément sous-entendu, admis après un nom collectif.
 fn collective_subject(ctx: &Context, subject: &FoundSubject, verb: usize) -> bool {
@@ -1249,7 +1264,12 @@ fn simple_subject(ctx: &Context, verb: usize) -> Option<FoundSubject> {
         let Some(np) = find_noun_phrase(ctx, det) else {
             continue;
         };
-        if np.post.unwrap_or(np.noun) != last || !clause_start(ctx, det) {
+        // « Tous ces événements sont connus » : « tous » devant le déterminant.
+        let predet = ctx
+            .prev(det)
+            .filter(|&p| matches!(lower(ctx, p), "tout" | "toute" | "tous" | "toutes"));
+        let starts = clause_start(ctx, det) || predet.is_some_and(|p| clause_start(ctx, p));
+        if np.post.unwrap_or(np.noun) != last || !starts {
             continue;
         }
         let gn = phrase_gn(ctx, &np)?;
@@ -1415,6 +1435,37 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     if !etre && !avoir {
         return;
     }
+    // « Odette avait présenter », « la porte a tourner » : avoir suivi d'un
+    // infinitif en -er est fautif même sans sujet reconnu (nom propre…).
+    // « machine a laver » : « a » pour « à » après un nom, signalé ailleurs.
+    let after_noun = ctx
+        .prev(i)
+        .and_then(|p| ctx.form(p))
+        .is_some_and(|f| f.only(|r| r.pos == Pos::Nom));
+    if avoir && !after_noun && subject_of(ctx, i).is_none() {
+        if let Some(t) = ctx.next(i).filter(|&t| !is_capitalized(ctx.words[t].text)) {
+            if let Some(ft) = ctx.form(t) {
+                let er = ft.has(|r| r.is_infinitive() && r.lemma.ends_with("er"));
+                if er && !ft.has(adjectival) && !ft.has_pos(Pos::Nom) {
+                    let ms = Gn {
+                        gender: Some('m'),
+                        number: Some('s'),
+                    };
+                    let suggestions = participles(ctx, ft, Reading::is_infinitive, ms);
+                    if let Some(first) = suggestions.first().cloned() {
+                        let w = &ctx.words[t];
+                        out.push(
+                            RawIssue::new(w.start, w.end, INFINITIVE)
+                                .arg(w.text)
+                                .arg(first)
+                                .with_suggestions(suggestions),
+                        );
+                    }
+                }
+            }
+        }
+        return;
+    }
     let Some(subject) = subject_of(ctx, i) else {
         return;
     };
@@ -1469,9 +1520,7 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
             || collective_subject(ctx, &subject, i)
             || coordinated_subject(ctx, &subject)
             || subject.chain.iter().any(|&c| lower(ctx, c) == "en")
-            || enumerated(ctx, t)
-            // « ils sont jaune, magenta et cyan » : attributs distribués.
-            || ctx.text[w.end..].trim_start().starts_with(',')
+            || distributed_attribute(ctx, &subject, t, ft)
         {
             return;
         }
