@@ -23,7 +23,13 @@ pub const RULE_FILES: &[&str] = &[
     "regles/mots_grammaticaux.tsv",
     "regles/h_aspire.txt",
     "regles/noms_deux_genres.txt",
+    "regles/style_mots_ignores.txt",
+    "conjugaison/modeles.txt",
+    "conjugaison/auxiliaire_etre.txt",
 ];
+
+/// Fichiers facultatifs : la fonction correspondante est vide s'ils manquent.
+pub const OPTIONAL_FILES: &[&str] = &["conjugaison/verbes.tsv", "thesaurus/thes_fr.dat"];
 
 /// Contenu brut des fichiers de données, tel que lu sur disque ou reçu par le
 /// module WebAssembly.
@@ -44,7 +50,7 @@ impl EngineData {
         if path.starts_with("lexique/") && path.ends_with(".tsv") {
             self.lexicons.push((path.to_string(), content));
             self.lexicons.sort_by(|a, b| a.0.cmp(&b.0));
-        } else if RULE_FILES.contains(&path) {
+        } else if RULE_FILES.contains(&path) || OPTIONAL_FILES.contains(&path) {
             self.rule_files.insert(path.to_string(), content);
         } else if !path.starts_with("regles/") && path.ends_with(".tsv") {
             return Err(DataError {
@@ -54,6 +60,10 @@ impl EngineData {
             });
         }
         Ok(())
+    }
+
+    fn optional(&self, name: &str) -> &str {
+        self.rule_files.get(name).map_or("", String::as_str)
     }
 
     fn file(&self, name: &str) -> Result<&str, DataError> {
@@ -94,6 +104,12 @@ impl EngineData {
         for name in RULE_FILES {
             data.rule_files
                 .insert(name.to_string(), read(&dir.join(name))?);
+        }
+        for name in OPTIONAL_FILES {
+            let path = dir.join(name);
+            if path.exists() {
+                data.rule_files.insert(name.to_string(), read(&path)?);
+            }
         }
         Ok(data)
     }
@@ -178,6 +194,8 @@ pub(crate) struct Data {
     pub h_aspire: HashSet<String>,
     /// Noms employés aux deux genres (genre non vérifié).
     pub two_gender_nouns: HashSet<String>,
+    pub conjugator: crate::conjugation::Conjugator,
+    pub thesaurus: crate::thesaurus::Thesaurus,
 }
 
 impl Data {
@@ -349,6 +367,12 @@ impl Data {
             word_classes,
             h_aspire: word_list(src.file("regles/h_aspire.txt")?),
             two_gender_nouns: word_list(src.file("regles/noms_deux_genres.txt")?),
+            conjugator: crate::conjugation::Conjugator::new(
+                src.file("conjugaison/modeles.txt")?,
+                src.optional("conjugaison/verbes.tsv"),
+                src.file("conjugaison/auxiliaire_etre.txt")?,
+            )?,
+            thesaurus: crate::thesaurus::Thesaurus::parse(src.optional("thesaurus/thes_fr.dat")),
         })
     }
 }

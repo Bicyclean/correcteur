@@ -5,6 +5,7 @@ mod grammar;
 mod homophones;
 mod locutions;
 mod spelling;
+pub mod style;
 mod typo;
 
 use std::collections::HashSet;
@@ -35,6 +36,8 @@ pub const CODE_RULES: &[&str] = &[
     grammar::INFINITIVE,
     grammar::NEGATION,
     grammar::PREPOSITION,
+    style::REPETITION,
+    style::LONG_SENTENCE,
     typo::SPACE_BEFORE_MISSING,
     typo::SPACE_BEFORE_BREAKING,
     typo::SPACE_AFTER_MISSING,
@@ -142,5 +145,6 @@ pub fn run_all(ctx: &Context, out: &mut Vec<RawIssue>) {
     spelling::check(ctx, out);
     homophones::check(ctx, out);
     grammar::check(ctx, out);
+    style::check(ctx, out);
     locutions::check(ctx, out);
 }

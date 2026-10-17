@@ -1,0 +1,34 @@
+# Verbes qui forment leurs temps composés avec être (source : REF-GRAM-FR).
+# Les verbes pronominaux (se laver) se conjuguent aussi avec être.
+# Certains (monter, descendre, sortir, passer, rentrer, retourner) prennent
+# avoir quand ils ont un complément d'objet ; le tableau montre l'emploi avec être.
+aller
+arriver
+partir
+repartir
+venir
+revenir
+devenir
+parvenir
+survenir
+intervenir
+provenir
+advenir
+entrer
+rentrer
+sortir
+monter
+remonter
+descendre
+redescendre
+tomber
+retomber
+rester
+retourner
+naître
+renaître
+mourir
+décéder
+passer
+apparaître
+éclore

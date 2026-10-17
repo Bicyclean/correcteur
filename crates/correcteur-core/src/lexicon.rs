@@ -330,6 +330,29 @@ impl Lexicon {
         forms.into_iter().map(|f| f.text.as_str()).collect()
     }
 
+    /// Toutes les formes.
+    pub fn forms(&self) -> impl Iterator<Item = &Form> {
+        self.forms.iter()
+    }
+
+    /// Formes d'un lemme, chacune avec sa lecture pour ce lemme.
+    pub fn lemma_forms<'a>(
+        &'a self,
+        lemma: &'a str,
+    ) -> impl Iterator<Item = (&'a str, &'a Reading)> + 'a {
+        self.by_lemma
+            .get(lemma)
+            .into_iter()
+            .flatten()
+            .flat_map(move |&id| {
+                let f = self.form(id);
+                f.readings
+                    .iter()
+                    .filter(move |r| r.lemma == lemma)
+                    .map(move |r| (f.text.as_str(), r))
+            })
+    }
+
     /// Lectures de toutes les formes d'un lemme.
     pub fn lemma_readings<'a>(&'a self, lemma: &'a str) -> impl Iterator<Item = &'a Reading> + 'a {
         self.by_lemma

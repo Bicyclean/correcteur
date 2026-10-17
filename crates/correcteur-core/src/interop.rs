@@ -1,14 +1,20 @@
 //! Format d'échange avec les interfaces non Rust (WebAssembly, bibliothèque C) :
 //! options en texte `clé=valeur`, problèmes en JSON. Sans dépendance.
 
-use crate::{Category, Issue, Options};
+use crate::{Category, Conjugation, Issue, Options, Readability, SynonymGroup};
 
 /// Options au format `clé=valeur`, une par ligne. Clés :
 /// `categorie_off`, `regle_off`, `mot` (répétables) ; `espace_fine`,
 /// `apostrophe`, `guillemets`, `points`, `noms_propres` (0 ou 1) ;
-/// `suggestions_max` (nombre).
+/// `suggestions_max`, `phrase_longue`, `repetition` (nombres). Seules les
+/// catégories listées par `categorie_off` sont désactivées.
 pub fn parse_options(text: &str) -> Result<Options, String> {
-    let mut o = Options::default();
+    // Les catégories désactivées sont celles que liste l'appelant, sans la
+    // valeur par défaut (qui désactive le style).
+    let mut o = Options {
+        disabled_categories: Vec::new(),
+        ..Options::default()
+    };
     for line in text.lines().filter(|l| !l.is_empty()) {
         let (key, value) = line
             .split_once('=')
@@ -29,6 +35,16 @@ pub fn parse_options(text: &str) -> Result<Options, String> {
             "guillemets" => o.french_quotes = flag()?,
             "points" => o.ellipsis_character = flag()?,
             "noms_propres" => o.check_proper_nouns = flag()?,
+            "phrase_longue" => {
+                o.long_sentence_words = value
+                    .parse()
+                    .map_err(|_| format!("phrase_longue : nombre attendu, « {value} »"))?
+            }
+            "repetition" => {
+                o.repetition_window = value
+                    .parse()
+                    .map_err(|_| format!("repetition : nombre attendu, « {value} »"))?
+            }
             "suggestions_max" => {
                 o.max_suggestions = value
                     .parse()
@@ -68,6 +84,79 @@ pub fn issues_to_json(issues: &[Issue]) -> String {
         out.push_str("]}");
     }
     out.push(']');
+    out
+}
+
+fn json_list(items: &[String], out: &mut String) {
+    out.push('[');
+    for (i, s) in items.iter().enumerate() {
+        if i > 0 {
+            out.push(',');
+        }
+        json_string(s, out);
+    }
+    out.push(']');
+}
+
+/// Tableau de conjugaison : modes → temps → lignes.
+pub fn conjugation_to_json(c: &Conjugation) -> String {
+    let mut out = String::from("{\"infinitive\":");
+    json_string(&c.infinitive, &mut out);
+    out.push_str(",\"model\":");
+    json_string(&c.model, &mut out);
+    out.push_str(&format!(
+        ",\"auxiliary\":\"{}\",\"pronominal\":{},\"guessed\":{},\"modes\":[",
+        c.auxiliary, c.pronominal, c.guessed
+    ));
+    for (i, m) in c.modes.iter().enumerate() {
+        if i > 0 {
+            out.push(',');
+        }
+        out.push_str("{\"name\":");
+        json_string(m.name, &mut out);
+        out.push_str(",\"tenses\":[");
+        for (k, t) in m.tenses.iter().enumerate() {
+            if k > 0 {
+                out.push(',');
+            }
+            out.push_str("{\"name\":");
+            json_string(t.name, &mut out);
+            out.push_str(",\"lines\":");
+            json_list(&t.lines, &mut out);
+            out.push('}');
+        }
+        out.push_str("]}");
+    }
+    out.push_str("]}");
+    out
+}
+
+/// Synonymes : mot consulté et groupes par sens.
+pub fn synonyms_to_json(entry: &str, groups: &[SynonymGroup]) -> String {
+    let mut out = String::from("{\"entry\":");
+    json_string(entry, &mut out);
+    out.push_str(",\"groups\":[");
+    for (i, g) in groups.iter().enumerate() {
+        if i > 0 {
+            out.push(',');
+        }
+        out.push_str("{\"category\":");
+        json_string(&g.category, &mut out);
+        out.push_str(",\"words\":");
+        json_list(&g.words, &mut out);
+        out.push('}');
+    }
+    out.push_str("]}");
+    out
+}
+
+pub fn readability_to_json(r: &Readability) -> String {
+    let mut out = format!(
+        "{{\"words\":{},\"sentences\":{},\"syllables\":{},\"score\":{:.1},\"level\":",
+        r.words, r.sentences, r.syllables, r.score
+    );
+    json_string(r.level, &mut out);
+    out.push('}');
     out
 }
 

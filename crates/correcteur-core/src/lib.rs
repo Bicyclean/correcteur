@@ -6,6 +6,7 @@
 //! fournit (voir [`EngineData`]).
 
 mod analysis;
+pub mod conjugation;
 pub mod corpus;
 mod data;
 pub mod interop;
@@ -13,11 +14,15 @@ mod lexicon;
 mod rules;
 mod suggest;
 mod text;
+pub mod thesaurus;
 
 use std::collections::HashSet;
 
-pub use data::{DataError, EngineData, RuleInfo, RULE_FILES};
+pub use conjugation::Conjugation;
+pub use data::{DataError, EngineData, RuleInfo, OPTIONAL_FILES, RULE_FILES};
 pub use lexicon::{Gn, Lexicon, Pos, Reading};
+pub use rules::style::Readability;
+pub use thesaurus::SynonymGroup;
 
 /// Famille d'une erreur, utilisée pour le filtrage et pour les mesures de qualité.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
@@ -30,14 +35,17 @@ pub enum Category {
     Grammaire,
     /// Espaces, ponctuation, apostrophes, tirets, majuscules.
     Typographie,
+    /// Conseils de rédaction : répétitions, phrases longues. Désactivé par défaut.
+    Style,
 }
 
 impl Category {
-    pub const ALL: [Category; 4] = [
+    pub const ALL: [Category; 5] = [
         Category::Orthographe,
         Category::Homophone,
         Category::Grammaire,
         Category::Typographie,
+        Category::Style,
     ];
 
     pub fn as_str(self) -> &'static str {
@@ -46,6 +54,7 @@ impl Category {
             Category::Homophone => "homophone",
             Category::Grammaire => "grammaire",
             Category::Typographie => "typographie",
+            Category::Style => "style",
         }
     }
 
@@ -102,12 +111,16 @@ pub struct Options {
     pub user_words: Vec<String>,
     /// Nombre maximal de suggestions par erreur d'orthographe.
     pub max_suggestions: usize,
+    /// Phrase signalée comme longue au-delà de ce nombre de mots.
+    pub long_sentence_words: usize,
+    /// Distance maximale, en mots, entre deux emplois d'un même mot signalés comme répétition.
+    pub repetition_window: usize,
 }
 
 impl Default for Options {
     fn default() -> Self {
         Options {
-            disabled_categories: Vec::new(),
+            disabled_categories: vec![Category::Style],
             disabled_rules: Vec::new(),
             narrow_nbsp: true,
             typographic_apostrophe: true,
@@ -116,6 +129,8 @@ impl Default for Options {
             check_proper_nouns: false,
             user_words: Vec::new(),
             max_suggestions: 5,
+            long_sentence_words: 35,
+            repetition_window: 40,
         }
     }
 }
@@ -151,6 +166,67 @@ impl Engine {
 
     pub fn rule(&self, id: &str) -> Option<&RuleInfo> {
         self.data.rules.get(id)
+    }
+
+    /// Tableau de conjugaison d'un verbe, donné à l'infinitif (« se laver » pour
+    /// un pronominal) ou à une forme conjuguée (« mangeons »).
+    pub fn conjugate(&self, verb: &str) -> Option<Conjugation> {
+        let elides = |w: &str| {
+            let lower = w.to_lowercase();
+            match lower.chars().next().map(text::base_letter) {
+                Some('a' | 'e' | 'i' | 'o' | 'u' | 'y' | 'œ') => true,
+                Some('h') => {
+                    !self.data.h_aspire.contains(&lower)
+                        && !self
+                            .data
+                            .h_aspire
+                            .iter()
+                            .any(|h| lower.starts_with(h.as_str()))
+                }
+                _ => false,
+            }
+        };
+        let c = &self.data.conjugator;
+        if let Some(found) = c.conjugate(verb, &elides) {
+            if !found.guessed {
+                return Some(found);
+            }
+        }
+        // Forme conjuguée : retrouver l'infinitif par le lexique.
+        let norm = text::normalize_apostrophes(verb.trim()).to_lowercase();
+        let infinitive = self.lexicon.find(&norm).and_then(|f| {
+            f.readings
+                .iter()
+                .find(|r| r.pos.is_verb() && c.model_of(&r.lemma).is_some())
+                .map(|r| r.lemma.clone())
+        });
+        match infinitive {
+            Some(inf) if inf != norm => c.conjugate(&inf, &elides),
+            _ => c.conjugate(verb, &elides),
+        }
+    }
+
+    /// Synonymes d'un mot, par sens. Une forme fléchie (« mangeons »,
+    /// « belles ») est ramenée à son lemme. Renvoie le mot consulté et les groupes.
+    pub fn synonyms(&self, word: &str) -> Option<(String, Vec<SynonymGroup>)> {
+        let t = &self.data.thesaurus;
+        let norm = text::normalize_apostrophes(word.trim()).to_lowercase();
+        if let Some(g) = t.get(&norm) {
+            return Some((norm, g.to_vec()));
+        }
+        let form = self.lexicon.find(&norm)?;
+        form.readings
+            .iter()
+            .filter_map(|r| t.get(&r.lemma).map(|g| (r.lemma.clone(), g.to_vec())))
+            .next()
+    }
+
+    /// Indice de lisibilité et décomptes (mots, phrases, syllabes).
+    pub fn readability(&self, text: &str) -> Readability {
+        let options = Options::default();
+        let none = HashSet::new();
+        let ctx = rules::Context::new(text, &options, &self.lexicon, &self.data, &none);
+        rules::style::readability(&ctx)
     }
 
     /// Analyse un texte et renvoie les problèmes triés par position.

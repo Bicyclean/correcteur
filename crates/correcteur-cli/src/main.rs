@@ -1,12 +1,16 @@
 //! `correcteur` : analyse un texte, évalue le moteur sur le corpus, mesure les temps.
 //!
 //! ```text
-//! correcteur analyser [--donnees DOSSIER] [FICHIER]     (entrée standard par défaut)
+//! correcteur analyser [--donnees DOSSIER] [--style] [FICHIER]   (entrée standard par défaut)
 //! correcteur evaluer  [--donnees DOSSIER] [--corpus DOSSIER] [--sortie FICHIER.md]
 //! correcteur mesurer  [--donnees DOSSIER] [--mots N] [--tours N]
 //! correcteur importer-lexique383 Lexique383.tsv [--sortie FICHIER.tsv]
+//! correcteur attribuer-conjugaisons [--donnees DOSSIER]
+//! correcteur conjuguer VERBE [--donnees DOSSIER]
+//! correcteur synonymes MOT [--donnees DOSSIER]
 //! ```
 
+mod conjugaison;
 mod import;
 
 use std::io::Read;
@@ -35,6 +39,7 @@ struct Args {
     output: Option<PathBuf>,
     words: usize,
     rounds: usize,
+    style: bool,
 }
 
 fn parse_args(args: &[String]) -> Result<Args, String> {
@@ -46,6 +51,7 @@ fn parse_args(args: &[String]) -> Result<Args, String> {
         output: None,
         words: 500,
         rounds: 50,
+        style: false,
     };
     let mut it = args.iter();
     while let Some(arg) = it.next() {
@@ -60,6 +66,7 @@ fn parse_args(args: &[String]) -> Result<Args, String> {
             "--sortie" => a.output = Some(value()?.into()),
             "--mots" => a.words = value()?.parse().map_err(|_| "--mots : nombre attendu")?,
             "--tours" => a.rounds = value()?.parse().map_err(|_| "--tours : nombre attendu")?,
+            "--style" => a.style = true,
             _ => a.positional.push(arg.clone()),
         }
     }
@@ -79,6 +86,9 @@ fn run(args: &[String]) -> Result<ExitCode, String> {
         "analyser" => analyze(&engine, &a),
         "evaluer" => eval(&engine, &a),
         "mesurer" => bench(&engine, &a),
+        "conjuguer" => conjugate(&engine, &a),
+        "synonymes" => synonyms(&engine, &a),
+        "attribuer-conjugaisons" => assign_conjugations(&engine, &a),
         other => Err(format!("commande inconnue « {other} »")),
     }
 }
@@ -94,7 +104,20 @@ fn analyze(engine: &Engine, a: &Args) -> Result<ExitCode, String> {
             s
         }
     };
-    let issues = engine.check(&text, &Options::default());
+    let mut options = Options::default();
+    if a.style {
+        options.disabled_categories.clear();
+        let r = engine.readability(&text);
+        println!(
+            "lisibilité : {:.0} ({}) — {} mots, {} phrases, {:.1} mots par phrase",
+            r.score,
+            r.level,
+            r.words,
+            r.sentences,
+            r.words as f64 / r.sentences.max(1) as f64
+        );
+    }
+    let issues = engine.check(&text, &options);
     for i in &issues {
         let (line, col) = line_col(&text, i.start);
         // Les espaces insécables sont rendues visibles.
@@ -270,5 +293,58 @@ fn import_lexique383(a: &Args) -> Result<ExitCode, String> {
         report.from_locutions,
         output.display()
     );
+    Ok(ExitCode::SUCCESS)
+}
+
+fn conjugate(engine: &Engine, a: &Args) -> Result<ExitCode, String> {
+    let verb = a.positional.join(" ");
+    let Some(c) = engine.conjugate(&verb) else {
+        return Err(format!("« {verb} » : verbe inconnu"));
+    };
+    println!(
+        "{} — modèle « {} », auxiliaire {}{}",
+        c.infinitive,
+        c.model,
+        c.auxiliary,
+        if c.guessed {
+            " (modèle déduit de la terminaison)"
+        } else {
+            ""
+        }
+    );
+    for mode in &c.modes {
+        println!("\n{}", mode.name.to_uppercase());
+        for t in &mode.tenses {
+            println!("  {} : {}", t.name, t.lines.join(" · "));
+        }
+    }
+    Ok(ExitCode::SUCCESS)
+}
+
+fn assign_conjugations(engine: &Engine, a: &Args) -> Result<ExitCode, String> {
+    let models_path = a.data.join("conjugaison/modeles.txt");
+    let models = std::fs::read_to_string(&models_path)
+        .map_err(|e| format!("{} : {e}", models_path.display()))?;
+    let models = correcteur_core::conjugation::Models::parse(&models).map_err(|e| e.to_string())?;
+    let assignments = conjugaison::assign(engine.lexicon(), &models);
+    let (text, summary) = conjugaison::render(&assignments);
+    let out = a
+        .output
+        .clone()
+        .unwrap_or_else(|| a.data.join("conjugaison/verbes.tsv"));
+    std::fs::write(&out, text).map_err(|e| format!("{} : {e}", out.display()))?;
+    println!("{summary}\nécrit dans {}", out.display());
+    Ok(ExitCode::SUCCESS)
+}
+
+fn synonyms(engine: &Engine, a: &Args) -> Result<ExitCode, String> {
+    let word = a.positional.join(" ");
+    let Some((entry, groups)) = engine.synonyms(&word) else {
+        return Err(format!("« {word} » : aucun synonyme connu"));
+    };
+    println!("{entry}");
+    for g in groups {
+        println!("  ({}) {}", g.category, g.words.join(", "));
+    }
     Ok(ExitCode::SUCCESS)
 }

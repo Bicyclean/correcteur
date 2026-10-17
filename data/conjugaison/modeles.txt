@@ -1,0 +1,639 @@
+# Modèles de conjugaison, rédigés pour ce projet d'après la conjugaison usuelle
+# du français (source : REF-GRAM-FR).
+#
+# « modele NOM TERMINAISON » ouvre un modèle. Le radical d'un verbe est son
+# infinitif sans la terminaison (« chanter » → « chant »). Chaque case est un
+# suffixe ajouté au radical. « a/b » : deux formes admises (la première sert aux
+# déductions). « - » : forme inexistante.
+#
+# Lignes obligatoires :
+#   pres  les six personnes du présent de l'indicatif (je, tu, il, nous, vous, ils)
+#   ps    les six personnes du passé simple
+#   fut   le radical du futur, auquel s'ajoutent -ai, -as, -a, -ons, -ez, -ont
+#   ppas  le participe passé ; « X inv » s'il est invariable ; ou quatre formes
+#         masc. sing., masc. plur., fém. sing., fém. plur.
+#
+# Temps déduits (voir crates/correcteur-core/src/conjugation.rs), qu'une ligne
+# du même nom remplace si le verbe fait exception :
+#   impf  imparfait : radical de « nous » au présent + -ais, -ais, -ait, -ions, -iez, -aient
+#   cond  conditionnel : radical du futur + terminaisons de l'imparfait
+#   subj  subjonctif présent : radical de « ils » au présent + -e, -es, -e, -ent ;
+#         « nous », « vous » comme à l'imparfait
+#   subi  subjonctif imparfait : passé simple (2e pers. sans -s) + -sse, -sses, ^t, -ssions, -ssiez, -ssent
+#   imp   impératif : 2e pers. sing., 1re et 2e plur. du présent (-es devient -e)
+#   ppre  participe présent : radical de « nous » au présent + -ant
+# « defectif 3s » : verbe impersonnel, seule la 3e personne du singulier existe.
+
+# --- 1er groupe ---------------------------------------------------------------
+
+modele chanter er
+pres e es e ons ez ent
+ps ai as a âmes âtes èrent
+fut er
+ppas é
+
+modele placer cer
+pres ce ces ce çons cez cent
+ps çai ças ça çâmes çâtes cèrent
+fut cer
+ppas cé
+
+modele manger ger
+pres ge ges ge geons gez gent
+ps geai geas gea geâmes geâtes gèrent
+fut ger
+ppas gé
+
+modele appeler eler
+pres elle elles elle elons elez ellent
+ps elai elas ela elâmes elâtes elèrent
+fut eller
+ppas elé
+
+modele jeter eter
+pres ette ettes ette etons etez ettent
+ps etai etas eta etâmes etâtes etèrent
+fut etter
+ppas eté
+
+modele geler eler
+pres èle èles èle elons elez èlent
+ps elai elas ela elâmes elâtes elèrent
+fut èler
+ppas elé
+
+modele acheter eter
+pres ète ètes ète etons etez ètent
+ps etai etas eta etâmes etâtes etèrent
+fut èter
+ppas eté
+
+modele lever ever
+pres ève èves ève evons evez èvent
+ps evai evas eva evâmes evâtes evèrent
+fut èver
+ppas evé
+
+modele mener ener
+pres ène ènes ène enons enez ènent
+ps enai enas ena enâmes enâtes enèrent
+fut èner
+ppas ené
+
+modele semer emer
+pres ème èmes ème emons emez èment
+ps emai emas ema emâmes emâtes emèrent
+fut èmer
+ppas emé
+
+modele peser eser
+pres èse èses èse esons esez èsent
+ps esai esas esa esâmes esâtes esèrent
+fut èser
+ppas esé
+
+modele sevrer evrer
+pres èvre èvres èvre evrons evrez èvrent
+ps evrai evras evra evrâmes evrâtes evrèrent
+fut èvrer
+ppas evré
+
+modele céder éder
+pres ède èdes ède édons édez èdent
+ps édai édas éda édâmes édâtes édèrent
+fut éder/èder
+ppas édé
+
+modele espérer érer
+pres ère ères ère érons érez èrent
+ps érai éras éra érâmes érâtes érèrent
+fut érer/èrer
+ppas éré
+
+modele répéter éter
+pres ète ètes ète étons étez ètent
+ps étai étas éta étâmes étâtes étèrent
+fut éter/èter
+ppas été
+
+modele célébrer ébrer
+pres èbre èbres èbre ébrons ébrez èbrent
+ps ébrai ébras ébra ébrâmes ébrâtes ébrèrent
+fut ébrer/èbrer
+ppas ébré
+
+modele régler égler
+pres ègle ègles ègle églons églez èglent
+ps églai églas égla églâmes églâtes églèrent
+fut égler/ègler
+ppas églé
+
+modele sécher écher
+pres èche èches èche échons échez èchent
+ps échai échas écha échâmes échâtes échèrent
+fut écher/ècher
+ppas éché
+
+modele léguer éguer
+pres ègue ègues ègue éguons éguez èguent
+ps éguai éguas égua éguâmes éguâtes éguèrent
+fut éguer/èguer
+ppas égué
+
+modele protéger éger
+pres ège èges ège égeons égez ègent
+ps égeai égeas égea égeâmes égeâtes égèrent
+fut éger/èger
+ppas égé
+
+modele nettoyer oyer
+pres oie oies oie oyons oyez oient
+ps oyai oyas oya oyâmes oyâtes oyèrent
+fut oier
+ppas oyé
+
+modele essuyer uyer
+pres uie uies uie uyons uyez uient
+ps uyai uyas uya uyâmes uyâtes uyèrent
+fut uier
+ppas uyé
+
+modele payer ayer
+pres aie/aye aies/ayes aie/aye ayons ayez aient/ayent
+ps ayai ayas aya ayâmes ayâtes ayèrent
+fut aier/ayer
+ppas ayé
+
+modele envoyer envoyer
+pres envoie envoies envoie envoyons envoyez envoient
+ps envoyai envoyas envoya envoyâmes envoyâtes envoyèrent
+fut enverr
+ppas envoyé
+
+modele aller aller
+pres vais vas va allons allez vont
+ps allai allas alla allâmes allâtes allèrent
+fut ir
+ppas allé
+subj aille ailles aille allions alliez aillent
+imp va allons allez
+
+# --- 2e groupe ----------------------------------------------------------------
+
+modele finir ir
+pres is is it issons issez issent
+ps is is it îmes îtes irent
+fut ir
+ppas i
+
+modele haïr ïr
+pres is is it ïssons ïssez ïssent
+ps ïs ïs ït ïmes ïtes ïrent
+fut ïr
+ppas ï
+subi ïsse ïsses ït ïssions ïssiez ïssent
+
+# --- 3e groupe : -ir ----------------------------------------------------------
+
+modele partir tir
+pres s s t tons tez tent
+ps tis tis tit tîmes tîtes tirent
+fut tir
+ppas ti
+
+modele dormir mir
+pres s s t mons mez ment
+ps mis mis mit mîmes mîtes mirent
+fut mir
+ppas mi inv
+
+modele servir vir
+pres s s t vons vez vent
+ps vis vis vit vîmes vîtes virent
+fut vir
+ppas vi
+
+modele venir enir
+pres iens iens ient enons enez iennent
+ps ins ins int înmes întes inrent
+fut iendr
+ppas enu
+
+modele ouvrir rir
+pres re res re rons rez rent
+ps ris ris rit rîmes rîtes rirent
+fut rir
+ppas ert
+
+modele courir ourir
+pres ours ours ourt ourons ourez ourent
+ps ourus ourus ourut ourûmes ourûtes oururent
+fut ourr
+ppas ouru
+
+modele mourir ourir
+pres eurs eurs eurt ourons ourez eurent
+ps ourus ourus ourut ourûmes ourûtes oururent
+fut ourr
+ppas ort
+
+modele cueillir eillir
+pres eille eilles eille eillons eillez eillent
+ps eillis eillis eillit eillîmes eillîtes eillirent
+fut eiller
+ppas eilli
+
+modele fuir uir
+pres uis uis uit uyons uyez uient
+ps uis uis uit uîmes uîtes uirent
+fut uir
+ppas ui
+
+modele acquérir quérir
+pres quiers quiers quiert quérons quérez quièrent
+ps quis quis quit quîmes quîtes quirent
+fut querr
+ppas quis
+
+# --- 3e groupe : -oir ---------------------------------------------------------
+
+modele avoir avoir
+pres ai as a avons avez ont
+ps eus eus eut eûmes eûtes eurent
+fut aur
+ppas eu
+subj aie aies ait ayons ayez aient
+imp aie ayons ayez
+ppre ayant
+
+modele recevoir cevoir
+pres çois çois çoit cevons cevez çoivent
+ps çus çus çut çûmes çûtes çurent
+fut cevr
+ppas çu
+
+modele devoir devoir
+pres dois dois doit devons devez doivent
+ps dus dus dut dûmes dûtes durent
+fut devr
+ppas dû dus due dues
+
+modele pouvoir pouvoir
+pres peux/puis peux peut pouvons pouvez peuvent
+ps pus pus put pûmes pûtes purent
+fut pourr
+ppas pu inv
+subj puisse puisses puisse puissions puissiez puissent
+imp - - -
+
+modele vouloir vouloir
+pres veux veux veut voulons voulez veulent
+ps voulus voulus voulut voulûmes voulûtes voulurent
+fut voudr
+ppas voulu
+subj veuille veuilles veuille voulions vouliez veuillent
+imp veuille/veux veuillons/voulons veuillez/voulez
+
+modele savoir savoir
+pres sais sais sait savons savez savent
+ps sus sus sut sûmes sûtes surent
+fut saur
+ppas su
+subj sache saches sache sachions sachiez sachent
+imp sache sachons sachez
+ppre sachant
+
+modele voir voir
+pres vois vois voit voyons voyez voient
+ps vis vis vit vîmes vîtes virent
+fut verr
+ppas vu
+
+modele prévoir voir
+pres vois vois voit voyons voyez voient
+ps vis vis vit vîmes vîtes virent
+fut voir
+ppas vu
+
+modele valoir aloir
+pres aux aux aut alons alez alent
+ps alus alus alut alûmes alûtes alurent
+fut audr
+ppas alu
+subj aille ailles aille alions aliez aillent
+
+modele falloir falloir
+defectif 3s
+pres - - faut - - -
+ps - - fallut - - -
+fut faudr
+ppas fallu inv
+subj - - faille - - -
+imp - - -
+
+modele pleuvoir pleuvoir
+defectif 3s
+pres - - pleut - - -
+ps - - plut - - -
+fut pleuvr
+ppas plu inv
+imp - - -
+
+modele asseoir asseoir
+pres assieds/assois assieds/assois assied/assoit asseyons/assoyons asseyez/assoyez asseyent/assoient
+ps assis assis assit assîmes assîtes assirent
+fut assiér/assoir
+ppas assis
+
+# --- 3e groupe : -re ----------------------------------------------------------
+
+modele être être
+pres suis es est sommes êtes sont
+ps fus fus fut fûmes fûtes furent
+fut ser
+ppas été inv
+impf étais étais était étions étiez étaient
+subj sois sois soit soyons soyez soient
+imp sois soyons soyez
+ppre étant
+
+modele faire faire
+pres fais fais fait faisons faites font
+ps fis fis fit fîmes fîtes firent
+fut fer
+ppas fait
+subj fasse fasses fasse fassions fassiez fassent
+
+modele dire dire
+pres dis dis dit disons dites disent
+ps dis dis dit dîmes dîtes dirent
+fut dir
+ppas dit
+
+modele interdire dire
+pres dis dis dit disons disez disent
+ps dis dis dit dîmes dîtes dirent
+fut dir
+ppas dit
+
+modele lire ire
+pres is is it isons isez isent
+ps us us ut ûmes ûtes urent
+fut ir
+ppas u
+
+modele suffire ire
+pres is is it isons isez isent
+ps is is it îmes îtes irent
+fut ir
+ppas i inv
+
+modele écrire crire
+pres cris cris crit crivons crivez crivent
+ps crivis crivis crivit crivîmes crivîtes crivirent
+fut crir
+ppas crit
+
+modele rire rire
+pres ris ris rit rions riez rient
+ps ris ris rit rîmes rîtes rirent
+fut rir
+ppas ri inv
+
+modele conduire uire
+pres uis uis uit uisons uisez uisent
+ps uisis uisis uisit uisîmes uisîtes uisirent
+fut uir
+ppas uit
+
+modele nuire uire
+pres uis uis uit uisons uisez uisent
+ps uisis uisis uisit uisîmes uisîtes uisirent
+fut uir
+ppas ui inv
+
+modele plaire aire
+pres ais ais aît aisons aisez aisent
+ps us us ut ûmes ûtes urent
+fut air
+ppas u inv
+
+modele taire aire
+pres ais ais ait aisons aisez aisent
+ps us us ut ûmes ûtes urent
+fut air
+ppas u
+
+modele croire oire
+pres ois ois oit oyons oyez oient
+ps us us ut ûmes ûtes urent
+fut oir
+ppas u
+
+modele boire oire
+pres ois ois oit uvons uvez oivent
+ps us us ut ûmes ûtes urent
+fut oir
+ppas u
+
+modele rendre dre
+pres ds ds d dons dez dent
+ps dis dis dit dîmes dîtes dirent
+fut dr
+ppas du
+
+modele prendre endre
+pres ends ends end enons enez ennent
+ps is is it îmes îtes irent
+fut endr
+ppas is
+
+modele mettre ettre
+pres ets ets et ettons ettez ettent
+ps is is it îmes îtes irent
+fut ettr
+ppas is
+
+modele battre attre
+pres ats ats at attons attez attent
+ps attis attis attit attîmes attîtes attirent
+fut attr
+ppas attu
+
+modele craindre aindre
+pres ains ains aint aignons aignez aignent
+ps aignis aignis aignit aignîmes aignîtes aignirent
+fut aindr
+ppas aint
+
+modele peindre eindre
+pres eins eins eint eignons eignez eignent
+ps eignis eignis eignit eignîmes eignîtes eignirent
+fut eindr
+ppas eint
+
+modele joindre oindre
+pres oins oins oint oignons oignez oignent
+ps oignis oignis oignit oignîmes oignîtes oignirent
+fut oindr
+ppas oint
+
+modele connaître aître
+pres ais ais aît aissons aissez aissent
+ps us us ut ûmes ûtes urent
+fut aîtr
+ppas u
+
+modele naître aître
+pres ais ais aît aissons aissez aissent
+ps aquis aquis aquit aquîmes aquîtes aquirent
+fut aîtr
+ppas é
+
+modele vivre ivre
+pres is is it ivons ivez ivent
+ps écus écus écut écûmes écûtes écurent
+fut ivr
+ppas écu
+
+modele suivre uivre
+pres uis uis uit uivons uivez uivent
+ps uivis uivis uivit uivîmes uivîtes uivirent
+fut uivr
+ppas uivi
+
+modele résoudre oudre
+pres ous ous out olvons olvez olvent
+ps olus olus olut olûmes olûtes olurent
+fut oudr
+ppas olu
+
+modele vaincre aincre
+pres aincs aincs ainc ainquons ainquez ainquent
+ps ainquis ainquis ainquit ainquîmes ainquîtes ainquirent
+fut aincr
+ppas aincu
+
+modele conclure clure
+pres clus clus clut cluons cluez cluent
+ps clus clus clut clûmes clûtes clurent
+fut clur
+ppas clu
+
+modele rompre ompre
+pres omps omps ompt ompons ompez ompent
+ps ompis ompis ompit ompîmes ompîtes ompirent
+fut ompr
+ppas ompu
+
+# --- 1er groupe : autres verbes en -é?er (gabarit commun) ----------------------
+
+modele pénétrer étrer
+pres ètre ètres ètre étrons étrez ètrent
+ps étrai étras étra étrâmes étrâtes étrèrent
+fut étrer/ètrer
+ppas étré
+
+modele révéler éler
+pres èle èles èle élons élez èlent
+ps élai élas éla élâmes élâtes élèrent
+fut éler/èler
+ppas élé
+
+modele régner égner
+pres ègne ègnes ègne égnons égnez ègnent
+ps égnai égnas égna égnâmes égnâtes égnèrent
+fut égner/ègner
+ppas égné
+
+modele intégrer égrer
+pres ègre ègres ègre égrons égrez ègrent
+ps égrai égras égra égrâmes égrâtes égrèrent
+fut égrer/ègrer
+ppas égré
+
+modele disséquer équer
+pres èque èques èque équons équez èquent
+ps équai équas équa équâmes équâtes équèrent
+fut équer/èquer
+ppas équé
+
+modele blasphémer émer
+pres ème èmes ème émons émez èment
+ps émai émas éma émâmes émâtes émèrent
+fut émer/èmer
+ppas émé
+
+modele exécrer écrer
+pres ècre ècres ècre écrons écrez ècrent
+ps écrai écras écra écrâmes écrâtes écrèrent
+fut écrer/ècrer
+ppas écré
+
+modele léser éser
+pres èse èses èse ésons ésez èsent
+ps ésai ésas ésa ésâmes ésâtes ésèrent
+fut éser/èser
+ppas ésé
+
+modele aliéner éner
+pres ène ènes ène énons énez ènent
+ps énai énas éna énâmes énâtes énèrent
+fut éner/èner
+ppas éné
+
+modele dépecer ecer
+pres èce èces èce eçons ecez ècent
+ps eçai eças eça eçâmes eçâtes ecèrent
+fut ècer
+ppas ecé
+
+# --- 3e groupe : compléments ----------------------------------------------------
+
+modele émouvoir ouvoir
+pres eus eus eut ouvons ouvez euvent
+ps us us ut ûmes ûtes urent
+fut ouvr
+ppas u
+
+modele coudre oudre
+pres ouds ouds oud ousons ousez ousent
+ps ousis ousis ousit ousîmes ousîtes ousirent
+fut oudr
+ppas ousu
+
+modele moudre oudre
+pres ouds ouds oud oulons oulez oulent
+ps oulus oulus oulut oulûmes oulûtes oulurent
+fut oudr
+ppas oulu
+
+modele traire aire
+pres ais ais ait ayons ayez aient
+ps - - - - - -
+fut air
+ppas ait
+
+modele maudire dire
+pres dis dis dit dissons dissez dissent
+ps dis dis dit dîmes dîtes dirent
+fut dir
+ppas dit
+
+modele bouillir ouillir
+pres ous ous out ouillons ouillez ouillent
+ps ouillis ouillis ouillit ouillîmes ouillîtes ouillirent
+fut ouillir
+ppas ouilli
+
+modele assaillir aillir
+pres aille ailles aille aillons aillez aillent
+ps aillis aillis aillit aillîmes aillîtes aillirent
+fut aillir
+ppas ailli
+
+modele vêtir êtir
+pres êts êts êt êtons êtez êtent
+ps êtis êtis êtit êtîmes êtîtes êtirent
+fut êtir
+ppas êtu

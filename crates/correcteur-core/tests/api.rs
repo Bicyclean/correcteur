@@ -84,3 +84,17 @@ fn texte_vide_et_blancs() {
     assert!(e.check("", &Options::default()).is_empty());
     assert!(e.check("   \n\n", &Options::default()).is_empty());
 }
+
+#[test]
+fn conjugaison() {
+    let e = engine();
+    let c = e.conjugate("haïr").unwrap();
+    let present = &c.modes[0].tenses[0].lines;
+    assert_eq!(present[0], "je hais", "h aspiré");
+    let c = e.conjugate("habiter").unwrap();
+    assert_eq!(c.modes[0].tenses[0].lines[0], "j’habite", "h muet");
+    // Forme conjuguée → infinitif.
+    assert_eq!(e.conjugate("mangeons").unwrap().infinitive, "manger");
+    assert_eq!(e.conjugate("allé").unwrap().infinitive, "aller");
+    assert!(e.conjugate("maison").is_none());
+}

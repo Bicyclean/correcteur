@@ -7,7 +7,7 @@ use std::collections::BTreeMap;
 use std::path::PathBuf;
 
 use correcteur_core::corpus::{check_rule_line, parse, CorpusLine};
-use correcteur_core::{Engine, Options};
+use correcteur_core::{Category, Engine, Options};
 
 fn root() -> PathBuf {
     PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..")
@@ -37,10 +37,20 @@ fn rule_lines() -> Vec<CorpusLine> {
 #[test]
 fn corpus_de_regles() {
     let engine = engine();
-    let options = Options::default();
+    // Le style est désactivé par défaut : ses tests l'activent.
+    let defaults = Options::default();
+    let with_style = Options {
+        disabled_categories: Vec::new(),
+        ..Options::default()
+    };
     let failures: Vec<String> = rule_lines()
         .iter()
-        .filter_map(|l| check_rule_line(&engine, l, &options).err())
+        .filter_map(|l| {
+            let style = engine
+                .rule(&l.label)
+                .is_some_and(|r| r.category == Category::Style);
+            check_rule_line(&engine, l, if style { &with_style } else { &defaults }).err()
+        })
         .collect();
     assert!(
         failures.is_empty(),

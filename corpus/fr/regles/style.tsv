@@ -1,0 +1,7 @@
+# Corpus de règles — style (catégorie activée pour ces tests).
+STYLE_REPETITION	La maison est grande et la ⟦maison⟧ est ancienne.	CONTRIB-INIT
+STYLE_REPETITION	Il regarde le ciel puis il ⟦regarde⟧ la mer.	CONTRIB-INIT
+STYLE_REPETITION	La maison est ancienne. Le jardin est fleuri.	CONTRIB-INIT
+STYLE_REPETITION	C’est très bien, vraiment bien.	CONTRIB-INIT
+STYLE_PHRASE_LONGUE	⟦Le comité a examiné pendant plusieurs semaines les propositions transmises par les habitants du quartier, qui demandaient des trottoirs plus larges, des arbres le long des rues, un éclairage plus doux le soir et des bancs près de l’école pour les parents qui attendent leurs enfants⟧.	CONTRIB-INIT
+STYLE_PHRASE_LONGUE	Le comité a examiné les propositions des habitants. Ils demandaient des trottoirs plus larges et des arbres le long des rues.	CONTRIB-INIT
