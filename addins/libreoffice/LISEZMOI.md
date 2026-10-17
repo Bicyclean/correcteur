@@ -43,6 +43,9 @@ interroge le vérificateur avec quelques phrases :
 python3 tests/tester.py dist/correcteur-0.2.0-macos.oxt
 ```
 
+Sous Debian ou Ubuntu, le test exige les paquets `python3-uno` et
+`libreoffice-script-provider-python` (exécution des macros Python).
+
 L'installation passe par le gestionnaire d'extensions depuis une macro :
 `unopkg add` échoue sur certaines installations (connexion au processus
 annexe refusée), ce qui est le cas de LibreOfficeDev 26.8 bêta sur macOS.

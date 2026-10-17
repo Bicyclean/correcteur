@@ -83,6 +83,8 @@ jobs:
       - run: npm ci
       - name: Types
         run: npm run typecheck
+      - name: Interface (requise par la compilation Tauri)
+        run: npm run build:web
       - name: Format et lint (Rust)
         working-directory: apps/bureau/src-tauri
         run: |
@@ -119,7 +121,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends libreoffice-writer python3-uno
+          sudo apt-get install -y --no-install-recommends libreoffice-writer python3-uno libreoffice-script-provider-python
           python tests/tester.py dist/*.oxt --soffice /usr/bin/soffice
       - name: Paquet
         uses: actions/upload-artifact@v4
