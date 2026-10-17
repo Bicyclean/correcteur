@@ -447,12 +447,54 @@ document.addEventListener("keydown", (e) => {
 // ---------------------------------------------------------------------------
 // Démarrage
 
+interface UpdateInfo {
+  version: string;
+  notes: string | null;
+}
+
 interface AppInfo {
   version: string;
   raccourci: boolean;
   demarrageAuto: boolean;
   dossierReglages: string;
+  misesAJourAuto: boolean;
+  miseAJour: UpdateInfo | null;
 }
+
+// ---------------------------------------------------------------------------
+// Mises à jour : recherche sur demande, ou automatique si l'utilisateur l'a
+// activée ; installation toujours sur confirmation.
+
+/** Propose d'installer une version trouvée (la notification reste 20 s). */
+function offerUpdate(u: UpdateInfo): void {
+  notify(`La version ${u.version} est disponible.`, { label: "Installer", run: () => void installUpdate(u) }, 20000);
+}
+
+async function installUpdate(u: UpdateInfo): Promise<void> {
+  // Le brouillon d'abord : l'application redémarre après l'installation.
+  clearTimeout(draftTimer);
+  const d: Draft = { texte: area.value, fichier: current.file, modifie: modified() };
+  await invoke("ecrire_brouillon", { brouillon: JSON.stringify(d) }).catch(() => undefined);
+  notify(`Téléchargement de la version ${u.version}… L'application redémarrera seule.`, undefined, 60000);
+  try {
+    await invoke("installer_mise_a_jour");
+  } catch (e) {
+    notify(errorText(e));
+  }
+}
+
+async function checkForUpdate(): Promise<void> {
+  notify("Recherche des mises à jour…");
+  try {
+    const u = await invoke<UpdateInfo | null>("chercher_mise_a_jour");
+    if (u) offerUpdate(u);
+    else notify("Correcteur est à jour.");
+  } catch (e) {
+    notify(errorText(e));
+  }
+}
+
+void tauri?.event.listen<UpdateInfo>("mise-a-jour-disponible", (e) => offerUpdate(e.payload));
 
 async function hostSettings(info: AppInfo | null): Promise<{ title: string; items: HostSetting[] }> {
   const items: HostSetting[] = [
@@ -462,6 +504,20 @@ async function hostSettings(info: AppInfo | null): Promise<{ title: string; item
       desc: `Le correcteur démarre discrètement dans ${TRAY}, prêt pour ${MOD}⇧E.`,
       value: info?.demarrageAuto ?? false,
       onChange: (v) => invoke("regler_demarrage_auto", { actif: v }),
+    },
+    {
+      kind: "switch",
+      title: "Rechercher les mises à jour automatiquement",
+      desc: "Au démarrage, une fois par jour, l'application consulte la page des versions sur GitHub. Aucun texte n'est envoyé ; l'installation demande votre accord.",
+      value: info?.misesAJourAuto ?? false,
+      onChange: (v) => invoke("regler_mises_a_jour_auto", { actif: v }),
+    },
+    {
+      kind: "action",
+      title: "Mises à jour",
+      desc: info ? `Version installée : ${info.version}.` : "Rechercher une nouvelle version.",
+      label: "Rechercher",
+      run: checkForUpdate,
     },
     {
       kind: "action",
@@ -499,6 +555,8 @@ async function start(): Promise<void> {
     version: info?.version,
   });
   if (notice) notify(notice);
+  // Trouvée par la recherche automatique avant que l'interface soit prête.
+  else if (info?.miseAJour) offerUpdate(info.miseAJour);
 }
 
 void start();

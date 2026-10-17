@@ -177,7 +177,8 @@ function visibleText(s: string): Node[] {
 // Notifications
 
 let toastTimer: ReturnType<typeof setTimeout> | undefined;
-export function notify(message: string, action?: { label: string; run: () => void }): void {
+/** Notification ; `duration` en millisecondes (par défaut 3 s, 6 s avec une action). */
+export function notify(message: string, action?: { label: string; run: () => void }, duration?: number): void {
   const t = ui.toast;
   if (!t) return;
   t.replaceChildren(el("span", {}, message));
@@ -194,7 +195,7 @@ export function notify(message: string, action?: { label: string; run: () => voi
   }
   t.classList.add("is-visible");
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove("is-visible"), action ? 6000 : 3000);
+  toastTimer = setTimeout(() => t.classList.remove("is-visible"), duration ?? (action ? 6000 : 3000));
 }
 
 // ---------------------------------------------------------------------------

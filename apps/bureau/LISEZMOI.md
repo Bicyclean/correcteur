@@ -3,8 +3,9 @@
 Éditeur de texte avec correction en direct, pour macOS et Windows, construit
 avec Tauri. Le moteur est la bibliothèque Rust native ; ses données
 (`data/lexique`, `data/regles`) sont incluses dans l'application et lues au
-démarrage. Aucun accès réseau : la politique de sécurité de la fenêtre
-n'autorise que les échanges avec le processus de l'application.
+démarrage. La politique de sécurité de la fenêtre n'autorise que les échanges
+avec le processus de l'application. Seule connexion réseau : la recherche des
+mises à jour (voir plus bas), qui n'envoie aucun texte.
 
 ## Utilisation
 
@@ -48,7 +49,7 @@ notification.
 
 | Fichier | macOS | Windows |
 |---|---|---|
-| `reglages.json`, `dictionnaire.txt` | `~/Library/Application Support/org.correcteur.bureau/` | `%APPDATA%\org.correcteur.bureau\` |
+| `reglages.json`, `dictionnaire.txt`, `application.json` (mises à jour) | `~/Library/Application Support/org.correcteur.bureau/` | `%APPDATA%\org.correcteur.bureau\` |
 | `brouillon.json` | même dossier | `%APPDATA%\org.correcteur.bureau\` |
 | `journal.txt` (erreurs) | `~/Library/Logs/org.correcteur.bureau/` | `%LOCALAPPDATA%\org.correcteur.bureau\logs\` |
 
@@ -61,6 +62,19 @@ l'ancien fichier intact.
 **Ouvrir à l'ouverture de session** (Réglages > Application) lance le
 correcteur discrètement, sans fenêtre, pour que le raccourci soit toujours
 disponible. La taille et la position de la fenêtre sont retenues.
+
+## Mises à jour
+
+**Réglages > Application > Mises à jour > Rechercher** consulte la page des
+versions sur GitHub. Si une version plus récente existe, une notification
+propose **Installer** : le paquet est téléchargé, sa signature vérifiée, puis
+l'application redémarre sur la nouvelle version (le brouillon est enregistré
+avant). Sous Windows, l'installateur s'affiche le temps de la mise à jour.
+
+**Rechercher les mises à jour automatiquement** (coupé par défaut) fait cette
+recherche au démarrage, au plus une fois par jour ; l'installation demande
+toujours votre accord. Aucun texte, réglage ni identifiant n'est envoyé :
+seule la requête HTTPS vers GitHub, qui voit l'adresse IP du poste.
 
 ## Outils
 

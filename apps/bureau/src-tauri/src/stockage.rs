@@ -4,6 +4,7 @@
 //!   modifiable à la main) dans le dossier de configuration.
 //! - Brouillon : le texte en cours, pour le retrouver au lancement suivant.
 //! - Journal : erreurs de l'application, pour le support.
+//! - Réglages de l'application : mises à jour automatiques.
 //! - Documents texte : décodage UTF-8 ou Windows-1252, fins de ligne gardées.
 //!
 //! Aucune dépendance à Tauri : tout se teste en isolation.
@@ -131,6 +132,43 @@ fn read_optional(path: &Path) -> io::Result<Option<String>> {
         Err(e) if e.kind() == io::ErrorKind::NotFound => Ok(None),
         Err(e) => Err(e),
     }
+}
+
+// ---------------------------------------------------------------------------
+// Réglages de l'application (hors correction)
+
+const APP_SETTINGS: &str = "application.json";
+
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase", default)]
+pub struct AppSettings {
+    /// Recherche des mises à jour au démarrage (une fois par jour). Coupée par défaut.
+    pub mises_a_jour_auto: bool,
+    /// Dernière recherche, en secondes depuis 1970.
+    pub derniere_verification: u64,
+}
+
+/// Réglages de l'application ; valeurs par défaut si le fichier manque ou est illisible.
+pub fn read_app_settings(dir: &Path) -> AppSettings {
+    read_optional(&dir.join(APP_SETTINGS))
+        .ok()
+        .flatten()
+        .and_then(|s| serde_json::from_str(&s).ok())
+        .unwrap_or_default()
+}
+
+pub fn write_app_settings(dir: &Path, settings: &AppSettings) -> io::Result<()> {
+    let json = serde_json::to_string_pretty(settings)
+        .map_err(|e| io::Error::new(io::ErrorKind::InvalidData, e))?;
+    write_atomic(&dir.join(APP_SETTINGS), json.as_bytes())
+}
+
+/// Secondes depuis 1970.
+pub fn now_secs() -> u64 {
+    SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map(|d| d.as_secs())
+        .unwrap_or(0)
 }
 
 // ---------------------------------------------------------------------------
@@ -389,6 +427,30 @@ mod tests {
         fs::write(dir.join(SETTINGS), "{pas du json").unwrap();
         let back = read_settings(&dir).unwrap().unwrap();
         assert_eq!(back, serde_json::json!({ "userWords": ["mot", "autre"] }));
+        fs::remove_dir_all(&dir).unwrap();
+    }
+
+    #[test]
+    fn reglages_application() {
+        let dir = scratch("application");
+        assert_eq!(
+            read_app_settings(&dir),
+            AppSettings::default(),
+            "coupé par défaut"
+        );
+        let s = AppSettings {
+            mises_a_jour_auto: true,
+            derniere_verification: 42,
+        };
+        write_app_settings(&dir, &s).unwrap();
+        assert_eq!(read_app_settings(&dir), s);
+        fs::write(dir.join(APP_SETTINGS), "{\"misesAJourAuto\": true}").unwrap();
+        assert!(
+            read_app_settings(&dir).mises_a_jour_auto,
+            "champ manquant : valeur par défaut"
+        );
+        fs::write(dir.join(APP_SETTINGS), "illisible").unwrap();
+        assert_eq!(read_app_settings(&dir), AppSettings::default());
         fs::remove_dir_all(&dir).unwrap();
     }
 

@@ -67,12 +67,41 @@ ou par un outil de gestion de parc).
 `dictionnaire.txt` dans le dossier de réglages de chaque utilisateur avant le
 premier lancement.
 
-**Confidentialité** : l'application n'ouvre aucune connexion réseau. Le texte,
-les réglages et le brouillon restent sur le poste.
+**Confidentialité** : le texte, les réglages et le brouillon restent sur le
+poste. La seule connexion réseau est la recherche des mises à jour, faite à la
+demande de l'utilisateur ou, s'il l'active, au démarrage.
 
 ## Mises à jour
 
-Il n'y a pas de mise à jour automatique : une nouvelle version s'installe
-par-dessus l'ancienne (réglages, dictionnaire et brouillon sont conservés).
-Une vérification automatique demanderait une connexion réseau ; elle ne sera
-ajoutée que si elle est souhaitée, et désactivable.
+L'application cherche les mises à jour dans le fichier `latest.json` de la
+dernière publication :
+`https://github.com/Bicyclean/correcteur/releases/latest/download/latest.json`.
+Il donne la version, les notes et, par système, l'adresse et la signature du
+paquet (`.app.tar.gz` sur macOS, installateur sur Windows : le `.msi` pour un
+poste installé par le `.msi`, le `-setup.exe` sinon). La recherche est faite à
+la demande (Réglages > Application) ou, si l'utilisateur l'active, au
+démarrage une fois par jour ; l'installation demande toujours son accord.
+
+**Signature.** Chaque paquet est signé par une clé privée (minisign) ; la clé
+publique est dans `apps/bureau/src-tauri/tauri.conf.json`, et l'application
+refuse tout paquet dont la signature ne correspond pas. La clé privée et son
+mot de passe sont :
+
+- dans les secrets du dépôt GitHub `TAURI_SIGNING_PRIVATE_KEY` et
+  `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`, utilisés par le workflow Publication ;
+- sur le poste du mainteneur, dans `~/.tauri/correcteur.key` et
+  `~/.tauri/correcteur.key.motdepasse`, **à sauvegarder** (gestionnaire de mots
+  de passe, coffre chiffré).
+
+Si la clé est perdue, les postes installés ne pourront plus recevoir de mise à
+jour : il faudra leur faire installer une nouvelle version à la main, avec une
+nouvelle clé publique.
+
+**Publier une mise à jour** : rien de plus qu'une version normale (étiquette
+`v…`). Le workflow signe les paquets et joint `latest.json` à la publication ;
+les postes ne la voient qu'une fois la publication rendue publique.
+
+**En entreprise** : laisser la recherche automatique coupée (valeur par défaut)
+et déployer chaque version par l'outil de gestion du parc. Une mise à jour
+lancée depuis l'application sur un poste installé par le `.msi` demande les
+droits d'administrateur.

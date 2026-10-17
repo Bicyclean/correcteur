@@ -61,5 +61,16 @@
         "installMode": "currentUser"
       }
     }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDBDMzU2NTFFN0Q1MUVDQkUKUldTKzdGRjlIbVUxRE5tN0ZJYWYza1pDMTcycHBhRHk3ZkxURStDMzdUSFlzMDFncHRhOUc1Y1gK",
+      "endpoints": [
+        "https://github.com/Bicyclean/correcteur/releases/latest/download/latest.json"
+      ],
+      "windows": {
+        "installMode": "passive"
+      }
+    }
   }
 }

@@ -4,11 +4,13 @@
 //! données incluses dans l'application. Un raccourci global ouvre la fenêtre
 //! avec le contenu du presse-papiers ; le texte corrigé y est recopié à la
 //! demande. Les réglages, le dictionnaire personnel et le brouillon sont des
-//! fichiers locaux (voir `stockage`). Aucun accès réseau.
+//! fichiers locaux (voir `stockage`). Seule connexion réseau : la recherche
+//! des mises à jour (`mises_a_jour`), coupée par défaut ; aucun texte n'est envoyé.
 
 // Pas de console sous Windows en version publiée.
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+mod mises_a_jour;
 mod stockage;
 
 use std::path::{Path, PathBuf};
@@ -17,6 +19,7 @@ use std::sync::OnceLock;
 
 use correcteur_core::interop;
 use correcteur_core::{Category, Engine, Issue, Options};
+use mises_a_jour::UpdateJs;
 use serde::{Deserialize, Serialize};
 use serde_json::value::RawValue;
 use serde_json::Value;
@@ -30,7 +33,7 @@ use tauri_plugin_dialog::{DialogExt, MessageDialogButtons, MessageDialogKind};
 use tauri_plugin_global_shortcut::{Code, GlobalShortcutExt, Modifiers, Shortcut, ShortcutState};
 use tauri_plugin_window_state::StateFlags;
 
-const WINDOW: &str = "principale";
+pub(crate) const WINDOW: &str = "principale";
 /// Événement envoyé à l'interface avec le texte du presse-papiers.
 const CLIPBOARD_EVENT: &str = "texte-presse-papiers";
 /// Événement envoyé avec le chemin d'un fichier déposé sur la fenêtre.
@@ -203,9 +206,9 @@ fn masquer(app: AppHandle) -> Result<(), String> {
 // Fichiers de l'application
 
 /// Dossiers de l'application.
-struct Dirs {
+pub(crate) struct Dirs {
     /// Réglages et dictionnaire personnel.
-    config: PathBuf,
+    pub(crate) config: PathBuf,
     /// Brouillon.
     data: PathBuf,
     /// Journal.
@@ -222,7 +225,7 @@ impl Dirs {
         })
     }
 
-    fn log(&self, message: &str) {
+    pub(crate) fn log(&self, message: &str) {
         stockage::log(&self.logs, message);
     }
 }
@@ -414,6 +417,9 @@ struct AppInfoJs {
     raccourci: bool,
     demarrage_auto: bool,
     dossier_reglages: String,
+    mises_a_jour_auto: bool,
+    /// Mise à jour trouvée et pas encore installée.
+    mise_a_jour: Option<UpdateJs>,
 }
 
 #[tauri::command]
@@ -421,12 +427,15 @@ fn infos_application(
     app: AppHandle,
     dirs: tauri::State<Dirs>,
     shortcut: tauri::State<ShortcutStatus>,
+    updates: tauri::State<'_, mises_a_jour::Pending>,
 ) -> AppInfoJs {
     AppInfoJs {
         version: app.package_info().version.to_string(),
         raccourci: shortcut.0.load(Ordering::Relaxed),
         demarrage_auto: app.autolaunch().is_enabled().unwrap_or(false),
         dossier_reglages: dirs.config.to_string_lossy().into_owned(),
+        mises_a_jour_auto: stockage::read_app_settings(&dirs.config).mises_a_jour_auto,
+        mise_a_jour: updates.info(),
     }
 }
 
@@ -599,6 +608,7 @@ fn main() {
             Some(vec![AUTOSTART_ARG]),
         ))
         .plugin(tauri_plugin_dialog::init())
+        .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_clipboard_manager::init())
         .plugin(
             tauri_plugin_global_shortcut::Builder::new()
@@ -611,6 +621,7 @@ fn main() {
         )
         .manage(EngineState(OnceLock::new()))
         .manage(ShortcutStatus(AtomicBool::new(false)))
+        .manage(mises_a_jour::Pending::default())
         .invoke_handler(tauri::generate_handler![
             analyser,
             infos,
@@ -631,7 +642,10 @@ fn main() {
             titre,
             infos_application,
             regler_demarrage_auto,
-            afficher_reglages
+            afficher_reglages,
+            mises_a_jour::chercher_mise_a_jour,
+            mises_a_jour::installer_mise_a_jour,
+            mises_a_jour::regler_mises_a_jour_auto
         ])
         .setup(move |app| {
             let handle = app.handle().clone();
@@ -651,7 +665,11 @@ fn main() {
                 // utilisable, et les Réglages le signalent.
                 Err(e) => dirs.log(&format!("raccourci global indisponible : {e}")),
             }
+            let auto_check = mises_a_jour::due(&dirs.config);
             app.manage(dirs);
+            if auto_check {
+                mises_a_jour::check_in_background(handle.clone());
+            }
 
             #[cfg(target_os = "macos")]
             {

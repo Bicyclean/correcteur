@@ -5,6 +5,10 @@
 # - Lancement manuel (onglet Actions) : installateurs en artefacts seulement,
 #   pour essayer avant de publier.
 #
+# Les paquets de mise à jour sont signés par la clé des secrets
+# TAURI_SIGNING_PRIVATE_KEY et TAURI_SIGNING_PRIVATE_KEY_PASSWORD ; la
+# publication porte un latest.json que l'application consulte.
+#
 # Voir docs/publication.md (version, signature, déploiement en entreprise).
 name: Publication
 
@@ -47,16 +51,18 @@ jobs:
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         with:
           projectPath: apps/bureau
-          args: ${{ matrix.args }}
+          args: --config src-tauri/tauri.publication.conf.json ${{ matrix.args }}
           tagName: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || '' }}
           releaseName: Correcteur ${{ github.ref_name }}
           releaseDraft: true
           releaseBody: |
             Correcteur libre du français : orthographe, homophones, grammaire, typographie. Tout le traitement est local.
 
-            **macOS** (Intel et Apple Silicon) : fichier `.dmg`. **Windows** : `.msi` (déploiement en entreprise) ou `-setup.exe`.
+            **macOS** (Intel et Apple Silicon) : fichier `.dmg`. **Windows** : `.msi` (déploiement en entreprise) ou `-setup.exe`. Les fichiers `.tar.gz`, `.zip`, `.sig` et `latest.json` servent aux mises à jour intégrées à l'application.
 
             Les installateurs ne sont pas encore signés par un certificat de développeur :
             - macOS : au premier lancement, ouvrir Réglages Système > Confidentialité et sécurité, puis « Ouvrir quand même » ;
