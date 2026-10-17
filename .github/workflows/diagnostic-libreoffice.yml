@@ -40,7 +40,8 @@ jobs:
               oxt = os.path.join(d, "v.oxt")
               with zipfile.ZipFile(complete) as src, zipfile.ZipFile(oxt, "w") as dst:
                   for m in membres:
-                      dst.writestr(m, src.read(m))
+                      if m != "META-INF/manifest.xml":
+                          dst.writestr(m, src.read(m))
                   if "META-INF/manifest.xml" in membres:
                       man = src.read("META-INF/manifest.xml").decode()
                       if not any(m.endswith(".py") for m in membres):
