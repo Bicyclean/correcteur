@@ -2,3 +2,4 @@
 /data/lexique/externe/
 *.zip
 .DS_Store
+.claude/
