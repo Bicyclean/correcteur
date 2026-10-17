@@ -127,6 +127,15 @@ fn is_sentence_start(text: &str, start: usize, prev: Option<&Word>, data: &Data)
         match c {
             '\n' | '\r' => return true,
             '!' | '?' | '…' => return true,
+            // « librarything.fr », « fr.wikipedia.org » : point collé, nom de domaine.
+            '.' if text[..start].ends_with('.')
+                && text[..start - 1]
+                    .chars()
+                    .next_back()
+                    .is_some_and(char::is_alphanumeric) =>
+            {
+                return false;
+            }
             '.' => {
                 // « M. Dupont », « p. ex. » : le point d'une abréviation ne termine
                 // pas la phrase, ni celui d'une initiale (« A. W. Mackenzie »).

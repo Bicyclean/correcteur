@@ -114,9 +114,16 @@ pub fn suggest(
         }
     }
 
-    // Pluriel régulier appliqué à un nom en -al ou -ail : « chevals » → « chevaux »,
-    // « travails » → « travaux ». Proposé en premier.
-    for (wrong, right) in [("als", "aux"), ("ails", "aux")] {
+    // Pluriel régulier appliqué à un nom en -al, -ail, -au, -eu ou -ou :
+    // « chevals » → « chevaux », « travails » → « travaux », « bateaus » →
+    // « bateaux », « genous » → « genoux ». Proposé en premier.
+    for (wrong, right) in [
+        ("als", "aux"),
+        ("ails", "aux"),
+        ("aus", "aux"),
+        ("eus", "eux"),
+        ("ous", "oux"),
+    ] {
         if let Some(stem) = lower.strip_suffix(wrong) {
             let plural = format!("{stem}{right}");
             if lexicon.get(&plural).is_some() {

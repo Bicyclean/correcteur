@@ -1,5 +1,5 @@
 # Lexique d'amorce, rédigé à la main (source CONTRIB-INIT).
-# Ne contient que des formes absentes de Lexique 3.83 : noms propres, formes élidées, mots figés.
+# Ne contient que des formes absentes de Lexique 3.83 : noms propres, formes élidées, mots figés, symboles d'unités.
 # Colonnes : forme, lemme, catégorie, traits, fréquence (par million, estimation), source.
 jusqu’	jusque	PRE		200	CONTRIB-INIT
 j’	je	PRO	1s	4000	CONTRIB-INIT
@@ -9,3 +9,21 @@ qu’	que	CON		3000	CONTRIB-INIT
 qu’	que	PRO		1500	CONTRIB-INIT
 Paris	Paris	NPR		300	CONTRIB-INIT
 Lyon	Lyon	NPR		20	CONTRIB-INIT
+kg	kg	NOM	m.e	5	CONTRIB-INIT
+mg	mg	NOM	m.e	5	CONTRIB-INIT
+µg	µg	NOM	m.e	5	CONTRIB-INIT
+ml	ml	NOM	m.e	5	CONTRIB-INIT
+cl	cl	NOM	m.e	5	CONTRIB-INIT
+dl	dl	NOM	m.e	5	CONTRIB-INIT
+hl	hl	NOM	m.e	5	CONTRIB-INIT
+Hz	Hz	NOM	m.e	5	CONTRIB-INIT
+kHz	kHz	NOM	m.e	5	CONTRIB-INIT
+MHz	MHz	NOM	m.e	5	CONTRIB-INIT
+GHz	GHz	NOM	m.e	5	CONTRIB-INIT
+kW	kW	NOM	m.e	5	CONTRIB-INIT
+kWh	kWh	NOM	m.e	5	CONTRIB-INIT
+MW	MW	NOM	m.e	5	CONTRIB-INIT
+Mo	Mo	NOM	m.e	5	CONTRIB-INIT
+Go	Go	NOM	m.e	5	CONTRIB-INIT
+ko	ko	NOM	m.e	5	CONTRIB-INIT
+To	To	NOM	m.e	5	CONTRIB-INIT

@@ -27,6 +27,25 @@ coll
 réf
 tél
 art
+# Bibliographie et nomenclature : « ill. », « trad. », « dir. », « op. cit. », « Carex sp. ».
+ill
+trad
+dir
+op
+cit
+préf
+réimpr
+rééd
+éds
+suppl
+ibid
+ms
+nouv
+anc
+sp
+spp
+subsp
+
 # Abréviations anglaises fréquentes dans les noms de sociétés et de personnes.
 Bros
 Inc

@@ -38,6 +38,23 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
         if ctx.text[w.end..].starts_with('.') && ctx.data.is_abbreviation(&w.norm) {
             continue;
         }
+        // « (fr) », « (pt) » : code de langue des bibliographies. « librarything.fr » :
+        // nom de domaine.
+        let before = &ctx.text[..w.start];
+        let language_code = w.text.chars().count() <= 3
+            && before.ends_with('(')
+            && ctx.text[w.end..].starts_with(')');
+        let after = &ctx.text[w.end..];
+        let domain = (before.ends_with('.')
+            && before[..before.len() - 1]
+                .chars()
+                .next_back()
+                .is_some_and(char::is_alphanumeric))
+            || (after.starts_with('.')
+                && after[1..].chars().next().is_some_and(char::is_lowercase));
+        if language_code || domain {
+            continue;
+        }
         // Sigles (ONU, SNCF) : rarement dans un lexique, presque jamais fautifs.
         if is_all_upper(w.text) && ctx.lexicon.find(&w.norm).is_none() {
             continue;
@@ -70,6 +87,7 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
             continue;
         };
         participles_first(ctx, i, &mut suggestions);
+        agreeing_first(ctx, i, &mut suggestions);
         let mut issue = RawIssue::new(w.start, w.end, UNKNOWN).arg(w.text);
         issue.suggestions = suggestions;
         out.push(issue);
@@ -95,7 +113,118 @@ fn known_variant(ctx: &Context, lower: &str) -> bool {
             f.has(|r| r.is_past_participle() && r.gn().is_some_and(|g| g.gender == Some('f')))
         })
     });
-    feminine_plural || (lower.chars().count() >= 4 && ctx.data.conjugator.is_form(lower))
+    feminine_plural
+        || regular_inflection(ctx, lower)
+        || (lower.chars().count() >= 4 && ctx.data.conjugator.is_form(lower))
+}
+
+/// « développeurs », « toccatas », « islandaises », « poitevine » : pluriel ou
+/// féminin régulier d'un nom ou d'un adjectif dont Lexique n'a aucune forme au
+/// pluriel (ou au féminin). Un lemme qui en a une garde la sienne : « chevals »
+/// reste une faute, puisque « chevaux » est connu.
+fn regular_inflection(ctx: &Context, lower: &str) -> bool {
+    // Le lemme du mot `base` n'a aucune forme qui vérifie `pred`.
+    let lacks = |base: &str, adjective_only: bool, pred: &dyn Fn(Gn) -> bool| {
+        ctx.lexicon.find(base).is_some_and(|f| {
+            f.readings
+                .iter()
+                .filter(|r| r.pos == Pos::Adj || (!adjective_only && r.pos == Pos::Nom))
+                .any(|r| {
+                    !ctx.lexicon
+                        .lemma_forms(&r.lemma)
+                        .any(|(_, x)| x.pos == r.pos && x.gn().is_some_and(pred))
+                })
+        })
+    };
+    let plural = |g: Gn| g.number == Some('p');
+    let feminine = |g: Gn| g.gender == Some('f');
+    // Pluriel en -s, sauf mots en -s, -x, -z, -al, -au, -eu.
+    if let Some(stem) = lower.strip_suffix('s') {
+        let regular = !stem.ends_with(['s', 'x', 'z'])
+            && !["al", "au", "eu"].iter().any(|e| stem.ends_with(e));
+        if regular && lacks(stem, false, &plural) {
+            return true;
+        }
+    }
+    // Féminin d'adjectif en -e (« islandais », « poitevin », « ogival ») ou à
+    // consonne doublée (« -ien » → « -ienne », « -el » → « -elle »).
+    let singular = lower.strip_suffix('s').unwrap_or(lower);
+    let Some(stem) = singular.strip_suffix('e') else {
+        return false;
+    };
+    let masculine = if let Some(m) = stem
+        .strip_suffix("ienn")
+        .map(|m| format!("{m}ien"))
+        .or_else(|| stem.strip_suffix("éenn").map(|m| format!("{m}éen")))
+        .or_else(|| stem.strip_suffix("ell").map(|m| format!("{m}el")))
+    {
+        m
+    } else if [
+        "ais", "ois", "ain", "in", "ant", "ent", "ard", "and", "aud", "al", "é", "i", "u",
+    ]
+    .iter()
+    .any(|e| stem.ends_with(e))
+    {
+        stem.to_string()
+    } else {
+        return false;
+    };
+    lacks(&masculine, true, &feminine)
+}
+
+/// « la forme blance » → « blanche » avant « blanc » : quand la première
+/// suggestion est un adjectif et que d'autres formes du même adjectif suivent,
+/// celle qui s'accorde avec le nom qui précède passe en tête.
+fn agreeing_first(ctx: &Context, i: usize, suggestions: &mut [String]) {
+    let Some(p) = ctx.prev(i) else { return };
+    let Some(noun) = ctx.form(p) else { return };
+    // Nom précédé de son déterminant (« la forme », « ces immensités ») ; pas
+    // « une corde à boyau attacheé », où l'adjectif peut viser un autre nom.
+    let after_determiner = ctx.prev(p).is_some_and(|d| {
+        ctx.data
+            .determiners
+            .contains_key(ctx.words[d].lower.as_str())
+    });
+    // « une si brûlante actualité » : « si » adverbe, pas la note.
+    let grammatical =
+        noun.has(|r| matches!(r.pos, Pos::Adv | Pos::Con | Pos::Pre | Pos::Det | Pos::Pro));
+    if !noun.has_pos(Pos::Nom) || !after_determiner || grammatical {
+        return;
+    }
+    let gns: Vec<Gn> = noun
+        .readings
+        .iter()
+        .filter(|r| r.pos == Pos::Nom)
+        .filter_map(|r| r.gn())
+        .collect();
+    let Some(&target) = gns.first() else { return };
+    if gns.iter().any(|&g| g != target) {
+        return;
+    }
+    let adjective_lemma = |s: &str| {
+        ctx.lexicon
+            .get(s)
+            .and_then(|f| f.readings.iter().find(|r| r.pos == Pos::Adj))
+            .map(|r| r.lemma.clone())
+    };
+    let Some(lemma) = suggestions.first().and_then(|s| adjective_lemma(s)) else {
+        return;
+    };
+    let agrees = |s: &str| {
+        ctx.lexicon.get(s).is_some_and(|f| {
+            f.has(|r| {
+                r.pos == Pos::Adj
+                    && r.lemma == lemma
+                    && r.gn().is_some_and(|g| g.compatible(target))
+            })
+        })
+    };
+    if agrees(&suggestions[0]) {
+        return;
+    }
+    if let Some(k) = suggestions.iter().position(|s| agrees(s)) {
+        suggestions[..=k].rotate_right(1);
+    }
 }
 
 /// Ordre des suggestions selon le mot qui précède : celles qui conviennent à la

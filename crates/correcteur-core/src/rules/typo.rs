@@ -404,7 +404,10 @@ fn capitals(ctx: &Context, out: &mut Vec<RawIssue>) {
             true
         } else if let Some(rest) = before.strip_suffix('.') {
             let prev_word = i.checked_sub(1).map(|p| &ctx.words[p]);
-            !rest.ends_with('.')
+            // « librarything.fr » : point collé au mot suivant, nom de domaine.
+            let domain = before.len() == w.start;
+            !domain
+                && !rest.ends_with('.')
                 && !rest.ends_with(|c: char| c.is_ascii_digit())
                 && prev_word.is_some_and(|p| {
                     p.end == rest.len()
