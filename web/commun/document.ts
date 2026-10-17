@@ -27,6 +27,8 @@ export interface DocumentAccess {
 /** Zone de texte, un paragraphe par ligne. */
 export class EditorDocument implements DocumentAccess {
   readonly kind = "editeur";
+  /** Vrai pendant une modification faite par le panneau (et non par la frappe). */
+  programmatic = false;
 
   constructor(private readonly area: HTMLTextAreaElement) {}
 
@@ -61,9 +63,14 @@ export class EditorDocument implements DocumentAccess {
     const scroll = area.scrollTop;
     area.focus({ preventScroll: true });
     area.setSelectionRange(start, end);
-    const native = text === "" ? document.execCommand("delete") : document.execCommand("insertText", false, text);
-    if (!native) {
-      area.value = area.value.slice(0, start) + text + area.value.slice(end);
+    this.programmatic = true;
+    try {
+      const native = text === "" ? document.execCommand("delete") : document.execCommand("insertText", false, text);
+      if (!native) {
+        area.value = area.value.slice(0, start) + text + area.value.slice(end);
+      }
+    } finally {
+      this.programmatic = false;
     }
     area.setSelectionRange(start + text.length, start + text.length);
     area.scrollTop = scroll;
@@ -72,7 +79,12 @@ export class EditorDocument implements DocumentAccess {
   /** Annule la dernière modification (historique natif de la zone de texte). */
   undo(): void {
     this.area.focus({ preventScroll: true });
-    document.execCommand("undo");
+    this.programmatic = true;
+    try {
+      document.execCommand("undo");
+    } finally {
+      this.programmatic = false;
+    }
   }
 
   async selectedText(): Promise<string> {

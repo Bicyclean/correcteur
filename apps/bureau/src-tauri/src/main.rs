@@ -13,6 +13,7 @@ use std::sync::OnceLock;
 use correcteur_core::interop;
 use correcteur_core::{Category, Engine, Issue, Options};
 use serde::{Deserialize, Serialize};
+use serde_json::value::RawValue;
 use tauri::menu::{Menu, MenuItem};
 use tauri::tray::TrayIconBuilder;
 use tauri::{AppHandle, Emitter, Manager, WindowEvent};
@@ -119,38 +120,30 @@ fn analyser(
 #[tauri::command]
 fn conjuguer(state: tauri::State<EngineState>, verbe: String) -> Result<RawJson, String> {
     let engine = state.get()?;
-    Ok(RawJson(engine.conjugate(&verbe).map_or_else(
-        || "null".into(),
-        |c| interop::conjugation_to_json(&c),
-    )))
+    raw(engine
+        .conjugate(&verbe)
+        .map_or_else(|| "null".into(), |c| interop::conjugation_to_json(&c)))
 }
 
 /// Synonymes et antonymes (JSON du moteur), ou `null`.
 #[tauri::command]
 fn synonymes(state: tauri::State<EngineState>, mot: String) -> Result<RawJson, String> {
     let engine = state.get()?;
-    Ok(RawJson(
-        interop::lookup_to_json(engine, &mot).unwrap_or_else(|| "null".into()),
-    ))
+    raw(interop::lookup_to_json(engine, &mot).unwrap_or_else(|| "null".into()))
 }
 
 #[tauri::command]
 fn lisibilite(state: tauri::State<EngineState>, texte: String) -> Result<RawJson, String> {
-    Ok(RawJson(interop::readability_to_json(
+    raw(interop::readability_to_json(
         &state.get()?.readability(&texte),
-    )))
+    ))
 }
 
-/// JSON déjà produit par le moteur, renvoyé tel quel à l'interface.
-struct RawJson(String);
+/// JSON déjà produit par le moteur, transmis tel quel à l'interface.
+type RawJson = Box<RawValue>;
 
-impl Serialize for RawJson {
-    fn serialize<S: serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
-        // Relu en valeur générique pour être transmis comme objet, pas comme chaîne.
-        let value: serde_json::Value =
-            serde_json::from_str(&self.0).map_err(serde::ser::Error::custom)?;
-        value.serialize(s)
-    }
+fn raw(json: String) -> Result<RawJson, String> {
+    RawValue::from_string(json).map_err(|e| e.to_string())
 }
 
 /// Nombre de formes du lexique.

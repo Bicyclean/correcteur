@@ -26,7 +26,7 @@ export interface Target {
 }
 
 /** Longueur maximale d'une chaîne de recherche dans Word. */
-export const MAX_SEARCH = 255;
+const MAX_SEARCH = 255;
 
 const isSpace = (c: string | undefined): boolean => c !== undefined && /\s/u.test(c);
 const isLowSurrogate = (code: number): boolean => code >= 0xdc00 && code <= 0xdfff;

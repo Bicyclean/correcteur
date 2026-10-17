@@ -23,6 +23,7 @@ const tauri = (window as unknown as { __TAURI__?: TauriGlobal }).__TAURI__;
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
 const area = $<HTMLTextAreaElement>("texte");
 const backdrop = $("backdrop");
+const doc = new EditorDocument(area);
 const isMac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
 const MOD = isMac ? "⌘" : "Ctrl";
 
@@ -166,6 +167,8 @@ area.addEventListener("scroll", () => {
 let timer: ReturnType<typeof setTimeout> | undefined;
 area.addEventListener("input", () => {
   updateChrome();
+  // Une correction appliquée par le panneau est réanalysée par le panneau lui-même.
+  if (doc.programmatic) return;
   paint([]);
   clearTimeout(timer);
   timer = setTimeout(() => void analyze(), 350);
@@ -246,7 +249,6 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-const doc = new EditorDocument(area);
 updateChrome();
 void startPanel({
   root: $("app"),

@@ -8,7 +8,7 @@ import { type DocumentAccess } from "./document";
 import { type IconName, icon, logo } from "./icones";
 import { type Target, applyToText, locate } from "./mapping";
 import { loadSettings, saveSettings } from "./settings";
-import { type Category, type CheckOptions, type Checker, type Conjugation, type Issue, type Readability, type Synonyms } from "./types";
+import { type Category, type Checker, type Conjugation, type Issue, type Readability, type Synonyms } from "./types";
 
 export interface Found {
   /** Identifiant stable tant que le texte autour de l'erreur ne change pas. */
@@ -113,8 +113,8 @@ function button(
   return b;
 }
 
-function switchControl(checked: boolean, labelledBy: string, onChange: (v: boolean) => void): HTMLButtonElement {
-  const b = el("button", { type: "button", className: "cr-switch", role: "switch", "aria-checked": String(checked), "aria-labelledby": labelledBy });
+function switchControl(checked: boolean, onChange: (v: boolean) => void): HTMLButtonElement {
+  const b = el("button", { type: "button", className: "cr-switch", role: "switch", "aria-checked": String(checked) });
   b.addEventListener("click", () => {
     const v = b.getAttribute("aria-checked") !== "true";
     b.setAttribute("aria-checked", String(v));
@@ -427,7 +427,7 @@ function cardFor(key: string): HTMLElement | null {
 }
 
 /** Rend un problème actif : carte dépliée, passage montré dans le document. */
-export async function activate(f: Found | null, opts: { reveal: boolean; focus?: boolean } = { reveal: false }): Promise<void> {
+async function activate(f: Found | null, opts: { reveal: boolean; focus?: boolean } = { reveal: false }): Promise<void> {
   state.active = f?.key ?? null;
   for (const c of ui.sections.corrections.querySelectorAll<HTMLElement>(".cr-card")) {
     if (c.dataset.key === state.active) c.setAttribute("aria-current", "true");
@@ -729,7 +729,6 @@ function row(title: string, desc: string | null, control: Node, extra?: Node): H
   const id = uid("lbl");
   // Nom explicite : certains lecteurs d'écran résolvent mal aria-labelledby.
   if (control instanceof HTMLElement) {
-    control.removeAttribute("aria-labelledby");
     if (!control.getAttribute("aria-label")) control.setAttribute("aria-label", desc ? `${title} — ${desc}` : title);
   }
   return el("div", { className: "cr-row" }, el("div", { className: "cr-row-text" }, el("div", { className: "cr-row-label", id }, extra ?? null, title), desc ? el("div", { className: "cr-row-desc" }, desc) : null), control);
@@ -743,7 +742,7 @@ function boolRow(title: string, desc: string, key: "narrowNbsp" | "typographicAp
   return row(
     title,
     desc,
-    switchControl(state.options[key], "", (v) => {
+    switchControl(state.options[key], (v) => {
       state.options[key] = v;
       save();
     }),
@@ -768,7 +767,7 @@ function renderSettings(): void {
     row(
       c.label,
       c.desc,
-      switchControl(!o.disabledCategories.includes(c.id), "", (v) => {
+      switchControl(!o.disabledCategories.includes(c.id), (v) => {
         const set = new Set(o.disabledCategories);
         if (v) set.delete(c.id);
         else set.add(c.id);
@@ -908,9 +907,4 @@ export async function startPanel(setup: PanelSetup): Promise<void> {
     state.error = (e as Error).message;
     renderCorrections();
   }
-}
-
-/** Options courantes (lecture seule, pour l'hôte). */
-export function currentOptions(): Readonly<CheckOptions> {
-  return state.options;
 }
