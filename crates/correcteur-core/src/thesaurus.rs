@@ -15,6 +15,7 @@ pub struct SynonymGroup {
 #[derive(Debug, Default)]
 pub struct Thesaurus {
     entries: HashMap<String, Vec<SynonymGroup>>,
+    antonyms: HashMap<String, Vec<SynonymGroup>>,
 }
 
 impl Thesaurus {
@@ -47,7 +48,39 @@ impl Thesaurus {
                 }
             }
         }
-        Thesaurus { entries }
+        Thesaurus {
+            entries,
+            antonyms: HashMap::new(),
+        }
+    }
+
+    /// Ajoute les antonymes d'un fichier TSV : `mot`, `catégorie`,
+    /// antonymes séparés par `|`, `source` (`data/thesaurus/antonymes.tsv`).
+    pub fn add_antonyms(&mut self, content: &str) {
+        for (_, line) in crate::data::data_lines(content) {
+            let cols: Vec<&str> = line.split('\t').collect();
+            if cols.len() < 3 {
+                continue;
+            }
+            let words: Vec<String> = cols[2]
+                .split('|')
+                .filter(|w| !w.is_empty())
+                .map(str::to_string)
+                .collect();
+            if !words.is_empty() {
+                self.antonyms
+                    .entry(cols[0].to_lowercase())
+                    .or_default()
+                    .push(SynonymGroup {
+                        category: cols[1].to_string(),
+                        words,
+                    });
+            }
+        }
+    }
+
+    pub fn antonyms(&self, word: &str) -> Option<&[SynonymGroup]> {
+        self.antonyms.get(&word.to_lowercase()).map(Vec::as_slice)
     }
 
     pub fn len(&self) -> usize {
@@ -79,5 +112,15 @@ mod tests {
             }
         );
         assert!(t.get("laid").is_none());
+    }
+
+    #[test]
+    fn antonymes() {
+        let mut t = Thesaurus::default();
+        t.add_antonyms("# en-tête\ngrand\tAdjectif\tpetit|minuscule\tWIKTIONNAIRE\nmalformé\n");
+        assert_eq!(
+            t.antonyms("Grand").unwrap()[0].words,
+            ["petit", "minuscule"]
+        );
     }
 }

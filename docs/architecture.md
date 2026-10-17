@@ -36,7 +36,7 @@ l'appareil.
 | `corpus/fr/evaluation/` | Phrases libres pour mesurer précision et rappel. |
 | `docs/` | Architecture, format des données, provenance, résultats. |
 
-À venir : antonymes (source à choisir), suite de la version 2.
+À venir : suite de la version 2.
 
 Conjugaison (`conjugation.rs`) : 96 modèles rédigés pour le projet ; les
 temps dérivés (imparfait, conditionnel, subjonctif, impératif, temps composés)
@@ -63,7 +63,8 @@ Chaque `Issue` contient :
 
 Autres fonctions de l'`Engine` : `conjugate(verbe)` (tableau complet, à
 partir de l'infinitif, d'une forme conjuguée ou d'un pronominal « se
-souvenir »), `synonyms(mot)` (thésaurus, forme ramenée au lemme),
+souvenir »), `synonyms(mot)` (thésaurus, forme ramenée au lemme), `antonyms(mot)`
+(Wiktionnaire),
 `readability(texte)` (indice de lisibilité de Kandel et Moles).
 
 `Options` permet de désactiver des catégories ou des règles, de choisir

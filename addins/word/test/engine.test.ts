@@ -87,6 +87,9 @@ test("conjugaison, synonymes et lisibilité", () => {
   const s = engine.synonyms("maisons");
   assert.equal(s?.entry, "maison");
   assert.ok(s?.groups[0].words.includes("demeure"));
+  const a = engine.synonyms("chaude");
+  assert.equal(a?.entry, "chaud");
+  assert.ok(a?.antonyms.some((g) => g.words.includes("froid")));
   const r = engine.readability("Le chat dort. Il rêve.");
   assert.equal(r.words, 5);
   assert.equal(r.sentences, 2);

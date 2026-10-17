@@ -338,20 +338,32 @@ function showConjugation(c: Conjugation): HTMLElement {
 }
 
 function showSynonyms(s: Synonyms): HTMLElement {
-  const groups = s.groups.map((g) => {
-    const list = el("div", { className: "suggestions" });
-    for (const w of g.words) {
-      const b = el("button", { className: "suggestion", type: "button", title: "Remplacer la sélection" }, w);
-      b.setAttribute("aria-label", `Remplacer la sélection par « ${w} »`);
-      b.onclick = async () => {
-        await state.doc?.replaceSelection(w);
-        void analyze();
-      };
-      list.append(b);
-    }
-    return el("div", { className: "synonym-group" }, el("p", { className: "muted" }, g.category), list);
-  });
-  return el("div", {}, el("p", { className: "tool-head" }, el("strong", {}, s.entry)), ...groups);
+  const block = (title: string, groups: Synonyms["groups"]) => {
+    if (groups.length === 0) return [];
+    return [
+      el("h4", { className: "tool-section" }, title),
+      ...groups.map((g) => {
+        const list = el("div", { className: "suggestions" });
+        for (const w of g.words) {
+          const b = el("button", { className: "suggestion", type: "button", title: "Remplacer la sélection" }, w);
+          b.setAttribute("aria-label", `Remplacer la sélection par « ${w} »`);
+          b.onclick = async () => {
+            await state.doc?.replaceSelection(w);
+            void analyze();
+          };
+          list.append(b);
+        }
+        return el("div", { className: "synonym-group" }, el("p", { className: "muted" }, g.category), list);
+      }),
+    ];
+  };
+  return el(
+    "div",
+    {},
+    el("p", { className: "tool-head" }, el("strong", {}, s.entry)),
+    ...block("Synonymes", s.groups),
+    ...block("Antonymes", s.antonyms),
+  );
 }
 
 function bindTools(): void {
@@ -379,7 +391,7 @@ function bindTools(): void {
     if (!w || !state.engine) return;
     word.value = w;
     const s = await state.engine.synonyms(w);
-    show(s ? showSynonyms(s) : el("p", { className: "muted" }, `Aucun synonyme connu pour « ${w} ».`));
+    show(s ? showSynonyms(s) : el("p", { className: "muted" }, `Aucun synonyme ni antonyme connu pour « ${w} ».`));
   };
 }
 

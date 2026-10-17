@@ -166,3 +166,4 @@ input.small { width: 4.5em; flex: none; }
 .synonym-group { margin-bottom: 8px; }
 .synonym-group .muted { margin: 4px 0; }
 .card[data-category="style"], .chip[data-category="style"] { --cat: var(--cat-style); }
+.tool-section { margin: 10px 0 2px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }

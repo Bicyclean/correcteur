@@ -29,7 +29,11 @@ pub const RULE_FILES: &[&str] = &[
 ];
 
 /// Fichiers facultatifs : la fonction correspondante est vide s'ils manquent.
-pub const OPTIONAL_FILES: &[&str] = &["conjugaison/verbes.tsv", "thesaurus/thes_fr.dat"];
+pub const OPTIONAL_FILES: &[&str] = &[
+    "conjugaison/verbes.tsv",
+    "thesaurus/thes_fr.dat",
+    "thesaurus/antonymes.tsv",
+];
 
 /// Contenu brut des fichiers de données, tel que lu sur disque ou reçu par le
 /// module WebAssembly.
@@ -372,7 +376,12 @@ impl Data {
                 src.optional("conjugaison/verbes.tsv"),
                 src.file("conjugaison/auxiliaire_etre.txt")?,
             )?,
-            thesaurus: crate::thesaurus::Thesaurus::parse(src.optional("thesaurus/thes_fr.dat")),
+            thesaurus: {
+                let mut t =
+                    crate::thesaurus::Thesaurus::parse(src.optional("thesaurus/thes_fr.dat"));
+                t.add_antonyms(src.optional("thesaurus/antonymes.tsv"));
+                t
+            },
         })
     }
 }

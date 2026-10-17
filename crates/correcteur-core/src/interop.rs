@@ -131,23 +131,42 @@ pub fn conjugation_to_json(c: &Conjugation) -> String {
     out
 }
 
-/// Synonymes : mot consulté et groupes par sens.
-pub fn synonyms_to_json(entry: &str, groups: &[SynonymGroup]) -> String {
+/// Synonymes et antonymes : mot consulté et groupes par sens ou catégorie.
+pub fn synonyms_to_json(entry: &str, groups: &[SynonymGroup], antonyms: &[SynonymGroup]) -> String {
+    let list = |groups: &[SynonymGroup], out: &mut String| {
+        out.push('[');
+        for (i, g) in groups.iter().enumerate() {
+            if i > 0 {
+                out.push(',');
+            }
+            out.push_str("{\"category\":");
+            json_string(&g.category, out);
+            out.push_str(",\"words\":");
+            json_list(&g.words, out);
+            out.push('}');
+        }
+        out.push(']');
+    };
     let mut out = String::from("{\"entry\":");
     json_string(entry, &mut out);
-    out.push_str(",\"groups\":[");
-    for (i, g) in groups.iter().enumerate() {
-        if i > 0 {
-            out.push(',');
-        }
-        out.push_str("{\"category\":");
-        json_string(&g.category, &mut out);
-        out.push_str(",\"words\":");
-        json_list(&g.words, &mut out);
-        out.push('}');
-    }
-    out.push_str("]}");
+    out.push_str(",\"groups\":");
+    list(groups, &mut out);
+    out.push_str(",\"antonyms\":");
+    list(antonyms, &mut out);
+    out.push('}');
     out
+}
+
+/// Synonymes et antonymes de `word` au format JSON, ou `None` si aucun n'est connu.
+pub fn lookup_to_json(engine: &crate::Engine, word: &str) -> Option<String> {
+    let syn = engine.synonyms(word);
+    let ant = engine.antonyms(word);
+    let entry = syn.as_ref().or(ant.as_ref())?.0.clone();
+    Some(synonyms_to_json(
+        &entry,
+        syn.map(|s| s.1).as_deref().unwrap_or(&[]),
+        ant.map(|a| a.1).as_deref().unwrap_or(&[]),
+    ))
 }
 
 pub fn readability_to_json(r: &Readability) -> String {

@@ -125,14 +125,13 @@ fn conjuguer(state: tauri::State<EngineState>, verbe: String) -> Result<RawJson,
     )))
 }
 
-/// Synonymes (JSON du moteur), ou `null`.
+/// Synonymes et antonymes (JSON du moteur), ou `null`.
 #[tauri::command]
 fn synonymes(state: tauri::State<EngineState>, mot: String) -> Result<RawJson, String> {
     let engine = state.get()?;
-    Ok(RawJson(engine.synonyms(&mot).map_or_else(
-        || "null".into(),
-        |(entry, groups)| interop::synonyms_to_json(&entry, &groups),
-    )))
+    Ok(RawJson(
+        interop::lookup_to_json(engine, &mot).unwrap_or_else(|| "null".into()),
+    ))
 }
 
 #[tauri::command]

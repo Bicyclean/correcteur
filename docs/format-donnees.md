@@ -113,6 +113,17 @@ Format myThes : une ligne d'encodage, puis pour chaque mot `mot|n` suivi de
 `n` lignes `(Catégorie)|synonyme|synonyme…`. Copie inchangée du thésaurus de
 Dicollecte (LGPL 2.1 ou ultérieure, voir `README_thes_fr.txt`). Facultatif.
 
+## Antonymes — `data/thesaurus/antonymes.tsv`
+
+`mot`, `catégorie`, antonymes séparés par `|`, `source`. Généré par
+`correcteur importer-antonymes` à partir de l'export du Wiktionnaire français
+(sections « antonymes » des entrées françaises) ; licence CC BY-SA 4.0, comme
+la source. Ne pas modifier à la main. Facultatif. Pour régénérer :
+
+```bash
+bzcat frwiktionary-latest-pages-articles.xml.bz2 | cargo run --release -p correcteur-cli -- importer-antonymes
+```
+
 ## Style — `data/regles/style_mots_ignores.txt`
 
 Lemmes trop courants pour qu'une répétition soit signalée (être, faire,

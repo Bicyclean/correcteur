@@ -12,7 +12,7 @@
 use std::cell::RefCell;
 
 use correcteur_core::interop::{
-    conjugation_to_json, issues_to_json, parse_options, readability_to_json, synonyms_to_json,
+    conjugation_to_json, issues_to_json, lookup_to_json, parse_options, readability_to_json,
 };
 use correcteur_core::{Engine, EngineData};
 
@@ -174,15 +174,13 @@ pub unsafe extern "C" fn cr_conjugate(ptr: *const u8, len: usize) -> i32 {
     })
 }
 
-/// Synonymes (JSON), ou `null`.
+/// Synonymes et antonymes (JSON), ou `null`.
 ///
 /// # Safety
 /// `ptr` doit désigner `len` octets lisibles.
 #[no_mangle]
 pub unsafe extern "C" fn cr_synonyms(ptr: *const u8, len: usize) -> i32 {
-    with_engine(ptr, len, |e, w| {
-        e.synonyms(w).map(|(entry, g)| synonyms_to_json(&entry, &g))
-    })
+    with_engine(ptr, len, lookup_to_json)
 }
 
 /// Lisibilité d'un texte (JSON).

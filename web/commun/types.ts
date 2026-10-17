@@ -58,6 +58,8 @@ export interface Synonyms {
   /** Mot consulté (le lemme si une forme fléchie a été demandée). */
   entry: string;
   groups: { category: string; words: string[] }[];
+  /** Antonymes par catégorie (Wiktionnaire). */
+  antonyms: { category: string; words: string[] }[];
 }
 
 export interface Readability {

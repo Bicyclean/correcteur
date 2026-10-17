@@ -98,3 +98,17 @@ fn conjugaison() {
     assert_eq!(e.conjugate("allé").unwrap().infinitive, "aller");
     assert!(e.conjugate("maison").is_none());
 }
+
+#[test]
+fn synonymes_et_antonymes() {
+    let e = engine();
+    let (entry, groups) = e.synonyms("maisons").unwrap();
+    assert_eq!(entry, "maison");
+    assert!(groups
+        .iter()
+        .any(|g| g.words.iter().any(|w| w == "demeure")));
+    let (entry, groups) = e.antonyms("grande").unwrap();
+    assert_eq!(entry, "grand");
+    assert!(groups.iter().any(|g| g.words.iter().any(|w| w == "petit")));
+    assert!(e.antonyms("xyzabc").is_none());
+}

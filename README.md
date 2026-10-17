@@ -2,7 +2,8 @@
 
 Correcteur et assistant de rédaction libre et gratuit pour le français.
 Licence : GPL-3.0 ou ultérieure (voir `LICENSE`). Le lexique dérivé de
-Lexique 3.83 reste sous CC BY-SA 4.0 (voir `data/lexique/LISEZMOI.md`).
+Lexique 3.83 et les antonymes tirés du Wiktionnaire restent sous CC BY-SA 4.0,
+le thésaurus sous LGPL 2.1+ (voir `data/SOURCES.tsv`).
 
 > Nom provisoire : le nom définitif du projet reste à choisir.
 
@@ -17,7 +18,7 @@ Tout le traitement est local : le texte ne quitte jamais l'appareil.
 | 3 | Accords et grammaire | **Fait** — accords sujet-verbe et groupe nominal, participes, négation, quelques constructions |
 | 4 | Application de bureau Tauri | **Fait** — éditeur, raccourci global ⌘⇧E / Ctrl+Maj+E pour le presse-papiers ; construite sur macOS, raccourci global et Windows à vérifier |
 | 5 | Extension LibreOffice | **Fait** — vérificateur grammatical (Proofreader), essayé dans Writer (LibreOfficeDev 26.8, macOS) ; Windows et Linux à essayer |
-| 6 | Conjugaison, synonymes, version 2 | **Fait en partie** — conjugaison, synonymes, répétitions, phrases longues, lisibilité ; antonymes à faire (source à choisir) |
+| 6 | Conjugaison, synonymes, version 2 | **Fait** — conjugaison, synonymes et antonymes, répétitions, phrases longues, lisibilité |
 
 Ce que le moteur détecte aujourd'hui :
 
@@ -28,7 +29,8 @@ Ce que le moteur détecte aujourd'hui :
   (« il a manger »), négation sans « ne », quelques constructions critiquées
   (« pallier à »). Règles prudentes : voisinage immédiat seulement.
 - **Outils** : conjugaison complète de tout verbe (5 260 verbes rattachés à
-  96 modèles), synonymes (thésaurus de Dicollecte).
+  96 modèles), synonymes (thésaurus de Dicollecte) et antonymes
+  (Wiktionnaire, 15 000 entrées).
 - **Style** (désactivé par défaut) : répétitions rapprochées avec synonymes
   proposés, phrases longues, indice de lisibilité.
 - **Typographie** : espaces insécables avant `; : ! ?` et dans les guillemets,

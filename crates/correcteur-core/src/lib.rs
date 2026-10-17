@@ -209,16 +209,28 @@ impl Engine {
     /// Synonymes d'un mot, par sens. Une forme fléchie (« mangeons »,
     /// « belles ») est ramenée à son lemme. Renvoie le mot consulté et les groupes.
     pub fn synonyms(&self, word: &str) -> Option<(String, Vec<SynonymGroup>)> {
-        let t = &self.data.thesaurus;
+        self.lookup(word, |w| self.data.thesaurus.get(w))
+    }
+
+    /// Antonymes d'un mot (Wiktionnaire), par catégorie ; forme ramenée au lemme.
+    pub fn antonyms(&self, word: &str) -> Option<(String, Vec<SynonymGroup>)> {
+        self.lookup(word, |w| self.data.thesaurus.antonyms(w))
+    }
+
+    /// Cherche `word`, puis ses lemmes, avec `get`.
+    fn lookup<'s>(
+        &'s self,
+        word: &str,
+        get: impl Fn(&str) -> Option<&'s [SynonymGroup]>,
+    ) -> Option<(String, Vec<SynonymGroup>)> {
         let norm = text::normalize_apostrophes(word.trim()).to_lowercase();
-        if let Some(g) = t.get(&norm) {
+        if let Some(g) = get(&norm) {
             return Some((norm, g.to_vec()));
         }
         let form = self.lexicon.find(&norm)?;
         form.readings
             .iter()
-            .filter_map(|r| t.get(&r.lemma).map(|g| (r.lemma.clone(), g.to_vec())))
-            .next()
+            .find_map(|r| get(&r.lemma).map(|g| (r.lemma.clone(), g.to_vec())))
     }
 
     /// Indice de lisibilité et décomptes (mots, phrases, syllabes).
