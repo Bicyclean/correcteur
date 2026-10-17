@@ -46,9 +46,14 @@ python3 tests/tester.py dist/correcteur-0.2.0-macos.oxt
 Sous Debian ou Ubuntu, le test exige les paquets `python3-uno` et
 `libreoffice-script-provider-python` (exécution des macros Python).
 
-L'installation passe par le gestionnaire d'extensions depuis une macro :
-`unopkg add` échoue sur certaines installations (connexion au processus
-annexe refusée), ce qui est le cas de LibreOfficeDev 26.8 bêta sur macOS.
+L'installation passe par le gestionnaire d'extensions, et non par
+`unopkg add`, qui échoue sur certaines installations (LibreOfficeDev 26.8
+bêta sur macOS). Deux modes, mêmes contrôles (`tests/controles.py`) :
+LibreOffice piloté par socket quand le Python utilisé sait importer `uno`
+(Linux : `/usr/bin/python3`), macro Python exécutée dans LibreOffice sinon
+(macOS, dont le Python embarqué ne peut pas être lancé seul). Sous Ubuntu, les
+macros Python lancées en ligne de commande font planter LibreOffice 24.2
+(`std::bad_alloc`) : le mode socket l'évite.
 
 ## Organisation
 

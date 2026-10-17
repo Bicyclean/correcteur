@@ -4,17 +4,24 @@
     python3 tests/tester.py dist/correcteur-….oxt [--soffice CHEMIN]
 
 Le profil de l'utilisateur n'est pas touché : l'extension est installée dans
-un dossier temporaire supprimé à la fin. L'installation passe par le
-gestionnaire d'extensions, depuis une macro (voir macro_installer.py).
+un dossier temporaire supprimé à la fin, par le gestionnaire d'extensions.
+
+Deux modes, mêmes contrôles (controles.py) :
+- socket, si ce Python sait importer « uno » (Linux : /usr/bin/python3 avec
+  python3-uno) : LibreOffice est piloté à distance ;
+- macro sinon (macOS : le Python de LibreOffice ne peut pas être lancé seul) :
+  les contrôles s'exécutent dans LibreOffice, comme macro Python.
 """
 
 import glob
 import json
 import os
 import shutil
+import socket
 import subprocess
 import sys
 import tempfile
+import time
 from pathlib import Path
 
 ICI = Path(__file__).resolve().parent
@@ -43,37 +50,102 @@ def main():
     try:
         env = f"-env:UserInstallation={profil.as_uri()}"
         subprocess.run([soffice, "--headless", "--norestore", "--terminate_after_init", env], timeout=300)
-        scripts = profil / "user" / "Scripts" / "python"
-        scripts.mkdir(parents=True, exist_ok=True)
-
-        def macro(nom, **valeurs):
-            texte = (ICI / f"{nom}.py").read_text(encoding="utf-8")
-            for cle, val in valeurs.items():
-                texte = texte.replace(f"@{cle}@", val)
-            (scripts / f"{nom}.py").write_text(texte, encoding="utf-8")
-            subprocess.run(
-                [soffice, "--headless", "--norestore", "--nologo", env,
-                 f"vnd.sun.star.script:{nom}.py$main?language=Python&location=user"],
-                timeout=300,
-            )
-
-        # 1. Installation, dans le processus de LibreOffice.
-        installe = profil / "installation.txt"
-        macro("macro_installer", OXT=Path(oxt).resolve().as_posix(), SORTIE=installe.as_posix())
-        etat = installe.read_text(encoding="utf-8") if installe.exists() else "aucune réponse"
-        if etat != "ok":
-            sys.exit(f"installation de l'extension impossible :\n{etat}")
-        # 2. Vérifications, après redémarrage (les services de l'extension sont alors enregistrés).
-        sortie = profil / "resultat.json"
-        macro("macro_test", SORTIE=sortie.as_posix())
-        if not sortie.exists():
-            sys.exit("la macro n'a rien écrit : LibreOffice n'a pas pu l'exécuter")
-        res = json.loads(sortie.read_text(encoding="utf-8"))
+        try:
+            import uno  # noqa: F401
+        except ImportError:
+            res = mode_macro(soffice, env, profil, Path(oxt).resolve())
+        else:
+            res = mode_socket(soffice, env, Path(oxt).resolve())
         print(json.dumps(res, ensure_ascii=False, indent=1))
         verifier(res)
         print("extension LibreOffice : tous les contrôles passent")
     finally:
         shutil.rmtree(profil, ignore_errors=True)
+
+
+ENVELOPPE = """
+
+def main(*args):
+    resultat = {appel}
+    with open({sortie!r}, "w", encoding="utf-8") as f:
+        f.write(resultat if isinstance(resultat, str) else json.dumps(resultat, ensure_ascii=False))
+    XSCRIPTCONTEXT.getDesktop().terminate()
+
+
+import json  # noqa: E402
+g_exportedScripts = (main,)
+"""
+
+
+def mode_macro(soffice, env, profil, oxt):
+    scripts = profil / "user" / "Scripts" / "python"
+    scripts.mkdir(parents=True, exist_ok=True)
+    controles = (ICI / "controles.py").read_text(encoding="utf-8")
+
+    def macro(nom, appel, sortie):
+        texte = controles + ENVELOPPE.format(appel=appel, sortie=sortie.as_posix())
+        (scripts / f"{nom}.py").write_text(texte, encoding="utf-8")
+        subprocess.run(
+            [soffice, "--headless", "--norestore", "--nologo", env,
+             f"vnd.sun.star.script:{nom}.py$main?language=Python&location=user"],
+            timeout=300,
+        )
+        return sortie.read_text(encoding="utf-8") if sortie.exists() else None
+
+    # 1. Installation, dans le processus de LibreOffice.
+    etat = macro("installer", f"installer(XSCRIPTCONTEXT.getComponentContext(), {oxt.as_posix()!r})",
+                 profil / "installation.txt")
+    if etat != "ok":
+        sys.exit(f"installation de l'extension impossible :\n{etat or 'aucune réponse'}")
+    # 2. Contrôles, après redémarrage (les services de l'extension sont alors enregistrés).
+    sortie = macro("controler", "mesurer(XSCRIPTCONTEXT.getComponentContext())", profil / "resultat.json")
+    if sortie is None:
+        sys.exit("la macro n'a rien écrit : LibreOffice n'a pas pu l'exécuter")
+    return json.loads(sortie)
+
+
+def mode_socket(soffice, env, oxt):
+    import uno
+
+    sys.path.insert(0, str(ICI))
+    import controles
+
+    with socket.socket() as s:
+        s.bind(("127.0.0.1", 0))
+        port = s.getsockname()[1]
+    adresse = f"socket,host=127.0.0.1,port={port};urp"
+
+    def demarrer():
+        proc = subprocess.Popen([soffice, "--headless", "--norestore", "--nologo", env, f"--accept={adresse};"])
+        local = uno.getComponentContext()
+        resolveur = local.ServiceManager.createInstanceWithContext("com.sun.star.bridge.UnoUrlResolver", local)
+        for _ in range(120):
+            try:
+                return proc, resolveur.resolve(f"uno:{adresse};StarOffice.ComponentContext")
+            except Exception:  # noqa: BLE001 — LibreOffice démarre encore
+                time.sleep(0.5)
+        proc.kill()
+        sys.exit("LibreOffice n'a pas accepté la connexion")
+
+    def arreter(proc, ctx):
+        try:
+            ctx.ServiceManager.createInstanceWithContext("com.sun.star.frame.Desktop", ctx).terminate()
+        except Exception:  # noqa: BLE001 — la connexion se ferme pendant l'arrêt
+            pass
+        try:
+            proc.wait(timeout=60)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+
+    proc, ctx = demarrer()
+    etat = controles.installer(ctx, str(oxt))
+    arreter(proc, ctx)
+    if etat != "ok":
+        sys.exit(f"installation de l'extension impossible :\n{etat}")
+    proc, ctx = demarrer()
+    res = controles.mesurer(ctx)
+    arreter(proc, ctx)
+    return res
 
 
 def verifier(res):
