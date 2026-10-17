@@ -9,82 +9,36 @@
   <script type="module" src="main.js"></script>
 </head>
 <body>
-  <header class="toolbar">
-    <div class="title">
-      <img src="icone-32.png" alt="" width="20" height="20">
-      <h1>Correcteur</h1>
-    </div>
-    <div class="tools">
-      <button id="coller" type="button">Coller</button>
-      <button id="copier" type="button">Copier</button>
-      <button id="copier-masquer" type="button">Copier et fermer</button>
-      <button id="analyze" class="primary" type="button" disabled>Analyser</button>
-    </div>
-  </header>
+  <div class="app">
+    <header class="toolbar">
+      <div class="doc-stats" id="stats" aria-live="polite">Nouveau texte</div>
+      <div class="tools">
+        <button id="coller" type="button" class="cr-btn cr-btn--ghost" title="Coller le contenu du presse-papiers"></button>
+        <button id="copier" type="button" class="cr-btn cr-btn--ghost" title="Copier tout le texte"></button>
+        <button id="copier-masquer" type="button" class="cr-btn cr-btn--primary"></button>
+      </div>
+    </header>
 
-  <div class="workspace">
-    <section class="editor" aria-label="Texte à corriger">
-      <div class="backdrop" id="backdrop" aria-hidden="true"></div>
-      <textarea id="texte" spellcheck="false" autofocus
-        placeholder="Écrivez ou collez votre texte ici. Depuis n'importe quelle application, copiez un texte puis utilisez le raccourci indiqué en bas pour le corriger."></textarea>
-    </section>
+    <main class="workspace">
+      <section class="editor" aria-label="Texte à corriger">
+        <div class="backdrop" id="backdrop" aria-hidden="true"></div>
+        <textarea id="texte" spellcheck="false" autofocus aria-label="Texte à corriger"></textarea>
+        <div class="welcome" id="welcome">
+          <div class="welcome-card">
+            <h1>Écrivez ou collez votre texte</h1>
+            <p>Il est vérifié pendant la frappe : orthographe, accords, homophones, typographie.</p>
+            <div class="welcome-actions">
+              <button id="w-coller" type="button" class="cr-btn cr-btn--primary"></button>
+              <button id="w-exemple" type="button" class="cr-btn">Essayer avec un exemple</button>
+            </div>
+            <p class="welcome-tip" id="w-tip"></p>
+          </div>
+        </div>
+      </section>
+      <aside class="side" id="app" aria-label="Corrections"></aside>
+    </main>
 
-    <aside class="panel">
-      <p id="status" role="status" aria-live="polite"></p>
-      <nav id="filters" aria-label="Filtrer par catégorie"></nav>
-      <div id="issues"></div>
-
-      <details id="outils">
-        <summary>Outils</summary>
-        <form id="form-conjuguer" class="tool">
-          <label for="verbe">Conjuguer</label>
-          <div class="row"><input id="verbe" placeholder="venir, se souvenir…" autocomplete="off"><button type="submit">Conjuguer</button></div>
-        </form>
-        <form id="form-synonymes" class="tool">
-          <label for="mot">Synonymes et antonymes</label>
-          <div class="row"><input id="mot" placeholder="mot ou sélection" autocomplete="off"><button type="submit">Chercher</button></div>
-        </form>
-        <div id="outil-resultat" aria-live="polite"></div>
-      </details>
-      <details id="options">
-        <summary>Réglages</summary>
-        <fieldset>
-          <legend>Catégories vérifiées</legend>
-          <div id="opt-categories" class="stack"></div>
-        </fieldset>
-        <fieldset>
-          <legend>Typographie</legend>
-          <div class="stack">
-            <label><input type="checkbox" id="opt-fine"> Espace fine avant ; ! ?</label>
-            <label><input type="checkbox" id="opt-apostrophe"> Apostrophe typographique (’)</label>
-            <label><input type="checkbox" id="opt-guillemets"> Guillemets français (« »)</label>
-            <label><input type="checkbox" id="opt-points"> Points de suspension (…)</label>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Orthographe</legend>
-          <div class="stack">
-            <label><input type="checkbox" id="opt-noms"> Vérifier les noms propres</label>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Style</legend>
-          <div class="stack">
-            <label>Phrase longue au-delà de <input type="number" id="opt-phrase" min="10" max="200" class="small"> mots</label>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Dictionnaire personnel</legend>
-          <ul id="dictionary"></ul>
-        </fieldset>
-        <button id="opt-reset-rules" class="link" type="button">Réactiver toutes les règles</button>
-      </details>
-    </aside>
+    <footer class="statusbar" id="raccourcis"></footer>
   </div>
-
-  <footer class="statusbar">
-    <span id="raccourcis"></span>
-    <span>Analyse locale : le texte ne quitte pas votre ordinateur.</span>
-  </footer>
 </body>
 </html>

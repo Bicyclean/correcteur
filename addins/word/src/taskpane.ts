@@ -35,16 +35,17 @@ async function loadChecker(): Promise<Checker> {
 }
 
 function start(inWord: boolean): void {
-  let doc;
+  const root = document.getElementById("app") as HTMLElement;
   if (inWord) {
-    doc = new WordDocument();
-  } else {
-    const area = document.getElementById("demo-text") as HTMLTextAreaElement;
-    area.value = DEMO_TEXT;
-    (document.getElementById("demo") as HTMLElement).hidden = false;
-    doc = new EditorDocument(area);
+    void startPanel({ root, doc: new WordDocument(), loadChecker, host: "word", analyzeOnReady: false });
+    return;
   }
-  void startPanel({ doc, loadChecker, analyzeOnReady: !inWord });
+  const area = document.getElementById("demo-text") as HTMLTextAreaElement;
+  area.value = DEMO_TEXT;
+  (document.getElementById("demo") as HTMLElement).hidden = false;
+  document.body.classList.add("is-demo");
+  const doc = new EditorDocument(area);
+  void startPanel({ root, doc, loadChecker, host: "word", analyzeOnReady: true, undo: () => doc.undo() });
 }
 
 // Hors de Word (navigateur), Office.js est absent ou `host` est nul : mode démonstration.

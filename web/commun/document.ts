@@ -48,10 +48,31 @@ export class EditorDocument implements DocumentAccess {
     const at = this.offset(paragraph, expected);
     if (at === null) return "changed";
     const start = at + target.start;
-    const end = start + target.snippet.length;
-    const v = this.area.value;
-    this.area.value = v.slice(0, start) + replacement(target, suggestion) + v.slice(end);
+    this.insert(start, start + target.snippet.length, replacement(target, suggestion));
     return "ok";
+  }
+
+  /**
+   * Remplace une zone par l'édition native du navigateur, qui garde
+   * l'historique : ⌘Z / Ctrl+Z annule la correction comme une frappe.
+   */
+  private insert(start: number, end: number, text: string): void {
+    const area = this.area;
+    const scroll = area.scrollTop;
+    area.focus({ preventScroll: true });
+    area.setSelectionRange(start, end);
+    const native = text === "" ? document.execCommand("delete") : document.execCommand("insertText", false, text);
+    if (!native) {
+      area.value = area.value.slice(0, start) + text + area.value.slice(end);
+    }
+    area.setSelectionRange(start + text.length, start + text.length);
+    area.scrollTop = scroll;
+  }
+
+  /** Annule la dernière modification (historique natif de la zone de texte). */
+  undo(): void {
+    this.area.focus({ preventScroll: true });
+    document.execCommand("undo");
   }
 
   async selectedText(): Promise<string> {
@@ -59,10 +80,9 @@ export class EditorDocument implements DocumentAccess {
   }
 
   async replaceSelection(text: string): Promise<void> {
-    const { selectionStart: s, selectionEnd: e, value } = this.area;
-    this.area.value = value.slice(0, s) + text + value.slice(e);
+    const { selectionStart: s, selectionEnd: e } = this.area;
+    this.insert(s, e, text);
     this.area.setSelectionRange(s, s + text.length);
-    this.area.dispatchEvent(new Event("input"));
   }
 
   /** Position du début du paragraphe, ou `null` s'il a changé. */

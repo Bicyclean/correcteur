@@ -45,7 +45,11 @@ await esbuild.build({
 for (const f of ["taskpane.html", "aide.html"]) {
   fs.copyFileSync(path.join(here, "src", f), path.join(dist, f));
 }
-fs.copyFileSync(path.join(root, "web/commun/panneau.css"), path.join(dist, "taskpane.css"));
+// Feuille commune, puis la mise en page propre au volet Word.
+fs.writeFileSync(
+  path.join(dist, "taskpane.css"),
+  fs.readFileSync(path.join(root, "web/commun/panneau.css"), "utf8") + "\n" + fs.readFileSync(path.join(here, "src/word.css"), "utf8"),
+);
 fs.cpSync(path.join(here, "assets"), path.join(dist, "assets"), { recursive: true });
 
 // 3. Manifeste.

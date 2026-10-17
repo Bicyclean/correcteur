@@ -64,6 +64,7 @@ Extension LibreOffice : voir [addins/libreoffice/LISEZMOI.md](addins/libreoffice
 
 ## Documentation
 
+- [Interface : organisation, clavier, accessibilité](docs/interface.md)
 - [Architecture](docs/architecture.md)
 - [Format des données et du corpus](docs/format-donnees.md)
 - [Provenance et cadre clean-room](docs/provenance.md)

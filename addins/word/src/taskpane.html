@@ -16,69 +16,14 @@
   <script type="module" src="taskpane.js"></script>
 </head>
 <body>
-  <header>
-    <div class="title">
-      <img src="assets/icon-32.png" alt="" width="20" height="20">
-      <h1>Correcteur</h1>
+  <!-- Hors de Word seulement : texte de démonstration à la place du document. -->
+  <section id="demo" class="demo" hidden>
+    <div class="demo-head">
+      <strong>Démonstration</strong>
+      <span>Hors de Word, ce texte tient lieu de document.</span>
     </div>
-    <button id="analyze" class="primary" type="button" disabled>Analyser le document</button>
-    <p id="status" role="status" aria-live="polite"></p>
-  </header>
-
-  <section id="demo" hidden>
-    <p class="muted">Mode démonstration (hors de Word). Modifiez le texte puis relancez l'analyse.</p>
     <textarea id="demo-text" rows="6" spellcheck="false" aria-label="Texte de démonstration"></textarea>
   </section>
-
-  <nav id="filters" aria-label="Filtrer par catégorie"></nav>
-  <main id="issues"></main>
-
-  <details id="outils">
-    <summary>Outils</summary>
-    <form id="form-conjuguer" class="tool">
-      <label for="verbe">Conjuguer</label>
-      <div class="row"><input id="verbe" placeholder="venir, se souvenir…" autocomplete="off"><button type="submit">Conjuguer</button></div>
-    </form>
-    <form id="form-synonymes" class="tool">
-      <label for="mot">Synonymes et antonymes</label>
-      <div class="row"><input id="mot" placeholder="mot ou sélection" autocomplete="off"><button type="submit">Chercher</button></div>
-    </form>
-    <div id="outil-resultat" aria-live="polite"></div>
-  </details>
-  <details id="options">
-    <summary>Réglages</summary>
-    <fieldset>
-      <legend>Catégories vérifiées</legend>
-      <div id="opt-categories" class="stack"></div>
-    </fieldset>
-    <fieldset>
-      <legend>Typographie</legend>
-      <div class="stack">
-        <label><input type="checkbox" id="opt-fine"> Espace fine avant ; ! ?</label>
-        <label><input type="checkbox" id="opt-apostrophe"> Apostrophe typographique (’)</label>
-        <label><input type="checkbox" id="opt-guillemets"> Guillemets français (« »)</label>
-        <label><input type="checkbox" id="opt-points"> Points de suspension (…)</label>
-      </div>
-    </fieldset>
-    <fieldset>
-      <legend>Orthographe</legend>
-      <div class="stack">
-        <label><input type="checkbox" id="opt-noms"> Vérifier les noms propres</label>
-      </div>
-    </fieldset>
-    <fieldset>
-      <legend>Style</legend>
-      <div class="stack">
-        <label>Phrase longue au-delà de <input type="number" id="opt-phrase" min="10" max="200" class="small"> mots</label>
-      </div>
-    </fieldset>
-    <fieldset>
-      <legend>Dictionnaire personnel</legend>
-      <ul id="dictionary"></ul>
-    </fieldset>
-    <button id="opt-reset-rules" class="link" type="button">Réactiver toutes les règles</button>
-  </details>
-
-  <footer>Analyse locale : le texte ne quitte pas votre ordinateur.</footer>
+  <div id="app"></div>
 </body>
 </html>

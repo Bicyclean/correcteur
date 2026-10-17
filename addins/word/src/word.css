@@ -1,0 +1,15 @@
+/* Volet Word : le panneau occupe toute la hauteur du volet. */
+html, body { height: 100%; }
+body { display: flex; flex-direction: column; overflow: hidden; }
+#app { flex: 1; min-height: 0; }
+
+/* Démonstration hors de Word. */
+.demo { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border); background: var(--bg-subtle); }
+.demo-head { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; margin-bottom: var(--space-2); font-size: var(--text-sm); color: var(--text-muted); }
+.demo-head strong { color: var(--text); }
+.demo textarea {
+  width: 100%; padding: var(--space-2) var(--space-3); resize: vertical;
+  border: 1px solid var(--border-strong); border-radius: var(--radius); background: var(--surface);
+  font: 14px/1.6 var(--font);
+}
+.demo textarea:focus { outline: 2px solid var(--focus); outline-offset: -1px; border-color: transparent; }

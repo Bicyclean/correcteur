@@ -13,5 +13,5 @@
     "skipLibCheck": true,
     "noEmit": true
   },
-  "include": ["src", "../../web/commun/document.ts", "../../web/commun/panneau.ts", "../../web/commun/types.ts", "../../web/commun/mapping.ts", "../../web/commun/settings.ts"]
+  "include": ["src", "../../web/commun/document.ts", "../../web/commun/panneau.ts", "../../web/commun/types.ts", "../../web/commun/mapping.ts", "../../web/commun/settings.ts", "../../web/commun/icones.ts"]
 }
