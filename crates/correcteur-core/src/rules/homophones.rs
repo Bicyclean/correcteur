@@ -31,6 +31,9 @@ pub const QU_ELLE_QUELLE: &str = "HOMO_QU_ELLE_QUELLE";
 pub const PEU_PEUT: &str = "HOMO_PEU_PEUT";
 pub const PEUT_PEU: &str = "HOMO_PEUT_PEU";
 pub const QUAND_QUANT: &str = "HOMO_QUAND_QUANT";
+pub const SON_SONT: &str = "HOMO_SON_SONT";
+pub const SONT_SON: &str = "HOMO_SONT_SON";
+pub const QUELQUE_QUEL_QUE: &str = "HOMO_QUELQUE_QUEL_QUE";
 
 const SUBJECTS: &[&str] = &["il", "elle", "on", "ils", "elles"];
 const RELATIVES: &[&str] = &[
@@ -99,8 +102,14 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
             "peu" => check_peu(ctx, i).then_some((PEU_PEUT, "peut")),
             "peut" => check_peut(ctx, i).then_some((PEUT_PEU, "peu")),
             "quand" => check_quand(ctx, i).then_some((QUAND_QUANT, "quant")),
+            "son" => check_son(ctx, i).then_some((SON_SONT, "sont")),
+            "sont" => check_sont(ctx, i).then_some((SONT_SON, "son")),
             "qu’" => {
                 check_qu_elle(ctx, i, out);
+                None
+            }
+            "quelque" | "quelques" => {
+                check_quelque(ctx, i, out);
                 None
             }
             _ => None,
@@ -156,7 +165,17 @@ fn check_a_accent(ctx: &Context, i: usize) -> bool {
         f.has(super::super::lexicon::Reading::is_past_participle)
             && f.only(|r| (r.pos.is_verb() && !r.is_infinitive()) || r.pos == Pos::Adj)
     });
-    (after_subject && n.is_some()) || after_il_y || before_participle
+    // « c’est elle qui à raison » : « qui » sujet, puis une locution avec avoir.
+    let after_qui = lower_is(ctx, p, &["qui"])
+        && lower_is(
+            ctx,
+            n,
+            &[
+                "raison", "tort", "faim", "soif", "peur", "besoin", "envie", "froid", "chaud",
+                "honte", "sommeil", "hâte", "mal",
+            ],
+        );
+    (after_subject && n.is_some()) || after_il_y || before_participle || after_qui
 }
 
 /// « A Paris » en début de phrase → « À » ; « il commence a pleuvoir » → « à ».
@@ -172,8 +191,35 @@ fn check_a(ctx: &Context, i: usize) -> bool {
     let p = ctx.prev(i);
     let after_a_verb = form(ctx, p)
         .is_some_and(|f| f.has(|r| r.pos.is_verb() && ctx.data.verbs_with_a.contains(&r.lemma)));
-    after_a_verb
+    if after_a_verb
         && form(ctx, n).is_some_and(|f| f.has(super::super::lexicon::Reading::is_infinitive))
+    {
+        return true;
+    }
+    // « Je reste a votre disposition », « il habite a Paris » : un verbe conjugué
+    // précédé de son sujet, puis « a » devant un groupe nominal ou un nom propre.
+    // Deux verbes conjugués ne se suivent pas : « a » est la préposition.
+    // « il y a », « il en a » : pronom entre le sujet et le verbe avoir.
+    if p.is_some_and(|p| ctx.data.is(&ctx.words[p].lower, "clitique") || ctx.words[p].lower == "en")
+    {
+        return false;
+    }
+    let verb_with_subject = form(ctx, p)
+        .is_some_and(|f| f.has(super::super::lexicon::Reading::is_finite_verb))
+        && p.and_then(|p| ctx.prev(p)).is_some_and(|s| {
+            ctx.data.subjects.contains_key(ctx.words[s].lower.as_str())
+                && !ctx.words[s].compound_part
+        });
+    let nominal = n.is_some_and(|n| {
+        let nw = &ctx.words[n];
+        ctx.data.determiners.contains_key(nw.lower.as_str())
+            || (is_capitalized(nw.text) && !nw.sentence_start)
+            || matches!(
+                nw.lower.as_str(),
+                "moi" | "toi" | "lui" | "eux" | "elles" | "nous" | "vous"
+            )
+    });
+    verb_with_subject && nominal
 }
 
 /// « Ou est-il ? » → « Où ».
@@ -209,8 +255,54 @@ fn check_ce(ctx: &Context, i: usize) -> bool {
 /// « se que je veux » → « ce » ; « se matin » → « ce ».
 fn check_se(ctx: &Context, i: usize) -> bool {
     let n = ctx.next(i);
-    lower_is(ctx, n, &["qui", "que", "qu’", "dont", "quoi"])
+    // « se sont les miens » → « ce sont » : être suivi d'un déterminant, sans
+    // sujet ni relatif devant (« ils se sont lavé », « qui se sont le plus aimés »).
+    let det = n.and_then(|n| ctx.next(n));
+    let etre_then_det = lower_is(
+        ctx,
+        n,
+        &[
+            "sont", "sera", "seront", "serait", "seraient", "fut", "furent",
+        ],
+    ) && form(ctx, det).is_some_and(|f| f.has_pos(Pos::Det))
+        && !lower_is(
+            ctx,
+            det.and_then(|d| ctx.next(d)),
+            &["plus", "moins", "mieux"],
+        )
+        && !ctx.prev(i).is_some_and(|p| {
+            let pw = ctx.words[p].lower.as_str();
+            ctx.data.subjects.contains_key(pw) || matches!(pw, "qui" | "que" | "qu’")
+        });
+    etre_then_det
+        || lower_is(ctx, n, &["qui", "que", "qu’", "dont", "quoi"])
         || form(ctx, n).is_some_and(|f| f.only(|r| r.pos == Pos::Nom))
+}
+
+/// « Mes amis son venus » → « sont » : sujet pluriel, puis participe passé ou
+/// adverbe (« son déjà partis »).
+fn check_son(ctx: &Context, i: usize) -> bool {
+    let n = ctx.next(i);
+    let verbal = form(ctx, n)
+        .is_some_and(|f| f.has(super::super::lexicon::Reading::is_past_participle))
+        || lower_is(
+            ctx,
+            n,
+            &[
+                "pas", "plus", "tous", "toutes", "très", "bien", "déjà", "encore", "toujours",
+            ],
+        );
+    verbal && plural_subject_before(ctx, i)
+}
+
+/// « Il a pris sont manteau » → « son » : après un verbe, devant un mot qui ne
+/// peut être qu'un nom.
+fn check_sont(ctx: &Context, i: usize) -> bool {
+    let p = ctx.prev(i);
+    let after_verb = form(ctx, p).is_some_and(|f| {
+        f.has(|r| r.pos.is_verb()) && !f.has(|r| matches!(r.pos, Pos::Nom | Pos::Pro))
+    }) && !lower_is(ctx, p, &["que", "qu’", "où"]);
+    after_verb && form(ctx, ctx.next(i)).is_some_and(|f| f.only(|r| r.pos == Pos::Nom))
 }
 
 /// « il c’est trompé » → « s’ ».
@@ -468,6 +560,60 @@ fn check_quelle(ctx: &Context, i: usize) -> bool {
 }
 
 /// « qu’elle chance ! » → « quelle » : « qu’elle » devant un nom.
+/// « Quelque soit ton choix » → « Quel que soit » : devant être au subjonctif,
+/// « quel » s'accorde avec le sujet qui suit (quelle que soit la raison).
+fn check_quelque(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
+    let Some(v) = ctx.next(i) else { return };
+    let plural_verb = match ctx.words[v].lower.as_str() {
+        "soit" | "fût" | "fut" => false,
+        "soient" | "fussent" => true,
+        _ => return,
+    };
+    // Genre et nombre : déterminant du sujet, complété par le genre du nom.
+    let det = ctx.next(v).and_then(|d| {
+        ctx.data
+            .determiners
+            .get(ctx.words[d].lower.as_str())
+            .map(|x| (d, x))
+    });
+    let mut gender = det.and_then(|(_, x)| x.gn.gender);
+    if gender.is_none() {
+        gender = det
+            .and_then(|(d, _)| ctx.next(d))
+            .and_then(|n| ctx.form(n))
+            .and_then(|f| f.readings.iter().find(|r| r.pos == Pos::Nom))
+            .and_then(|r| noun_gender(ctx, &r.lemma));
+    }
+    let plural = det
+        .and_then(|(_, x)| x.gn.number)
+        .map_or(plural_verb, |n| n == 'p');
+    let forms: Vec<&str> = match (gender, plural) {
+        (Some('f'), false) => vec!["quelle que"],
+        (Some('f'), true) => vec!["quelles que"],
+        (Some(_), false) => vec!["quel que"],
+        (Some(_), true) => vec!["quels que"],
+        (None, false) => vec!["quel que", "quelle que"],
+        (None, true) => vec!["quels que", "quelles que"],
+    };
+    let w = &ctx.words[i];
+    let suggestions: Vec<String> = forms
+        .iter()
+        .map(|f| {
+            if is_capitalized(w.text) {
+                capitalize(f)
+            } else {
+                (*f).to_string()
+            }
+        })
+        .collect();
+    out.push(
+        RawIssue::new(w.start, w.end, QUELQUE_QUEL_QUE)
+            .arg(w.text)
+            .arg(suggestions[0].clone())
+            .with_suggestions(suggestions),
+    );
+}
+
 fn check_qu_elle(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     let Some(e) = ctx.next(i) else { return };
     let replacement = match ctx.words[e].lower.as_str() {

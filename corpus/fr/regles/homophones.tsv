@@ -88,3 +88,21 @@ HOMO_QUAND_QUANT	⟦Quand→Quant⟧ à moi, je reste.	CONTRIB-INIT
 HOMO_QUAND_QUANT	⟦Quand→Quant⟧ aux autres, ils attendront.	CONTRIB-INIT
 HOMO_QUAND_QUANT	Quand à midi il arrive, tout est prêt.	CONTRIB-INIT
 HOMO_QUAND_QUANT	Quant à elle, elle part demain.	CONTRIB-INIT
+HOMO_SON_SONT	Mes amis ⟦son→sont⟧ venus hier.	CONTRIB-INIT
+HOMO_SON_SONT	Il donne à ses amis son vieux livre.	CONTRIB-INIT
+HOMO_SONT_SON	Il a pris ⟦sont→son⟧ manteau.	CONTRIB-INIT
+HOMO_SONT_SON	Les problèmes posés sont nombreux.	CONTRIB-INIT
+HOMO_SONT_SON	Ils sont médecins tous les deux.	CONTRIB-INIT
+HOMO_SE_CE	Ces livres sont à moi, ⟦se→ce⟧ sont les miens.	CONTRIB-INIT
+HOMO_SE_CE	Ils se sont lavé les mains.	CONTRIB-INIT
+HOMO_QUELQUE_QUEL_QUE	⟦Quelque→Quel que⟧ soit ton choix, je te soutiens.	CONTRIB-INIT
+HOMO_QUELQUE_QUEL_QUE	⟦Quelque→Quelle que⟧ soit la raison, il part.	CONTRIB-INIT
+HOMO_QUELQUE_QUEL_QUE	Il reste quelque temps à Lyon.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Je reste ⟦a→à⟧ votre disposition.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Il habite ⟦a→à⟧ Paris.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Le directeur a votre dossier.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Il a votre adresse.	CONTRIB-INIT
+HOMO_SE_CE	Ce sont les amis qui se sont le plus aimés.	CONTRIB-INIT
+HOMO_A_VERBE	C’est elle qui ⟦à→a⟧ raison.	CONTRIB-INIT
+HOMO_A_VERBE	C’est lui qui ⟦à→a⟧ faim.	CONTRIB-INIT
+HOMO_A_VERBE	Ceux qui à Paris travaillent rentrent tard.	CONTRIB-INIT

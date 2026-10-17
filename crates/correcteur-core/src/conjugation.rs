@@ -421,6 +421,11 @@ impl Conjugator {
         &self.models
     }
 
+    /// Vrai si le verbe se conjugue avec être (« venir », « partir »).
+    pub fn takes_etre(&self, infinitive: &str) -> bool {
+        self.etre.contains(infinitive)
+    }
+
     pub fn model_of(&self, infinitive: &str) -> Option<&str> {
         self.verbs.get(infinitive).map(String::as_str)
     }

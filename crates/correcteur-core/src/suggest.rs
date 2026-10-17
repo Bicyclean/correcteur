@@ -24,6 +24,9 @@ const FREQ_WEIGHT: f32 = 0.08;
 const SPLIT_PENALTY: f32 = 0.6;
 /// Coût d'une apostrophe d'élision oubliée (« quil » → « qu’il »).
 const MISSING_APOSTROPHE: f32 = 0.5;
+/// Coût d'un nom propre proposé pour un mot écrit en minuscules : « parmis »
+/// doit donner « parmi » avant « Paris », plus fréquent.
+const CASE_CHANGE: f32 = 0.75;
 
 /// Graphies qui se prononcent de la même façon, ou presque, et que l'on
 /// confond souvent : remplacer l'une par l'autre coûte moins qu'une faute de
@@ -71,9 +74,12 @@ pub fn suggest(
             continue;
         }
         let form = lexicon.form(id);
-        let dist = weighted_distance(&lower, &form.text.to_lowercase());
+        let mut dist = weighted_distance(&lower, &form.text.to_lowercase());
         if dist > MAX_DISTANCE {
             continue;
+        }
+        if is_capitalized(&form.text) && !is_capitalized(word) {
+            dist += CASE_CHANGE;
         }
         let score = dist - FREQ_WEIGHT * (1.0 + form.freq).ln();
         scored.push((score, form.text.clone()));

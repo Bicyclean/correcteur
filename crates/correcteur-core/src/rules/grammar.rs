@@ -19,6 +19,7 @@ pub const ADJECTIVE: &str = "GRAM_ACCORD_ADJECTIF";
 pub const PARTICIPLE_ETRE: &str = "GRAM_PARTICIPE_ETRE";
 pub const PARTICIPLE_AVOIR: &str = "GRAM_PARTICIPE_AVOIR";
 pub const PARTICIPLE_AVOIR_COD: &str = "GRAM_PARTICIPE_AVOIR_COD";
+pub const SI_CONDITIONAL: &str = "GRAM_SI_CONDITIONNEL";
 pub const INFINITIVE: &str = "GRAM_INFINITIF_PARTICIPE";
 pub const NEGATION: &str = "GRAM_NEGATION_NE";
 pub const PREPOSITION: &str = "GRAM_PREPOSITION";
@@ -32,6 +33,7 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
         subject_verb(ctx, i, out);
         auxiliary(ctx, i, out);
         negation(ctx, i, out);
+        si_conditional(ctx, i, out);
     }
 }
 
@@ -513,8 +515,19 @@ fn find_noun_phrase<'c>(ctx: &'c Context, det: usize) -> Option<NounPhrase<'c>> 
     // « pour la revoir », « les avoir vus », « qui les fait rire » : pronom
     // complément devant un verbe.
     let object_pronoun = pronoun_reading && is_class(ctx, det, "clitique");
+    // Devant un verbe conjugué : pronom possible (« une voix les fait se
+    // retourner », « et les glisse »), sauf juste après un verbe ou une
+    // préposition, où c'est un déterminant (« j’aime les voitures » : pas « que
+    // tu voitures »), et en tête de phrase ou après une ponctuation.
+    let before_verb = ctx.prev(det).is_some_and(|p| {
+        !ctx.form(p).is_some_and(|f| {
+            f.has_pos(Pos::Pre)
+                || (f.has(|r| r.is_finite_verb() || r.is_infinitive()) && !f.has_pos(Pos::Nom))
+        })
+    });
     if object_pronoun
-        && noun_form.has(|r| r.pos.is_verb() && (r.is_infinitive() || r.is_finite_verb()))
+        && noun_form
+            .has(|r| r.pos.is_verb() && (r.is_infinitive() || (before_verb && r.is_finite_verb())))
     {
         return None;
     }
@@ -814,6 +827,98 @@ fn subject_of(ctx: &Context, verb: usize) -> Option<FoundSubject> {
     (!coordinated).then_some(s)
 }
 
+/// Vrai si l'auxiliaire être d'indice `verb`, mal accordé, est à remplacer par
+/// avoir : pronom complément d'une autre personne que le sujet (« je vous »)
+/// et participe d'un verbe qui se conjugue avec avoir (« dit »).
+fn wants_avoir(ctx: &Context, subject: &FoundSubject, verb: usize) -> bool {
+    let Some(form) = ctx.form(verb) else {
+        return false;
+    };
+    if !form.has(|r| r.lemma == "être" && r.is_finite_verb()) {
+        return false;
+    }
+    let other_person_object = subject.chain.iter().any(|&c| {
+        let person = match lower(ctx, c) {
+            "me" | "m’" => "1s",
+            "te" | "t’" => "2s",
+            "nous" => "1p",
+            "vous" => "2p",
+            "lui" | "leur" | "le" | "la" | "l’" | "les" => "3",
+            _ => return false,
+        };
+        !subject.person.starts_with(person)
+    });
+    let participle = ctx.next(verb).and_then(|n| ctx.form(n)).is_some_and(|f| {
+        f.has(|r| r.is_past_participle() && !ctx.data.conjugator.takes_etre(&r.lemma))
+    });
+    other_person_object && participle
+}
+
+/// « Si j’aurais su » → « si j’avais su » : après « si » de condition, en tête
+/// de phrase, l'imparfait et non le conditionnel. « Je me demande si
+/// j’aurais dû » (interrogation indirecte, après un verbe) n'est pas visé.
+fn si_conditional(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
+    let Some(form) = ctx.form(i) else { return };
+    let finite: Vec<&Reading> = form
+        .readings
+        .iter()
+        .filter(|r| r.person().is_some())
+        .collect();
+    if finite.is_empty() || !finite.iter().all(|r| r.mode_tense() == Some("cond.pres")) {
+        return;
+    }
+    let Some(subject) = subject_of(ctx, i) else {
+        return;
+    };
+    if !subject.pronoun {
+        return;
+    }
+    let Some(si) = ctx.prev(subject.start) else {
+        return;
+    };
+    if !matches!(lower(ctx, si), "si" | "s’" | "s'") {
+        return;
+    }
+    let sw = &ctx.words[si];
+    // En tête de phrase seulement : après une virgule, « si » introduit souvent
+    // une interrogation indirecte (« …, s’il pourrait continuer »).
+    let clause_start = sw.sentence_start
+        || ctx.prev(si).is_some_and(|p| {
+            matches!(lower(ctx, p), "et" | "mais" | "même") && ctx.words[p].sentence_start
+        });
+    if !clause_start {
+        return;
+    }
+    let wanted = format!("ind.impf.{}", subject.person);
+    let mut suggestions: Vec<String> = Vec::new();
+    for r in &finite {
+        for f in ctx
+            .lexicon
+            .inflect(&r.lemma, |x| x.pos == r.pos && x.traits == wanted)
+        {
+            let f = same_case(ctx.words[i].text, f);
+            if !suggestions.contains(&f) {
+                suggestions.push(f);
+            }
+        }
+    }
+    let Some(first) = suggestions.first().cloned() else {
+        return;
+    };
+    let w = &ctx.words[i];
+    out.push(
+        RawIssue::new(w.start, w.end, SI_CONDITIONAL)
+            .arg(w.text)
+            .arg(first)
+            .with_suggestions(suggestions),
+    );
+}
+
+/// Genre et nombre du sujet du verbe d'indice `verb`, s'il est reconnu.
+pub(super) fn subject_gn(ctx: &Context, verb: usize) -> Option<Gn> {
+    subject_of(ctx, verb).map(|s| s.gn)
+}
+
 fn simple_subject(ctx: &Context, verb: usize) -> Option<FoundSubject> {
     if ctx.words[verb].compound_part {
         return None; // « dit-il » : sujet inversé
@@ -893,6 +998,10 @@ fn subject_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     if finite.is_empty() {
         return;
     }
+    // « les charges relevées contre lui » : préposition, pas le verbe contrer.
+    if form.has_pos(Pos::Pre) {
+        return;
+    }
     let Some(subject) = subject_of(ctx, i) else {
         return;
     };
@@ -935,6 +1044,23 @@ fn subject_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     let mut readings = finite.clone();
     readings.sort_by_key(|r| r.mode_tense() != Some("ind.pres"));
     let mut suggestions: Vec<String> = Vec::new();
+    // « Je vous est dit » : un pronom complément d'une autre personne que le
+    // sujet, puis le participe d'un verbe conjugué avec avoir ; c'est l'auxiliaire
+    // avoir qu'il faut (« je vous ai dit »), pas « suis ».
+    if wants_avoir(ctx, &subject, i) {
+        for r in &finite {
+            let wanted = format!("{}.{}", r.mode_tense().unwrap_or(""), subject.person);
+            for f in ctx
+                .lexicon
+                .inflect("avoir", |x| x.pos == Pos::Aux && x.traits == wanted)
+            {
+                let f = same_case(ctx.words[i].text, f);
+                if !suggestions.contains(&f) {
+                    suggestions.push(f);
+                }
+            }
+        }
+    }
     for r in readings {
         let wanted = format!("{}.{}", r.mode_tense().unwrap_or(""), subject.person);
         for f in ctx
