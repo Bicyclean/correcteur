@@ -51,9 +51,12 @@ L'installation passe par le gestionnaire d'extensions, et non par
 bêta sur macOS). Deux modes, mêmes contrôles (`tests/controles.py`) :
 LibreOffice piloté par socket quand le Python utilisé sait importer `uno`
 (Linux : `/usr/bin/python3`), macro Python exécutée dans LibreOffice sinon
-(macOS, dont le Python embarqué ne peut pas être lancé seul). Sous Ubuntu, les
-macros Python lancées en ligne de commande font planter LibreOffice 24.2
-(`std::bad_alloc`) : le mode socket l'évite.
+(macOS, dont le Python embarqué ne peut pas être lancé seul).
+
+Sous Linux, ne lancez pas LibreOffice avec un `LD_LIBRARY_PATH` qui pointe
+vers un autre Python (c'est le cas après `actions/setup-python`) : il chargerait
+cette bibliothèque Python à la place de la sienne et planterait
+(`std::bad_alloc`).
 
 ## Organisation
 

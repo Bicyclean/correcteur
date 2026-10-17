@@ -123,7 +123,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends libreoffice-writer python3-uno libreoffice-script-provider-python
           # Python du système : il a le module uno (python3-uno) et pilote LibreOffice par socket.
-          /usr/bin/python3 tests/tester.py dist/*.oxt --soffice /usr/bin/soffice
+          # setup-python place sa propre libpython dans LD_LIBRARY_PATH : LibreOffice la
+          # chargerait à la place de celle du système et planterait (std::bad_alloc).
+          env -u LD_LIBRARY_PATH /usr/bin/python3 tests/tester.py dist/*.oxt --soffice /usr/bin/soffice
       - name: Paquet
         uses: actions/upload-artifact@v4
         with:
