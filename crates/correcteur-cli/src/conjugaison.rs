@@ -15,11 +15,13 @@ pub struct Assignment {
     pub model: String,
     pub matches: usize,
     pub contradictions: usize,
+    /// Lectures contredites par le modèle : (forme, traits tels que dans le lexique).
+    pub contradicted: Vec<(String, String)>,
 }
 
-/// Formes attestées d'un verbe : traits → formes.
-fn attested(lexicon: &Lexicon, verb: &str) -> HashMap<String, HashSet<String>> {
-    let mut out: HashMap<String, HashSet<String>> = HashMap::new();
+/// Formes attestées d'un verbe : traits normalisés → (forme, traits d'origine).
+fn attested(lexicon: &Lexicon, verb: &str) -> HashMap<String, HashSet<(String, String)>> {
+    let mut out: HashMap<String, HashSet<(String, String)>> = HashMap::new();
     for (text, r) in lexicon.lemma_forms(verb) {
         if !matches!(r.pos, Pos::Ver | Pos::Aux) {
             continue;
@@ -29,7 +31,9 @@ fn attested(lexicon: &Lexicon, verb: &str) -> HashMap<String, HashSet<String>> {
             "ppas" | "ppas.e.e" | "ppas.e.s" | "ppas.m.e" => "ppas.m.s".to_string(),
             t => t.to_string(),
         };
-        out.entry(traits).or_default().insert(text.to_string());
+        out.entry(traits)
+            .or_default()
+            .insert((text.to_string(), r.traits.clone()));
     }
     out
 }
@@ -55,19 +59,21 @@ pub fn assign(lexicon: &Lexicon, models: &Models) -> Vec<Assignment> {
             for (t, f) in traits_forms(&forms) {
                 generated.entry(t).or_default().insert(f);
             }
-            let (mut matches, mut contradictions) = (0, 0);
+            let (mut matches, mut contradicted) = (0, Vec::new());
             for (traits, texts) in &seen {
                 let Some(gen) = generated.get(traits) else {
                     continue;
                 };
-                for t in texts {
+                for (t, original) in texts {
                     if gen.contains(t) {
                         matches += 1;
                     } else {
-                        contradictions += 1;
+                        contradicted.push((t.clone(), original.clone()));
                     }
                 }
             }
+            contradicted.sort();
+            let contradictions = contradicted.len();
             let better = best.as_ref().is_none_or(|b| {
                 (contradictions, std::cmp::Reverse(matches))
                     < (b.contradictions, std::cmp::Reverse(b.matches))
@@ -78,6 +84,7 @@ pub fn assign(lexicon: &Lexicon, models: &Models) -> Vec<Assignment> {
                     model: model.name.clone(),
                     matches,
                     contradictions,
+                    contradicted,
                 });
             }
         }

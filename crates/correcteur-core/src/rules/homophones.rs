@@ -43,6 +43,30 @@ const RELATIVES: &[&str] = &[
     "lesquels",
     "lesquelles",
 ];
+/// Verbes qui introduisent une interrogation indirecte (« savoir quelle… »).
+const INDIRECT_QUESTION_VERBS: &[&str] = &[
+    "savoir",
+    "ignorer",
+    "demander",
+    "comprendre",
+    "voir",
+    "deviner",
+    "chercher",
+    "imaginer",
+    "oublier",
+    "apprendre",
+    "rappeler",
+    "raconter",
+    "expliquer",
+    "montrer",
+    "préciser",
+    "indiquer",
+    "découvrir",
+    "connaître",
+    "dire",
+    "examiner",
+    "vérifier",
+];
 const PREPOSITIONS_BEFORE_PRONOUN: &[&str] = &[
     "à", "avec", "chez", "comme", "contre", "de", "entre", "et", "ou", "par", "pour", "sans",
     "sur", "vers", "que",
@@ -117,12 +141,11 @@ fn check_a_accent(ctx: &Context, i: usize) -> bool {
     if lower_is(ctx, n, RELATIVES) {
         return false; // « c’est elle à qui je pense »
     }
+    // « d’elle à ses amis », « malgré elle à tout instant » : pronom après une préposition.
+    let before_pronoun = p.and_then(|p| ctx.prev(p));
     let after_subject = is_preverbal_subject(ctx, p)
-        && !lower_is(
-            ctx,
-            p.and_then(|p| ctx.prev(p)),
-            PREPOSITIONS_BEFORE_PRONOUN,
-        );
+        && !lower_is(ctx, before_pronoun, PREPOSITIONS_BEFORE_PRONOUN)
+        && !form(ctx, before_pronoun).is_some_and(|f| f.has_pos(Pos::Pre));
     let after_il_y =
         lower_is(ctx, p, &["y"]) && lower_is(ctx, p.and_then(|p| ctx.prev(p)), &["il"]);
     // Mot qui ne peut être que participe ou adjectif : « lui » (aussi participe
@@ -395,7 +418,21 @@ fn check_quelle(ctx: &Context, i: usize) -> bool {
     if w.sentence_start || ctx.prev(i).is_none() {
         return false;
     }
+    // « on savait quelles avaient été… », « ni quelle était sa vie » :
+    // interrogation indirecte, après « ni » ou un verbe qui l'introduit
+    // (mais « je pense quelle viendra » → « qu’elle »).
+    let p = ctx.prev(i);
+    let asks = form(ctx, p).is_some_and(|f| {
+        f.has(|r| r.pos.is_verb() && INDIRECT_QUESTION_VERBS.contains(&r.lemma.as_str()))
+    });
+    if asks || lower_is(ctx, p, &["ni"]) {
+        return false;
+    }
     let n = ctx.next(i);
+    // « quelle avait été la raison » : sujet inversé après le verbe.
+    if lower_is(ctx, n.and_then(|n| ctx.next(n)), &["été"]) {
+        return false;
+    }
     form(ctx, n).is_some_and(|f| {
         f.has(super::super::lexicon::Reading::is_finite_verb)
             && f.only(|r| {

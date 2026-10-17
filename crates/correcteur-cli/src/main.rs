@@ -6,6 +6,7 @@
 //! correcteur mesurer  [--donnees DOSSIER] [--mots N] [--tours N]
 //! correcteur importer-lexique383 Lexique383.tsv [--sortie FICHIER.tsv]
 //! correcteur attribuer-conjugaisons [--donnees DOSSIER]
+//! correcteur ecarter-lectures [--donnees DOSSIER]
 //! correcteur conjuguer VERBE [--donnees DOSSIER]
 //! correcteur synonymes MOT [--donnees DOSSIER]
 //! bzcat frwiktionary-…-pages-articles.xml.bz2 | correcteur importer-antonymes [--sortie FICHIER.tsv]
@@ -94,6 +95,7 @@ fn run(args: &[String]) -> Result<ExitCode, String> {
         "conjuguer" => conjugate(&engine, &a),
         "synonymes" => synonyms(&engine, &a),
         "attribuer-conjugaisons" => assign_conjugations(&engine, &a),
+        "ecarter-lectures" => discard_readings(&engine, &a),
         other => Err(format!("commande inconnue « {other} »")),
     }
 }
@@ -338,6 +340,100 @@ fn assign_conjugations(engine: &Engine, a: &Args) -> Result<ExitCode, String> {
         .unwrap_or_else(|| a.data.join("conjugaison/verbes.tsv"));
     std::fs::write(&out, text).map_err(|e| format!("{} : {e}", out.display()))?;
     println!("{summary}\nécrit dans {}", out.display());
+    Ok(ExitCode::SUCCESS)
+}
+
+/// Retire du lexique dérivé de Lexique 3.83 les lectures verbales que le
+/// modèle de conjugaison du verbe contredit (« lui » présent de *luire*, « n’ »
+/// présent de *avoir*…) : formes conjuguées et infinitifs, quand la forme
+/// garde au moins une autre lecture. Les
+/// lignes retirées sont consignées dans `lexique/lectures-ecartees.txt` (pas en
+/// `.tsv` : tous les `.tsv` du dossier sont chargés comme lexiques).
+fn discard_readings(engine: &Engine, a: &Args) -> Result<ExitCode, String> {
+    let models_path = a.data.join("conjugaison/modeles.txt");
+    let models = std::fs::read_to_string(&models_path)
+        .map_err(|e| format!("{} : {e}", models_path.display()))?;
+    let models = correcteur_core::conjugation::Models::parse(&models).map_err(|e| e.to_string())?;
+    let lexicon = engine.lexicon();
+
+    // Forme → lectures (lemme, traits) à retirer.
+    let mut by_form: std::collections::BTreeMap<String, Vec<(String, String)>> = Default::default();
+    for asg in conjugaison::assign(lexicon, &models) {
+        // Formes conjuguées et infinitifs seulement : un participe contredit est
+        // souvent une variante correcte que le modèle ne produit pas (« inclus »).
+        let finite = |t: &str| {
+            t == "inf"
+                || t.rsplit('.')
+                    .next()
+                    .is_some_and(|p| p.starts_with(['1', '2', '3']))
+        };
+        for (form, traits) in asg.contradicted.into_iter().filter(|(_, t)| finite(t)) {
+            by_form
+                .entry(form)
+                .or_default()
+                .push((asg.verb.clone(), traits));
+        }
+    }
+    let mut discard: std::collections::HashSet<(String, String, String)> = Default::default();
+    let mut kept_alone = 0;
+    for (form, drops) in &by_form {
+        let Some(f) = lexicon.get(form) else { continue };
+        let remaining = f
+            .readings
+            .iter()
+            .filter(|r| {
+                !(r.pos.is_verb() && drops.iter().any(|(l, t)| *l == r.lemma && *t == r.traits))
+            })
+            .count();
+        // Seule lecture de la forme : la garder, sinon le mot deviendrait inconnu.
+        if remaining == 0 {
+            kept_alone += 1;
+            continue;
+        }
+        for (lemma, traits) in drops {
+            discard.insert((form.clone(), lemma.clone(), traits.clone()));
+        }
+    }
+
+    let path = a.data.join("lexique/10-lexique383.tsv");
+    let text = std::fs::read_to_string(&path).map_err(|e| format!("{} : {e}", path.display()))?;
+    let (mut kept, mut removed) = (String::new(), Vec::new());
+    for line in text.lines() {
+        let cols: Vec<&str> = line.split('\t').collect();
+        let hit = cols.len() >= 4
+            && matches!(cols[2], "VER" | "AUX")
+            && discard.contains(&(
+                cols[0].to_string(),
+                cols[1].to_string(),
+                cols[3].to_string(),
+            ));
+        if hit {
+            removed.push(line);
+        } else {
+            kept.push_str(line);
+            kept.push('\n');
+        }
+    }
+    std::fs::write(&path, kept).map_err(|e| format!("{} : {e}", path.display()))?;
+
+    let log_path = a.data.join("lexique/lectures-ecartees.txt");
+    let mut log = std::fs::read_to_string(&log_path).unwrap_or_else(|_| {
+        "# Lectures verbales de Lexique 3.83 (CC BY-SA 4.0) retirées de 10-lexique383.tsv par\n\
+         # `correcteur ecarter-lectures` : le modèle de conjugaison du verbe les contredit.\n\
+         # Mêmes colonnes que 10-lexique383.tsv. Ce fichier dérivé est distribué sous la même licence.\n"
+            .to_string()
+    });
+    for line in &removed {
+        log.push_str(line);
+        log.push('\n');
+    }
+    std::fs::write(&log_path, log).map_err(|e| format!("{} : {e}", log_path.display()))?;
+    println!(
+        "{} lectures retirées (consignées dans {}) ; {} formes gardées car sans autre lecture",
+        removed.len(),
+        log_path.display(),
+        kept_alone
+    );
     Ok(ExitCode::SUCCESS)
 }
 

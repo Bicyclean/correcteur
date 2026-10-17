@@ -62,7 +62,6 @@ abandonne	abandonner	VER	ind.pres.3s	0	LEXIQUE383
 abandonne	abandonner	VER	sub.pres.3s	0	LEXIQUE383
 abandonnent	abandonner	VER	ind.pres.3p	2.54	LEXIQUE383
 abandonnent	abandonner	VER	sub.pres.3p	0	LEXIQUE383
-abandonner	abandonner	VER	ind.pres.2p	28.04	LEXIQUE383
 abandonner	abandonner	VER	inf	0	LEXIQUE383
 abandonnera	abandonner	VER	ind.fut.3s	1.17	LEXIQUE383
 abandonnerai	abandonner	VER	ind.fut.1s	1.4	LEXIQUE383
@@ -1429,7 +1428,6 @@ accouple	accoupler	VER	ind.pres.3s	0	LEXIQUE383
 accouplement	accouplement	NOM	m.s	1.21	LEXIQUE383
 accouplements	accouplement	NOM	m.p	0.43	LEXIQUE383
 accouplent	accoupler	VER	ind.pres.3p	0.42	LEXIQUE383
-accoupler	accoupler	VER	ind.pres.2p	0.78	LEXIQUE383
 accoupler	accoupler	VER	inf	0	LEXIQUE383
 accouplera	accoupler	VER	ind.fut.3s	0.03	LEXIQUE383
 accouplerait	accoupler	VER	cond.pres.3s	0.04	LEXIQUE383
@@ -1903,7 +1901,6 @@ achetais	acheter	VER	ind.impf.2s	0	LEXIQUE383
 achetait	acheter	VER	ind.impf.3s	4.83	LEXIQUE383
 achetant	acheter	VER	ppre	1.32	LEXIQUE383
 achetassent	acheter	VER	sub.impf.3p	0.04	LEXIQUE383
-acheter	acheter	VER	ind.pres.2p	86.18	LEXIQUE383
 acheter	acheter	VER	inf	0	LEXIQUE383
 acheteur	acheteur	NOM	m.s	3.43	LEXIQUE383
 acheteurs	acheteur	NOM	m.p	2.33	LEXIQUE383
@@ -1920,7 +1917,6 @@ achetât	acheter	VER	sub.impf.3s	0.1	LEXIQUE383
 achetèrent	acheter	VER	ind.ps.3p	0.51	LEXIQUE383
 acheté	acheter	VER	ppas.m.s	50.55	LEXIQUE383
 achetée	acheter	VER	ppas.f.s	7.28	LEXIQUE383
-achetées	acheter	VER	ind.impf.3s	2.37	LEXIQUE383
 achetées	acheter	VER	ppas.f.p	0	LEXIQUE383
 achetés	acheter	VER	ppas.m.p	3.69	LEXIQUE383
 acheva	achever	VER	ind.ps.3s	5.96	LEXIQUE383
@@ -2317,7 +2313,6 @@ adaptez	adapter	VER	imp.pres.2p	0.07	LEXIQUE383
 adaptez	adapter	VER	ind.pres.2p	0	LEXIQUE383
 adaptât	adapter	VER	sub.impf.3s	0.04	LEXIQUE383
 adaptèrent	adapter	VER	ind.ps.3p	0.04	LEXIQUE383
-adapté	adapter	VER	imp.pres.2s	2.76	LEXIQUE383
 adapté	adapter	VER	ppas.m.s	0	LEXIQUE383
 adaptée	adapter	VER	ppas.f.s	1.1	LEXIQUE383
 adaptées	adapter	VER	ppas.f.p	0.64	LEXIQUE383
@@ -2870,7 +2865,6 @@ adulateur	adulateur	NOM	m.s	0.09	LEXIQUE383
 adulation	adulation	NOM	f.s	0.39	LEXIQUE383
 adulations	adulation	NOM	f.p	0.1	LEXIQUE383
 adulent	aduler	VER	ind.pres.3p	0.14	LEXIQUE383
-aduler	aduler	VER	ind.pres.2p	0.07	LEXIQUE383
 aduler	aduler	VER	inf	0	LEXIQUE383
 adultat	adultat	NOM	m.s	0.07	LEXIQUE383
 adulte	adulte	ADJ	e.s	8.1	LEXIQUE383
@@ -3094,7 +3088,6 @@ affecte	affecter	VER	imp.pres.2s	3.44	LEXIQUE383
 affecte	affecter	VER	ind.pres.1s	0	LEXIQUE383
 affecte	affecter	VER	ind.pres.3s	0	LEXIQUE383
 affectent	affecter	VER	ind.pres.3p	0.81	LEXIQUE383
-affecter	affecter	VER	ind.pres.2p	2.29	LEXIQUE383
 affecter	affecter	VER	inf	0	LEXIQUE383
 affectera	affecter	VER	ind.fut.3s	0.43	LEXIQUE383
 affecterai	affecter	VER	ind.fut.1s	0.05	LEXIQUE383
@@ -3283,7 +3276,6 @@ affirmons	affirmer	VER	imp.pres.1p	0.17	LEXIQUE383
 affirmons	affirmer	VER	ind.pres.1p	0	LEXIQUE383
 affirmât	affirmer	VER	sub.impf.3s	0.07	LEXIQUE383
 affirmèrent	affirmer	VER	ind.ps.3p	0.41	LEXIQUE383
-affirmé	affirmer	VER	imp.pres.2s	3.12	LEXIQUE383
 affirmé	affirmer	VER	ppas.m.s	0	LEXIQUE383
 affirmée	affirmer	VER	ppas.f.s	0.22	LEXIQUE383
 affirmées	affirmer	VER	ppas.f.p	0.1	LEXIQUE383
@@ -3582,7 +3574,6 @@ agace	agacer	VER	ind.pres.3s	0	LEXIQUE383
 agacement	agacement	NOM	m.s	3.75	LEXIQUE383
 agacements	agacement	NOM	m.p	0.14	LEXIQUE383
 agacent	agacer	VER	ind.pres.3p	0.76	LEXIQUE383
-agacer	agacer	VER	ind.pres.2p	1.98	LEXIQUE383
 agacer	agacer	VER	inf	0	LEXIQUE383
 agacera	agacer	VER	ind.fut.3s	0.08	LEXIQUE383
 agacerait	agacer	VER	cond.pres.3s	0.08	LEXIQUE383
@@ -4556,7 +4547,6 @@ ajoutons	ajouter	VER	ind.pres.1p	0	LEXIQUE383
 ajouts	ajout	NOM	m.p	0.24	LEXIQUE383
 ajoutât	ajouter	VER	sub.impf.3s	0.14	LEXIQUE383
 ajoutèrent	ajouter	VER	ind.ps.3p	0.48	LEXIQUE383
-ajouté	ajouter	VER	imp.pres.2s	11.7	LEXIQUE383
 ajouté	ajouter	VER	ppas.m.s	0	LEXIQUE383
 ajouté	ajouté	ADJ	m.s	0.22	LEXIQUE383
 ajouté	ajouté	NOM	m.s	0.15	LEXIQUE383
@@ -5022,7 +5012,6 @@ allie	allier	VER	imp.pres.2s	0.71	LEXIQUE383
 allie	allier	VER	ind.pres.1s	0	LEXIQUE383
 allie	allier	VER	ind.pres.3s	0	LEXIQUE383
 allient	allier	VER	ind.pres.3p	0.21	LEXIQUE383
-allier	aller	VER	ind.pres.2p	0.01	LEXIQUE383
 allier	allier	NOM	m.s	0.01	LEXIQUE383
 allier	allier	VER	inf	1.01	LEXIQUE383
 alliera	allier	VER	ind.fut.3s	0.01	LEXIQUE383
@@ -5361,7 +5350,6 @@ alterne	alterner	VER	imp.pres.2s	0.33	LEXIQUE383
 alterne	alterner	VER	ind.pres.1s	0	LEXIQUE383
 alterne	alterner	VER	ind.pres.3s	0	LEXIQUE383
 alternent	alterner	VER	ind.pres.3p	0.35	LEXIQUE383
-alterner	alterner	VER	ind.pres.2p	0.72	LEXIQUE383
 alterner	alterner	VER	inf	0	LEXIQUE383
 alternera	alterner	VER	ind.fut.3s	0.01	LEXIQUE383
 alternez	alterner	VER	imp.pres.2p	0.03	LEXIQUE383
@@ -8316,7 +8304,6 @@ apprendrais	apprendre	VER	cond.pres.1s	1.32	LEXIQUE383
 apprendrais	apprendre	VER	cond.pres.2s	0	LEXIQUE383
 apprendrait	apprendre	VER	cond.pres.3s	2.27	LEXIQUE383
 apprendras	apprendre	VER	ind.fut.2s	3.96	LEXIQUE383
-apprendre	apprendre	VER	ind.pres.2p	86.49	LEXIQUE383
 apprendre	apprendre	VER	inf	0	LEXIQUE383
 apprendrez	apprendre	VER	ind.fut.2p	2.04	LEXIQUE383
 apprendriez	apprendre	VER	cond.pres.2p	0.18	LEXIQUE383
@@ -8666,7 +8653,6 @@ appuyais	appuyer	VER	ind.impf.1s	0.6	LEXIQUE383
 appuyais	appuyer	VER	ind.impf.2s	0	LEXIQUE383
 appuyait	appuyer	VER	ind.impf.3s	6.06	LEXIQUE383
 appuyant	appuyer	VER	ppre	7.09	LEXIQUE383
-appuyer	appuyer	VER	ind.pres.2p	13.13	LEXIQUE383
 appuyer	appuyer	VER	inf	0	LEXIQUE383
 appuyez	appuyer	VER	imp.pres.2p	3.04	LEXIQUE383
 appuyez	appuyer	VER	ind.pres.2p	0	LEXIQUE383
@@ -10769,7 +10755,6 @@ assure	assurer	VER	ind.pres.1s	0	LEXIQUE383
 assure	assurer	VER	ind.pres.3s	0	LEXIQUE383
 assure	assurer	VER	sub.pres.3s	0	LEXIQUE383
 assurent	assurer	VER	ind.pres.3p	2.16	LEXIQUE383
-assurer	assurer	VER	ind.pres.2p	36.89	LEXIQUE383
 assurer	assurer	VER	inf	0	LEXIQUE383
 assurera	assurer	VER	ind.fut.3s	0.97	LEXIQUE383
 assurerai	assurer	VER	ind.fut.1s	0.84	LEXIQUE383
@@ -10887,7 +10872,6 @@ astique	astiquer	VER	imp.pres.2s	0.99	LEXIQUE383
 astique	astiquer	VER	ind.pres.1s	0	LEXIQUE383
 astique	astiquer	VER	ind.pres.3s	0	LEXIQUE383
 astiquent	astiquer	VER	ind.pres.3p	0.14	LEXIQUE383
-astiquer	astiquer	VER	ind.pres.2p	1.57	LEXIQUE383
 astiquer	astiquer	VER	inf	0	LEXIQUE383
 astiquera	astiquer	VER	ind.fut.3s	0.06	LEXIQUE383
 astiquerai	astiquer	VER	ind.fut.1s	0.05	LEXIQUE383
@@ -11543,7 +11527,6 @@ attire	attirer	VER	imp.pres.2s	11.95	LEXIQUE383
 attire	attirer	VER	ind.pres.1s	0	LEXIQUE383
 attire	attirer	VER	ind.pres.3s	0	LEXIQUE383
 attirent	attirer	VER	ind.pres.3p	2.83	LEXIQUE383
-attirer	attirer	VER	ind.pres.2p	17.26	LEXIQUE383
 attirer	attirer	VER	inf	0	LEXIQUE383
 attirera	attirer	VER	ind.fut.3s	0.54	LEXIQUE383
 attirerai	attirer	VER	ind.fut.1s	0.06	LEXIQUE383
@@ -12949,7 +12932,6 @@ avoue	avouer	VER	imp.pres.2s	24.67	LEXIQUE383
 avoue	avouer	VER	ind.pres.1s	0	LEXIQUE383
 avoue	avouer	VER	ind.pres.3s	0	LEXIQUE383
 avouent	avouer	VER	ind.pres.3p	0.78	LEXIQUE383
-avouer	avouer	VER	imp.pres.2p	26	LEXIQUE383
 avouer	avouer	VER	inf	0	LEXIQUE383
 avouera	avouer	VER	ind.fut.3s	0.33	LEXIQUE383
 avouerai	avouer	VER	ind.fut.1s	0.9	LEXIQUE383
@@ -13659,7 +13641,6 @@ baissâmes	baisser	VER	ind.ps.1p	0.04	LEXIQUE383
 baissât	baisser	VER	sub.impf.3s	0.04	LEXIQUE383
 baissèrent	baisser	VER	ind.ps.3p	0.38	LEXIQUE383
 baissé	baisser	VER	ppas.m.s	9.91	LEXIQUE383
-baissée	baisser	VER	ind.impf.3s	5.71	LEXIQUE383
 baissée	baisser	VER	ppas.f.s	0	LEXIQUE383
 baissées	baisser	VER	ppas.f.p	1.39	LEXIQUE383
 baissés	baisser	VER	ppas.m.p	4.71	LEXIQUE383
@@ -17949,8 +17930,6 @@ bouillantes	bouillant	ADJ	f.p	0.25	LEXIQUE383
 bouillants	bouillant	ADJ	m.p	0.43	LEXIQUE383
 bouillasse	bouillasse	NOM	f.s	0.39	LEXIQUE383
 bouille	bouille	NOM	f.s	3.25	LEXIQUE383
-bouille	bouillir	VER	imp.pres.2s	0.05	LEXIQUE383
-bouille	bouillir	VER	ind.pres.3s	0	LEXIQUE383
 bouillent	bouillir	VER	ind.pres.3p	0.06	LEXIQUE383
 bouilles	bouille	NOM	f.p	0.42	LEXIQUE383
 bouilleur	bouilleur	NOM	m.s	0.14	LEXIQUE383
@@ -18878,7 +18857,6 @@ braque	braquer	VER	ind.pres.3s	0	LEXIQUE383
 braquemart	braquemart	NOM	m.s	0.4	LEXIQUE383
 braquemarts	braquemart	NOM	m.p	0.01	LEXIQUE383
 braquent	braquer	VER	ind.pres.3p	0.48	LEXIQUE383
-braquer	braquer	VER	ind.pres.2p	4.08	LEXIQUE383
 braquer	braquer	VER	inf	0	LEXIQUE383
 braquera	braquer	VER	ind.fut.3s	0.03	LEXIQUE383
 braquerais	braquer	VER	cond.pres.2s	0.04	LEXIQUE383
@@ -19129,7 +19107,6 @@ bride	brider	VER	imp.pres.2s	0.32	LEXIQUE383
 bride	brider	VER	ind.pres.1s	0	LEXIQUE383
 bride	brider	VER	ind.pres.3s	0	LEXIQUE383
 brident	brider	VER	ind.pres.3p	0.06	LEXIQUE383
-brider	brider	VER	imp.pres.2p	0.38	LEXIQUE383
 brider	brider	VER	inf	0	LEXIQUE383
 brides	bride	NOM	f.p	0.65	LEXIQUE383
 brides	brider	VER	ind.pres.2s	0.01	LEXIQUE383
@@ -22748,7 +22725,6 @@ carboniques	carbonique	ADJ	m.p	0.09	LEXIQUE383
 carbonisa	carboniser	VER	ind.ps.3s	0.04	LEXIQUE383
 carbonisant	carboniser	VER	ppre	0.04	LEXIQUE383
 carbonisation	carbonisation	NOM	f.s	0.01	LEXIQUE383
-carboniser	carboniser	VER	ind.pres.2p	0.23	LEXIQUE383
 carboniser	carboniser	VER	inf	0	LEXIQUE383
 carbonisé	carboniser	VER	ppas.m.s	0.6	LEXIQUE383
 carbonisée	carboniser	VER	ppas.f.s	0.18	LEXIQUE383
@@ -23147,7 +23123,6 @@ carte-lettre	carte-lettre	NOM	f.s	0.17	LEXIQUE383
 cartel	cartel	NOM	m.s	1.18	LEXIQUE383
 cartels	cartel	NOM	m.p	0.24	LEXIQUE383
 carter	carter	NOM	m.s	0.73	LEXIQUE383
-carter	carter	VER	imp.pres.2p	0.15	LEXIQUE383
 carter	carter	VER	inf	0	LEXIQUE383
 carterie	carterie	NOM	f.s	0.04	LEXIQUE383
 carters	carter	NOM	m.p	0.01	LEXIQUE383
@@ -23703,7 +23678,6 @@ cause	causer	VER	imp.pres.2s	14.94	LEXIQUE383
 cause	causer	VER	ind.pres.1s	0	LEXIQUE383
 cause	causer	VER	ind.pres.3s	0	LEXIQUE383
 causent	causer	VER	ind.pres.3p	1.92	LEXIQUE383
-causer	causer	VER	ind.pres.2p	16.89	LEXIQUE383
 causer	causer	VER	inf	0	LEXIQUE383
 causera	causer	VER	ind.fut.3s	0.9	LEXIQUE383
 causerai	causer	VER	ind.fut.1s	0.2	LEXIQUE383
@@ -23744,7 +23718,6 @@ caustiques	caustique	ADJ	f.p	0.01	LEXIQUE383
 caustiques	caustique	NOM	m.p	0.01	LEXIQUE383
 causâmes	causer	VER	ind.ps.1p	0.3	LEXIQUE383
 causèrent	causer	VER	ind.ps.3p	0.25	LEXIQUE383
-causé	causer	VER	imp.pres.2s	11.86	LEXIQUE383
 causé	causer	VER	ppas.m.s	0	LEXIQUE383
 causée	causer	VER	ppas.f.s	1.8	LEXIQUE383
 causées	causer	VER	ppas.f.p	0.94	LEXIQUE383
@@ -23976,7 +23949,6 @@ censures	censure	NOM	f.p	0.23	LEXIQUE383
 censures	censurer	VER	ind.pres.2s	0.07	LEXIQUE383
 censurez	censurer	VER	ind.pres.2p	0.1	LEXIQUE383
 censuriez	censurer	VER	ind.impf.2p	0.04	LEXIQUE383
-censuré	censurer	VER	imp.pres.2s	0.71	LEXIQUE383
 censuré	censurer	VER	ppas.m.s	0	LEXIQUE383
 censurée	censurer	VER	ppas.f.s	0.19	LEXIQUE383
 censurées	censurer	VER	ppas.f.p	0.06	LEXIQUE383
@@ -26482,7 +26454,6 @@ chum	chum	NOM	m.s	0.19	LEXIQUE383
 churrigueresque	churrigueresque	ADJ	e.s	0.04	LEXIQUE383
 churros	churro	NOM	m.p	0.44	LEXIQUE383
 chus	choir	VER	ppas.m.p	0.04	LEXIQUE383
-chut	choir	VER	ind.ps.3s	0.68	LEXIQUE383
 chut	chut	INT		18.21	LEXIQUE383
 chuta	chuter	VER	ind.ps.3s	0.05	LEXIQUE383
 chutait	chuter	VER	ind.impf.3s	0.23	LEXIQUE383
@@ -27878,7 +27849,6 @@ cloue	clouer	VER	imp.pres.2s	1.17	LEXIQUE383
 cloue	clouer	VER	ind.pres.1s	0	LEXIQUE383
 cloue	clouer	VER	ind.pres.3s	0	LEXIQUE383
 clouent	clouer	VER	ind.pres.3p	0.26	LEXIQUE383
-clouer	clouer	VER	ind.pres.2p	2.02	LEXIQUE383
 clouer	clouer	VER	inf	0	LEXIQUE383
 clouera	clouer	VER	ind.fut.3s	0.02	LEXIQUE383
 clouerai	clouer	VER	ind.fut.1s	0.04	LEXIQUE383
@@ -28451,7 +28421,6 @@ coinciez	coincer	VER	ind.impf.2p	0.01	LEXIQUE383
 coincèrent	coincer	VER	ind.ps.3p	0.04	LEXIQUE383
 coincé	coincer	VER	ppas.m.s	16.77	LEXIQUE383
 coincé	coincé	ADJ	m.s	2.09	LEXIQUE383
-coincée	coincer	VER	ind.impf.3p	6.86	LEXIQUE383
 coincée	coincer	VER	ppas.f.s	0	LEXIQUE383
 coincée	coincé	ADJ	f.s	1.33	LEXIQUE383
 coincées	coincer	VER	ppas.f.p	0.92	LEXIQUE383
@@ -29993,8 +29962,6 @@ comprendrais	comprendre	VER	cond.pres.1s	3.73	LEXIQUE383
 comprendrais	comprendre	VER	cond.pres.2s	0	LEXIQUE383
 comprendrait	comprendre	VER	cond.pres.3s	4.1	LEXIQUE383
 comprendras	comprendre	VER	ind.fut.2s	4.9	LEXIQUE383
-comprendre	comprendre	VER	imp.pres.2p	141.88	LEXIQUE383
-comprendre	comprendre	VER	ind.impf.3s	0	LEXIQUE383
 comprendre	comprendre	VER	inf	0	LEXIQUE383
 comprendrez	comprendre	VER	ind.fut.2p	3.36	LEXIQUE383
 comprendriez	comprendre	VER	cond.pres.2p	0.9	LEXIQUE383
@@ -30089,7 +30056,6 @@ compromettez	compromettre	VER	ind.pres.2p	0	LEXIQUE383
 compromettiez	compromettre	VER	ind.impf.2p	0.12	LEXIQUE383
 compromettrai	compromettre	VER	ind.fut.1s	0.04	LEXIQUE383
 compromettrait	compromettre	VER	cond.pres.3s	0.43	LEXIQUE383
-compromettre	compromettre	VER	ind.pres.2p	5.13	LEXIQUE383
 compromettre	compromettre	VER	inf	0	LEXIQUE383
 compromettrons	compromettre	VER	ind.fut.1p	0.01	LEXIQUE383
 compromirent	compromettre	VER	ind.ps.3p	0.04	LEXIQUE383
@@ -30627,7 +30593,6 @@ condamne	condamner	VER	ind.pres.1s	0	LEXIQUE383
 condamne	condamner	VER	ind.pres.3s	0	LEXIQUE383
 condamnent	condamner	VER	ind.pres.3p	1.04	LEXIQUE383
 condamnent	condamner	VER	sub.pres.3p	0	LEXIQUE383
-condamner	condamner	VER	ind.pres.2p	5.13	LEXIQUE383
 condamner	condamner	VER	inf	0	LEXIQUE383
 condamnera	condamner	VER	ind.fut.3s	0.43	LEXIQUE383
 condamnerai	condamner	VER	ind.fut.1s	0.01	LEXIQUE383
@@ -32038,7 +32003,6 @@ constats	constat	ADJ	m.p	0.04	LEXIQUE383
 constats	constat	NOM	m.p	0.36	LEXIQUE383
 constatâmes	constater	VER	ind.ps.1p	0.04	LEXIQUE383
 constatèrent	constater	VER	ind.ps.3p	0.07	LEXIQUE383
-constaté	constater	VER	imp.pres.2s	3.96	LEXIQUE383
 constaté	constater	VER	ppas.m.s	0	LEXIQUE383
 constatée	constater	VER	ppas.f.s	0.17	LEXIQUE383
 constatées	constater	VER	ppas.f.p	0.08	LEXIQUE383
@@ -33163,7 +33127,6 @@ contrôle	contrôler	VER	ind.pres.1s	0	LEXIQUE383
 contrôle	contrôler	VER	ind.pres.3s	0	LEXIQUE383
 contrôle	contrôler	VER	sub.pres.3s	0	LEXIQUE383
 contrôlent	contrôler	VER	ind.pres.3p	1.32	LEXIQUE383
-contrôler	chuter	VER	ind.pres.2p	0.01	LEXIQUE383
 contrôler	contrôler	VER	inf	16.24	LEXIQUE383
 contrôlera	contrôler	VER	ind.fut.3s	0.17	LEXIQUE383
 contrôlerai	contrôler	VER	ind.fut.1s	0.13	LEXIQUE383
@@ -34585,7 +34548,6 @@ coule	couler	VER	ind.pres.3s	0	LEXIQUE383
 coule	couler	VER	sub.pres.3s	0	LEXIQUE383
 coulemelle	coulemelle	NOM	f.s	0.04	LEXIQUE383
 coulent	couler	VER	ind.pres.3p	3.65	LEXIQUE383
-couler	couler	VER	ind.pres.2p	26.32	LEXIQUE383
 couler	couler	VER	inf	0	LEXIQUE383
 coulera	couler	VER	ind.fut.3s	1.34	LEXIQUE383
 coulerai	couler	VER	ind.fut.1s	0.17	LEXIQUE383
@@ -34871,7 +34833,6 @@ couronnera	couronner	VER	ind.fut.3s	0.04	LEXIQUE383
 couronnerai	couronner	VER	ind.fut.1s	0.01	LEXIQUE383
 couronnerons	couronner	VER	ind.fut.1p	0.01	LEXIQUE383
 couronnes	couronne	NOM	f.p	8.05	LEXIQUE383
-couronnes	couronner	VER	ind.pres.1s	0.01	LEXIQUE383
 couronnes	couronner	VER	ind.pres.2s	0	LEXIQUE383
 couronné	couronner	VER	ppas.m.s	2.55	LEXIQUE383
 couronné	couronné	ADJ	m.s	0.21	LEXIQUE383
@@ -35241,7 +35202,6 @@ coûte	coûter	VER	imp.pres.2s	29.62	LEXIQUE383
 coûte	coûter	VER	ind.pres.1s	0	LEXIQUE383
 coûte	coûter	VER	ind.pres.3s	0	LEXIQUE383
 coûtent	coûter	VER	ind.pres.3p	3.55	LEXIQUE383
-coûter	coûter	VER	ind.pres.2p	8.93	LEXIQUE383
 coûter	coûter	VER	inf	0	LEXIQUE383
 coûtera	coûter	VER	ind.fut.3s	4.46	LEXIQUE383
 coûterai	coûter	VER	ind.fut.1s	0.05	LEXIQUE383
@@ -35785,7 +35745,6 @@ crie	crier	VER	imp.pres.2s	38.23	LEXIQUE383
 crie	crier	VER	ind.pres.1s	0	LEXIQUE383
 crie	crier	VER	ind.pres.3s	0	LEXIQUE383
 crient	crier	VER	ind.pres.3p	5.48	LEXIQUE383
-crier	crier	VER	ind.pres.2p	39.39	LEXIQUE383
 crier	crier	VER	inf	0	LEXIQUE383
 criera	crier	VER	ind.fut.3s	0.47	LEXIQUE383
 crierai	crier	VER	ind.fut.1s	0.63	LEXIQUE383
@@ -36881,7 +36840,6 @@ cuisine	cuisiner	VER	ind.pres.1s	0	LEXIQUE383
 cuisine	cuisiner	VER	ind.pres.3s	0	LEXIQUE383
 cuisine	cuisiner	VER	sub.pres.3s	0	LEXIQUE383
 cuisinent	cuisiner	VER	ind.pres.3p	0.44	LEXIQUE383
-cuisiner	cuisiner	VER	imp.pres.2p	7.17	LEXIQUE383
 cuisiner	cuisiner	VER	inf	0	LEXIQUE383
 cuisinera	cuisiner	VER	ind.fut.3s	0.15	LEXIQUE383
 cuisinerai	cuisiner	VER	ind.fut.1s	0.24	LEXIQUE383
@@ -40726,7 +40684,6 @@ distribués	distribuer	VER	ppas.m.p	0.85	LEXIQUE383
 distribués	distribué	ADJ	m.p	0.25	LEXIQUE383
 district	district	NOM	m.s	3.63	LEXIQUE383
 districts	district	NOM	m.p	0.28	LEXIQUE383
-dit	dire	VER	ind.fut.3p	2373.82	LEXIQUE383
 dit	dire	VER	ind.pres.3s	0	LEXIQUE383
 dit	dire	VER	ind.ps.3s	0	LEXIQUE383
 dit	dire	VER	ppas.m.s	0	LEXIQUE383
@@ -41128,7 +41085,6 @@ doigté	doigté	NOM	m.s	1.07	LEXIQUE383
 dois	devoir	VER	imp.pres.2s	498.36	LEXIQUE383
 dois	devoir	VER	ind.pres.1s	0	LEXIQUE383
 dois	devoir	VER	ind.pres.2s	0	LEXIQUE383
-dois	devoir	VER	inf	0	LEXIQUE383
 doit	devoir	VER	ind.pres.3s	439.72	LEXIQUE383
 doit	doit	NOM	m.s	0.26	LEXIQUE383
 doive	devoir	VER	sub.pres.1s	4.91	LEXIQUE383
@@ -41346,7 +41302,6 @@ donnerions	donner	VER	cond.pres.1p	0.1	LEXIQUE383
 donnerons	donner	VER	ind.fut.1p	1.78	LEXIQUE383
 donneront	donner	VER	ind.fut.3p	2.79	LEXIQUE383
 donnes	donne	NOM	f.p	0.69	LEXIQUE383
-donnes	donner	VER	ind.pres.1p	19.83	LEXIQUE383
 donnes	donner	VER	ind.pres.2s	0	LEXIQUE383
 donnes	donner	VER	sub.pres.2s	0	LEXIQUE383
 donneur	donneur	ADJ	m.s	0.4	LEXIQUE383
@@ -41420,7 +41375,6 @@ dore	dorer	VER	imp.pres.2s	0.72	LEXIQUE383
 dore	dorer	VER	ind.pres.1s	0	LEXIQUE383
 dore	dorer	VER	ind.pres.3s	0	LEXIQUE383
 dorent	dorer	VER	ind.pres.3p	0.11	LEXIQUE383
-dorer	dorer	VER	ind.pres.2p	0.72	LEXIQUE383
 dorer	dorer	VER	inf	0	LEXIQUE383
 dorera	dorer	VER	ind.fut.3s	0.04	LEXIQUE383
 doreront	dorer	VER	ind.fut.3p	0.01	LEXIQUE383
@@ -42551,7 +42505,6 @@ débarque	débarquer	VER	ind.pres.3s	0	LEXIQUE383
 débarquement	débarquement	NOM	m.s	8.43	LEXIQUE383
 débarquements	débarquement	NOM	m.p	0.47	LEXIQUE383
 débarquent	débarquer	VER	ind.pres.3p	1.96	LEXIQUE383
-débarquer	débarquer	VER	ind.pres.2p	6.63	LEXIQUE383
 débarquer	débarquer	VER	inf	0	LEXIQUE383
 débarquera	débarquer	VER	ind.fut.3s	0.32	LEXIQUE383
 débarquerai	débarquer	VER	ind.fut.1s	0.07	LEXIQUE383
@@ -43452,7 +43405,6 @@ décernée	décerner	VER	ppas.f.s	0.28	LEXIQUE383
 décernées	décerner	VER	ppas.f.p	0.16	LEXIQUE383
 décernés	décerner	VER	ppas.m.p	0.14	LEXIQUE383
 décervelage	décervelage	NOM	m.s	0.07	LEXIQUE383
-décerveler	décerveler	VER	ind.pres.2p	0.01	LEXIQUE383
 décerveler	décerveler	VER	inf	0	LEXIQUE383
 décervelle	décerveler	VER	ind.pres.3s	0.07	LEXIQUE383
 décervelé	décerveler	VER	ppas.m.s	0.1	LEXIQUE383
@@ -45867,8 +45819,6 @@ dégoûte	dégoûter	VER	imp.pres.2s	6.7	LEXIQUE383
 dégoûte	dégoûter	VER	ind.pres.1s	0	LEXIQUE383
 dégoûte	dégoûter	VER	ind.pres.3s	0	LEXIQUE383
 dégoûtent	dégoûter	VER	ind.pres.3p	0.81	LEXIQUE383
-dégoûter	dégoûter	VER	imp.pres.2p	1.79	LEXIQUE383
-dégoûter	dégoûter	VER	ind.pres.2p	0	LEXIQUE383
 dégoûter	dégoûter	VER	inf	0	LEXIQUE383
 dégoûtera	dégoûter	VER	ind.fut.3s	0.05	LEXIQUE383
 dégoûteraient	dégoûter	VER	cond.pres.3p	0.04	LEXIQUE383
@@ -49524,7 +49474,6 @@ désolidarisés	désolidariser	VER	ppas.m.p	0.04	LEXIQUE383
 désolât	désoler	VER	sub.impf.3s	0.04	LEXIQUE383
 désolé	désoler	VER	ppas.m.s	99.75	LEXIQUE383
 désolé	désolé	ADJ	m.s	100	LEXIQUE383
-désolée	désoler	VER	ind.impf.3s	50.8	LEXIQUE383
 désolée	désoler	VER	ppas.f.s	0	LEXIQUE383
 désolée	désolé	ADJ	f.s	42.69	LEXIQUE383
 désolées	désoler	VER	ppas.f.p	0.32	LEXIQUE383
@@ -50127,7 +50076,6 @@ détournons	détourner	VER	imp.pres.1p	0.21	LEXIQUE383
 détournons	détourner	VER	ind.pres.1p	0	LEXIQUE383
 détournât	détourner	VER	sub.impf.3s	0.07	LEXIQUE383
 détournèrent	détourner	VER	ind.ps.3p	0.36	LEXIQUE383
-détourné	détourner	VER	imp.pres.2s	3.87	LEXIQUE383
 détourné	détourner	VER	ppas.m.s	0	LEXIQUE383
 détourné	détourné	ADJ	m.s	0.6	LEXIQUE383
 détournée	détourner	VER	ppas.f.s	1.08	LEXIQUE383
@@ -51852,7 +51800,6 @@ embête	embêter	VER	ind.pres.3s	0	LEXIQUE383
 embêtement	embêtement	NOM	m.s	0.12	LEXIQUE383
 embêtements	embêtement	NOM	m.p	0.77	LEXIQUE383
 embêtent	embêter	VER	ind.pres.3p	0.96	LEXIQUE383
-embêter	embêter	VER	ind.pres.2p	5.63	LEXIQUE383
 embêter	embêter	VER	inf	0	LEXIQUE383
 embêtera	embêter	VER	ind.fut.3s	0.68	LEXIQUE383
 embêterai	embêter	VER	ind.fut.1s	0.61	LEXIQUE383
@@ -51917,7 +51864,6 @@ emmenais	emmener	VER	ind.impf.2s	0	LEXIQUE383
 emmenait	emmener	VER	ind.impf.3s	6.72	LEXIQUE383
 emmenant	emmener	VER	ppre	1.27	LEXIQUE383
 emmener	emmener	VER	inf	48.65	LEXIQUE383
-emmener	expliquer	VER	ind.pres.2p	0.04	LEXIQUE383
 emmenez	emmener	VER	imp.pres.2p	22.78	LEXIQUE383
 emmenez	emmener	VER	ind.pres.2p	0	LEXIQUE383
 emmeniez	emmener	VER	ind.impf.2p	0.29	LEXIQUE383
@@ -52027,7 +51973,6 @@ emmèneriez	emmener	VER	cond.pres.2p	0.15	LEXIQUE383
 emmènerions	emmener	VER	cond.pres.1p	0.06	LEXIQUE383
 emmènerons	emmener	VER	ind.fut.1p	0.32	LEXIQUE383
 emmèneront	emmener	VER	ind.fut.3p	0.8	LEXIQUE383
-emmènes	emmener	VER	ind.pres.1p	5.83	LEXIQUE383
 emmènes	emmener	VER	ind.pres.2s	0	LEXIQUE383
 emmènes	emmener	VER	sub.pres.2s	0	LEXIQUE383
 emménage	emménager	VER	imp.pres.2s	1.15	LEXIQUE383
@@ -52393,7 +52338,6 @@ employais	employer	VER	ind.impf.1s	0.44	LEXIQUE383
 employais	employer	VER	ind.impf.2s	0	LEXIQUE383
 employait	employer	VER	ind.impf.3s	4.04	LEXIQUE383
 employant	employer	VER	ppre	1.29	LEXIQUE383
-employer	employer	VER	ind.pres.2p	7.55	LEXIQUE383
 employer	employer	VER	inf	0	LEXIQUE383
 employeur	employeur	NOM	m.s	2.2	LEXIQUE383
 employeurs	employeur	NOM	m.p	1.16	LEXIQUE383
@@ -52660,7 +52604,6 @@ emprisonnez	emprisonner	VER	ind.pres.2p	0	LEXIQUE383
 emprisonnèrent	emprisonner	VER	ind.ps.3p	0.04	LEXIQUE383
 emprisonné	emprisonner	VER	ppas.m.s	2.15	LEXIQUE383
 emprisonné	emprisonné	ADJ	m.s	0.3	LEXIQUE383
-emprisonnée	emprisonner	VER	ind.impf.3p	1.02	LEXIQUE383
 emprisonnée	emprisonner	VER	ppas.f.s	0	LEXIQUE383
 emprisonnée	emprisonné	ADJ	f.s	0.18	LEXIQUE383
 emprisonnées	emprisonner	VER	ppas.f.p	0.17	LEXIQUE383
@@ -54252,7 +54195,6 @@ engraisse	engraisser	VER	ind.pres.3s	0	LEXIQUE383
 engraissement	engraissement	NOM	m.s	0.04	LEXIQUE383
 engraissent	engraisser	VER	ind.pres.3p	0.35	LEXIQUE383
 engraisser	engraisser	VER	inf	1	LEXIQUE383
-engraisser	entrer	VER	ind.pres.2p	0.01	LEXIQUE383
 engraisseraient	engraisser	VER	cond.pres.3p	0.01	LEXIQUE383
 engraisserait	engraisser	VER	cond.pres.3s	0.04	LEXIQUE383
 engraisserons	engraisser	VER	ind.fut.1p	0.04	LEXIQUE383
@@ -54511,7 +54453,6 @@ enlevais	enlever	VER	ind.impf.1s	0.72	LEXIQUE383
 enlevais	enlever	VER	ind.impf.2s	0	LEXIQUE383
 enlevait	enlever	VER	ind.impf.3s	3.54	LEXIQUE383
 enlevant	enlever	VER	ppre	2.08	LEXIQUE383
-enlever	enlever	VER	ind.pres.2p	34.55	LEXIQUE383
 enlever	enlever	VER	inf	0	LEXIQUE383
 enlevez	enlever	VER	imp.pres.2p	11.34	LEXIQUE383
 enlevez	enlever	VER	ind.pres.2p	0	LEXIQUE383
@@ -54968,7 +54909,6 @@ enrôle	enrôler	VER	ind.pres.1s	0	LEXIQUE383
 enrôle	enrôler	VER	ind.pres.3s	0	LEXIQUE383
 enrôlement	enrôlement	NOM	m.s	0.2	LEXIQUE383
 enrôlements	enrôlement	NOM	m.p	0.1	LEXIQUE383
-enrôler	enrôler	VER	ind.pres.2p	0.9	LEXIQUE383
 enrôler	enrôler	VER	inf	0	LEXIQUE383
 enrôlerait	enrôler	VER	cond.pres.3s	0.08	LEXIQUE383
 enrôleriez	enrôler	VER	cond.pres.2p	0.01	LEXIQUE383
@@ -55642,7 +55582,6 @@ entraînât	entraîner	VER	sub.impf.3s	0.14	LEXIQUE383
 entraînèrent	entraîner	VER	ind.ps.3p	0.65	LEXIQUE383
 entraîné	entraîner	VER	ppas.m.s	9.37	LEXIQUE383
 entraîné	entraîné	ADJ	m.s	0.75	LEXIQUE383
-entraînée	entraîner	VER	ind.impf.3p	3.74	LEXIQUE383
 entraînée	entraîner	VER	ppas.f.s	0	LEXIQUE383
 entraînée	entraîné	ADJ	f.s	0.47	LEXIQUE383
 entraînées	entraîner	VER	ppas.f.p	0.55	LEXIQUE383
@@ -55891,7 +55830,6 @@ entrerez	entrer	VER	ind.fut.2p	0.76	LEXIQUE383
 entrerions	entrer	VER	cond.pres.1p	0.12	LEXIQUE383
 entrerons	entrer	VER	ind.fut.1p	0.42	LEXIQUE383
 entreront	entrer	VER	ind.fut.3p	0.92	LEXIQUE383
-entres	entrer	VER	ind.pres.1p	4	LEXIQUE383
 entres	entrer	VER	ind.pres.2s	0	LEXIQUE383
 entres	entrer	VER	sub.pres.2s	0	LEXIQUE383
 entresol	entresol	NOM	m.s	0.67	LEXIQUE383
@@ -56356,7 +56294,6 @@ envoie	envoyer	VER	ind.pres.3s	0	LEXIQUE383
 envoie	envoyer	VER	sub.pres.1s	0	LEXIQUE383
 envoie	envoyer	VER	sub.pres.3s	0	LEXIQUE383
 envoient	envoyer	VER	ind.pres.3p	6.74	LEXIQUE383
-envoies	envoyer	VER	ind.pres.1p	3.43	LEXIQUE383
 envoies	envoyer	VER	ind.pres.2s	0	LEXIQUE383
 envoies	envoyer	VER	sub.pres.2s	0	LEXIQUE383
 envois	envoi	NOM	m.p	0.84	LEXIQUE383
@@ -57027,7 +56964,6 @@ essaye	essayer	VER	imp.pres.2s	33.66	LEXIQUE383
 essaye	essayer	VER	ind.pres.1s	0	LEXIQUE383
 essaye	essayer	VER	ind.pres.3s	0	LEXIQUE383
 essayent	essayer	VER	ind.pres.3p	2.88	LEXIQUE383
-essayer	essayer	VER	ind.pres.2p	95.56	LEXIQUE383
 essayer	essayer	VER	inf	0	LEXIQUE383
 essayera	essayer	VER	ind.fut.3s	0.61	LEXIQUE383
 essayerai	essayer	VER	ind.fut.1s	1.17	LEXIQUE383
@@ -57041,7 +56977,6 @@ essayeriez	essayer	VER	cond.pres.2p	0.06	LEXIQUE383
 essayerons	essayer	VER	ind.fut.1p	0.29	LEXIQUE383
 essayeront	essayer	VER	ind.fut.3p	0.07	LEXIQUE383
 essayes	essayer	VER	ind.pres.2s	3.15	LEXIQUE383
-essayes	essayer	VER	sub.pres.2s	0	LEXIQUE383
 essayeur	essayeur	NOM	m.s	0.08	LEXIQUE383
 essayeuses	essayeur	NOM	f.p	0.04	LEXIQUE383
 essayez	essayer	VER	imp.pres.2p	30.55	LEXIQUE383
@@ -58097,9 +58032,7 @@ excuse	excuser	VER	imp.pres.2s	63.31	LEXIQUE383
 excuse	excuser	VER	ind.pres.1s	0	LEXIQUE383
 excuse	excuser	VER	ind.pres.3s	0	LEXIQUE383
 excuse	excuser	VER	sub.pres.3s	0	LEXIQUE383
-excusent	excuser	VER	ind.pres.1p	0.32	LEXIQUE383
 excusent	excuser	VER	ind.pres.3p	0	LEXIQUE383
-excuser	excuser	VER	ind.pres.2p	27.52	LEXIQUE383
 excuser	excuser	VER	inf	0	LEXIQUE383
 excusera	excuser	VER	ind.fut.3s	0.41	LEXIQUE383
 excuserai	excuser	VER	ind.fut.1s	0.32	LEXIQUE383
@@ -58112,7 +58045,6 @@ excuseriez	excuser	VER	cond.pres.2p	0.01	LEXIQUE383
 excuserons	excuser	VER	ind.fut.1p	0.08	LEXIQUE383
 excuseront	excuser	VER	ind.fut.3p	0.09	LEXIQUE383
 excuses	excuse	NOM	f.p	22.19	LEXIQUE383
-excuses	excuser	VER	ind.pres.1p	1.85	LEXIQUE383
 excuses	excuser	VER	ind.pres.2s	0	LEXIQUE383
 excuses	excuser	VER	sub.pres.2s	0	LEXIQUE383
 excusez	excuser	VER	imp.pres.2p	123.16	LEXIQUE383
@@ -58804,7 +58736,6 @@ expose	exposer	VER	imp.pres.2s	3.69	LEXIQUE383
 expose	exposer	VER	ind.pres.1s	0	LEXIQUE383
 expose	exposer	VER	ind.pres.3s	0	LEXIQUE383
 exposent	exposer	VER	ind.pres.3p	0.53	LEXIQUE383
-exposer	exposer	VER	ind.pres.2p	8.5	LEXIQUE383
 exposer	exposer	VER	inf	0	LEXIQUE383
 exposera	exposer	VER	ind.fut.3s	0.12	LEXIQUE383
 exposerai	exposer	VER	ind.fut.1s	0.12	LEXIQUE383
@@ -59530,7 +59461,6 @@ facilite	faciliter	VER	imp.pres.2s	1.47	LEXIQUE383
 facilite	faciliter	VER	ind.pres.1s	0	LEXIQUE383
 facilite	faciliter	VER	ind.pres.3s	0	LEXIQUE383
 facilitent	faciliter	VER	ind.pres.3p	0.31	LEXIQUE383
-faciliter	faciliter	VER	ind.pres.2p	4.61	LEXIQUE383
 faciliter	faciliter	VER	inf	0	LEXIQUE383
 facilitera	faciliter	VER	ind.fut.3s	0.4	LEXIQUE383
 faciliterai	faciliter	VER	ind.fut.1s	0.03	LEXIQUE383
@@ -59542,7 +59472,6 @@ faciliteront	faciliter	VER	ind.fut.3p	0.09	LEXIQUE383
 facilitez	faciliter	VER	imp.pres.2p	0.17	LEXIQUE383
 facilitez	faciliter	VER	ind.pres.2p	0	LEXIQUE383
 facilitons	faciliter	VER	ind.pres.1p	0.01	LEXIQUE383
-facilité	faciliter	VER	imp.pres.2s	1.08	LEXIQUE383
 facilité	faciliter	VER	ppas.m.s	0	LEXIQUE383
 facilité	facilité	NOM	f.s	6.51	LEXIQUE383
 facilitée	faciliter	VER	ppas.f.s	0.27	LEXIQUE383
@@ -61233,7 +61162,6 @@ fienteuse	fienteux	ADJ	f.s	0.04	LEXIQUE383
 fienteux	fienteux	ADJ	m.p	0.04	LEXIQUE383
 fienté	fienter	VER	ppas.m.s	0.07	LEXIQUE383
 fier	fier	ADJ	m.s	38.75	LEXIQUE383
-fier	fier	VER	ind.pres.2p	5.68	LEXIQUE383
 fier	fier	VER	inf	0	LEXIQUE383
 fier-à-bras	fier-à-bras	NOM	m.e	0.07	LEXIQUE383
 fiera	fier	VER	ind.fut.3s	0.06	LEXIQUE383
@@ -61395,7 +61323,6 @@ file	filer	VER	ind.pres.1s	0	LEXIQUE383
 file	filer	VER	ind.pres.3s	0	LEXIQUE383
 file-la-moi	file-la-moi	NOM	f.s	0.01	LEXIQUE383
 filent	filer	VER	ind.pres.3p	2.7	LEXIQUE383
-filer	filer	VER	ind.pres.2p	23.81	LEXIQUE383
 filer	filer	VER	inf	0	LEXIQUE383
 filera	filer	VER	ind.fut.3s	0.82	LEXIQUE383
 filerai	filer	VER	ind.fut.1s	0.7	LEXIQUE383
@@ -61409,7 +61336,6 @@ fileriez	filer	VER	cond.pres.2p	0.01	LEXIQUE383
 filerons	filer	VER	ind.fut.1p	0.14	LEXIQUE383
 fileront	filer	VER	ind.fut.3p	0.15	LEXIQUE383
 files	file	NOM	f.p	2.34	LEXIQUE383
-files	filer	VER	ind.pres.1p	3.42	LEXIQUE383
 files	filer	VER	ind.pres.2s	0	LEXIQUE383
 files	filer	VER	sub.pres.2s	0	LEXIQUE383
 filet	filet	NOM	m.s	18.67	LEXIQUE383
@@ -62849,7 +62775,6 @@ fondrai	fondre	VER	ind.fut.1s	0.08	LEXIQUE383
 fondraient	fondre	VER	cond.pres.3p	0.11	LEXIQUE383
 fondrait	fondre	VER	cond.pres.3s	0.19	LEXIQUE383
 fondras	fondre	VER	ind.fut.2s	0.01	LEXIQUE383
-fondre	fondre	VER	ind.pres.2p	12.88	LEXIQUE383
 fondre	fondre	VER	inf	0	LEXIQUE383
 fondriez	fondre	VER	cond.pres.2p	0.01	LEXIQUE383
 fondrière	fondrière	NOM	f.s	0.3	LEXIQUE383
@@ -63171,7 +63096,6 @@ formulés	formulé	ADJ	m.p	0.14	LEXIQUE383
 formèrent	former	VER	ind.ps.3p	0.85	LEXIQUE383
 formé	former	VER	ppas.m.s	9.91	LEXIQUE383
 formé	formé	ADJ	m.s	0.73	LEXIQUE383
-formée	former	VER	ind.impf.3p	3.73	LEXIQUE383
 formée	former	VER	ppas.f.s	0	LEXIQUE383
 formée	formé	ADJ	f.s	0.45	LEXIQUE383
 formées	former	VER	ppas.f.p	1.24	LEXIQUE383
@@ -66474,7 +66398,6 @@ gardons	gardon	NOM	m.p	0.66	LEXIQUE383
 gardâmes	garder	VER	ind.ps.1p	0.1	LEXIQUE383
 gardât	garder	VER	sub.impf.3s	0.34	LEXIQUE383
 gardèrent	garder	VER	ind.ps.3p	0.36	LEXIQUE383
-gardé	garder	VER	imp.pres.2s	30.94	LEXIQUE383
 gardé	garder	VER	ppas.m.s	0	LEXIQUE383
 gardé	gardé	ADJ	m.s	1.29	LEXIQUE383
 gardée	garder	VER	ppas.f.s	4.4	LEXIQUE383
@@ -73900,7 +73823,6 @@ imagine	imaginer	VER	ind.pres.3s	0	LEXIQUE383
 imagine	imaginer	VER	sub.pres.1s	0	LEXIQUE383
 imagine	imaginer	VER	sub.pres.3s	0	LEXIQUE383
 imaginent	imaginer	VER	ind.pres.3p	3.25	LEXIQUE383
-imaginer	imaginer	VER	ind.pres.2p	50.68	LEXIQUE383
 imaginer	imaginer	VER	inf	0	LEXIQUE383
 imaginerai	imaginer	VER	ind.fut.1s	0.11	LEXIQUE383
 imagineraient	imaginer	VER	cond.pres.3p	0.32	LEXIQUE383
@@ -74018,7 +73940,6 @@ imite	imiter	VER	imp.pres.2s	3.88	LEXIQUE383
 imite	imiter	VER	ind.pres.1s	0	LEXIQUE383
 imite	imiter	VER	ind.pres.3s	0	LEXIQUE383
 imitent	imiter	VER	ind.pres.3p	0.86	LEXIQUE383
-imiter	imiter	VER	ind.pres.2p	9.49	LEXIQUE383
 imiter	imiter	VER	inf	0	LEXIQUE383
 imitera	imiter	VER	ind.fut.3s	0.09	LEXIQUE383
 imiterai	imiter	VER	ind.fut.1s	0.06	LEXIQUE383
@@ -74727,7 +74648,6 @@ impressionnera	impressionner	VER	ind.fut.3s	0.13	LEXIQUE383
 impressionnerait	impressionner	VER	cond.pres.3s	0.17	LEXIQUE383
 impressionneras	impressionner	VER	ind.fut.2s	0.01	LEXIQUE383
 impressionneront	impressionner	VER	ind.fut.3p	0.04	LEXIQUE383
-impressionnes	impressionner	VER	ind.pres.1p	0.44	LEXIQUE383
 impressionnes	impressionner	VER	ind.pres.2s	0	LEXIQUE383
 impressionnez	impressionner	VER	imp.pres.2p	0.51	LEXIQUE383
 impressionnez	impressionner	VER	ind.pres.2p	0	LEXIQUE383
@@ -75422,7 +75342,6 @@ incline	incliner	VER	ind.pres.1s	0	LEXIQUE383
 incline	incliner	VER	ind.pres.3s	0	LEXIQUE383
 incline	incliner	VER	sub.pres.3s	0	LEXIQUE383
 inclinent	incliner	VER	ind.pres.3p	1.19	LEXIQUE383
-incliner	incliner	VER	ind.pres.2p	3.34	LEXIQUE383
 incliner	incliner	VER	inf	0	LEXIQUE383
 inclinerai	incliner	VER	ind.fut.1s	0.02	LEXIQUE383
 inclineraient	incliner	VER	cond.pres.3p	0.1	LEXIQUE383
@@ -76000,7 +75919,6 @@ indique	indiquer	VER	imp.pres.2s	12.16	LEXIQUE383
 indique	indiquer	VER	ind.pres.1s	0	LEXIQUE383
 indique	indiquer	VER	ind.pres.3s	0	LEXIQUE383
 indiquent	indiquer	VER	ind.pres.3p	3.2	LEXIQUE383
-indiquer	indiquer	VER	ind.pres.2p	6.83	LEXIQUE383
 indiquer	indiquer	VER	inf	0	LEXIQUE383
 indiquera	indiquer	VER	ind.fut.3s	0.47	LEXIQUE383
 indiquerai	indiquer	VER	ind.fut.1s	0.17	LEXIQUE383
@@ -76739,7 +76657,6 @@ informelle	informel	ADJ	f.s	0.3	LEXIQUE383
 informelles	informel	ADJ	f.p	0.08	LEXIQUE383
 informels	informel	ADJ	m.p	0.01	LEXIQUE383
 informent	informer	VER	ind.pres.3p	0.61	LEXIQUE383
-informer	informer	VER	ind.pres.2p	9.5	LEXIQUE383
 informer	informer	VER	inf	0	LEXIQUE383
 informera	informer	VER	ind.fut.3s	0.21	LEXIQUE383
 informerai	informer	VER	ind.fut.1s	0.64	LEXIQUE383
@@ -77100,7 +77017,6 @@ injecte	injecter	VER	imp.pres.2s	0.8	LEXIQUE383
 injecte	injecter	VER	ind.pres.1s	0	LEXIQUE383
 injecte	injecter	VER	ind.pres.3s	0	LEXIQUE383
 injectent	injecter	VER	ind.pres.3p	0.16	LEXIQUE383
-injecter	injecter	VER	imp.pres.2p	1.01	LEXIQUE383
 injecter	injecter	VER	inf	0	LEXIQUE383
 injectera	injecter	VER	ind.fut.3s	0.01	LEXIQUE383
 injecteras	injecter	VER	ind.fut.2s	0.02	LEXIQUE383
@@ -81107,7 +81023,6 @@ jure	jurer	VER	ind.pres.1s	0	LEXIQUE383
 jure	jurer	VER	ind.pres.3s	0	LEXIQUE383
 jure	jurer	VER	sub.pres.1s	0	LEXIQUE383
 jurent	jurer	VER	ind.pres.3p	1.01	LEXIQUE383
-jurer	jurer	VER	ind.pres.2p	7.58	LEXIQUE383
 jurer	jurer	VER	inf	0	LEXIQUE383
 jurera	jurer	VER	ind.fut.3s	0.04	LEXIQUE383
 jurerai	jurer	VER	ind.fut.1s	0.4	LEXIQUE383
@@ -81817,7 +81732,6 @@ laisserons	laisser	VER	ind.fut.1p	1.87	LEXIQUE383
 laisseront	laisser	VER	ind.fut.3p	4.12	LEXIQUE383
 laisses	laisse	NOM	f.p	1.53	LEXIQUE383
 laisses	laisser	VER	ind.pres.2s	20.7	LEXIQUE383
-laisses	laisser	VER	sub.pres.1p	0	LEXIQUE383
 laisses	laisser	VER	sub.pres.2s	0	LEXIQUE383
 laissez	laisser	VER	imp.pres.2p	148.52	LEXIQUE383
 laissez	laisser	VER	ind.pres.2p	0	LEXIQUE383
@@ -81834,7 +81748,6 @@ laissèrent	laisser	VER	ind.ps.3p	2.58	LEXIQUE383
 laissé	laisser	VER	ppas.m.s	128.76	LEXIQUE383
 laissé	laissé	NOM	m.s	1.12	LEXIQUE383
 laissé-pour-compte	laissé-pour-compte	NOM	m.s	0.04	LEXIQUE383
-laissée	laisser	VER	ind.impf.3p	20.68	LEXIQUE383
 laissée	laisser	VER	ppas.f.s	0	LEXIQUE383
 laissées	laisser	VER	ppas.f.p	4.74	LEXIQUE383
 laissées	laissée	NOM	f.p	0.29	LEXIQUE383
@@ -82039,7 +81952,6 @@ lancequine	lancequiner	VER	ind.pres.1s	0.14	LEXIQUE383
 lancequine	lancequiner	VER	ind.pres.3s	0	LEXIQUE383
 lancequiner	lancequiner	VER	inf	0.04	LEXIQUE383
 lancer	lancer	NOM	m.s	2.52	LEXIQUE383
-lancer	lancer	VER	ind.pres.2p	22.32	LEXIQUE383
 lancer	lancer	VER	inf	0	LEXIQUE383
 lancera	lancer	VER	ind.fut.3s	0.66	LEXIQUE383
 lancerai	lancer	VER	ind.fut.1s	0.43	LEXIQUE383
@@ -82963,7 +82875,6 @@ libère	libérer	VER	ind.pres.1s	0	LEXIQUE383
 libère	libérer	VER	ind.pres.3s	0	LEXIQUE383
 libère	libérer	VER	sub.pres.1s	0	LEXIQUE383
 libèrent	libérer	VER	ind.pres.3p	0.8	LEXIQUE383
-libères	libérer	VER	ind.pres.1p	0.87	LEXIQUE383
 libères	libérer	VER	ind.pres.2s	0	LEXIQUE383
 libéra	libérer	VER	ind.ps.3s	1.11	LEXIQUE383
 libérable	libérable	ADJ	e.s	0.17	LEXIQUE383
@@ -83588,7 +83499,6 @@ lit	lire	VER	ind.pres.3s	19.54	LEXIQUE383
 lit	lit	NOM	m.s	245.92	LEXIQUE383
 lit-bateau	lit-bateau	NOM	m.s	0.41	LEXIQUE383
 lit-cage	lit-cage	NOM	m.s	0.58	LEXIQUE383
-lit-divan	lire	VER	ind.pres.3s	0.04	LEXIQUE383
 lit-divan	lit-divan	NOM	m.s	0.1	LEXIQUE383
 lita	liter	VER	ind.ps.3s	0.17	LEXIQUE383
 litanie	litanie	NOM	f.s	2.54	LEXIQUE383
@@ -84454,7 +84364,6 @@ lugubre	lugubre	ADJ	e.s	5.48	LEXIQUE383
 lugubrement	lugubrement	ADV		0.41	LEXIQUE383
 lugubres	lugubre	ADJ	e.p	1.34	LEXIQUE383
 lui	lui	PRO		3266.94	LEXIQUE383
-lui	luire	VER	ind.pres.2s	7.97	LEXIQUE383
 lui	luire	VER	ppas.m.s	0	LEXIQUE383
 lui-même	lui-même	PRO		124.44	LEXIQUE383
 luira	luire	VER	ind.fut.3s	0.01	LEXIQUE383
@@ -85985,7 +85894,6 @@ manage	manager	VER	ind.pres.3s	0	LEXIQUE383
 manageait	manager	VER	ind.impf.3s	0.01	LEXIQUE383
 management	management	NOM	m.s	0.32	LEXIQUE383
 manager	manager	NOM	m.s	4.71	LEXIQUE383
-manager	manager	VER	ind.pres.2p	0.78	LEXIQUE383
 manager	manager	VER	inf	0	LEXIQUE383
 managerais	manager	VER	cond.pres.2s	0.01	LEXIQUE383
 managers	manager	NOM	m.p	0.61	LEXIQUE383
@@ -86678,7 +86586,6 @@ marche	marcher	VER	sub.pres.3s	0	LEXIQUE383
 marchent	marcher	VER	ind.pres.3p	11.12	LEXIQUE383
 marchepied	marchepied	NOM	m.s	2.48	LEXIQUE383
 marchepieds	marchepied	NOM	m.p	0.61	LEXIQUE383
-marcher	marcher	VER	ind.impf.3s	83.11	LEXIQUE383
 marcher	marcher	VER	inf	0	LEXIQUE383
 marchera	marcher	VER	ind.fut.3s	9.53	LEXIQUE383
 marcherai	marcher	VER	ind.fut.1s	1.19	LEXIQUE383
@@ -86902,7 +86809,6 @@ marièrent	marier	VER	ind.ps.3p	0.65	LEXIQUE383
 marié	marier	VER	ppas.m.s	23.11	LEXIQUE383
 marié	marié	ADJ	m.s	8.12	LEXIQUE383
 marié	marié	NOM	m.s	6.29	LEXIQUE383
-mariée	marier	VER	ind.impf.3p	20.64	LEXIQUE383
 mariée	marier	VER	ppas.f.s	0	LEXIQUE383
 mariée	marié	ADJ	f.s	6.49	LEXIQUE383
 mariée	marié	NOM	f.s	13.68	LEXIQUE383
@@ -87945,7 +87851,6 @@ menace	menacer	VER	imp.pres.2s	9.73	LEXIQUE383
 menace	menacer	VER	ind.pres.1s	0	LEXIQUE383
 menace	menacer	VER	ind.pres.3s	0	LEXIQUE383
 menacent	menacer	VER	ind.pres.3p	2.48	LEXIQUE383
-menacer	menacer	VER	ind.pres.2p	5.34	LEXIQUE383
 menacer	menacer	VER	inf	0	LEXIQUE383
 menacera	menacer	VER	ind.fut.3s	0.08	LEXIQUE383
 menaceraient	menacer	VER	cond.pres.3p	0.02	LEXIQUE383
@@ -90495,7 +90400,6 @@ monte-en-l’air	monte-en-l’air	NOM	m.e	0.16	LEXIQUE383
 monte-plat	monte-plat	NOM	m.s	0.01	LEXIQUE383
 monte-plats	monte-plats	NOM	m.e	0.06	LEXIQUE383
 montent	monter	VER	ind.pres.3p	9.62	LEXIQUE383
-monter	monter	VER	ind.pres.2p	91.3	LEXIQUE383
 monter	monter	VER	inf	0	LEXIQUE383
 montera	monter	VER	ind.fut.3s	2.09	LEXIQUE383
 monterai	monter	VER	ind.fut.1s	1.42	LEXIQUE383
@@ -90551,7 +90455,6 @@ montre	montrer	VER	sub.pres.3s	0	LEXIQUE383
 montre-bracelet	montre-bracelet	NOM	f.s	0.95	LEXIQUE383
 montre-gousset	montre-gousset	NOM	f.s	0.04	LEXIQUE383
 montre-la-moi	montre-la-moi	NOM	f.s	0.07	LEXIQUE383
-montre-la-moi	montrer	VER	imp.pres.2s	0.01	LEXIQUE383
 montrent	montrer	VER	ind.pres.3p	6.88	LEXIQUE383
 montrer	montrer	VER	inf	108.67	LEXIQUE383
 montrera	montrer	VER	ind.fut.3s	3.33	LEXIQUE383
@@ -90566,7 +90469,6 @@ montreriez	montrer	VER	cond.pres.2p	0.08	LEXIQUE383
 montrerons	montrer	VER	ind.fut.1p	0.48	LEXIQUE383
 montreront	montrer	VER	ind.fut.3p	0.31	LEXIQUE383
 montres	montre	NOM	f.p	5.36	LEXIQUE383
-montres	montrer	VER	ind.pres.1p	3.5	LEXIQUE383
 montres	montrer	VER	ind.pres.2s	0	LEXIQUE383
 montres	montrer	VER	sub.pres.2s	0	LEXIQUE383
 montres-bracelets	montre-bracelet	NOM	f.p	0.14	LEXIQUE383
@@ -90584,7 +90486,6 @@ montrâmes	montrer	VER	ind.ps.1p	0.04	LEXIQUE383
 montrât	montrer	VER	sub.impf.3s	0.51	LEXIQUE383
 montrèrent	montrer	VER	ind.ps.3p	0.92	LEXIQUE383
 montré	montrer	VER	ppas.m.s	28.88	LEXIQUE383
-montrée	montrer	VER	ind.impf.3p	3.5	LEXIQUE383
 montrée	montrer	VER	ppas.f.s	0	LEXIQUE383
 montrées	montrer	VER	ppas.f.p	0.65	LEXIQUE383
 montrés	montrer	VER	ppas.m.p	1.35	LEXIQUE383
@@ -93906,8 +93807,6 @@ nettoyant	nettoyer	VER	ppre	0.82	LEXIQUE383
 nettoyante	nettoyant	ADJ	f.s	0.01	LEXIQUE383
 nettoyants	nettoyant	ADJ	m.p	0.01	LEXIQUE383
 nettoyants	nettoyant	NOM	m.p	0.05	LEXIQUE383
-nettoyer	nettoyer	VER	imp.pres.2p	20.62	LEXIQUE383
-nettoyer	nettoyer	VER	ind.pres.2p	0	LEXIQUE383
 nettoyer	nettoyer	VER	inf	0	LEXIQUE383
 nettoyeur	nettoyeur	NOM	m.s	0.79	LEXIQUE383
 nettoyeurs	nettoyeur	NOM	m.p	0.56	LEXIQUE383
@@ -95525,7 +95424,6 @@ nôtres	nôtres	DET	e.p	0.21	LEXIQUE383
 nôtres	nôtres	PRO		21.99	LEXIQUE383
 nœud	nœud	NOM	m.s	11.05	LEXIQUE383
 nœuds	nœud	NOM	m.p	6.64	LEXIQUE383
-n’	avoir	AUX	ind.pres.3s	0.01	LEXIQUE383
 n’	n	NOM	m.s	0.07	LEXIQUE383
 n’	ne	ADV		7472.28	LEXIQUE383
 n’	n’	PRO		0.09	LEXIQUE383
@@ -96285,7 +96183,6 @@ offense	offenser	VER	imp.pres.2s	0.95	LEXIQUE383
 offense	offenser	VER	ind.pres.1s	0	LEXIQUE383
 offense	offenser	VER	ind.pres.3s	0	LEXIQUE383
 offensent	offenser	VER	ind.pres.3p	0.34	LEXIQUE383
-offenser	offenser	VER	ind.pres.2p	4.18	LEXIQUE383
 offenser	offenser	VER	inf	0	LEXIQUE383
 offensera	offenser	VER	ind.fut.3s	0.02	LEXIQUE383
 offenserai	offenser	VER	ind.fut.1s	0.04	LEXIQUE383
@@ -96458,9 +96355,7 @@ oh	oh	NOM	m.s	0.01	LEXIQUE383
 ohms	ohm	NOM	m.p	0.08	LEXIQUE383
 ohé	ohé	INT		3.26	LEXIQUE383
 oie	oie	NOM	f.s	5.31	LEXIQUE383
-oie	ouïr	VER	sub.pres.1s	0.06	LEXIQUE383
 oies	oie	NOM	f.p	3.92	LEXIQUE383
-oies	ouïr	VER	sub.pres.2s	0.01	LEXIQUE383
 oignait	oindre	VER	ind.impf.3s	0.07	LEXIQUE383
 oignant	oindre	VER	ppre	0.04	LEXIQUE383
 oigne	oindre	VER	sub.pres.1s	0.11	LEXIQUE383
@@ -97428,7 +97323,6 @@ oriente	orienter	VER	imp.pres.2s	1.16	LEXIQUE383
 oriente	orienter	VER	ind.pres.1s	0	LEXIQUE383
 oriente	orienter	VER	ind.pres.3s	0	LEXIQUE383
 orientent	orienter	VER	ind.pres.3p	0.08	LEXIQUE383
-orienter	orienter	VER	ind.pres.2p	2.52	LEXIQUE383
 orienter	orienter	VER	inf	0	LEXIQUE383
 orienterai	orienter	VER	ind.fut.1s	0.02	LEXIQUE383
 orienterait	orienter	VER	cond.pres.3s	0.04	LEXIQUE383
@@ -99141,7 +99035,6 @@ paraient	parer	VER	ind.impf.3p	0.17	LEXIQUE383
 parais	paraître	VER	imp.pres.2s	0.83	LEXIQUE383
 parais	paraître	VER	ind.pres.1s	0	LEXIQUE383
 parais	paraître	VER	ind.pres.2s	0	LEXIQUE383
-parais	parer	VER	imp.pres.2s	1.23	LEXIQUE383
 parais	parer	VER	ind.impf.1s	0	LEXIQUE383
 parais	parer	VER	ind.impf.2s	0	LEXIQUE383
 paraissaient	paraître	VER	ind.impf.3p	13.85	LEXIQUE383
@@ -99590,7 +99483,6 @@ parigotes	parigot	NOM	f.p	0.04	LEXIQUE383
 parigots	parigot	ADJ	m.p	0.14	LEXIQUE383
 parigots	parigot	NOM	m.p	0.23	LEXIQUE383
 parions	parier	VER	imp.pres.1p	0.29	LEXIQUE383
-parions	parier	VER	ind.impf.1p	0	LEXIQUE383
 parions	parier	VER	ind.pres.1p	0	LEXIQUE383
 paris	pari	NOM	m.p	10.32	LEXIQUE383
 paris-brest	paris-brest	NOM	m.e	0.2	LEXIQUE383
@@ -100220,7 +100112,6 @@ passepoil	passepoil	NOM	m.s	0.08	LEXIQUE383
 passeport	passeport	NOM	m.s	13.48	LEXIQUE383
 passeports	passeport	NOM	m.p	4.29	LEXIQUE383
 passer	passer	VER	inf	317.23	LEXIQUE383
-passer	prendre	VER	imp.pres.2p	0.01	LEXIQUE383
 passera	passer	VER	ind.fut.3s	26.96	LEXIQUE383
 passerai	passer	VER	ind.fut.1s	10.18	LEXIQUE383
 passeraient	passer	VER	cond.pres.3p	2.35	LEXIQUE383
@@ -100788,8 +100679,6 @@ paye	paye	NOM	f.s	8.52	LEXIQUE383
 paye	payer	VER	imp.pres.2s	20.12	LEXIQUE383
 paye	payer	VER	ind.pres.1s	0	LEXIQUE383
 paye	payer	VER	ind.pres.3s	0	LEXIQUE383
-paye	payer	VER	sub.pres.1s	0	LEXIQUE383
-paye	payer	VER	sub.pres.3s	0	LEXIQUE383
 payement	payement	NOM	m.s	0.18	LEXIQUE383
 payements	payement	NOM	m.p	0.01	LEXIQUE383
 payent	payer	VER	ind.pres.3p	2.83	LEXIQUE383
@@ -100807,7 +100696,6 @@ payerons	payer	VER	ind.fut.1p	0.36	LEXIQUE383
 payeront	payer	VER	ind.fut.3p	0.35	LEXIQUE383
 payes	paye	NOM	f.p	0.24	LEXIQUE383
 payes	payer	VER	ind.pres.2s	2.87	LEXIQUE383
-payes	payer	VER	sub.pres.2s	0	LEXIQUE383
 payeur	payeur	ADJ	m.s	0.03	LEXIQUE383
 payeur	payeur	NOM	m.s	0.11	LEXIQUE383
 payeurs	payeur	ADJ	m.p	0.01	LEXIQUE383
@@ -101277,7 +101165,6 @@ pense	penser	VER	sub.pres.3s	0	LEXIQUE383
 pense-bête	pense-bête	NOM	m.s	0.29	LEXIQUE383
 pense-bêtes	pense-bête	NOM	m.p	0.09	LEXIQUE383
 pensent	penser	VER	ind.pres.3p	24.86	LEXIQUE383
-penser	penser	VER	imp.pres.2p	150.93	LEXIQUE383
 penser	penser	VER	inf	0	LEXIQUE383
 pensera	penser	VER	ind.fut.3s	2.64	LEXIQUE383
 penserai	penser	VER	ind.fut.1s	2.36	LEXIQUE383
@@ -101327,7 +101214,6 @@ pensums	pensum	NOM	m.p	0.14	LEXIQUE383
 pensâmes	penser	VER	ind.ps.1p	0.04	LEXIQUE383
 pensât	penser	VER	sub.impf.3s	0.37	LEXIQUE383
 pensèrent	penser	VER	ind.ps.3p	0.54	LEXIQUE383
-pensé	penser	VER	imp.pres.2s	124.62	LEXIQUE383
 pensé	penser	VER	ppas.m.s	0	LEXIQUE383
 pensée	penser	VER	ppas.f.s	0.91	LEXIQUE383
 pensée	pensée	NOM	f.s	62.59	LEXIQUE383
@@ -101971,7 +101857,6 @@ persuadons	persuader	VER	ind.pres.1p	0	LEXIQUE383
 persuadèrent	persuader	VER	ind.ps.3p	0.11	LEXIQUE383
 persuadé	persuader	VER	ppas.m.s	8.62	LEXIQUE383
 persuadé	persuadé	ADJ	m.s	2	LEXIQUE383
-persuadée	persuader	VER	ind.impf.3s	3.21	LEXIQUE383
 persuadée	persuader	VER	ppas.f.s	0	LEXIQUE383
 persuadée	persuadé	ADJ	f.s	0.85	LEXIQUE383
 persuadées	persuader	VER	ppas.f.p	0.01	LEXIQUE383
@@ -103186,7 +103071,6 @@ pincement	pincement	NOM	m.s	1.92	LEXIQUE383
 pincements	pincement	NOM	m.p	0.14	LEXIQUE383
 pincent	pincer	VER	ind.pres.3p	0.34	LEXIQUE383
 pincer	pincer	VER	inf	3.89	LEXIQUE383
-pincer	pouvoir	VER	ind.pres.2p	0.01	LEXIQUE383
 pincera	pincer	VER	ind.fut.3s	0.14	LEXIQUE383
 pincerai	pincer	VER	ind.fut.1s	0.01	LEXIQUE383
 pinceras	pincer	VER	ind.fut.2s	0.01	LEXIQUE383
@@ -103334,7 +103218,6 @@ pipelette	pipelette	NOM	f.s	0.95	LEXIQUE383
 pipelettes	pipelette	NOM	f.p	0.15	LEXIQUE383
 pipeline	pipeline	NOM	m.s	0.24	LEXIQUE383
 pipelines	pipeline	NOM	m.p	0.08	LEXIQUE383
-piper	piper	VER	imp.pres.2p	10.42	LEXIQUE383
 piper	piper	VER	inf	0	LEXIQUE383
 pipera	piper	VER	ind.fut.3s	0.01	LEXIQUE383
 piperade	piperade	NOM	f.s	0.04	LEXIQUE383
@@ -103396,7 +103279,6 @@ pique-niqueurs	pique-niqueur	NOM	m.p	0.15	LEXIQUE383
 pique-niquez	pique-niquer	VER	ind.pres.2p	0.04	LEXIQUE383
 pique-niqué	pique-niquer	VER	ppas.m.s	0.06	LEXIQUE383
 piquent	piquer	VER	ind.pres.3p	2.05	LEXIQUE383
-piquer	piquer	VER	ind.impf.3s	14.81	LEXIQUE383
 piquer	piquer	VER	inf	0	LEXIQUE383
 piquera	piquer	VER	ind.fut.3s	0.38	LEXIQUE383
 piquerai	piquer	VER	ind.fut.1s	0.12	LEXIQUE383
@@ -104827,7 +104709,6 @@ plus-values	plus-value	NOM	f.p	0.2	LEXIQUE383
 plusieurs	plusieurs	DET	e.p	135.28	LEXIQUE383
 plusieurs	plusieurs	PRO		12.17	LEXIQUE383
 plusse	plaire	VER	sub.impf.1s	0.04	LEXIQUE383
-plut	plaire	VER	ind.ps.3p	2.81	LEXIQUE383
 plut	plaire	VER	ind.ps.3s	0	LEXIQUE383
 pluton	pluton	NOM	m.s	0.07	LEXIQUE383
 plutonien	plutonien	ADJ	m.s	0.01	LEXIQUE383
@@ -105988,7 +105869,6 @@ portement	portement	NOM	m.s	0.04	LEXIQUE383
 portent	porter	VER	ind.pres.3p	15.64	LEXIQUE383
 portent	porter	VER	sub.pres.3p	0	LEXIQUE383
 porter	porter	NOM	m.s	3.12	LEXIQUE383
-porter	porter	VER	ind.pres.2p	79.49	LEXIQUE383
 porter	porter	VER	inf	0	LEXIQUE383
 portera	porter	VER	ind.fut.3s	5.33	LEXIQUE383
 porterai	porter	VER	ind.fut.1s	3.56	LEXIQUE383
@@ -108492,7 +108372,6 @@ proposons	proposer	VER	ind.pres.1p	0	LEXIQUE383
 proposâmes	proposer	VER	ind.ps.1p	0.04	LEXIQUE383
 proposât	proposer	VER	sub.impf.3s	0.2	LEXIQUE383
 proposèrent	proposer	VER	ind.ps.3p	0.55	LEXIQUE383
-proposé	proposer	VER	imp.pres.2s	17.89	LEXIQUE383
 proposé	proposer	VER	ppas.m.s	0	LEXIQUE383
 proposé	proposé	ADJ	m.s	0.26	LEXIQUE383
 proposée	proposer	VER	ppas.f.s	1.2	LEXIQUE383
@@ -108861,7 +108740,6 @@ prouve	prouver	VER	ind.pres.3s	0	LEXIQUE383
 prouve	prouver	VER	sub.pres.1s	0	LEXIQUE383
 prouve	prouver	VER	sub.pres.3s	0	LEXIQUE383
 prouvent	prouver	VER	ind.pres.3p	2.03	LEXIQUE383
-prouver	prouver	VER	ind.pres.2p	31.11	LEXIQUE383
 prouver	prouver	VER	inf	0	LEXIQUE383
 prouvera	prouver	VER	ind.fut.3s	1.23	LEXIQUE383
 prouverai	prouver	VER	ind.fut.1s	1.58	LEXIQUE383
@@ -109771,7 +109649,6 @@ présente	présenter	VER	ind.pres.3s	0	LEXIQUE383
 présente	présenter	VER	sub.pres.3s	0	LEXIQUE383
 présentement	présentement	ADV		2.52	LEXIQUE383
 présentent	présenter	VER	ind.pres.3p	4.27	LEXIQUE383
-présenter	poster	VER	ind.pres.2p	0.07	LEXIQUE383
 présenter	présenter	VER	inf	42.57	LEXIQUE383
 présentera	présenter	VER	ind.fut.3s	1.26	LEXIQUE383
 présenterai	présenter	VER	ind.fut.1s	1.89	LEXIQUE383
@@ -110030,7 +109907,6 @@ prévenez	prévenir	VER	imp.pres.2p	5.82	LEXIQUE383
 prévenez	prévenir	VER	ind.pres.2p	0	LEXIQUE383
 préveniez	prévenir	VER	ind.impf.2p	0.07	LEXIQUE383
 prévenions	prévenir	VER	ind.impf.1p	0.09	LEXIQUE383
-prévenir	prévenir	VER	ind.impf.3s	37	LEXIQUE383
 prévenir	prévenir	VER	inf	0	LEXIQUE383
 prévenons	prévenir	VER	imp.pres.1p	0.34	LEXIQUE383
 prévenons	prévenir	VER	ind.pres.1p	0	LEXIQUE383
@@ -110812,7 +110688,6 @@ purulents	purulent	ADJ	m.p	0.03	LEXIQUE383
 purée	purée	NOM	f.s	5.91	LEXIQUE383
 purées	purée	NOM	f.p	0.11	LEXIQUE383
 pus	pouvoir	VER	ind.ps.2s	7.12	LEXIQUE383
-pus	pouvoir	VER	sub.impf.1s	0	LEXIQUE383
 pus	pus	ADJ	m.s	3.45	LEXIQUE383
 pus	pus	NOM	m.e	0.11	LEXIQUE383
 pusillanime	pusillanime	ADJ	e.s	0.42	LEXIQUE383
@@ -112812,7 +112687,6 @@ raconteras	raconter	VER	ind.fut.2s	2.23	LEXIQUE383
 raconterez	raconter	VER	ind.fut.2p	0.95	LEXIQUE383
 raconterons	raconter	VER	ind.fut.1p	0.14	LEXIQUE383
 raconteront	raconter	VER	ind.fut.3p	0.1	LEXIQUE383
-racontes	raconter	VER	ind.pres.1p	21.09	LEXIQUE383
 racontes	raconter	VER	ind.pres.2s	0	LEXIQUE383
 racontes	raconter	VER	sub.pres.2s	0	LEXIQUE383
 raconteur	raconteur	NOM	m.s	0.09	LEXIQUE383
@@ -114068,7 +113942,6 @@ rappellerez	rappeler	VER	ind.fut.2p	0.38	LEXIQUE383
 rappelleriez	rappeler	VER	cond.pres.2p	0.13	LEXIQUE383
 rappellerons	rappeler	VER	ind.fut.1p	0.22	LEXIQUE383
 rappelleront	rappeler	VER	ind.fut.3p	0.23	LEXIQUE383
-rappelles	rappeler	VER	ind.pres.1p	22.86	LEXIQUE383
 rappelles	rappeler	VER	ind.pres.2s	0	LEXIQUE383
 rappelles	rappeler	VER	sub.pres.2s	0	LEXIQUE383
 rappelons	rappeler	VER	imp.pres.1p	1.16	LEXIQUE383
@@ -114871,7 +114744,6 @@ rayant	rayer	VER	ppre	0.28	LEXIQUE383
 raye	rayer	VER	imp.pres.2s	0.69	LEXIQUE383
 raye	rayer	VER	ind.pres.1s	0	LEXIQUE383
 raye	rayer	VER	ind.pres.3s	0	LEXIQUE383
-raye	rayer	VER	sub.pres.1s	0	LEXIQUE383
 rayent	rayer	VER	ind.pres.3p	0.08	LEXIQUE383
 rayer	rayer	VER	inf	2.01	LEXIQUE383
 rayera	rayer	VER	ind.fut.3s	0.01	LEXIQUE383
@@ -117103,7 +116975,6 @@ regardâmes	regarder	VER	ind.ps.1p	0.64	LEXIQUE383
 regardât	regarder	VER	sub.impf.3s	0.17	LEXIQUE383
 regardèrent	regarder	VER	ind.ps.3p	8	LEXIQUE383
 regardé	regarder	VER	ppas.m.s	46.42	LEXIQUE383
-regardée	regarder	VER	ind.impf.3s	9.31	LEXIQUE383
 regardée	regarder	VER	ppas.f.s	0	LEXIQUE383
 regardées	regarder	VER	ppas.f.p	0.67	LEXIQUE383
 regardés	regarder	VER	ppas.m.p	3.33	LEXIQUE383
@@ -117171,7 +117042,6 @@ regrette	regretter	VER	sub.pres.1s	0	LEXIQUE383
 regrette	regretter	VER	sub.pres.3s	0	LEXIQUE383
 regrettent	regretter	VER	ind.pres.3p	0.88	LEXIQUE383
 regretter	regretter	VER	inf	12.31	LEXIQUE383
-regretter	rester	VER	imp.pres.2p	0.01	LEXIQUE383
 regrettera	regretter	VER	ind.fut.3s	1.12	LEXIQUE383
 regretterai	regretter	VER	ind.fut.1s	1.14	LEXIQUE383
 regretteraient	regretter	VER	cond.pres.3p	0.18	LEXIQUE383
@@ -118053,7 +117923,6 @@ remettrais	remettre	VER	cond.pres.1s	0.4	LEXIQUE383
 remettrais	remettre	VER	cond.pres.2s	0	LEXIQUE383
 remettrait	remettre	VER	cond.pres.3s	1.55	LEXIQUE383
 remettras	remettre	VER	ind.fut.2s	1.07	LEXIQUE383
-remettre	remettre	VER	ind.pres.2p	51.56	LEXIQUE383
 remettre	remettre	VER	inf	0	LEXIQUE383
 remettrez	remettre	VER	ind.fut.2p	0.68	LEXIQUE383
 remettriez	remettre	VER	cond.pres.2p	0.07	LEXIQUE383
@@ -119000,7 +118869,6 @@ renseigne	renseigner	VER	sub.pres.3s	0	LEXIQUE383
 renseignement	renseignement	NOM	m.s	5.38	LEXIQUE383
 renseignements	renseignement	NOM	m.p	15.57	LEXIQUE383
 renseignent	renseigner	VER	ind.pres.3p	0.3	LEXIQUE383
-renseigner	renseigner	VER	ind.pres.2p	8.05	LEXIQUE383
 renseigner	renseigner	VER	inf	0	LEXIQUE383
 renseignera	renseigner	VER	ind.fut.3s	0.43	LEXIQUE383
 renseignerai	renseigner	VER	ind.fut.1s	0.2	LEXIQUE383
@@ -119044,15 +118912,12 @@ rentoilée	rentoiler	VER	ppas.f.s	0.04	LEXIQUE383
 rentra	rentrer	VER	ind.ps.3s	9.81	LEXIQUE383
 rentrai	rentrer	VER	ind.ps.1s	2.79	LEXIQUE383
 rentraient	rentrer	VER	ind.impf.3p	3.89	LEXIQUE383
-rentraient	rentrer	VER	ind.pres.3p	0	LEXIQUE383
 rentrais	rentraire	VER	ind.pres.2s	0.04	LEXIQUE383
 rentrais	rentrer	VER	ind.impf.1s	5.66	LEXIQUE383
 rentrais	rentrer	VER	ind.impf.2s	0	LEXIQUE383
-rentrais	rentrer	VER	ind.pres.2s	0	LEXIQUE383
 rentrait	rentraire	VER	ind.pres.3s	1.81	LEXIQUE383
 rentrait	rentraire	VER	ppas.m.s	0	LEXIQUE383
 rentrait	rentrer	VER	ind.impf.3s	11.89	LEXIQUE383
-rentrait	rentrer	VER	ind.pres.3s	0	LEXIQUE383
 rentrant	rentrant	ADJ	m.s	0.39	LEXIQUE383
 rentrant	rentrer	VER	ppre	15.49	LEXIQUE383
 rentrante	rentrant	ADJ	f.s	0.01	LEXIQUE383
@@ -119755,7 +119620,6 @@ reprennent	reprendre	VER	ind.pres.3p	4.33	LEXIQUE383
 reprennes	reprendre	VER	sub.pres.2s	0.6	LEXIQUE383
 reprenons	reprendre	VER	imp.pres.1p	3.84	LEXIQUE383
 reprenons	reprendre	VER	ind.pres.1p	0	LEXIQUE383
-reprenons	reprendre	VER	inf	0	LEXIQUE383
 reprirent	reprendre	VER	ind.ps.3p	3.31	LEXIQUE383
 repris	reprendre	VER	ind.ps.1s	34.1	LEXIQUE383
 repris	reprendre	VER	ind.ps.2s	0	LEXIQUE383
@@ -120282,7 +120146,6 @@ ressemble	ressembler	VER	ind.pres.3s	0	LEXIQUE383
 ressemble	ressembler	VER	sub.pres.1s	0	LEXIQUE383
 ressemble	ressembler	VER	sub.pres.3s	0	LEXIQUE383
 ressemblent	ressembler	VER	ind.pres.3p	12.2	LEXIQUE383
-ressembler	ressembler	VER	ind.pres.2p	15.08	LEXIQUE383
 ressembler	ressembler	VER	inf	0	LEXIQUE383
 ressemblera	ressembler	VER	ind.fut.3s	0.91	LEXIQUE383
 ressemblerai	ressembler	VER	ind.fut.1s	0.12	LEXIQUE383
@@ -120553,7 +120416,6 @@ reste	rester	VER	ind.pres.1s	0	LEXIQUE383
 reste	rester	VER	ind.pres.3s	0	LEXIQUE383
 reste	rester	VER	sub.pres.3s	0	LEXIQUE383
 restent	rester	VER	ind.pres.3p	23.48	LEXIQUE383
-restent	ruer	VER	sub.pres.3p	0.01	LEXIQUE383
 rester	rester	VER	inf	217.08	LEXIQUE383
 restera	rester	VER	ind.fut.3s	20.7	LEXIQUE383
 resterai	rester	VER	ind.fut.1s	7.83	LEXIQUE383
@@ -120632,7 +120494,6 @@ restâmes	rester	VER	ind.ps.1p	1.54	LEXIQUE383
 restât	rester	VER	sub.impf.3s	2.11	LEXIQUE383
 restèrent	rester	VER	ind.ps.3p	7.32	LEXIQUE383
 resté	rester	VER	ppas.m.s	52.77	LEXIQUE383
-restée	rester	VER	ind.impf.3p	25.08	LEXIQUE383
 restée	rester	VER	ppas.f.s	0	LEXIQUE383
 restées	rester	VER	ppas.f.p	3.81	LEXIQUE383
 restés	rester	VER	ppas.m.p	15.91	LEXIQUE383
@@ -121339,7 +121200,6 @@ reveux	revouloir	VER	ind.pres.2s	0	LEXIQUE383
 revida	revider	VER	ind.ps.3s	0.04	LEXIQUE383
 revidèrent	revider	VER	ind.ps.3p	0.04	LEXIQUE383
 reviendra	revenir	VER	ind.fut.3s	23.05	LEXIQUE383
-reviendra	revenir	VER	inf	0	LEXIQUE383
 reviendrai	revenir	VER	ind.fut.1s	19.11	LEXIQUE383
 reviendraient	revenir	VER	cond.pres.3p	1.48	LEXIQUE383
 reviendrais	revenir	VER	cond.pres.1s	3.78	LEXIQUE383
@@ -121443,7 +121303,6 @@ revoient	revoir	VER	sub.pres.3p	0	LEXIQUE383
 revoies	revoir	VER	sub.pres.2s	0.07	LEXIQUE383
 revoilà	revoilà	PRE		5.3	LEXIQUE383
 revoir	revoir	NOM	m.s	149.03	LEXIQUE383
-revoir	revoir	VER	ind.impf.3s	59.49	LEXIQUE383
 revoir	revoir	VER	inf	0	LEXIQUE383
 revois	revoir	VER	imp.pres.2s	14.04	LEXIQUE383
 revois	revoir	VER	ind.pres.1s	0	LEXIQUE383
@@ -123426,7 +123285,6 @@ rumine	ruminer	VER	ind.pres.3s	0	LEXIQUE383
 ruminement	ruminement	NOM	m.s	0.1	LEXIQUE383
 ruminements	ruminement	NOM	m.p	0.04	LEXIQUE383
 ruminent	ruminer	VER	ind.pres.3p	0.22	LEXIQUE383
-ruminer	ruminer	VER	imp.pres.2p	1.8	LEXIQUE383
 ruminer	ruminer	VER	inf	0	LEXIQUE383
 ruminerez	ruminer	VER	ind.fut.2p	0.04	LEXIQUE383
 rumineront	ruminer	VER	ind.fut.3p	0.01	LEXIQUE383
@@ -123826,7 +123684,6 @@ réaliseras	réaliser	VER	ind.fut.2s	0.17	LEXIQUE383
 réaliserez	réaliser	VER	ind.fut.2p	0.1	LEXIQUE383
 réaliserions	réaliser	VER	cond.pres.1p	0.04	LEXIQUE383
 réaliseront	réaliser	VER	ind.fut.3p	0.51	LEXIQUE383
-réalises	réaliser	VER	ind.pres.2p	2.81	LEXIQUE383
 réalises	réaliser	VER	ind.pres.2s	0	LEXIQUE383
 réalisez	réaliser	VER	imp.pres.2p	2.2	LEXIQUE383
 réalisez	réaliser	VER	ind.pres.2p	0	LEXIQUE383
@@ -123936,7 +123793,6 @@ réarrangeait	réarranger	VER	ind.impf.3s	0.04	LEXIQUE383
 réarrangeant	réarranger	VER	ppre	0.01	LEXIQUE383
 réarrangement	réarrangement	NOM	m.s	0.01	LEXIQUE383
 réarrangent	réarranger	VER	ind.pres.3p	0.04	LEXIQUE383
-réarranger	réarranger	VER	ind.pres.2p	0.15	LEXIQUE383
 réarranger	réarranger	VER	inf	0	LEXIQUE383
 réarrangé	réarranger	VER	ppas.m.s	0.01	LEXIQUE383
 réassembler	réassembler	VER	inf	0.07	LEXIQUE383
@@ -125586,7 +125442,6 @@ réprimèrent	réprimer	VER	ind.ps.3p	0.07	LEXIQUE383
 réprimé	réprimer	VER	ppas.m.s	0.82	LEXIQUE383
 réprimée	réprimer	VER	ppas.f.s	0.47	LEXIQUE383
 réprimées	réprimer	VER	ppas.f.p	0.29	LEXIQUE383
-réprimés	réprimer	VER	inf	0.3	LEXIQUE383
 réprimés	réprimer	VER	ppas.m.p	0	LEXIQUE383
 réprobateur	réprobateur	ADJ	m.s	0.91	LEXIQUE383
 réprobateurs	réprobateur	ADJ	m.p	0.14	LEXIQUE383
@@ -126839,7 +126694,6 @@ rôtit	rôtir	VER	ind.pres.3s	0.14	LEXIQUE383
 rôtit	rôtir	VER	ind.ps.3s	0	LEXIQUE383
 rôts	rôt	NOM	m.p	0.04	LEXIQUE383
 röntgens	röntgen	NOM	m.p	0.01	LEXIQUE383
-s	avoir	AUX	ind.pres.3s	0.01	LEXIQUE383
 s	s	CON		1.72	LEXIQUE383
 s	s	NOM	m.e	26.42	LEXIQUE383
 s	s	PRO		27.29	LEXIQUE383
@@ -128179,7 +128033,6 @@ saupoudrés	saupoudrer	VER	ppas.m.p	0.33	LEXIQUE383
 saur	saur	ADJ	m.s	0.21	LEXIQUE383
 saura	saura	NOM	m.s	0.01	LEXIQUE383
 saura	savoir	VER	ind.fut.3s	24.58	LEXIQUE383
-saura	savoir	VER	ind.ps.3s	0	LEXIQUE383
 saurai	savoir	VER	ind.fut.1s	13.62	LEXIQUE383
 sauraient	savoir	VER	cond.pres.3p	3.47	LEXIQUE383
 saurais	saurer	VER	ind.impf.1s	7.33	LEXIQUE383
@@ -128188,7 +128041,6 @@ saurais	savoir	VER	cond.pres.1s	11.57	LEXIQUE383
 saurais	savoir	VER	cond.pres.2s	0	LEXIQUE383
 saurait	savoir	VER	cond.pres.3s	22.91	LEXIQUE383
 sauras	savoir	VER	ind.fut.2s	9.91	LEXIQUE383
-sauras	savoir	VER	ind.ps.2s	0	LEXIQUE383
 saurer	saurer	VER	inf	0.2	LEXIQUE383
 sauret	sauret	ADJ	m.s	0.14	LEXIQUE383
 saurets	sauret	ADJ	m.p	0.1	LEXIQUE383
@@ -131073,7 +130925,6 @@ soigne	soigner	VER	imp.pres.2s	6.95	LEXIQUE383
 soigne	soigner	VER	ind.pres.1s	0	LEXIQUE383
 soigne	soigner	VER	ind.pres.3s	0	LEXIQUE383
 soignent	soigner	VER	ind.pres.3p	0.95	LEXIQUE383
-soigner	saler	VER	ind.pres.2p	0.01	LEXIQUE383
 soigner	soigner	VER	inf	20.23	LEXIQUE383
 soignera	soigner	VER	ind.fut.3s	0.86	LEXIQUE383
 soignerai	soigner	VER	ind.fut.1s	0.55	LEXIQUE383
@@ -131407,9 +131258,7 @@ sommes	somme	NOM	f.p	6.77	LEXIQUE383
 sommes	sommer	VER	ind.pres.2s	0.33	LEXIQUE383
 sommes	sommer	VER	sub.pres.2s	0	LEXIQUE383
 sommes	être	AUX	ind.pres.1p	104.36	LEXIQUE383
-sommes	être	VER	imp.pres.1p	212.38	LEXIQUE383
 sommes	être	VER	ind.pres.1p	0	LEXIQUE383
-sommes	être	VER	sub.pres.2s	0	LEXIQUE383
 sommet	sommet	NOM	m.s	27	LEXIQUE383
 sommets	sommet	NOM	m.p	5.47	LEXIQUE383
 sommier	sommier	NOM	m.s	3.55	LEXIQUE383
@@ -134719,9 +134568,7 @@ suinté	suinter	VER	ppas.m.s	0.14	LEXIQUE383
 suis	suivre	VER	imp.pres.2s	1201.68	LEXIQUE383
 suis	suivre	VER	ind.pres.1s	0	LEXIQUE383
 suis	être	AUX	ind.pres.1s	916.38	LEXIQUE383
-suis	être	VER	imp.pres.2s	339.24	LEXIQUE383
 suis	être	VER	ind.pres.1s	0	LEXIQUE383
-suis	être	VER	ind.pres.2s	0	LEXIQUE383
 suisse	suisse	ADJ	e.s	5.27	LEXIQUE383
 suisse	suisse	NOM	e.s	0.62	LEXIQUE383
 suisses	suisse	ADJ	e.p	2.34	LEXIQUE383
@@ -135032,7 +134879,6 @@ supplie	supplier	VER	ind.pres.1s	0	LEXIQUE383
 supplie	supplier	VER	ind.pres.3s	0	LEXIQUE383
 supplie	supplier	VER	sub.pres.1s	0	LEXIQUE383
 supplient	supplier	VER	ind.pres.3p	0.43	LEXIQUE383
-supplier	supplier	VER	ind.pres.2p	4.58	LEXIQUE383
 supplier	supplier	VER	inf	0	LEXIQUE383
 suppliera	supplier	VER	ind.fut.3s	0.05	LEXIQUE383
 supplierai	supplier	VER	ind.fut.1s	0.23	LEXIQUE383
@@ -135456,7 +135302,6 @@ surfe	surfer	VER	imp.pres.2s	1.57	LEXIQUE383
 surfe	surfer	VER	ind.pres.1s	0	LEXIQUE383
 surfe	surfer	VER	ind.pres.3s	0	LEXIQUE383
 surfent	surfer	VER	ind.pres.3p	0.04	LEXIQUE383
-surfer	surfer	VER	imp.pres.2p	2.75	LEXIQUE383
 surfer	surfer	VER	inf	0	LEXIQUE383
 surferas	surfer	VER	ind.fut.2s	0.01	LEXIQUE383
 surfes	surfer	VER	ind.pres.2s	0.05	LEXIQUE383
@@ -137110,7 +136955,6 @@ tache	tacher	VER	imp.pres.2s	1.12	LEXIQUE383
 tache	tacher	VER	ind.pres.1s	0	LEXIQUE383
 tache	tacher	VER	ind.pres.3s	0	LEXIQUE383
 tachent	tacher	VER	ind.pres.3p	0.06	LEXIQUE383
-tacher	tacher	VER	ind.pres.2p	1.06	LEXIQUE383
 tacher	tacher	VER	inf	0	LEXIQUE383
 tachera	tacher	VER	ind.fut.3s	0.12	LEXIQUE383
 tacherai	tacher	VER	ind.fut.1s	0.09	LEXIQUE383
@@ -137621,7 +137465,6 @@ tapement	tapement	NOM	m.s	0.01	LEXIQUE383
 tapements	tapement	NOM	m.p	0.07	LEXIQUE383
 tapenade	tapenade	NOM	f.s	0.01	LEXIQUE383
 tapent	taper	VER	ind.pres.3p	1.68	LEXIQUE383
-taper	taper	VER	ind.pres.2p	19.61	LEXIQUE383
 taper	taper	VER	inf	0	LEXIQUE383
 tapera	taper	VER	ind.fut.3s	0.27	LEXIQUE383
 taperai	taper	VER	ind.fut.1s	0.36	LEXIQUE383
@@ -138528,7 +138371,6 @@ tente	tenter	VER	ind.pres.1s	0	LEXIQUE383
 tente	tenter	VER	ind.pres.3s	0	LEXIQUE383
 tente	tenter	VER	sub.pres.3s	0	LEXIQUE383
 tentent	tenter	VER	ind.pres.3p	2.02	LEXIQUE383
-tenter	tenter	VER	ind.pres.2p	26.42	LEXIQUE383
 tenter	tenter	VER	inf	0	LEXIQUE383
 tentera	tenter	VER	ind.fut.3s	0.82	LEXIQUE383
 tenterai	tenter	VER	ind.fut.1s	0.35	LEXIQUE383
@@ -140514,7 +140356,6 @@ tournemain	tournemain	NOM	m.s	0.4	LEXIQUE383
 tournements	tournement	NOM	m.p	0.04	LEXIQUE383
 tournent	tourner	VER	ind.pres.3p	8.66	LEXIQUE383
 tournent	tourner	VER	sub.pres.3p	0	LEXIQUE383
-tourner	tourner	VER	ind.pres.2p	59.91	LEXIQUE383
 tourner	tourner	VER	inf	0	LEXIQUE383
 tournera	tourner	VER	ind.fut.3s	1.2	LEXIQUE383
 tournerai	tourner	VER	ind.fut.1s	0.52	LEXIQUE383
@@ -141264,7 +141105,6 @@ transforme	transformer	VER	ind.pres.1s	0	LEXIQUE383
 transforme	transformer	VER	ind.pres.3s	0	LEXIQUE383
 transforme	transformer	VER	sub.pres.3s	0	LEXIQUE383
 transforment	transformer	VER	ind.pres.3p	1.79	LEXIQUE383
-transformer	transformer	VER	ind.impf.3s	12.9	LEXIQUE383
 transformer	transformer	VER	inf	0	LEXIQUE383
 transformera	transformer	VER	ind.fut.3s	0.5	LEXIQUE383
 transformerai	transformer	VER	ind.fut.1s	0.21	LEXIQUE383
@@ -141570,7 +141410,6 @@ transporte	transporter	VER	ind.pres.3s	0	LEXIQUE383
 transporte	transporter	VER	sub.pres.3s	0	LEXIQUE383
 transportent	transporter	VER	ind.pres.3p	0.94	LEXIQUE383
 transportent	transporter	VER	sub.pres.3p	0	LEXIQUE383
-transporter	transporter	VER	ind.pres.2p	8.83	LEXIQUE383
 transporter	transporter	VER	inf	0	LEXIQUE383
 transportera	transporter	VER	ind.fut.3s	0.25	LEXIQUE383
 transporteraient	transporter	VER	cond.pres.3p	0.1	LEXIQUE383
@@ -143119,7 +142958,6 @@ trouverions	trouver	VER	cond.pres.1p	0.68	LEXIQUE383
 trouverons	trouver	VER	ind.fut.1p	4.81	LEXIQUE383
 trouveront	trouver	VER	ind.fut.3p	5.22	LEXIQUE383
 trouves	trouver	VER	ind.pres.2s	43.98	LEXIQUE383
-trouves	trouver	VER	sub.pres.1p	0	LEXIQUE383
 trouves	trouver	VER	sub.pres.2s	0	LEXIQUE383
 trouveur	trouveur	NOM	m.s	0.01	LEXIQUE383
 trouveurs	trouveur	NOM	m.p	0.04	LEXIQUE383
@@ -143144,7 +142982,6 @@ trouvées	trouvé	ADJ	f.p	0.16	LEXIQUE383
 trouvés	trouver	VER	ppas.m.p	9.24	LEXIQUE383
 trouvés	trouvé	ADJ	m.p	0.94	LEXIQUE383
 trouèrent	trouer	VER	ind.ps.3p	0.04	LEXIQUE383
-troué	trouer	VER	imp.pres.2s	1.43	LEXIQUE383
 troué	trouer	VER	ppas.m.s	0	LEXIQUE383
 troué	troué	ADJ	m.s	1.25	LEXIQUE383
 trouée	trouer	VER	ppas.f.s	1.24	LEXIQUE383
@@ -145403,7 +145240,6 @@ varlet	varlet	NOM	m.s	0.04	LEXIQUE383
 varlope	varlope	NOM	f.s	0.2	LEXIQUE383
 varon	varon	NOM	m.s	0.06	LEXIQUE383
 varsovien	varsovien	NOM	m.s	0.05	LEXIQUE383
-vas	aller	VER	imp.pres.2s	572.78	LEXIQUE383
 vas	aller	VER	ind.pres.2s	0	LEXIQUE383
 vasa	vaser	VER	ind.ps.3s	0.11	LEXIQUE383
 vasais	vasais	NOM	m.e	0.1	LEXIQUE383
@@ -146124,7 +145960,6 @@ versification	versification	NOM	f.s	0.01	LEXIQUE383
 versifier	versifier	VER	inf	0.04	LEXIQUE383
 versifiées	versifié	ADJ	f.p	0.07	LEXIQUE383
 version	version	NOM	f.s	15.05	LEXIQUE383
-versions	verser	VER	ind.impf.1s	0.01	LEXIQUE383
 versions	version	NOM	f.p	1.47	LEXIQUE383
 verso	verso	NOM	m.s	1.22	LEXIQUE383
 versons	verser	VER	imp.pres.1p	0.18	LEXIQUE383
@@ -146600,7 +146435,6 @@ viennoises	viennois	ADJ	f.p	0.28	LEXIQUE383
 viens	venir	VER	imp.pres.2s	535.65	LEXIQUE383
 viens	venir	VER	ind.pres.1s	0	LEXIQUE383
 viens	venir	VER	ind.pres.2s	0	LEXIQUE383
-viens	venir	VER	inf	0	LEXIQUE383
 vient	venir	VER	ind.pres.3s	279.23	LEXIQUE383
 vierge	vierge	ADJ	e.s	23.02	LEXIQUE383
 vierge	vierge	NOM	f.s	21.3	LEXIQUE383
@@ -146858,7 +146692,6 @@ viols	viol	NOM	m.p	1.59	LEXIQUE383
 violâtre	violâtre	ADJ	e.s	0.23	LEXIQUE383
 violâtres	violâtre	ADJ	e.p	0.2	LEXIQUE383
 violé	violer	VER	ppas.m.s	6.17	LEXIQUE383
-violée	violer	VER	ind.impf.3p	7.48	LEXIQUE383
 violée	violer	VER	ppas.f.s	0	LEXIQUE383
 violées	violer	VER	ppas.f.p	1.53	LEXIQUE383
 violés	violer	VER	ppas.m.p	0.55	LEXIQUE383
@@ -146896,8 +146729,6 @@ vire	virer	VER	sub.pres.3s	0	LEXIQUE383
 virement	virement	NOM	m.s	0.81	LEXIQUE383
 virements	virement	NOM	m.p	0.24	LEXIQUE383
 virent	virer	VER	ind.pres.3p	6.83	LEXIQUE383
-virer	virer	VER	imp.pres.2p	16.25	LEXIQUE383
-virer	virer	VER	ind.pres.2p	0	LEXIQUE383
 virer	virer	VER	inf	0	LEXIQUE383
 virera	virer	VER	ind.fut.3s	0.26	LEXIQUE383
 virerai	virer	VER	ind.fut.1s	0.1	LEXIQUE383
@@ -147339,7 +147170,6 @@ vivrais	vivre	VER	cond.pres.2s	0	LEXIQUE383
 vivrait	vivre	VER	cond.pres.3s	2.97	LEXIQUE383
 vivras	vivre	VER	ind.fut.2s	2.05	LEXIQUE383
 vivre	vivre	NOM	m.s	4.35	LEXIQUE383
-vivre	vivre	VER	ind.impf.3s	202.67	LEXIQUE383
 vivre	vivre	VER	inf	0	LEXIQUE383
 vivres	vivre	NOM	m.p	7.13	LEXIQUE383
 vivrez	vivre	VER	ind.fut.2p	1.83	LEXIQUE383
@@ -147444,7 +147274,6 @@ voile	voiler	VER	imp.pres.2s	1.87	LEXIQUE383
 voile	voiler	VER	ind.pres.1s	0	LEXIQUE383
 voile	voiler	VER	ind.pres.3s	0	LEXIQUE383
 voilent	voiler	VER	ind.pres.3p	0.3	LEXIQUE383
-voiler	voiler	VER	ind.pres.2p	1.12	LEXIQUE383
 voiler	voiler	VER	inf	0	LEXIQUE383
 voilera	voiler	VER	ind.fut.3s	0.07	LEXIQUE383
 voileront	voiler	VER	ind.fut.3p	0.01	LEXIQUE383
@@ -149444,7 +149273,6 @@ zézettes	zézette	NOM	f.p	0.14	LEXIQUE383
 échappements	échappement	NOM	m.p	0.12	LEXIQUE383
 échappent	échapper	VER	ind.pres.3p	5.27	LEXIQUE383
 échappent	échapper	VER	sub.pres.3p	0	LEXIQUE383
-échapper	échapper	VER	ind.pres.2p	43.88	LEXIQUE383
 échapper	échapper	VER	inf	0	LEXIQUE383
 échappera	échapper	VER	ind.fut.3s	2.02	LEXIQUE383
 échapperai	échapper	VER	ind.fut.1s	0.23	LEXIQUE383
@@ -149521,7 +149349,6 @@ zézettes	zézette	NOM	f.p	0.14	LEXIQUE383
 échauffements	échauffement	NOM	m.p	0.09	LEXIQUE383
 échauffent	échauffer	VER	ind.pres.3p	0.19	LEXIQUE383
 échauffent	échauffer	VER	sub.pres.3p	0	LEXIQUE383
-échauffer	échauffer	VER	ind.pres.2p	1.14	LEXIQUE383
 échauffer	échauffer	VER	inf	0	LEXIQUE383
 échauffez	échauffer	VER	imp.pres.2p	0.2	LEXIQUE383
 échauffez	échauffer	VER	ind.pres.2p	0	LEXIQUE383
@@ -152220,7 +152047,6 @@ zézettes	zézette	NOM	f.p	0.14	LEXIQUE383
 épie	épier	VER	ind.pres.3s	0	LEXIQUE383
 épie	épier	VER	sub.pres.3s	0	LEXIQUE383
 épient	épier	VER	ind.pres.3p	0.32	LEXIQUE383
-épier	épier	VER	imp.pres.2p	2.69	LEXIQUE383
 épier	épier	VER	inf	0	LEXIQUE383
 épierais	épier	VER	cond.pres.1s	0.1	LEXIQUE383
 épierait	épier	VER	cond.pres.3s	0.04	LEXIQUE383
@@ -153037,8 +152863,6 @@ zézettes	zézette	NOM	f.p	0.14	LEXIQUE383
 étaie	étayer	VER	ind.pres.3s	0	LEXIQUE383
 étaient	être	AUX	ind.impf.3p	224.58	LEXIQUE383
 étaient	être	VER	ind.impf.3p	365.64	LEXIQUE383
-étaient	être	VER	ind.pres.3p	0	LEXIQUE383
-étaient	être	VER	sub.pres.3p	0	LEXIQUE383
 étain	étain	NOM	m.s	2.73	LEXIQUE383
 étains	étain	NOM	m.p	0.19	LEXIQUE383
 étais	étai	NOM	m.p	0.22	LEXIQUE383
@@ -154287,7 +154111,6 @@ zézettes	zézette	NOM	f.p	0.14	LEXIQUE383
 éwé	éwé	NOM	m.s	0.04	LEXIQUE383
 éwés	éwé	ADJ	m.p	0.07	LEXIQUE383
 êtes	être	AUX	ind.pres.2p	156.06	LEXIQUE383
-êtes	être	VER	imp.pres.2p	599.21	LEXIQUE383
 êtes	être	VER	ind.pres.2p	0	LEXIQUE383
 être	être	AUX	inf	705.28	LEXIQUE383
 être	être	NOM	m.s	78.07	LEXIQUE383

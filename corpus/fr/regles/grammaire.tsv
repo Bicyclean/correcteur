@@ -62,3 +62,43 @@ GRAM_ACCORD_ADJECTIF	Une ⟦petit→petite⟧ fille joue.	CONTRIB-INIT
 GRAM_NEGATION_NE	On ⟦a→n’a⟧ rien vu.	CONTRIB-INIT
 GRAM_ACCORD_DETERMINANT	Quelle est ta couleur{fine}?	CONTRIB-INIT
 GRAM_ACCORD_ADJECTIF	Elle est tout le temps fatiguée.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Il lui dit bonjour.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Je n’ai rien vu.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Vous abandonnez trop vite.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Le professeur corrige les copies.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Un mort repose sous cette pierre.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Elle pense à sa propre maison.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Il y eut une double vérification.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Je voudrais la revoir demain.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Il faut les avoir lus avant lundi.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Au fur et à mesure, tout devient clair.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Le sept du mois, il part en voyage.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Elle se souvient de la vue d’ensemble.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Une fois arrivés, ils dînèrent.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Le mouvement giratoire continue.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	La sixième année commence.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Il habite la rue Saint Michel.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Il portait un chapeau haute forme.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Les voyageuses entrant dans la gare se pressaient.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Il parlait d’une région du pays éloignée de tout.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Elle montrait une patience, un calme remarquables.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Les pièces devinrent tout d’un coup silencieuses.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Il y avait une table ⟦ronds→ronde⟧ au salon.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	C’est lui qui les fait rire.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Il pèse le pour et le contre.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Voici la joie que nous donne cette nouvelle.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Il nous reconnaît, nous salue et repart.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	La fatigue, l’ennui gagnaient tout le monde.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Nous ⟦mange→mangeons⟧ tôt le soir.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Chacune d’elles racontait une histoire.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ceux qui étaient près d’elle riaient.	CONTRIB-INIT
+GRAM_NEGATION_NE	C’est le plus beau film qu’elle ait jamais vu.	CONTRIB-INIT
+GRAM_NEGATION_NE	Qui sait s’il reviendra jamais{fine}?	CONTRIB-INIT
+GRAM_NEGATION_NE	Il partit sans qu’on eût rien remarqué.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Cette soirée fut la pire de toutes.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Mes amis me parlèrent longtemps.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Il avait ce je ne sais quoi de touchant.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Elle connaît mille et une manières de cuisiner.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	⟦Le présence→La présence⟧ de son frère le rassurait.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elle était sur le seuil de la porte.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Le mot était entre guillemets.	CONTRIB-INIT

@@ -63,23 +63,109 @@ fn same_case(like: &str, s: &str) -> String {
     }
 }
 
+/// Vrai si l'adjectif placé après le groupe peut se rapporter à un autre nom :
+/// celui que le groupe complète (« une partie du monde éloignée »), ou une
+/// suite de noms coordonnés (« une animation, un zèle extraordinaires »).
+fn other_head(ctx: &Context, np: &NounPhrase, adj: &Form) -> bool {
+    let agrees_with = |i: usize| {
+        ctx.form(i).is_some_and(|f| {
+            f.readings.iter().filter(|r| r.pos == Pos::Nom).any(|n| {
+                n.gn().is_some_and(|gn| {
+                    adj.readings
+                        .iter()
+                        .filter(|r| adjectival(r))
+                        .any(|r| reading_gn(r).is_some_and(|g| g.compatible(gn)))
+                })
+            })
+        })
+    };
+    // Préposition « de » devant le groupe, ou contractée dans « du », « des ».
+    if let Some(before) = ctx.prev(np.det) {
+        let head_end = match lower(ctx, np.det) {
+            "du" | "des" => Some(before),
+            _ if matches!(lower(ctx, before), "de" | "d’" | "d'") => ctx.prev(before),
+            _ => None,
+        };
+        // Le nom complété, éventuellement suivi d'un adjectif.
+        if head_end.is_some_and(|h| agrees_with(h) || ctx.prev(h).is_some_and(agrees_with)) {
+            return true;
+        }
+    }
+    // Coordination : un adjectif pluriel après « …, un zèle » ou « … et un zèle ».
+    let plural = adj
+        .readings
+        .iter()
+        .filter(|r| adjectival(r))
+        .any(|r| r.gn().is_some_and(|g| g.number == Some('p')));
+    let coordinated = np.det.checked_sub(1).is_some_and(|b| {
+        matches!(lower(ctx, b), "et" | "ou" | "ni")
+            || ctx.text[ctx.words[b].end..ctx.words[np.det].start].contains(',')
+    });
+    plural && coordinated
+}
+
+/// Vrai si le mot `adj` peut être un adjectif accordé avec le nom qui le suit.
+fn follows_noun(ctx: &Context, adj: usize) -> bool {
+    let (Some(fa), Some(fnext)) = (ctx.form(adj), ctx.next(adj).and_then(|n| ctx.form(n))) else {
+        return false;
+    };
+    fnext
+        .readings
+        .iter()
+        .filter(|r| r.pos == Pos::Nom)
+        .any(|n| {
+            n.gn().is_some_and(|gn| {
+                fa.readings
+                    .iter()
+                    .filter(|r| adjectival(r))
+                    .any(|r| reading_gn(r).is_some_and(|g| g.compatible(gn)))
+            })
+        })
+}
+
+/// Mot élidé (« d’ », « l’ ») : jamais un nom.
+fn elided(ctx: &Context, i: usize) -> bool {
+    ctx.words[i].text.ends_with(['’', '\''])
+}
+
 /// Genre d'un nom, d'après toutes les formes de son lemme ; `None` s'il
 /// s'emploie aux deux genres (« un/une élève », « le/la somme ») ou si le
-/// lexique ne le précise pas. Les lectures sans genre sont ignorées quand
-/// d'autres formes en donnent un (Lexique note « maison » sans genre au
-/// singulier mais au féminin au pluriel).
+/// lexique ne le précise pas.
+///
+/// Lexique note « e » (épicène) des noms qui ne le sont pas (« maison » au
+/// singulier, féminin au pluriel) : une forme « e » ne compte pour l'autre
+/// genre que si le lemme a, au même nombre, une forme genrée d'orthographe
+/// différente (« professeur » à côté de « professeure »).
 pub(super) fn noun_gender(ctx: &Context, lemma: &str) -> Option<char> {
     if ctx.data.two_gender_nouns.contains(lemma) {
         return None;
     }
+    let nouns: Vec<(&str, &Reading)> = ctx
+        .lexicon
+        .lemma_forms(lemma)
+        .filter(|(_, r)| r.pos == Pos::Nom)
+        .collect();
     let (mut m, mut f) = (false, false);
-    for r in ctx.lexicon.lemma_readings(lemma) {
-        if r.pos == Pos::Nom {
-            match r.gn().and_then(|g| g.gender) {
-                Some('m') => m = true,
-                Some(_) => f = true,
-                None => {}
+    for &(text, r) in &nouns {
+        match r.gn().and_then(|g| g.gender) {
+            Some('m') => m = true,
+            Some(_) => f = true,
+            None if r.traits.starts_with('e') => {
+                let number = r.gn().and_then(|g| g.number);
+                for &(t2, r2) in &nouns {
+                    let Some(g2) = r2.gn() else { continue };
+                    let same_number =
+                        number.is_none() || g2.number.is_none() || g2.number == number;
+                    if t2 != text && same_number {
+                        match g2.gender {
+                            Some('m') => f = true,
+                            Some(_) => m = true,
+                            None => {}
+                        }
+                    }
+                }
             }
+            None => {}
         }
     }
     match (m, f) {
@@ -95,6 +181,24 @@ fn reading_gn(r: &Reading) -> Option<Gn> {
     let mut gn = r.gn()?;
     if r.lemma.ends_with(['s', 'x', 'z']) {
         gn.number = None;
+    }
+    Some(gn)
+}
+
+/// Genre et nombre d'une lecture adjectivale. Un adjectif en -e dont le
+/// lexique n'atteste qu'un genre est épicène : Lexique ne note souvent que la
+/// forme rencontrée (« giratoire » féminin seulement, « sixième » masculin).
+fn adjective_gn(ctx: &Context, r: &Reading) -> Option<Gn> {
+    let mut gn = reading_gn(r)?;
+    if gn.gender.is_some() && r.lemma.ends_with('e') {
+        let other = ctx.lexicon.lemma_readings(&r.lemma).any(|x| {
+            x.pos == r.pos
+                && x.gn()
+                    .is_some_and(|g| g.gender.is_some() && g.gender != gn.gender)
+        });
+        if !other {
+            gn.gender = None;
+        }
     }
     Some(gn)
 }
@@ -219,8 +323,10 @@ fn find_noun_phrase<'c>(ctx: &'c Context, det: usize) -> Option<NounPhrase<'c>> 
             break;
         };
         let Some(fnext) = ctx.form(n) else { break };
-        let next_is_plain_noun =
-            fnext.has_pos(Pos::Nom) && !fnext.has(|r| r.pos == Pos::Adj || r.is_finite_verb());
+        let next_is_plain_noun = fnext.has_pos(Pos::Nom)
+            && !fnext.has(|r| r.pos == Pos::Adj || r.is_finite_verb())
+            && !elided(ctx, n)
+            && !is_class(ctx, n, "clitique");
         if fj.has_pos(Pos::Adj) && next_is_plain_noun {
             pre.push(j);
             j = n;
@@ -231,12 +337,50 @@ fn find_noun_phrase<'c>(ctx: &'c Context, det: usize) -> Option<NounPhrase<'c>> 
 
     let noun = j;
     let nw = &ctx.words[noun];
-    if nw.ignored || nw.has_digit || (is_capitalized(nw.text) && !nw.sentence_start) {
+    if nw.ignored
+        || nw.has_digit
+        || (is_capitalized(nw.text) && !nw.sentence_start)
+        || elided(ctx, noun)
+        // « ce je ne sais quoi », « mes amis me parlent » : pronom, pas un nom.
+        || is_class(ctx, noun, "clitique")
+        || ctx.data.subjects.contains_key(nw.lower.as_str())
+    {
         return None;
     }
     let noun_form = ctx.form(noun)?;
-    // « un peu », « le mieux » : mot surtout adverbial, pas un nom.
-    if !noun_form.has_pos(Pos::Nom) || noun_form.has_pos(Pos::Adv) {
+    // « un peu », « le mieux » : mot surtout adverbial, pas un nom. « le
+    // sept », « les mille » : nombre.
+    if !noun_form.has_pos(Pos::Nom) || noun_form.has_pos(Pos::Adv) || noun_form.has_pos(Pos::Det) {
+        return None;
+    }
+    // « pour la revoir », « les avoir vus », « qui les fait rire » : pronom
+    // complément devant un verbe.
+    let object_pronoun = pronoun_reading && is_class(ctx, det, "clitique");
+    if object_pronoun
+        && noun_form.has(|r| r.pos.is_verb() && (r.is_infinitive() || r.is_finite_verb()))
+    {
+        return None;
+    }
+    // « sa propre personne », « une double enquête » : adjectif devant un nom
+    // que la recherche des adjectifs antéposés n'a pas retenu.
+    if noun_form.has_pos(Pos::Adj) && follows_noun(ctx, noun) {
+        return None;
+    }
+    // « la pire de toutes », « une étrange » : adjectif employé comme nom,
+    // accordé avec le déterminant. « la portant » : participe présent.
+    let adjective_agrees = noun_form.readings.iter().any(|r| {
+        (r.pos == Pos::Adj && reading_gn(r).is_some_and(|g| g.compatible(determiner.gn)))
+            || (r.pos.is_verb() && r.traits == "ppre")
+    });
+    if adjective_agrees {
+        return None;
+    }
+    // « mille et une manières » : locution figée.
+    if lower(ctx, det) == "une" && ctx.prev(det).is_some_and(|p| lower(ctx, p) == "et") {
+        return None;
+    }
+    // « des contre » : préposition.
+    if noun_form.has_pos(Pos::Pre) {
         return None;
     }
     // « Quelle est ta couleur ? » : forme conjuguée d'être ou d'avoir, pas le
@@ -249,10 +393,17 @@ fn find_noun_phrase<'c>(ctx: &'c Context, det: usize) -> Option<NounPhrase<'c>> 
     let adverbial = ctx
         .prev(det)
         .is_some_and(|p| matches!(lower(ctx, p), "tout" | "toute" | "tous" | "toutes"));
+    // « une fois arrivés » : le mot suivant se rapporte au sujet, pas à « fois ».
+    let adverbial = adverbial || is_class(ctx, noun, "nom_adverbial");
     let post = ctx.next(noun).filter(|&p| {
+        let pw = &ctx.words[p];
         !adverbial
+            && !(is_capitalized(pw.text) && !pw.sentence_start)
             && !ctx.data.determiners.contains_key(lower(ctx, p))
             && !is_class(ctx, p, "clitique")
+            // « un chapeau haute forme » : l'adjectif se rapporte au nom suivant,
+            // avec lequel il s'accorde.
+            && !follows_noun(ctx, p)
             && ctx.form(p).is_some_and(|f| {
                 // « les tables pendant que » : préposition, pas adjectif.
                 f.has(adjectival)
@@ -349,6 +500,10 @@ fn noun_phrase(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     };
     let d = np.determiner.gn;
     let nouns = noun_gns(ctx, noun_form);
+    // Ni genre ni nombre connus (« au fur ») : rien à vérifier.
+    if nouns.is_empty() {
+        return;
+    }
     let (start, end) = (ctx.words[np.det].start, ctx.words[np.noun].end);
     let found = &ctx.text[start..end];
 
@@ -361,11 +516,20 @@ fn noun_phrase(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
                     .readings
                     .iter()
                     .filter(|r| adjectival(r))
-                    .any(|r| reading_gn(r).is_some_and(|g| g.compatible(target)));
-                if ok {
+                    .any(|r| adjective_gn(ctx, r).is_some_and(|g| g.compatible(target)));
+                // « les paysannes entrant » : participe présent, invariable.
+                if ok || f.has(|r| r.pos.is_verb() && r.traits == "ppre") {
+                    continue;
+                }
+                // L'adjectif qui suit peut se rapporter à un autre nom.
+                if Some(adj) == np.post && other_head(ctx, &np, f) {
                     continue;
                 }
                 let suggestions = agree_forms(ctx, f, adjectival, target);
+                // Pas de forme accordée connue : l'analyse est sans doute fausse.
+                if suggestions.is_empty() {
+                    continue;
+                }
                 let w = &ctx.words[adj];
                 let mut issue = RawIssue::new(w.start, w.end, ADJECTIVE)
                     .arg(w.text)
@@ -487,6 +651,13 @@ fn simple_subject(ctx: &Context, verb: usize) -> Option<FoundSubject> {
     }
     if let Some(p) = ctx.prev(k) {
         if let Some(s) = ctx.data.subjects.get(lower(ctx, p)) {
+            // « chacune d’elles », « près d’elle » : pronom après une préposition.
+            let after_preposition = ctx
+                .prev(p)
+                .is_some_and(|q| ctx.form(q).is_some_and(|f| f.has_pos(Pos::Pre)));
+            if after_preposition {
+                return None;
+            }
             if !ctx.words[p].compound_part {
                 chain.reverse();
                 return Some(from_pronoun(s, p, chain));
@@ -550,6 +721,21 @@ fn subject_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     if !subject.pronoun && form.has(adjectival) {
         return;
     }
+    // « que nous montre le film », « il nous voit, nous aborde » : hors du début
+    // de phrase, « nous » et « vous » devant un verbe qui ne s'accorde pas sont
+    // plutôt compléments.
+    let start = &ctx.words[subject.start];
+    if matches!(start.lower.as_str(), "nous" | "vous") && !start.sentence_start {
+        return;
+    }
+    // « la vulgarité, l’utilité reprenaient » : sujets juxtaposés.
+    let juxtaposed = subject.start.checked_sub(1).is_some_and(|b| {
+        ctx.text[ctx.words[b].end..start.start].contains(',')
+            && ctx.form(b).is_some_and(|f| f.has_pos(Pos::Nom))
+    });
+    if !subject.pronoun && juxtaposed {
+        return;
+    }
     if finite
         .iter()
         .any(|r| r.person() == Some(subject.person.as_str()))
@@ -611,6 +797,10 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     }
     let Some(t) = t else { return };
     let Some(ft) = ctx.form(t) else { return };
+    // « elle était sur le pas », « comme s’il était entre guillemets » : préposition.
+    if ft.has_pos(Pos::Pre) {
+        return;
+    }
     let w = &ctx.words[t];
     let has_object = subject.chain.iter().any(|&c| is_class(ctx, c, "objet"));
 
@@ -756,6 +946,16 @@ fn negation(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         .any(|&c| matches!(lower(ctx, c), "ne" | "n’"))
     {
         return;
+    }
+    // Sens positif de « jamais », « rien », « aucun »… : « le mieux qu’elle eût
+    // jamais vu », « s’il revient jamais », « sans qu’on eût rien dit ».
+    if lower(ctx, n) != "pas" {
+        let before = ctx.prev(subject.start).map(|b| lower(ctx, b));
+        let positive = matches!(before, Some("que" | "qu’" | "qu'" | "si" | "s’" | "s'"))
+            || (subject.start.saturating_sub(6)..subject.start).any(|k| lower(ctx, k) == "sans");
+        if positive {
+            return;
+        }
     }
     let first = subject.chain.first().copied().unwrap_or(i);
     let (start, end) = (ctx.words[first].start, ctx.words[i].end);

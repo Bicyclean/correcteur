@@ -1,6 +1,6 @@
 //! Mots absents du lexique.
 
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 use super::{Context, RawIssue};
 use crate::suggest::suggest;
@@ -10,7 +10,14 @@ pub const UNKNOWN: &str = "ORTH_MOT_INCONNU";
 
 pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
     // Un mot inconnu répété dans le texte n'est analysé qu'une fois.
-    let mut cache: HashMap<&str, Vec<String>> = HashMap::new();
+    let mut cache: HashMap<&str, Option<Vec<String>>> = HashMap::new();
+    // Noms propres du texte : mots à majuscule employés en milieu de phrase.
+    let names: HashSet<&str> = ctx
+        .words
+        .iter()
+        .filter(|w| !w.sentence_start && is_capitalized(w.text))
+        .map(|w| w.text)
+        .collect();
     for w in &ctx.words {
         if w.ignored
             || w.has_digit
@@ -33,8 +40,12 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
         if is_all_upper(w.text) && ctx.lexicon.find(&w.norm).is_none() {
             continue;
         }
-        // Noms propres probables : majuscule hors début de phrase.
-        if is_capitalized(w.text) && !w.sentence_start && !ctx.options.check_proper_nouns {
+        // Noms propres probables : majuscule hors début de phrase, ou en début
+        // de phrase quand le texte emploie le même mot ailleurs (« Raoul »).
+        if is_capitalized(w.text)
+            && (!w.sentence_start || names.contains(w.text))
+            && !ctx.options.check_proper_nouns
+        {
             continue;
         }
         if ctx.lexicon.find(&w.norm).is_some()
@@ -43,9 +54,8 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
         {
             continue;
         }
-        let suggestions = cache
-            .entry(w.norm.as_str())
-            .or_insert_with(|| {
+        let suggestions = cache.entry(w.norm.as_str()).or_insert_with(|| {
+            (!known_variant(ctx, &w.lower)).then(|| {
                 suggest(
                     ctx.lexicon,
                     &ctx.data.elisions,
@@ -53,9 +63,26 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
                     ctx.options.max_suggestions,
                 )
             })
-            .clone();
+        });
+        let Some(suggestions) = suggestions.clone() else {
+            continue;
+        };
         let mut issue = RawIssue::new(w.start, w.end, UNKNOWN).arg(w.text);
         issue.suggestions = suggestions;
         out.push(issue);
     }
+}
+
+/// Mot absent du lexique mais correct : forme conjuguée rare que les tables de
+/// conjugaison produisent (« rétablît »), graphie ancienne à apostrophe
+/// (« grand’mère », « entr’ouvrir »), ou élision restée collée (« va-t’en »).
+fn known_variant(ctx: &Context, lower: &str) -> bool {
+    let known = |w: &str| ctx.lexicon.find(w).is_some() || ctx.data.conjugator.is_form(w);
+    if let Some((head, tail)) = lower.split_once('’') {
+        let elision = format!("{head}’");
+        return (ctx.data.elisions.contains(&elision) && known(tail))
+            || known(&format!("{head}-{tail}"))
+            || known(&format!("{head}{tail}"));
+    }
+    lower.chars().count() >= 4 && ctx.data.conjugator.is_form(lower)
 }

@@ -9,6 +9,7 @@
 use std::collections::{HashMap, HashSet};
 
 use crate::data::{data_lines, DataError};
+use crate::lexicon::skeleton;
 use crate::text::normalize_apostrophes;
 
 /// Une case : une ou plusieurs formes admises, ou rien (verbe défectif).
@@ -339,6 +340,8 @@ pub struct Conjugator {
     /// Infinitif → nom du modèle.
     verbs: HashMap<String, String>,
     etre: HashSet<String>,
+    /// (squelette de l'infinitif, infinitif), trié : verbes par début de mot.
+    by_skeleton: Vec<(String, String)>,
 }
 
 impl Conjugator {
@@ -359,11 +362,59 @@ impl Conjugator {
         let etre = data_lines(etre)
             .map(|(_, l)| l.trim().to_string())
             .collect();
+        let mut by_skeleton: Vec<(String, String)> =
+            map.keys().map(|v| (skeleton(v), v.clone())).collect();
+        by_skeleton.sort();
         Ok(Conjugator {
             models,
             verbs: map,
             etre,
+            by_skeleton,
         })
+    }
+
+    /// Vrai si `word` (en minuscules) est une forme conjuguée d'un verbe connu,
+    /// même absente du lexique (« rétablît », « embarquerons »). Participes et
+    /// infinitifs exclus : le lexique les a, et un participe de verbe rare
+    /// masquerait une faute courante (« musé » de *muser* pour « musée »). Les verbes
+    /// essayés sont ceux dont l'infinitif commence comme le mot, accents et
+    /// lettres doublées mis à part (« cède » → « céder », « jette » → « jeter »).
+    pub fn is_form(&self, word: &str) -> bool {
+        const MAX_TRIED: usize = 150;
+        let skel = skeleton(word);
+        let chars: Vec<char> = skel.chars().collect();
+        let mut tried: HashSet<&str> = HashSet::new();
+        for k in (3..=chars.len()).rev() {
+            let prefix: String = chars[..k].iter().collect();
+            let from = self
+                .by_skeleton
+                .partition_point(|(s, _)| s.as_str() < prefix.as_str());
+            for (s, verb) in &self.by_skeleton[from..] {
+                if !s.starts_with(&prefix) || tried.len() >= MAX_TRIED {
+                    break;
+                }
+                if !tried.insert(verb) {
+                    continue;
+                }
+                let found = self
+                    .verbs
+                    .get(verb)
+                    .and_then(|m| self.models.get(m))
+                    .and_then(|m| m.conjugate(verb))
+                    .is_some_and(|f| {
+                        traits_forms(&f)
+                            .iter()
+                            .any(|(t, x)| x == word && !t.starts_with("pp") && t != "inf")
+                    });
+                if found {
+                    return true;
+                }
+            }
+            if tried.len() >= MAX_TRIED {
+                break;
+            }
+        }
+        false
     }
 
     pub fn models(&self) -> &Models {

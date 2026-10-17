@@ -62,7 +62,8 @@ fs.writeFileSync(path.join(dist, "manifest.xml"), manifest);
 const dataFiles = ["regles", "conjugaison", "thesaurus", "lexique"].flatMap((dir) =>
   fs
     .readdirSync(path.join(root, "data", dir))
-    .filter((f) => /\.(tsv|txt|dat)$/.test(f) && !f.startsWith("README"))
+    // Dans lexique/, seuls les .tsv sont des lexiques (lectures-ecartees.txt est un journal).
+    .filter((f) => (dir === "lexique" ? /\.tsv$/ : /\.(tsv|txt|dat)$/).test(f) && !f.startsWith("README"))
     .sort()
     .map((f) => `${dir}/${f}`),
 );
