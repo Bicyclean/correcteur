@@ -4,25 +4,25 @@ version = 3
 
 [[package]]
 name = "correcteur-cli"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "correcteur-core",
 ]
 
 [[package]]
 name = "correcteur-core"
-version = "0.2.0"
+version = "0.3.0"
 
 [[package]]
 name = "correcteur-ffi"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "correcteur-core",
 ]
 
 [[package]]
 name = "correcteur-wasm"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "correcteur-core",
 ]

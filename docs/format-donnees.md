@@ -93,3 +93,27 @@ au moins une ligne annotée et une ligne sans annotation.
 
 Le corpus d'évaluation n'est pas un test : il peut contenir des erreurs que le
 moteur ne détecte pas encore, pour que le rappel mesuré reste honnête.
+
+## Conjugaison — `data/conjugaison/`
+
+- `modeles.txt` : modèles de conjugaison. Format décrit en tête du fichier :
+  chaque modèle donne le présent, le passé simple, le radical du futur et le
+  participe passé ; les autres temps simples se déduisent, sauf exception
+  écrite dans le modèle.
+- `auxiliaire_etre.txt` : verbes dont les temps composés se forment avec être.
+- `verbes.tsv` (généré, ne pas modifier) : `verbe`, `modèle`, formes attestées
+  reproduites, formes contredites. Produit par
+  `correcteur attribuer-conjugaisons` à partir de Lexique 3.83, dont il suit la
+  licence (CC BY-SA 4.0). Facultatif : sans lui, seuls les verbes en -er sont
+  conjugués (modèle déduit).
+
+## Thésaurus — `data/thesaurus/thes_fr.dat`
+
+Format myThes : une ligne d'encodage, puis pour chaque mot `mot|n` suivi de
+`n` lignes `(Catégorie)|synonyme|synonyme…`. Copie inchangée du thésaurus de
+Dicollecte (LGPL 2.1 ou ultérieure, voir `README_thes_fr.txt`). Facultatif.
+
+## Style — `data/regles/style_mots_ignores.txt`
+
+Lemmes trop courants pour qu'une répétition soit signalée (être, faire,
+chose…).

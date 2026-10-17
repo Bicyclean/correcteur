@@ -17,7 +17,7 @@ Tout le traitement est local : le texte ne quitte jamais l'appareil.
 | 3 | Accords et grammaire | **Fait** — accords sujet-verbe et groupe nominal, participes, négation, quelques constructions |
 | 4 | Application de bureau Tauri | **Fait** — éditeur, raccourci global ⌘⇧E / Ctrl+Maj+E pour le presse-papiers ; construite sur macOS, raccourci global et Windows à vérifier |
 | 5 | Extension LibreOffice | **Fait** — vérificateur grammatical (Proofreader), essayé dans Writer (LibreOfficeDev 26.8, macOS) ; Windows et Linux à essayer |
-| 6 | Conjugaison, synonymes, version 2 | À faire |
+| 6 | Conjugaison, synonymes, version 2 | **Fait en partie** — conjugaison, synonymes, répétitions, phrases longues, lisibilité ; antonymes à faire (source à choisir) |
 
 Ce que le moteur détecte aujourd'hui :
 
@@ -27,6 +27,10 @@ Ce que le moteur détecte aujourd'hui :
   participe passé avec être et avoir, infinitif à la place du participe
   (« il a manger »), négation sans « ne », quelques constructions critiquées
   (« pallier à »). Règles prudentes : voisinage immédiat seulement.
+- **Outils** : conjugaison complète de tout verbe (5 260 verbes rattachés à
+  96 modèles), synonymes (thésaurus de Dicollecte).
+- **Style** (désactivé par défaut) : répétitions rapprochées avec synonymes
+  proposés, phrases longues, indice de lisibilité.
 - **Typographie** : espaces insécables avant `; : ! ?` et dans les guillemets,
   espaces manquantes ou en trop, guillemets français, apostrophes, tirets
   d'incise, majuscule en début de phrase, points de suspension.

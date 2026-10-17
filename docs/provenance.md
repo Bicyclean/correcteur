@@ -24,9 +24,10 @@ ni règle, ni message, ni libellé d'interface, ni documentation.
 
 | Code | Signification |
 |---|---|
-| `CONTRIB-INIT` | Rédigé par le contributeur initial pour ce projet (lexique d'amorce, règles, messages, corpus). |
+| `CONTRIB-INIT` | Rédigé par le contributeur initial pour ce projet (lexique d'amorce, règles, messages, corpus, modèles de conjugaison). |
 | `REF-GRAM-FR` | Règle de grammaire générale, décrite dans les grammaires de référence du français (par exemple *Le Bon Usage* de Grevisse, la *Grammaire méthodique du français* de Riegel, Pellat et Rioul). Les ouvrages servent à vérifier la règle ; aucun texte n'en est repris. |
 | `LEXIQUE383` | Lexique 3.83 (lexique.org), CC BY-SA 4.0 ; voir `data/lexique/LISEZMOI.md`. |
+| `THES-FR` | Thésaurus myThes 2.3 de Dicollecte, LGPL 2.1 ou ultérieure ; voir `data/thesaurus/README_thes_fr.txt`. |
 | `REF-TYPO-FR` | Usage typographique français courant, décrit notamment dans le *Lexique des règles typographiques en usage à l'Imprimerie nationale*. Même principe. |
 
 Les sources sont indiquées dans la dernière colonne de chaque fichier de
@@ -45,8 +46,8 @@ consignée dans `data/SOURCES.tsv` avec l'empreinte de l'archive utilisée.
 | Dictionnaire de Grammalecte (Dicollecte) | Formes fléchies, couverture | MPL 2.0 | Oui (licence secondaire GPL), sauf mention contraire | Candidat |
 | Règles de Grammalecte | Inspiration et réutilisation de règles | GPL-3.0 | Oui ; conserver les mentions d'attribution | Candidat |
 | Morphalou 3 (ATILF) | Formes fléchies | LGPL-LR | **Incertaine** : à examiner | À étudier |
-| Wiktionnaire | Compléments, thésaurus | CC BY-SA 4.0 (contenu récent) | Oui, à sens unique | Candidat |
-| Thésaurus français de LibreOffice / Dicollecte | Synonymes (étape 6) | À vérifier | À vérifier | À étudier |
+| Thésaurus français myThes 2.3 (Dicollecte) | Synonymes | LGPL 2.1 ou ultérieure (vérifiée dans `README_thes_fr.txt`) | Oui (la LGPL autorise la redistribution sous GPL) | **Intégré** (`data/thesaurus/`), copie du fichier livré avec LibreOffice |
+| Wiktionnaire (antonymes) | Antonymes | CC BY-SA 4.0 | Oui, à sens unique | Candidat : le thésaurus n'en contient pas |
 
 ## Déclarations des contributeurs
 

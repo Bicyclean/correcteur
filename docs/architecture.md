@@ -36,7 +36,13 @@ l'appareil.
 | `corpus/fr/evaluation/` | Phrases libres pour mesurer précision et rappel. |
 | `docs/` | Architecture, format des données, provenance, résultats. |
 
-À venir (ordre de livraison) : conjugaison et synonymes (étape 6), puis version 2.
+À venir : antonymes (source à choisir), suite de la version 2.
+
+Conjugaison (`conjugation.rs`) : 96 modèles rédigés pour le projet ; les
+temps dérivés (imparfait, conditionnel, subjonctif, impératif, temps composés)
+sont calculés par les règles régulières du français. Chaque verbe du lexique
+est rattaché au modèle qui reproduit ses formes attestées (99,66 % des formes
+de Lexique 3.83 reproduites).
 
 ## Interface du moteur
 
@@ -54,6 +60,11 @@ Chaque `Issue` contient :
 - `message` et `explanation` : textes en français ;
 - `suggestions` : remplacements du texte `start..end`, du plus probable au
   moins probable. Une suggestion vide signifie « supprimer ».
+
+Autres fonctions de l'`Engine` : `conjugate(verbe)` (tableau complet, à
+partir de l'infinitif, d'une forme conjuguée ou d'un pronominal « se
+souvenir »), `synonyms(mot)` (thésaurus, forme ramenée au lemme),
+`readability(texte)` (indice de lisibilité de Kandel et Moles).
 
 `Options` permet de désactiver des catégories ou des règles, de choisir
 l'espace fine ou normale avant `; ! ?`, d'activer ou non les vérifications
@@ -77,6 +88,9 @@ dictionnaire personnel.
    - `grammar.rs` vérifie les accords (sujet-verbe, groupe nominal,
      participes avec être et avoir), l'infinitif employé à la place du
      participe et la négation sans « ne » ;
+   - `style.rs` (catégorie « style », désactivée par défaut) signale les
+     répétitions rapprochées, avec des synonymes accordés comme suggestions,
+     et les phrases longues ; il calcule aussi l'indice de lisibilité ;
    - `locutions.rs` reconnaît les suites de mots de `locutions.tsv`, y compris
      les constructions prépositionnelles critiquées.
 4. **Mise en forme** (`lib.rs`) : tri, dédoublonnage, filtrage selon les
