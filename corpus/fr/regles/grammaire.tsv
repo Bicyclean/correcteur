@@ -102,3 +102,19 @@ GRAM_ACCORD_DETERMINANT	Elle connaît mille et une manières de cuisiner.	CONTRI
 GRAM_ACCORD_DETERMINANT	⟦Le présence→La présence⟧ de son frère le rassurait.	CONTRIB-INIT
 GRAM_PARTICIPE_ETRE	Elle était sur le seuil de la porte.	CONTRIB-INIT
 GRAM_PARTICIPE_ETRE	Le mot était entre guillemets.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Sa volonté, un moment ébranlée, se raffermit.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	L’œuvre chaque jour défaite est à reprendre.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Elle était, ce soir, tendue vers son but.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Il se souvenait de ses amours passées.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Rendez-vous vers les neuf heures.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Il avait alors quarante et un ans.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	La teinte va du jaune paille au gris perle.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Les murs étaient d’un gris ardoise.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Il rentrait vers les minuit.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Il a acheté ⟦des voiture→des voitures⟧ hier.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Le lendemain nous avions tout oublié.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ce matin vous étiez très pâle.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	La dernière fois nous sommes partis tôt.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Quelles belles vacances nous aurions passées{fine}!	CONTRIB-INIT
+GRAM_NEGATION_NE	C’est le plus grand savant que l’on ait jamais vu.	CONTRIB-INIT
+GRAM_NEGATION_NE	Il ne voyait pas comment il pourrait jamais partir.	CONTRIB-INIT

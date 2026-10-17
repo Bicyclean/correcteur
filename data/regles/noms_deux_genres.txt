@@ -23,3 +23,5 @@ garenne
 paillasse
 gîte
 aria
+# « amour » est masculin, mais souvent féminin au pluriel (« les amours passées »).
+amour

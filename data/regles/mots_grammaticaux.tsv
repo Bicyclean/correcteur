@@ -7,7 +7,8 @@
 #   negation      second élément de la négation (pas, jamais…)
 #   antecedent    mot qui annonce un complément d'objet placé avant le verbe (que, combien)
 #   nom_adverbial nom qui forme avec son déterminant une locution adverbiale : le mot
-#                 suivant ne s'y accorde pas (« une fois arrivés », « tout d'un coup seule »)
+#                 suivant ne s'y accorde pas (« une fois arrivés », « tout d'un coup seule »,
+#                 « un moment écartée », « chaque jour défaite »)
 ne	clitique	REF-GRAM-FR
 n’	clitique	REF-GRAM-FR
 me	clitique	REF-GRAM-FR
@@ -86,3 +87,12 @@ qu’	antecedent	REF-GRAM-FR
 combien	antecedent	REF-GRAM-FR
 fois	nom_adverbial	REF-GRAM-FR
 coup	nom_adverbial	REF-GRAM-FR
+moment	nom_adverbial	REF-GRAM-FR
+instant	nom_adverbial	REF-GRAM-FR
+jour	nom_adverbial	REF-GRAM-FR
+soir	nom_adverbial	REF-GRAM-FR
+matin	nom_adverbial	REF-GRAM-FR
+temps	nom_adverbial	REF-GRAM-FR
+époque	nom_adverbial	REF-GRAM-FR
+tour	nom_adverbial	REF-GRAM-FR
+lendemain	nom_adverbial	REF-GRAM-FR

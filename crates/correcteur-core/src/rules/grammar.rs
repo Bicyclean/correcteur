@@ -327,7 +327,8 @@ fn find_noun_phrase<'c>(ctx: &'c Context, det: usize) -> Option<NounPhrase<'c>> 
             && !fnext.has(|r| r.pos == Pos::Adj || r.is_finite_verb())
             && !elided(ctx, n)
             && !is_class(ctx, n, "clitique");
-        if fj.has_pos(Pos::Adj) && next_is_plain_noun {
+        // « les neuf heures » : nombre, pas adjectif.
+        if fj.has_pos(Pos::Adj) && !fj.has_pos(Pos::Det) && next_is_plain_noun {
             pre.push(j);
             j = n;
         } else {
@@ -375,8 +376,19 @@ fn find_noun_phrase<'c>(ctx: &'c Context, det: usize) -> Option<NounPhrase<'c>> 
     if adjective_agrees {
         return None;
     }
-    // « mille et une manières » : locution figée.
-    if lower(ctx, det) == "une" && ctx.prev(det).is_some_and(|p| lower(ctx, p) == "et") {
+    // « vingt et un ans », « mille et une manières » : nombre composé.
+    if matches!(lower(ctx, det), "un" | "une")
+        && ctx.prev(det).is_some_and(|p| lower(ctx, p) == "et")
+    {
+        return None;
+    }
+    // « vers les minuit », « sur les midi » : tour ancien, toujours au singulier.
+    if lower(ctx, det) == "les"
+        && matches!(lower(ctx, noun), "midi" | "minuit")
+        && ctx
+            .prev(det)
+            .is_some_and(|p| matches!(lower(ctx, p), "vers" | "sur"))
+    {
         return None;
     }
     // « des contre » : préposition.
@@ -507,7 +519,18 @@ fn noun_phrase(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     let (start, end) = (ctx.words[np.det].start, ctx.words[np.noun].end);
     let found = &ctx.text[start..end];
 
-    match phrase_gn(ctx, &np) {
+    let target = phrase_gn(ctx, &np);
+    // « du jaune coquille d’œuf », « d’un gris agate » : le premier mot est le
+    // nom (une couleur), le suivant lui est apposé.
+    let apposition = np.pre.first().and_then(|&a| ctx.form(a)).is_some_and(|f| {
+        f.readings
+            .iter()
+            .any(|r| r.pos == Pos::Nom && r.gn().is_some_and(|g| g.compatible(d)))
+    });
+    if target.is_none() && apposition {
+        return;
+    }
+    match target {
         Some(target) => {
             // Adjectifs du groupe.
             for adj in np.pre.iter().copied().chain(np.post) {
@@ -726,6 +749,17 @@ fn subject_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     // plutôt compléments.
     let start = &ctx.words[subject.start];
     if matches!(start.lower.as_str(), "nous" | "vous") && !start.sentence_start {
+        return;
+    }
+    // « Le lendemain nous avions… », « Quelles promenades nous eussions faites » :
+    // le groupe nominal n'est pas sujet, « nous » ou « vous » l'est.
+    let pronoun_subject = subject.chain.iter().any(|&c| {
+        ctx.data
+            .subjects
+            .get(lower(ctx, c))
+            .is_some_and(|s| finite.iter().any(|r| r.person() == Some(s.person.as_str())))
+    });
+    if !subject.pronoun && pronoun_subject {
         return;
     }
     // « la vulgarité, l’utilité reprenaient » : sujets juxtaposés.
@@ -950,9 +984,18 @@ fn negation(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     // Sens positif de « jamais », « rien », « aucun »… : « le mieux qu’elle eût
     // jamais vu », « s’il revient jamais », « sans qu’on eût rien dit ».
     if lower(ctx, n) != "pas" {
-        let before = ctx.prev(subject.start).map(|b| lower(ctx, b));
-        let positive = matches!(before, Some("que" | "qu’" | "qu'" | "si" | "s’" | "s'"))
-            || (subject.start.saturating_sub(6)..subject.start).any(|k| lower(ctx, k) == "sans");
+        // « que l’on ait jamais vu » : passer l'article de « l’on ».
+        let mut b = ctx.prev(subject.start);
+        if b.is_some_and(|k| matches!(lower(ctx, k), "l’" | "l'")) {
+            b = b.and_then(|k| ctx.prev(k));
+        }
+        let before = b.map(|k| lower(ctx, k));
+        // « comment il pourrait jamais sortir », « si oui ou non tu as jamais… ».
+        let positive = matches!(
+            before,
+            Some("que" | "qu’" | "qu'" | "si" | "s’" | "s'" | "comment" | "pourquoi" | "non")
+        ) || (subject.start.saturating_sub(6)..subject.start)
+            .any(|k| lower(ctx, k) == "sans");
         if positive {
             return;
         }
