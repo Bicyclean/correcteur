@@ -30,6 +30,7 @@ pub const QUELLE_QU_ELLE: &str = "HOMO_QUELLE_QU_ELLE";
 pub const QU_ELLE_QUELLE: &str = "HOMO_QU_ELLE_QUELLE";
 pub const PEU_PEUT: &str = "HOMO_PEU_PEUT";
 pub const PEUT_PEU: &str = "HOMO_PEUT_PEU";
+pub const QUAND_QUANT: &str = "HOMO_QUAND_QUANT";
 
 const SUBJECTS: &[&str] = &["il", "elle", "on", "ils", "elles"];
 const RELATIVES: &[&str] = &[
@@ -97,6 +98,7 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
             "quelles" => check_quelle(ctx, i).then_some((QUELLE_QU_ELLE, "qu’elles")),
             "peu" => check_peu(ctx, i).then_some((PEU_PEUT, "peut")),
             "peut" => check_peut(ctx, i).then_some((PEUT_PEU, "peu")),
+            "quand" => check_quand(ctx, i).then_some((QUAND_QUANT, "quant")),
             "qu’" => {
                 check_qu_elle(ctx, i, out);
                 None
@@ -338,6 +340,16 @@ fn check_sa(ctx: &Context, i: usize) -> bool {
         return true;
     }
     // Verbe conjugué qui ne peut pas être un nom féminin : « sa va », « sa dépend ».
+    // « je crois quelle est partie » : être suivi d'un participe ou d'un
+    // adjectif (« quelle est la question » garde son déterminant).
+    let etre = form(ctx, n).is_some_and(|f| f.has(|r| r.lemma == "être" && r.is_finite_verb()));
+    let attribute = form(ctx, n.and_then(|n| ctx.next(n))).is_some_and(|f| {
+        f.has(|r| r.pos == Pos::Adj || r.is_past_participle())
+            && !f.has(|r| matches!(r.pos, Pos::Det | Pos::Pro))
+    });
+    if etre && attribute {
+        return true;
+    }
     form(ctx, n).is_some_and(|f| {
         f.has(super::super::lexicon::Reading::is_finite_verb)
             && !f.has(|r| {
@@ -433,6 +445,16 @@ fn check_quelle(ctx: &Context, i: usize) -> bool {
     if lower_is(ctx, n.and_then(|n| ctx.next(n)), &["été"]) {
         return false;
     }
+    // « je crois quelle est partie » : être suivi d'un participe ou d'un
+    // adjectif (« quelle est la question » garde son déterminant).
+    let etre = form(ctx, n).is_some_and(|f| f.has(|r| r.lemma == "être" && r.is_finite_verb()));
+    let attribute = form(ctx, n.and_then(|n| ctx.next(n))).is_some_and(|f| {
+        f.has(|r| r.pos == Pos::Adj || r.is_past_participle())
+            && !f.has(|r| matches!(r.pos, Pos::Det | Pos::Pro))
+    });
+    if etre && attribute {
+        return true;
+    }
     form(ctx, n).is_some_and(|f| {
         f.has(super::super::lexicon::Reading::is_finite_verb)
             && f.only(|r| {
@@ -477,6 +499,32 @@ fn check_qu_elle(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
 }
 
 /// « il peu venir », « elle ne peu pas » → « peut ».
+/// « quand à moi » → « quant à moi » ; « Quand aux autres, … » → « Quant aux ».
+fn check_quand(ctx: &Context, i: usize) -> bool {
+    let n = ctx.next(i);
+    let nn = n.and_then(|n| ctx.next(n));
+    let stressed = lower_is(
+        ctx,
+        nn,
+        &[
+            "moi", "toi", "lui", "elle", "nous", "vous", "eux", "elles", "cela", "ça", "ceux",
+            "celle", "celles", "celui",
+        ],
+    );
+    if lower_is(ctx, n, &["à"]) && stressed {
+        return true;
+    }
+    // « Quand au(x) » en tête de phrase, puis une virgule après le groupe :
+    // « Quant aux autres, ils attendront. »
+    ctx.words[i].sentence_start
+        && lower_is(ctx, n, &["au", "aux"])
+        && nn.is_some_and(|k| {
+            let end = ctx.next(k).map_or(ctx.words[k].end, |l| ctx.words[l].end);
+            ctx.text[ctx.words[k].end..].trim_start().starts_with(',')
+                || ctx.text[end..].trim_start().starts_with(',')
+        })
+}
+
 fn check_peu(ctx: &Context, i: usize) -> bool {
     let Some(mut p) = ctx.prev(i) else {
         return false;

@@ -18,6 +18,7 @@ pub const DETERMINER: &str = "GRAM_ACCORD_DETERMINANT";
 pub const ADJECTIVE: &str = "GRAM_ACCORD_ADJECTIF";
 pub const PARTICIPLE_ETRE: &str = "GRAM_PARTICIPE_ETRE";
 pub const PARTICIPLE_AVOIR: &str = "GRAM_PARTICIPE_AVOIR";
+pub const PARTICIPLE_AVOIR_COD: &str = "GRAM_PARTICIPE_AVOIR_COD";
 pub const INFINITIVE: &str = "GRAM_INFINITIF_PARTICIPE";
 pub const NEGATION: &str = "GRAM_NEGATION_NE";
 pub const PREPOSITION: &str = "GRAM_PREPOSITION";
@@ -61,6 +62,161 @@ fn same_case(like: &str, s: &str) -> String {
     } else {
         s.to_string()
     }
+}
+
+/// Participe d'un verbe pronominal qui s'accorde avec le sujet (« elles se
+/// sont levées ») : pronom réfléchi de la personne du sujet, verbe dont le
+/// pronom est complément direct, et rien après le participe qui puisse être
+/// son complément (« elle s'est lavé les mains » : invariable).
+fn reflexive_agrees(ctx: &Context, subject: &FoundSubject, t: usize, ft: &Form) -> bool {
+    let person = subject.person.as_str();
+    let mut reflexive = false;
+    for &c in &subject.chain {
+        match (lower(ctx, c), person) {
+            ("se" | "s’", p) if p.starts_with('3') => reflexive = true,
+            ("me" | "m’", "1s") | ("te" | "t’", "2s") | ("nous", "1p") | ("vous", "2p") => {
+                reflexive = true;
+            }
+            ("ne" | "n’" | "y", _) => {}
+            // « s’en », « se le » : autre complément, accord incertain.
+            _ => return false,
+        }
+    }
+    let invariable =
+        ft.has(|r| r.is_past_participle() && ctx.data.is(&r.lemma, "pronominal_invariable"));
+    // « la comédie qu’il s’était jouée » : « que » est le complément direct.
+    let after_que = ctx
+        .prev(subject.start)
+        .is_some_and(|q| matches!(lower(ctx, q), "que" | "qu’" | "qu'"));
+    if !reflexive || invariable || after_que || !ft.has(Reading::is_past_participle) {
+        return false;
+    }
+    // Après le participe : fin de proposition, adverbe ou préposition seulement.
+    ctx.next(t).is_none_or(|n| {
+        is_class(ctx, n, "adverbe")
+            || ctx.form(n).is_some_and(|f| {
+                (f.has_pos(Pos::Adv) || f.has_pos(Pos::Pre))
+                    && !f.has(|r| matches!(r.pos, Pos::Det | Pos::Nom) || r.is_infinitive())
+            })
+    })
+}
+
+/// « Les fleurs qu’il a cueilli » : participe avec avoir dont le complément
+/// direct, « que », reprend le groupe nominal qui précède. Signale le
+/// participe non accordé ; vrai si la construction a été reconnue.
+fn preceding_object(
+    ctx: &Context,
+    subject: &FoundSubject,
+    t: usize,
+    ft: &Form,
+    out: &mut Vec<RawIssue>,
+) -> bool {
+    let Some(q) = ctx.prev(subject.start) else {
+        return false;
+    };
+    if !matches!(lower(ctx, q), "que" | "qu’" | "qu'") {
+        return false;
+    }
+    let Some(head) = ctx.prev(q) else {
+        return false;
+    };
+    let np = (head.saturating_sub(4)..head)
+        .rev()
+        .filter_map(|det| find_noun_phrase(ctx, det))
+        .find(|np| np.post.unwrap_or(np.noun) == head);
+    let Some(np) = np else { return false };
+    // Antécédent sûr seulement : article, démonstratif ou possessif (pas
+    // « trois mois que »), groupe qui ne suit ni une préposition ni « de »
+    // (« les inspirations de sa jeunesse que… », « c’est de cette façon
+    // que… »), et qui n'est pas coordonné (« l’intérêt, la curiosité que… »).
+    let plain_det = matches!(
+        lower(ctx, np.det),
+        "le" | "la"
+            | "l’"
+            | "l'"
+            | "les"
+            | "ce"
+            | "cet"
+            | "cette"
+            | "ces"
+            | "mon"
+            | "ma"
+            | "mes"
+            | "ton"
+            | "ta"
+            | "tes"
+            | "son"
+            | "sa"
+            | "ses"
+            | "notre"
+            | "nos"
+            | "votre"
+            | "vos"
+            | "leur"
+            | "leurs"
+            | "un"
+            | "une"
+    );
+    // « contre tous ces défauts que… » : passer « tous » pour trouver la préposition.
+    let mut before = ctx.prev(np.det);
+    if before.is_some_and(|p| matches!(lower(ctx, p), "tout" | "tous" | "toute" | "toutes")) {
+        before = before.and_then(|p| ctx.prev(p));
+    }
+    let after_preposition = before.is_some_and(|p| {
+        ctx.form(p).is_some_and(|f| f.has_pos(Pos::Pre)) || matches!(lower(ctx, p), "d’" | "d'")
+    });
+    let coordinated = np.det.checked_sub(1).is_some_and(|b| {
+        matches!(lower(ctx, b), "et" | "ou")
+            || ctx.text[ctx.words[b].end..ctx.words[np.det].start].contains(',')
+    });
+    if !plain_det || after_preposition || coordinated {
+        return false;
+    }
+    let Some(target) = phrase_gn(ctx, &np) else {
+        return false;
+    };
+    // « la fois qu’il a parlé » : « que » n'est pas complément d'objet.
+    if is_class(ctx, np.noun, "nom_adverbial") || !ft.has(Reading::is_past_participle) {
+        return false;
+    }
+    // « les années qu’il a vécu », « la maison qu’il a fait construire » : invariable.
+    let invariable =
+        ft.has(|r| r.is_past_participle() && ctx.data.is(&r.lemma, "participe_invariable"));
+    // Après le participe, un infinitif, une préposition ou « que » changent la
+    // construction : « qu’il a fait construire », « que j’avais fini par »,
+    // « que j’aurais aimé qu’elle ».
+    let construction = ctx.next(t).is_some_and(|n| {
+        matches!(lower(ctx, n), "que" | "qu’" | "qu'")
+            || ctx
+                .form(n)
+                .is_some_and(|f| f.has(Reading::is_infinitive) || f.has_pos(Pos::Pre))
+    });
+    if invariable || construction {
+        return true;
+    }
+    let agrees = ft
+        .readings
+        .iter()
+        .filter(|r| r.is_past_participle())
+        .any(|r| r.gn().is_some_and(|g| g.compatible(target)));
+    if agrees {
+        return true;
+    }
+    let suggestions: Vec<String> = agree_forms(ctx, ft, Reading::is_past_participle, target)
+        .iter()
+        .map(|s| s.to_string())
+        .collect();
+    if let Some(first) = suggestions.first().cloned() {
+        let w = &ctx.words[t];
+        out.push(
+            RawIssue::new(w.start, w.end, PARTICIPLE_AVOIR_COD)
+                .arg(w.text)
+                .arg(first)
+                .arg(rebuild(ctx, np.det, head, &[]))
+                .with_suggestions(suggestions),
+        );
+    }
+    true
 }
 
 /// Vrai si l'adjectif placé après le groupe peut se rapporter à un autre nom :
@@ -860,7 +1016,7 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         return;
     }
 
-    if etre && !has_object {
+    if etre && (!has_object || reflexive_agrees(ctx, &subject, t, ft)) {
         // Attribut ou participe : accord avec le sujet (« elles sont parties »).
         // « elle est tout contente », « elle est tout le temps » : « tout »,
         // « fort », « bien »… peuvent être adverbes, donc invariables.
@@ -901,6 +1057,10 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
                     .with_suggestions(suggestions),
             );
         }
+        return;
+    }
+
+    if avoir && subject.chain.is_empty() && preceding_object(ctx, &subject, t, ft, out) {
         return;
     }
 

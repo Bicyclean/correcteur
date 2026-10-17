@@ -75,7 +75,8 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
 
 /// Mot absent du lexique mais correct : forme conjuguée rare que les tables de
 /// conjugaison produisent (« rétablît »), graphie ancienne à apostrophe
-/// (« grand’mère », « entr’ouvrir »), ou élision restée collée (« va-t’en »).
+/// (« grand’mère », « entr’ouvrir »), élision restée collée (« va-t’en »), ou
+/// pluriel d'un participe féminin attesté (« souvenues »).
 fn known_variant(ctx: &Context, lower: &str) -> bool {
     let known = |w: &str| ctx.lexicon.find(w).is_some() || ctx.data.conjugator.is_form(w);
     if let Some((head, tail)) = lower.split_once('’') {
@@ -84,5 +85,12 @@ fn known_variant(ctx: &Context, lower: &str) -> bool {
             || known(&format!("{head}-{tail}"))
             || known(&format!("{head}{tail}"));
     }
-    lower.chars().count() >= 4 && ctx.data.conjugator.is_form(lower)
+    // « souvenues » : pluriel d'un participe féminin attesté (« souvenue »), que
+    // Lexique n'a pas toujours. Limité aux participes : « chevals » reste une faute.
+    let feminine_plural = lower.strip_suffix("es").is_some_and(|stem| {
+        ctx.lexicon.find(&format!("{stem}e")).is_some_and(|f| {
+            f.has(|r| r.is_past_participle() && r.gn().is_some_and(|g| g.gender == Some('f')))
+        })
+    });
+    feminine_plural || (lower.chars().count() >= 4 && ctx.data.conjugator.is_form(lower))
 }

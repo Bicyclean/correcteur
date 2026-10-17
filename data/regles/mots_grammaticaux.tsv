@@ -6,6 +6,13 @@
 #   adverbe       adverbe (ou « tous », « toutes ») qui peut s'intercaler entre l'auxiliaire et le participe ou l'attribut
 #   negation      second élément de la négation (pas, jamais…)
 #   antecedent    mot qui annonce un complément d'objet placé avant le verbe (que, combien)
+#   pronominal_invariable  infinitif d'un verbe dont le participe reste invariable à la
+#                 forme pronominale (le pronom est complément indirect) : ils se sont parlé,
+#                 elles se sont succédé, elle s'est permis de partir
+#   participe_invariable   infinitif d'un verbe dont le participe ne s'accorde pas avec
+#                 « que » placé avant (complément de mesure, impersonnel) : les années qu'il
+#                 a vécu, les efforts qu'il a fallu, les chaleurs qu'il a fait ; infinitif
+#                 sous-entendu : les efforts qu'il a dû (faire), qu'il a voulu (faire)
 #   nom_adverbial nom qui forme avec son déterminant une locution adverbiale : le mot
 #                 suivant ne s'y accorde pas (« une fois arrivés », « tout d'un coup seule »,
 #                 « un moment écartée », « chaque jour défaite »)
@@ -96,3 +103,45 @@ temps	nom_adverbial	REF-GRAM-FR
 époque	nom_adverbial	REF-GRAM-FR
 tour	nom_adverbial	REF-GRAM-FR
 lendemain	nom_adverbial	REF-GRAM-FR
+succéder	pronominal_invariable	REF-GRAM-FR
+parler	pronominal_invariable	REF-GRAM-FR
+plaire	pronominal_invariable	REF-GRAM-FR
+déplaire	pronominal_invariable	REF-GRAM-FR
+complaire	pronominal_invariable	REF-GRAM-FR
+rire	pronominal_invariable	REF-GRAM-FR
+sourire	pronominal_invariable	REF-GRAM-FR
+nuire	pronominal_invariable	REF-GRAM-FR
+mentir	pronominal_invariable	REF-GRAM-FR
+ressembler	pronominal_invariable	REF-GRAM-FR
+suffire	pronominal_invariable	REF-GRAM-FR
+convenir	pronominal_invariable	REF-GRAM-FR
+survivre	pronominal_invariable	REF-GRAM-FR
+téléphoner	pronominal_invariable	REF-GRAM-FR
+écrire	pronominal_invariable	REF-GRAM-FR
+dire	pronominal_invariable	REF-GRAM-FR
+demander	pronominal_invariable	REF-GRAM-FR
+répondre	pronominal_invariable	REF-GRAM-FR
+permettre	pronominal_invariable	REF-GRAM-FR
+promettre	pronominal_invariable	REF-GRAM-FR
+vivre	participe_invariable	REF-GRAM-FR
+durer	participe_invariable	REF-GRAM-FR
+coûter	participe_invariable	REF-GRAM-FR
+valoir	participe_invariable	REF-GRAM-FR
+peser	participe_invariable	REF-GRAM-FR
+courir	participe_invariable	REF-GRAM-FR
+dormir	participe_invariable	REF-GRAM-FR
+régner	participe_invariable	REF-GRAM-FR
+marcher	participe_invariable	REF-GRAM-FR
+falloir	participe_invariable	REF-GRAM-FR
+faire	participe_invariable	REF-GRAM-FR
+pleuvoir	participe_invariable	REF-GRAM-FR
+neiger	participe_invariable	REF-GRAM-FR
+mesurer	participe_invariable	REF-GRAM-FR
+devoir	participe_invariable	REF-GRAM-FR
+pouvoir	participe_invariable	REF-GRAM-FR
+vouloir	participe_invariable	REF-GRAM-FR
+croire	participe_invariable	REF-GRAM-FR
+penser	participe_invariable	REF-GRAM-FR
+espérer	participe_invariable	REF-GRAM-FR
+prévoir	participe_invariable	REF-GRAM-FR
+savoir	participe_invariable	REF-GRAM-FR

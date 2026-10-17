@@ -108,6 +108,17 @@ pub fn suggest(
         }
     }
 
+    // Pluriel régulier appliqué à un nom en -al ou -ail : « chevals » → « chevaux »,
+    // « travails » → « travaux ». Proposé en premier.
+    for (wrong, right) in [("als", "aux"), ("ails", "aux")] {
+        if let Some(stem) = lower.strip_suffix(wrong) {
+            let plural = format!("{stem}{right}");
+            if lexicon.get(&plural).is_some() {
+                scored.push((f32::MIN, plural));
+            }
+        }
+    }
+
     scored.sort_by(|a, b| a.0.total_cmp(&b.0).then_with(|| a.1.cmp(&b.1)));
     let mut out: Vec<String> = Vec::new();
     for (_, s) in scored {

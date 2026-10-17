@@ -118,3 +118,18 @@ GRAM_ACCORD_SUJET_VERBE	La dernière fois nous sommes partis tôt.	CONTRIB-INIT
 GRAM_ACCORD_SUJET_VERBE	Quelles belles vacances nous aurions passées{fine}!	CONTRIB-INIT
 GRAM_NEGATION_NE	C’est le plus grand savant que l’on ait jamais vu.	CONTRIB-INIT
 GRAM_NEGATION_NE	Il ne voyait pas comment il pourrait jamais partir.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elles se sont ⟦levé→levées⟧ tôt.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elle s’est ⟦promené→promenée⟧ dans le parc.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elles se sont parlé longtemps.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ils se sont succédé toute la journée.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elle s’est permis de partir.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ils se sont rendu compte de leur erreur.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elle s’est coupé le doigt.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elles se sont souvenues de tout.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Les fleurs qu’il a ⟦cueilli→cueillies⟧ sont belles.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	La lettre que j’ai ⟦écrit→écrite⟧ est partie.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Les fleurs qu’il a cueillies sont belles.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Les années qu’il a vécu à Lyon furent heureuses.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	La maison qu’il a fait construire est grande.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Les efforts qu’il a fallu étaient immenses.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	La seule fois qu’il a parlé, on l’a écouté.	CONTRIB-INIT
