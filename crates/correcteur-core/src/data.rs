@@ -203,6 +203,26 @@ pub(crate) struct Data {
 }
 
 impl Data {
+    /// Abréviation suivie d'un point (« etc. », « M. ») ; une abréviation en
+    /// minuscules est aussi reconnue avec une majuscule (« Cf. » en tête de phrase).
+    pub fn is_abbreviation(&self, norm: &str) -> bool {
+        self.abbreviations.contains(norm) || self.abbreviations.contains(&norm.to_lowercase())
+    }
+
+    /// Le mot commence-t-il par une voyelle ou un h muet, ce qui déclenche
+    /// l'élision (« l’école », « n’habite ») ? Le h aspiré se reconnaît au mot
+    /// ou à son lemme (« le héros », « je hais »).
+    pub fn elides(&self, word: &str, lemma: Option<&str>) -> bool {
+        let lower = word.to_lowercase();
+        match lower.chars().next().map(crate::text::base_letter) {
+            Some('a' | 'e' | 'i' | 'o' | 'u' | 'y' | 'œ' | 'æ') => true,
+            Some('h') => {
+                !self.h_aspire.contains(&lower) && !lemma.is_some_and(|l| self.h_aspire.contains(l))
+            }
+            _ => false,
+        }
+    }
+
     pub fn is(&self, word: &str, class: &str) -> bool {
         self.word_classes
             .get(class)
@@ -226,7 +246,18 @@ fn word_list(content: &str) -> HashSet<String> {
 }
 
 impl Data {
-    pub fn parse(src: &EngineData) -> Result<Data, DataError> {
+    pub fn parse(mut src: EngineData) -> Result<Data, DataError> {
+        // Le thésaurus est gardé tel quel (lecture à la demande) : on le prend
+        // sans le copier.
+        let thesaurus = crate::thesaurus::Thesaurus::new(
+            src.rule_files
+                .remove("thesaurus/thes_fr.dat")
+                .unwrap_or_default(),
+            src.rule_files
+                .remove("thesaurus/antonymes.tsv")
+                .unwrap_or_default(),
+        );
+        let src = &src;
         let mut rules = HashMap::new();
         for (n, line) in data_lines(src.file("regles/regles.tsv")?) {
             let err = |message: String| DataError {
@@ -376,12 +407,7 @@ impl Data {
                 src.optional("conjugaison/verbes.tsv"),
                 src.file("conjugaison/auxiliaire_etre.txt")?,
             )?,
-            thesaurus: {
-                let mut t =
-                    crate::thesaurus::Thesaurus::parse(src.optional("thesaurus/thes_fr.dat"));
-                t.add_antonyms(src.optional("thesaurus/antonymes.tsv"));
-                t
-            },
+            thesaurus,
         })
     }
 }

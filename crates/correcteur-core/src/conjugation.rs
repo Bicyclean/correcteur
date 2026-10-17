@@ -11,19 +11,6 @@ use std::collections::{HashMap, HashSet};
 use crate::data::{data_lines, DataError};
 use crate::text::normalize_apostrophes;
 
-/// Temps simples, dans l'ordre des personnes je, tu, il, nous, vous, ils
-/// (impératif : tu, nous, vous).
-pub const SIMPLE_TENSES: &[&str] = &[
-    "ind.pres",
-    "ind.impf",
-    "ind.ps",
-    "ind.fut",
-    "cond.pres",
-    "sub.pres",
-    "sub.impf",
-    "imp.pres",
-];
-
 /// Une case : une ou plusieurs formes admises, ou rien (verbe défectif).
 pub type Cell = Option<Vec<String>>;
 
@@ -95,7 +82,7 @@ impl Models {
                     }
                     model.lines.insert(
                         key.to_string(),
-                        cells.iter().map(|c| c.to_string()).collect(),
+                        cells.iter().map(std::string::ToString::to_string).collect(),
                     );
                 }
                 [] => {}

@@ -112,6 +112,9 @@ pub struct Context<'a> {
     pub user_words: &'a HashSet<String>,
     pub ignored: Vec<(usize, usize)>,
     pub words: Vec<Word<'a>>,
+    /// Entrée du lexique de chaque mot, cherchée une seule fois : les règles
+    /// interrogent souvent le même mot (voisins, sujet, groupe nominal).
+    forms: Vec<Option<&'a Form>>,
 }
 
 impl<'a> Context<'a> {
@@ -124,6 +127,7 @@ impl<'a> Context<'a> {
     ) -> Context<'a> {
         let ignored = ignored_spans(text);
         let words = analyze(text, lexicon, data, user_words, &ignored);
+        let forms = words.iter().map(|w| lexicon.find(&w.norm)).collect();
         Context {
             text,
             options,
@@ -132,6 +136,7 @@ impl<'a> Context<'a> {
             user_words,
             ignored,
             words,
+            forms,
         }
     }
 
@@ -147,7 +152,7 @@ impl<'a> Context<'a> {
 
     /// Entrée du lexique pour le mot d'indice `i`.
     pub fn form(&self, i: usize) -> Option<&'a Form> {
-        self.words.get(i).and_then(|w| self.lexicon.find(&w.norm))
+        self.forms.get(i).copied().flatten()
     }
 }
 

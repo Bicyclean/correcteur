@@ -8,6 +8,7 @@
 //! pondérée, corrigée par la fréquence.
 
 use std::collections::HashSet;
+use std::sync::OnceLock;
 
 use crate::lexicon::{skeleton, Lexicon};
 use crate::text::{base_letter, capitalize, is_all_upper, is_capitalized};
@@ -83,6 +84,7 @@ pub fn suggest(
     for &(i, _) in chars.iter().skip(1) {
         let (a, b) = lower.split_at(i);
         if elisions.contains(&format!("{a}’")) {
+            // « qu il » n'est jamais la bonne coupure : seule l'apostrophe oubliée compte.
             // L'élision ne se fait que devant une voyelle ou un h muet ; devant h,
             // le coût est plus élevé (« chein » ne doit pas donner « c’hein »).
             let cost = match b.chars().next() {
@@ -94,9 +96,7 @@ pub fn suggest(
                 let score = cost - FREQ_WEIGHT * (1.0 + fb.freq).ln();
                 scored.push((score, format!("{a}’{b}")));
             }
-        }
-        if elisions.contains(&format!("{a}’")) {
-            continue; // « qu il » n'est jamais la bonne coupure
+            continue;
         }
         if let (Some(fa), Some(fb)) = (lexicon.get(a), lexicon.get(b)) {
             let short_ok = |s: &str| s.chars().count() > 1 || matches!(s, "a" | "à" | "y" | "ô");
@@ -164,7 +164,13 @@ fn edits1(word: &str, alphabet: &str) -> Vec<String> {
     let n = chars.len();
     let letters: Vec<char> = alphabet.chars().collect();
     let mut out = Vec::with_capacity(n * (2 * letters.len() + 2) + letters.len());
-    let build = |parts: &[&[char]]| -> String { parts.iter().flat_map(|p| p.iter()).collect() };
+    // Capacité réservée d'emblée : ces chaînes sont créées par milliers par mot.
+    let cap = word.len() + 4;
+    let build = |parts: &[&[char]]| -> String {
+        let mut s = String::with_capacity(cap);
+        s.extend(parts.iter().flat_map(|p| p.iter()));
+        s
+    };
     for i in 0..=n {
         let (left, right) = chars.split_at(i);
         if i < n {
@@ -183,6 +189,23 @@ fn edits1(word: &str, alphabet: &str) -> Vec<String> {
     out
 }
 
+/// [`CONFUSIONS`] dans les deux sens, en caractères, construites une seule fois
+/// (la distance est calculée pour chaque candidat de chaque mot inconnu).
+type ConfusionPair = (Vec<char>, Vec<char>, f32);
+
+fn confusion_pairs() -> &'static [ConfusionPair] {
+    static PAIRS: OnceLock<Vec<ConfusionPair>> = OnceLock::new();
+    PAIRS.get_or_init(|| {
+        CONFUSIONS
+            .iter()
+            .flat_map(|&(x, y, c)| {
+                let (x, y): (Vec<char>, Vec<char>) = (x.chars().collect(), y.chars().collect());
+                [(x.clone(), y.clone(), c), (y, x, c)]
+            })
+            .collect()
+    })
+}
+
 /// Distance d'édition (avec inversion de lettres voisines) dont les coûts
 /// reflètent les fautes fréquentes : accent oublié ou erroné, lettre doublée
 /// ou dédoublée, confusion phonétique (voir [`CONFUSIONS`]).
@@ -191,13 +214,7 @@ pub fn weighted_distance(a: &str, b: &str) -> f32 {
     let b: Vec<char> = b.chars().collect();
     let (n, m) = (a.len(), b.len());
     let mut d = vec![vec![0f32; m + 1]; n + 1];
-    let confusions: Vec<(Vec<char>, Vec<char>, f32)> = CONFUSIONS
-        .iter()
-        .flat_map(|&(x, y, c)| {
-            let (x, y): (Vec<char>, Vec<char>) = (x.chars().collect(), y.chars().collect());
-            [(x.clone(), y.clone(), c), (y, x, c)]
-        })
-        .collect();
+    let confusions = confusion_pairs();
 
     // Coût d'insertion ou de suppression de `s[i]` : moindre si la lettre double sa voisine.
     let indel = |s: &[char], i: usize| -> f32 {
@@ -233,7 +250,7 @@ pub fn weighted_distance(a: &str, b: &str) -> f32 {
             if i > 1 && j > 1 && a[i - 1] == b[j - 2] && a[i - 2] == b[j - 1] {
                 v = v.min(d[i - 2][j - 2] + 0.75);
             }
-            for (x, y, c) in &confusions {
+            for (x, y, c) in confusions {
                 if a[..i].ends_with(x) && b[..j].ends_with(y) {
                     v = v.min(d[i - x.len()][j - y.len()] + c);
                 }

@@ -1,6 +1,8 @@
 //! Format d'échange avec les interfaces non Rust (WebAssembly, bibliothèque C) :
 //! options en texte `clé=valeur`, problèmes en JSON. Sans dépendance.
 
+use std::fmt::Write as _;
+
 use crate::{Category, Conjugation, Issue, Options, Readability, SynonymGroup};
 
 /// Options au format `clé=valeur`, une par ligne. Clés :
@@ -63,10 +65,11 @@ pub fn issues_to_json(issues: &[Issue]) -> String {
         if i > 0 {
             out.push(',');
         }
-        out.push_str(&format!(
+        let _ = write!(
+            out,
             "{{\"start\":{},\"end\":{},\"rule\":",
             issue.start_utf16, issue.end_utf16
-        ));
+        );
         json_string(&issue.rule, &mut out);
         out.push_str(",\"category\":");
         json_string(issue.category.as_str(), &mut out);
@@ -188,7 +191,9 @@ fn json_string(s: &str, out: &mut String) {
             '\n' => out.push_str("\\n"),
             '\r' => out.push_str("\\r"),
             '\t' => out.push_str("\\t"),
-            c if (c as u32) < 0x20 => out.push_str(&format!("\\u{:04x}", c as u32)),
+            c if (c as u32) < 0x20 => {
+                let _ = write!(out, "\\u{:04x}", c as u32);
+            }
             c => out.push(c),
         }
     }

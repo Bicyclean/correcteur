@@ -331,7 +331,7 @@ fn multiple_spaces(cs: &Chars, k: usize, out: &mut Vec<RawIssue>) {
     }
     let prev = cs.before(k).unwrap_or('\n');
     let next = cs.get(e);
-    if prev.is_whitespace() || prev == '«' || next.is_none_or(|n| n.is_whitespace()) {
+    if prev.is_whitespace() || prev == '«' || next.is_none_or(char::is_whitespace) {
         return;
     }
     let next = next.unwrap_or(' ');
@@ -409,7 +409,7 @@ fn capitals(ctx: &Context, out: &mut Vec<RawIssue>) {
                 && prev_word.is_some_and(|p| {
                     p.end == rest.len()
                         && p.text.chars().count() > 1
-                        && !ctx.data.abbreviations.contains(&p.norm)
+                        && !ctx.data.is_abbreviation(&p.norm)
                 })
         } else {
             false

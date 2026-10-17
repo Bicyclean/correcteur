@@ -9,6 +9,7 @@ mod analysis;
 pub mod conjugation;
 pub mod corpus;
 mod data;
+mod hash;
 pub mod interop;
 mod lexicon;
 mod rules;
@@ -31,7 +32,7 @@ pub enum Category {
     Orthographe,
     /// Confusion entre homophones grammaticaux (a/à, ou/où, ce/se, et/est…).
     Homophone,
-    /// Accords, négation, prépositions (à venir).
+    /// Accords, participes, négation, constructions.
     Grammaire,
     /// Espaces, ponctuation, apostrophes, tirets, majuscules.
     Typographie,
@@ -143,9 +144,9 @@ pub struct Engine {
 
 impl Engine {
     /// Construit le moteur à partir de données déjà lues (cas du WebAssembly).
-    pub fn new(data: EngineData) -> Result<Engine, DataError> {
-        let lexicon = Lexicon::from_tsv_files(&data.lexicons)?;
-        let data = data::Data::parse(&data)?;
+    pub fn new(mut data: EngineData) -> Result<Engine, DataError> {
+        let lexicon = Lexicon::from_tsv_files(&std::mem::take(&mut data.lexicons))?;
+        let data = data::Data::parse(data)?;
         Ok(Engine { data, lexicon })
     }
 
@@ -171,21 +172,7 @@ impl Engine {
     /// Tableau de conjugaison d'un verbe, donné à l'infinitif (« se laver » pour
     /// un pronominal) ou à une forme conjuguée (« mangeons »).
     pub fn conjugate(&self, verb: &str) -> Option<Conjugation> {
-        let elides = |w: &str| {
-            let lower = w.to_lowercase();
-            match lower.chars().next().map(text::base_letter) {
-                Some('a' | 'e' | 'i' | 'o' | 'u' | 'y' | 'œ') => true,
-                Some('h') => {
-                    !self.data.h_aspire.contains(&lower)
-                        && !self
-                            .data
-                            .h_aspire
-                            .iter()
-                            .any(|h| lower.starts_with(h.as_str()))
-                }
-                _ => false,
-            }
-        };
+        let elides = |w: &str| self.data.elides(w, None);
         let c = &self.data.conjugator;
         if let Some(found) = c.conjugate(verb, &elides) {
             if !found.guessed {
@@ -218,19 +205,19 @@ impl Engine {
     }
 
     /// Cherche `word`, puis ses lemmes, avec `get`.
-    fn lookup<'s>(
-        &'s self,
+    fn lookup(
+        &self,
         word: &str,
-        get: impl Fn(&str) -> Option<&'s [SynonymGroup]>,
+        get: impl Fn(&str) -> Option<Vec<SynonymGroup>>,
     ) -> Option<(String, Vec<SynonymGroup>)> {
         let norm = text::normalize_apostrophes(word.trim()).to_lowercase();
         if let Some(g) = get(&norm) {
-            return Some((norm, g.to_vec()));
+            return Some((norm, g));
         }
         let form = self.lexicon.find(&norm)?;
         form.readings
             .iter()
-            .find_map(|r| get(&r.lemma).map(|g| (r.lemma.clone(), g.to_vec())))
+            .find_map(|r| get(&r.lemma).map(|g| (r.lemma.clone(), g)))
     }
 
     /// Indice de lisibilité et décomptes (mots, phrases, syllabes).
@@ -252,7 +239,7 @@ impl Engine {
         let mut raw = Vec::new();
         rules::run_all(&ctx, &mut raw);
 
-        raw.sort_by_key(|r| (r.start, r.end));
+        raw.sort_by(|a, b| (a.start, a.end, a.rule).cmp(&(b.start, b.end, b.rule)));
         raw.dedup_by(|b, a| a.start == b.start && a.end == b.end && a.rule == b.rule);
 
         let utf16 = text::Utf16Map::new(text);
@@ -280,16 +267,47 @@ impl Engine {
     }
 }
 
-/// Remplace `{0}`, `{1}`… par les arguments fournis par la règle.
+/// Remplace `{0}`, `{1}`… par les arguments fournis par la règle, en une
+/// seule passe : un argument qui contient lui-même « {1} » (texte de
+/// l'utilisateur) n'est pas réinterprété.
 fn fill_template(template: &str, args: &[String]) -> String {
-    let mut out = template.to_string();
-    for (i, arg) in args.iter().enumerate() {
-        out = out.replace(&format!("{{{i}}}"), arg);
+    let mut out = String::with_capacity(template.len());
+    let mut rest = template;
+    while let Some(open) = rest.find('{') {
+        out.push_str(&rest[..open]);
+        let after = &rest[open + 1..];
+        let arg = after
+            .find('}')
+            .and_then(|close| Some((close, args.get(after[..close].parse::<usize>().ok()?)?)));
+        if let Some((close, value)) = arg {
+            out.push_str(value);
+            rest = &after[close + 1..];
+        } else {
+            out.push('{');
+            rest = after;
+        }
     }
+    out.push_str(rest);
     out
 }
 
 /// Raccourci : analyse avec le moteur et les options données.
 pub fn check(engine: &Engine, text: &str, options: &Options) -> Vec<Issue> {
     engine.check(text, options)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::fill_template;
+
+    #[test]
+    fn modeles_de_message() {
+        let args = ["mot {1}".to_string(), "x".to_string()];
+        assert_eq!(
+            fill_template("« {0} » → « {1} »", &args),
+            "« mot {1} » → « x »"
+        );
+        assert_eq!(fill_template("{2} {a} {", &args), "{2} {a} {");
+        assert_eq!(fill_template("sans marqueur", &[]), "sans marqueur");
+    }
 }

@@ -96,7 +96,7 @@ fn synonyms(ctx: &Context, reading: &Reading, like: &str) -> Vec<String> {
             .lexicon
             .inflect(word, |r| r.pos == reading.pos && r.traits == reading.traits)
             .first()
-            .map(|s| s.to_string());
+            .map(std::string::ToString::to_string);
         let usable = inflected.or_else(|| {
             ctx.lexicon
                 .get(word)

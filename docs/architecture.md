@@ -136,8 +136,8 @@ message vide.
   (`cr_alloc`), y écrit des chaînes UTF-8, appelle `cr_add_file` pour chaque
   fichier de données, `cr_build`, puis `cr_check(texte, options)`, et lit le
   résultat JSON (`cr_output_ptr`, `cr_output_len`). Les positions renvoyées
-  sont en UTF-16. Module : 220 Ko ; avec le lexique complet, construction en
-  130 ms et 40 Mo de mémoire (mesures Node, Apple Silicon).
+  sont en UTF-16. Module : 530 Ko ; avec toutes les données, construction en
+  230 ms et 50 Mo de mémoire (mesures Node, Apple Silicon).
 - Bibliothèque native : liée directement à l'application Tauri (commandes
   `analyser`, `infos`), et compilée avec une interface C
   (`crates/correcteur-ffi` : `cr_engine_new`, `cr_check`, `cr_string_free`,
@@ -146,6 +146,14 @@ message vide.
   module WebAssembly (`correcteur_core::interop`).
 
 ## Performance
+
+Le thésaurus est indexé au chargement et lu à la demande ; les tables du
+lexique utilisent un hachage rapide (`hash.rs`) ; les lectures du lexique sont
+cherchées une fois par mot et par analyse ; les suggestions d'un mot inconnu
+répété ne sont calculées qu'une fois. Version native (Apple Silicon) :
+démarrage 0,14 s et 80 Mo ; 20 000 mots comptant 2 000 fautes différentes
+analysés en 0,22 s. Le calcul des suggestions pour les mots inconnus reste
+l'essentiel du temps d'analyse.
 
 Objectif : 500 mots en moins de 100 ms. Mesure : `correcteur mesurer`
 (code de sortie non nul si la médiane dépasse 100 ms), exécutée par

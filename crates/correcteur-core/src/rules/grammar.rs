@@ -11,7 +11,7 @@
 use super::{Context, RawIssue};
 use crate::data::{Determiner, Subject};
 use crate::lexicon::{Form, Gn, Pos, Reading};
-use crate::text::{base_letter, capitalize, is_capitalized};
+use crate::text::{capitalize, is_capitalized};
 
 pub const SUBJECT_VERB: &str = "GRAM_ACCORD_SUJET_VERBE";
 pub const DETERMINER: &str = "GRAM_ACCORD_DETERMINANT";
@@ -52,19 +52,6 @@ fn clause_start(ctx: &Context, i: usize) -> bool {
     w.sentence_start
         || !w.joined_to_prev
         || ctx.prev(i).is_some_and(|p| is_class(ctx, p, "charniere"))
-}
-
-/// Initiale vocalique, ou h muet : déclenche l'élision (l’école, n’habite).
-fn elides_before(ctx: &Context, word: &str, lemma: Option<&str>) -> bool {
-    let lower = word.to_lowercase();
-    match lower.chars().next().map(base_letter) {
-        Some('a' | 'e' | 'i' | 'o' | 'u' | 'y' | 'œ' | 'æ') => true,
-        Some('h') => {
-            !ctx.data.h_aspire.contains(&lower)
-                && !lemma.is_some_and(|l| ctx.data.h_aspire.contains(l))
-        }
-        _ => false,
-    }
 }
 
 /// Reprend la majuscule initiale de `like`.
@@ -316,7 +303,7 @@ fn adapt_determiner(ctx: &Context, det: &str, next: usize) -> String {
         .form(next)
         .and_then(|f| f.readings.first())
         .map(|r| r.lemma.as_str());
-    if !elides_before(ctx, next_word.text, lemma) {
+    if !ctx.data.elides(next_word.text, lemma) {
         return det.to_string();
     }
     match det {
@@ -678,7 +665,7 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         } else {
             agree_forms(ctx, ft, pred, subject.gn)
                 .iter()
-                .map(|s| s.to_string())
+                .map(std::string::ToString::to_string)
                 .collect()
         };
         if let Some(first) = suggestions.first().cloned() {
@@ -715,10 +702,15 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         {
             return;
         }
-        let suggestions: Vec<String> = agree_forms(ctx, ft, |r| r.is_past_participle(), ms)
-            .iter()
-            .map(|s| s.to_string())
-            .collect();
+        let suggestions: Vec<String> = agree_forms(
+            ctx,
+            ft,
+            super::super::lexicon::Reading::is_past_participle,
+            ms,
+        )
+        .iter()
+        .map(std::string::ToString::to_string)
+        .collect();
         if let Some(first) = suggestions.first().cloned() {
             out.push(
                 RawIssue::new(w.start, w.end, PARTICIPLE_AVOIR)
@@ -772,7 +764,7 @@ fn negation(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         .form(first)
         .and_then(|f| f.readings.first())
         .map(|r| r.lemma.as_str());
-    let fixed = if elides_before(ctx, ctx.words[first].text, lemma) {
+    let fixed = if ctx.data.elides(ctx.words[first].text, lemma) {
         format!("n’{span}")
     } else {
         format!("ne {span}")

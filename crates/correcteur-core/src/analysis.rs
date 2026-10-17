@@ -130,7 +130,7 @@ fn is_sentence_start(text: &str, start: usize, prev: Option<&Word>, data: &Data)
             '.' => {
                 // « M. Dupont », « p. ex. » : le point d'une abréviation ne termine pas la phrase.
                 return match prev {
-                    Some(w) => !data.abbreviations.contains(&w.norm),
+                    Some(w) => !data.is_abbreviation(&w.norm),
                     None => true,
                 };
             }

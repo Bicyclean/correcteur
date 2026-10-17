@@ -4,7 +4,7 @@
 //! `fréquence` (occurrences par million de mots), `source`. Une forme
 //! homographe occupe plusieurs lignes (une par lecture).
 
-use std::collections::HashMap;
+use crate::hash::FxHashMap;
 
 use crate::data::{data_lines, DataError};
 use crate::text::{base_letter, normalize_apostrophes};
@@ -169,13 +169,13 @@ impl Form {
 #[derive(Debug, Default)]
 pub struct Lexicon {
     forms: Vec<Form>,
-    by_text: HashMap<String, u32>,
+    by_text: FxHashMap<String, u32>,
     /// Formes contenant une majuscule, indexées en minuscules.
-    by_lower: HashMap<String, Vec<u32>>,
+    by_lower: FxHashMap<String, Vec<u32>>,
     /// Formes indexées par squelette (voir [`skeleton`]).
-    by_skeleton: HashMap<String, Vec<u32>>,
+    by_skeleton: FxHashMap<String, Vec<u32>>,
     /// Formes indexées par lemme.
-    by_lemma: HashMap<String, Vec<u32>>,
+    by_lemma: FxHashMap<String, Vec<u32>>,
 }
 
 impl Lexicon {

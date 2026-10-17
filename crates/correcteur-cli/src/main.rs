@@ -99,15 +99,14 @@ fn run(args: &[String]) -> Result<ExitCode, String> {
 }
 
 fn analyze(engine: &Engine, a: &Args) -> Result<ExitCode, String> {
-    let text = match a.positional.first() {
-        Some(path) => std::fs::read_to_string(path).map_err(|e| format!("{path} : {e}"))?,
-        None => {
-            let mut s = String::new();
-            std::io::stdin()
-                .read_to_string(&mut s)
-                .map_err(|e| e.to_string())?;
-            s
-        }
+    let text = if let Some(path) = a.positional.first() {
+        std::fs::read_to_string(path).map_err(|e| format!("{path} : {e}"))?
+    } else {
+        let mut s = String::new();
+        std::io::stdin()
+            .read_to_string(&mut s)
+            .map_err(|e| e.to_string())?;
+        s
     };
     let mut options = Options::default();
     if a.style {

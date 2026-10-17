@@ -1,5 +1,7 @@
 //! Mots absents du lexique.
 
+use std::collections::HashMap;
+
 use super::{Context, RawIssue};
 use crate::suggest::suggest;
 use crate::text::{is_all_upper, is_apostrophe, is_capitalized};
@@ -7,6 +9,8 @@ use crate::text::{is_all_upper, is_apostrophe, is_capitalized};
 pub const UNKNOWN: &str = "ORTH_MOT_INCONNU";
 
 pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
+    // Un mot inconnu répété dans le texte n'est analysé qu'une fois.
+    let mut cache: HashMap<&str, Vec<String>> = HashMap::new();
     for w in &ctx.words {
         if w.ignored
             || w.has_digit
@@ -19,6 +23,10 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
         if ctx.text[w.end..].starts_with(is_apostrophe)
             && ctx.data.elisions.contains(&format!("{}’", w.lower))
         {
+            continue;
+        }
+        // Abréviation suivie de son point (« Cf. », « env. »).
+        if ctx.text[w.end..].starts_with('.') && ctx.data.is_abbreviation(&w.norm) {
             continue;
         }
         // Sigles (ONU, SNCF) : rarement dans un lexique, presque jamais fautifs.
@@ -35,12 +43,17 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
         {
             continue;
         }
-        let suggestions = suggest(
-            ctx.lexicon,
-            &ctx.data.elisions,
-            &w.norm,
-            ctx.options.max_suggestions,
-        );
+        let suggestions = cache
+            .entry(w.norm.as_str())
+            .or_insert_with(|| {
+                suggest(
+                    ctx.lexicon,
+                    &ctx.data.elisions,
+                    &w.norm,
+                    ctx.options.max_suggestions,
+                )
+            })
+            .clone();
         let mut issue = RawIssue::new(w.start, w.end, UNKNOWN).arg(w.text);
         issue.suggestions = suggestions;
         out.push(issue);
