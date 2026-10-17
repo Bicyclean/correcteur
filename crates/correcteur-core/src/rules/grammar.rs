@@ -252,8 +252,19 @@ fn find_noun_phrase<'c>(ctx: &'c Context, det: usize) -> Option<NounPhrase<'c>> 
     if !noun_form.has_pos(Pos::Nom) || noun_form.has_pos(Pos::Adv) {
         return None;
     }
+    // « Quelle est ta couleur ? » : forme conjuguée d'être ou d'avoir, pas le
+    // nom « est » ou « as ».
+    if noun_form.has(|r| r.is_finite_verb() && matches!(r.lemma.as_str(), "être" | "avoir")) {
+        return None;
+    }
+    // « Elle est tout le temps fatiguée » : « tout le temps » est une locution
+    // adverbiale, le mot suivant ne s'y rattache pas.
+    let adverbial = ctx
+        .prev(det)
+        .is_some_and(|p| matches!(lower(ctx, p), "tout" | "toute" | "tous" | "toutes"));
     let post = ctx.next(noun).filter(|&p| {
-        !ctx.data.determiners.contains_key(lower(ctx, p))
+        !adverbial
+            && !ctx.data.determiners.contains_key(lower(ctx, p))
             && !is_class(ctx, p, "clitique")
             && ctx.form(p).is_some_and(|f| {
                 // « les tables pendant que » : préposition, pas adjectif.
@@ -640,7 +651,9 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
 
     if etre && !has_object {
         // Attribut ou participe : accord avec le sujet (« elles sont parties »).
-        if subject.gn == Gn::default() {
+        // « elle est tout contente », « elle est tout le temps » : « tout »,
+        // « fort », « bien »… peuvent être adverbes, donc invariables.
+        if subject.gn == Gn::default() || ft.has_pos(Pos::Adv) {
             return;
         }
         let adj: Vec<&Reading> = ft.readings.iter().filter(|r| adjectival(r)).collect();

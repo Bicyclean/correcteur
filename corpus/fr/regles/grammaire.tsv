@@ -60,3 +60,5 @@ GRAM_ACCORD_ADJECTIF	Les enfants couraient entre les tables pendant que leurs pa
 GRAM_ACCORD_DETERMINANT	Nous aurons besoin de ton avis.	CONTRIB-INIT
 GRAM_ACCORD_ADJECTIF	Une ⟦petit→petite⟧ fille joue.	CONTRIB-INIT
 GRAM_NEGATION_NE	On ⟦a→n’a⟧ rien vu.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Quelle est ta couleur{fine}?	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Elle est tout le temps fatiguée.	CONTRIB-INIT
