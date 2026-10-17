@@ -143,3 +143,9 @@ GRAM_ACCORD_DETERMINANT	Soudain, une voix les fait se retourner.	CONTRIB-INIT
 GRAM_ACCORD_DETERMINANT	Un sort cruel le place toujours au mauvais endroit.	CONTRIB-INIT
 GRAM_ACCORD_SUJET_VERBE	Les charges relevées contre lui sont lourdes.	CONTRIB-INIT
 GRAM_SI_CONDITIONNEL	Il se demandait ce qu’il ferait, s’il pourrait rester.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_LES	Je les ai ⟦vu→vus⟧ hier soir.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_LES	Ces lettres, je les ai ⟦relu→relus⟧ deux fois.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_LES	Je les ai vues hier.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_LES	Je les ai fait venir.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_LES	Je les en ai remercié.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_LES	Il les a pris avec lui.	CONTRIB-INIT

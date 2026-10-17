@@ -20,6 +20,7 @@ pub const PARTICIPLE_ETRE: &str = "GRAM_PARTICIPE_ETRE";
 pub const PARTICIPLE_AVOIR: &str = "GRAM_PARTICIPE_AVOIR";
 pub const PARTICIPLE_AVOIR_COD: &str = "GRAM_PARTICIPE_AVOIR_COD";
 pub const SI_CONDITIONAL: &str = "GRAM_SI_CONDITIONNEL";
+pub const PARTICIPLE_AVOIR_LES: &str = "GRAM_PARTICIPE_AVOIR_LES";
 pub const INFINITIVE: &str = "GRAM_INFINITIF_PARTICIPE";
 pub const NEGATION: &str = "GRAM_NEGATION_NE";
 pub const PREPOSITION: &str = "GRAM_PREPOSITION";
@@ -101,6 +102,61 @@ fn reflexive_agrees(ctx: &Context, subject: &FoundSubject, t: usize, ft: &Form) 
                     && !f.has(|r| matches!(r.pos, Pos::Det | Pos::Nom) || r.is_infinitive())
             })
     })
+}
+
+/// « Je les ai vu » → « vus » ou « vues » : « les » placé avant avoir est
+/// toujours complément direct et pluriel ; son genre dépend de ce qu'il
+/// remplace, les deux sont proposés. Vrai si la construction a été reconnue.
+fn plural_object_pronoun(
+    ctx: &Context,
+    subject: &FoundSubject,
+    t: usize,
+    ft: &Form,
+    out: &mut Vec<RawIssue>,
+) -> bool {
+    let chain: Vec<&str> = subject.chain.iter().map(|&c| lower(ctx, c)).collect();
+    // « je les en ai… » : autre complément, accord incertain.
+    if !chain.contains(&"les") || chain.contains(&"en") || !ft.has(Reading::is_past_participle) {
+        return false;
+    }
+    // « je les ai fait venir », « les efforts qu’il a fallu » : invariable.
+    let invariable =
+        ft.has(|r| r.is_past_participle() && ctx.data.is(&r.lemma, "participe_invariable"));
+    let before_infinitive = ctx
+        .next(t)
+        .and_then(|n| ctx.form(n))
+        .is_some_and(|f| f.has(Reading::is_infinitive));
+    let plural = ft
+        .readings
+        .iter()
+        .filter(|r| r.is_past_participle())
+        .any(|r| r.gn().is_some_and(|g| g.number != Some('s')));
+    if invariable || before_infinitive || plural {
+        return true;
+    }
+    let mut suggestions: Vec<String> = Vec::new();
+    for gender in ['m', 'f'] {
+        let target = Gn {
+            gender: Some(gender),
+            number: Some('p'),
+        };
+        for f in agree_forms(ctx, ft, Reading::is_past_participle, target) {
+            if !suggestions.iter().any(|s| s == f) {
+                suggestions.push(f.to_string());
+            }
+        }
+    }
+    suggestions.truncate(2);
+    if let Some(first) = suggestions.first().cloned() {
+        let w = &ctx.words[t];
+        out.push(
+            RawIssue::new(w.start, w.end, PARTICIPLE_AVOIR_LES)
+                .arg(w.text)
+                .arg(first)
+                .with_suggestions(suggestions),
+        );
+    }
+    true
 }
 
 /// « Les fleurs qu’il a cueilli » : participe avec avoir dont le complément
@@ -1187,6 +1243,9 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     }
 
     if avoir && subject.chain.is_empty() && preceding_object(ctx, &subject, t, ft, out) {
+        return;
+    }
+    if avoir && plural_object_pronoun(ctx, &subject, t, ft, out) {
         return;
     }
 

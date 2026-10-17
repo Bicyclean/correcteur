@@ -50,6 +50,7 @@ pub const CODE_RULES: &[&str] = &[
     grammar::PARTICIPLE_AVOIR,
     grammar::PARTICIPLE_AVOIR_COD,
     grammar::SI_CONDITIONAL,
+    grammar::PARTICIPLE_AVOIR_LES,
     grammar::INFINITIVE,
     grammar::NEGATION,
     grammar::PREPOSITION,
