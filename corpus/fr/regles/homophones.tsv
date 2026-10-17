@@ -37,3 +37,42 @@ HOMO_ET_EST	Il ⟦et→est⟧ content.	CONTRIB-INIT
 HOMO_ET_EST	C’⟦et→est⟧ vrai.	CONTRIB-INIT
 HOMO_ET_EST	Lui et elle sont partis.	CONTRIB-INIT
 HOMO_ET_EST	Elle et sa sœur dansent.	CONTRIB-INIT
+HOMO_ON_ONT	Les enfants ⟦on→ont⟧ visité le musée.	CONTRIB-INIT
+HOMO_ON_ONT	Ils ⟦on→ont⟧ faim.	CONTRIB-INIT
+HOMO_ON_ONT	On a visité le musée.	CONTRIB-INIT
+HOMO_ON_ONT	Avec les enfants, on visite le musée.	CONTRIB-INIT
+HOMO_ONT_ON	⟦Ont→On⟧ dit que tout va bien.	CONTRIB-INIT
+HOMO_ONT_ON	Ont-ils mangé{fine}?	CONTRIB-INIT
+HOMO_ONT_ON	Ils ont dit que tout va bien.	CONTRIB-INIT
+HOMO_SA_CA	C’est ⟦sa→ça⟧ le problème.	CONTRIB-INIT
+HOMO_SA_CA	⟦Sa→Ça⟧ va bien.	CONTRIB-INIT
+HOMO_SA_CA	Il aime ⟦sa→ça⟧.	CONTRIB-INIT
+HOMO_SA_CA	Il a pris sa voiture.	CONTRIB-INIT
+HOMO_SA_CA	Sa marche est rapide.	CONTRIB-INIT
+HOMO_CA_SA	Il a vendu ⟦ça→sa⟧ maison.	CONTRIB-INIT
+HOMO_CA_SA	Ça marche bien.	CONTRIB-INIT
+HOMO_CA_SA	Comme ça, personne ne sera déçu.	CONTRIB-INIT
+HOMO_SES_CES	Il fait froid ⟦ses→ces⟧ jours-ci.	CONTRIB-INIT
+HOMO_SES_CES	Il a rangé ses livres.	CONTRIB-INIT
+HOMO_SES_CES	Ces jours-ci, il fait froid.	CONTRIB-INIT
+HOMO_CES_SES	Il élève ⟦ces→ses⟧ propres enfants.	CONTRIB-INIT
+HOMO_CES_SES	Ces draps sont propres.	CONTRIB-INIT
+HOMO_CES_SES	Il élève ses propres enfants.	CONTRIB-INIT
+HOMO_LEURS_LEUR	Je ⟦leurs→leur⟧ ai dit la vérité.	CONTRIB-INIT
+HOMO_LEURS_LEUR	Il faut ⟦leurs→leur⟧ parler.	CONTRIB-INIT
+HOMO_LEURS_LEUR	Je leur ai parlé de leurs projets.	CONTRIB-INIT
+HOMO_LEURS_LEUR	Leurs parents sont venus.	CONTRIB-INIT
+HOMO_QUELLE_QU_ELLE	Je pense ⟦quelle→qu’elle⟧ viendra.	CONTRIB-INIT
+HOMO_QUELLE_QU_ELLE	Je sais quelle robe choisir.	CONTRIB-INIT
+HOMO_QUELLE_QU_ELLE	Il veut qu’elle vienne.	CONTRIB-INIT
+HOMO_QU_ELLE_QUELLE	⟦Qu’elle→Quelle⟧ chance{fine}!	CONTRIB-INIT
+HOMO_QU_ELLE_QUELLE	Il demande ⟦qu’elle→quelle⟧ heure il est.	CONTRIB-INIT
+HOMO_QU_ELLE_QUELLE	Je crois qu’elle part demain.	CONTRIB-INIT
+HOMO_PEU_PEUT	Il ⟦peu→peut⟧ venir demain.	CONTRIB-INIT
+HOMO_PEU_PEUT	Elle ne ⟦peu→peut⟧ pas répondre.	CONTRIB-INIT
+HOMO_PEU_PEUT	Il mange peu le soir.	CONTRIB-INIT
+HOMO_PEU_PEUT	Il peut venir demain.	CONTRIB-INIT
+HOMO_PEUT_PEU	Ajoutez un ⟦peut→peu⟧ de sel.	CONTRIB-INIT
+HOMO_PEUT_PEU	Il est à ⟦peut→peu⟧ près midi.	CONTRIB-INIT
+HOMO_PEUT_PEU	Il viendra peut-être.	CONTRIB-INIT
+HOMO_PEUT_PEU	Qui sait si on peut venir{fine}?	CONTRIB-INIT

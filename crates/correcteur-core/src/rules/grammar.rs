@@ -81,7 +81,7 @@ fn same_case(like: &str, s: &str) -> String {
 /// lexique ne le précise pas. Les lectures sans genre sont ignorées quand
 /// d'autres formes en donnent un (Lexique note « maison » sans genre au
 /// singulier mais au féminin au pluriel).
-fn noun_gender(ctx: &Context, lemma: &str) -> Option<char> {
+pub(super) fn noun_gender(ctx: &Context, lemma: &str) -> Option<char> {
     if ctx.data.two_gender_nouns.contains(lemma) {
         return None;
     }
@@ -338,6 +338,14 @@ fn noun_phrase(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     let Some(np) = find_noun_phrase(ctx, i) else {
         return;
     };
+    // « sa va » → « ça va » : homophone déjà signalé, ce n'est pas un groupe nominal.
+    let det = &ctx.words[np.det];
+    if out
+        .iter()
+        .any(|o| o.rule.starts_with("HOMO_") && o.start == det.start && o.end == det.end)
+    {
+        return;
+    }
     let Some(noun_form) = ctx.form(np.noun) else {
         return;
     };

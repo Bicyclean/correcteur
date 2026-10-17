@@ -23,7 +23,7 @@ Tout le traitement est local : le texte ne quitte jamais l'appareil.
 Ce que le moteur détecte aujourd'hui :
 
 - **Orthographe** : mots inconnus, suggestions classées par proximité et fréquence.
-- **Homophones** : a/à, ou/où, ce/se, c’/s’, et/est (règles prudentes, contexte immédiat).
+- **Homophones** : a/à, ou/où, ce/se, c’/s’, et/est, on/ont, sa/ça, ses/ces, leur/leurs, quelle/qu’elle, peu/peut (règles prudentes, contexte immédiat).
 - **Grammaire** : accord sujet-verbe, accords dans le groupe nominal,
   participe passé avec être et avoir, infinitif à la place du participe
   (« il a manger »), négation sans « ne », quelques constructions critiquées
