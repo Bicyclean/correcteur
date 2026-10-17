@@ -27,6 +27,25 @@ jobs:
           complete = glob.glob("dist/*.oxt")[0]
           with zipfile.ZipFile(complete) as z:
               noms = z.namelist()
+          def essayer(nom, oxt):
+              profil = pathlib.Path(tempfile.mkdtemp()).as_uri()
+              env = f"-env:UserInstallation={profil}"
+              subprocess.run(["soffice", "--headless", "--terminate_after_init", env], capture_output=True)
+              r = subprocess.run(["unopkg", "add", "-s", env, oxt], capture_output=True, text=True)
+              print(f"{nom:24} → {'OK' if r.returncode == 0 else 'ÉCHEC'} {r.stderr.strip()[:160]}", flush=True)
+
+          essayer("originale", complete)
+          for methode, libelle in ((zipfile.ZIP_DEFLATED, "recompressée"), (zipfile.ZIP_STORED, "non compressée")):
+              d = tempfile.mkdtemp()
+              oxt = os.path.join(d, "v.oxt")
+              with zipfile.ZipFile(complete) as src, zipfile.ZipFile(oxt, "w", methode) as dst:
+                  for m in noms:
+                      dst.writestr(m, src.read(m))
+              essayer(libelle, oxt)
+          with zipfile.ZipFile(complete) as z:
+              for i in z.infolist():
+                  if i.file_size > 1_000_000 or i.filename.endswith((".dylib", ".so", ".dll")):
+                      print("   ", i.filename, i.compress_type, i.file_size, i.compress_size, i.flag_bits, i.create_system)
           variantes = {
               "complète": noms,
               "sans données": [n for n in noms if not n.startswith("data/")],
