@@ -190,3 +190,58 @@ GRAM_PARTICIPE_ETRE	La priorité est ⟦données→donnée⟧ à l’école.	CON
 GRAM_ACCORD_SUJET_VERBE	L’enfant ⟦sont→est⟧ parti.	CONTRIB-INIT
 GRAM_PARTICIPE_POUR_INFINITIF	Je tiens pour avéré que tout va bien.	CONTRIB-INIT
 GRAM_PARTICIPE_POUR_INFINITIF	Il attendait que quelqu’un d’autorisé le renseigne.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Les ruines gallo-romaines de Verdes sont connues.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	La gestion péri-opératoire est délicate.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Une livrée gris métallisé inédite.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Après son séjour dans les empires ottoman puis russe, il rentre.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Il voit les dangers sur l’environnement liés à la disparition des espèces.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Il garde un goût pour l’arabesque avivé par ses voyages.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	On regarde l’esquisse ⟦préparatoires→préparatoire⟧ de David.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Il voyage sans cette préoccupation ⟦habituel→habituelle⟧ du retour.	CONTRIB-INIT
+HOMO_A_PREPOSITION	⟦A→À⟧ continuer ainsi, nous mettrons deux mille jours.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Mille savants n’auraient pas suffi a recomposer les squelettes.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Marie avait ⟦présenter→présenté⟧ son ami.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR	La pluie dont nous avait menacés le capucin tombait.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR	Elle a ⟦mangés→mangé⟧ des pommes.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Un génie qui, tous les soirs descendait du ciel.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ses manières, ses paroles, tout son air me disaient d’avoir confiance.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Tous ces enfants ⟦joue→jouent⟧ dehors.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Cent une synagogues sont incendiées.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Elle présente la même tonalité, la bémol majeur.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Il travaille dans ⟦les studio→les studios⟧ du quartier.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	La nationalisation des biens du clergé proposée par Talleyrand.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	La part de ce budget des ménages dévolue au cinéma a baissé.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Cette scène rappelle l’Émilie au jardin représentée à Vienne.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	La surface est de nos jours répartie entre deux forêts.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Les douves, à l’origine reliées à l’Indre, protégeaient le château.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Des membres sont du reste intégrés dans l’administration.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	L’enceinte est à cet endroit surélevée.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	On en compte une douzaine réalisées à Paris.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	La voie traverse les pays breton, normand et picard.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Le concerto se termine par un finale intitulé Mouvement perpétuel.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Le convoi rassemble des intellectuelles membres du parti.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Ce sont des maniaqueries ⟦pleine→pleines⟧ de bonnes intentions.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	La pièce, au caractère ⟦improvisée→improvisé⟧, plaît.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Il a obtenu deux ⟦grand→grands⟧ prix.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Les troupes venaient des ⟦différentes→différents⟧ peuples de l’empire.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Au village règnent le commérage et la jalousie.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	La même année paraissent deux romans.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	La concierge d’abord, puis la buraliste ont témoigné.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	De plus savants que son neveu eussent été empêchés de le combattre.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	« L’esprit de corps » des polytechniciens tend à constituer un État.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	J’espère qu’elle vous ⟦plairont→plaira⟧ beaucoup.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Cette manœuvre n’⟦échappent→échappe⟧ pas aux Français.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	La majeure partie (65 %) du parc est classée en zone protégée.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Les pattes sont gris-bleuâtre et longues.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ils sont blanc crémeux avec des taches.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Les motoneiges sont ⟦illégaux→illégales⟧ ici.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elles sont ⟦doués→douées⟧ de pouvoirs.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Le cours de sa vie tracé jusqu’à la mort.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Il faut avoir l’une de vos mains placée sur la gâchette.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Une femme se présentait à ses yeux parée d’un charme nouveau.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Voilà une petite femme qui a l’air intelligente.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	On n’avait pas besoin d’avoir ces goûts pourvu qu’on les proclamât.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Elle vivait dans l’inertie ⟦absolu→absolue⟧ de ses journées.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Il fut sans compensation aucune jeté à la porte.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Des palmiers dans des cache-pot de Chine.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Cela le mettait dans ⟦un allégresse→une allégresse⟧ extraordinaire.	CONTRIB-INIT

@@ -15,7 +15,6 @@ machine a laver	machine à laver	HOMO_A_PREPOSITION	REF-GRAM-FR
 salle a manger	salle à manger	HOMO_A_PREPOSITION	REF-GRAM-FR
 d’ ou	d’où	HOMO_OU_RELATIF	REF-GRAM-FR
 au moment ou	au moment où	HOMO_OU_RELATIF	REF-GRAM-FR
-partout ou	partout où	HOMO_OU_RELATIF	REF-GRAM-FR
 où bien	ou bien	HOMO_OU_CONJONCTION	REF-GRAM-FR
 # Constructions et prépositions : « =lemme » reconnaît toutes les formes du lemme ;
 # « $1 » reprend le texte du premier mot trouvé.

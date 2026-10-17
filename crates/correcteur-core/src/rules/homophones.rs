@@ -258,6 +258,15 @@ fn check_a(ctx: &Context, i: usize) -> bool {
         &["of", "in", "the", "and", "for", "to", "from", "with", "on"],
     ) || (n.is_some_and(|k| is_capitalized(ctx.words[k].text))
         && n2.is_some_and(|k| is_capitalized(ctx.words[k].text) || ctx.form(k).is_none()));
+    // « I don't have a gun » : citation anglaise.
+    let english = english
+        || lower_is(
+            ctx,
+            ctx.prev(i),
+            &[
+                "have", "has", "had", "is", "was", "be", "got", "get", "with", "for", "as",
+            ],
+        );
     if ctx.text[w.end..].starts_with('.')
         || unknown(n)
         || unknown(ctx.prev(i))
@@ -443,9 +452,15 @@ fn check_ou(ctx: &Context, i: usize) -> bool {
         let p = ctx.prev(i);
         let after_noun = p.is_some_and(|p| {
             let pw = &ctx.words[p];
+            // « sortirons ensemble ou nous mourrons » : adverbe, « ou » coordonne ;
+            // mais « je ne sais pas ou il habite » : négation.
+            let adverb = !ctx.data.is(&pw.lower, "negation");
             (is_capitalized(pw.text) && !pw.sentence_start)
                 || form(ctx, Some(p)).is_some_and(|f| {
-                    f.has_pos(Pos::Nom) && !f.has(|r| r.pos.is_verb() || r.pos == Pos::Adj)
+                    f.has_pos(Pos::Nom)
+                        && !f.has(|r| {
+                            r.pos.is_verb() || r.pos == Pos::Adj || (adverb && r.pos == Pos::Adv)
+                        })
                 })
         });
         let n = ctx.next(i);
@@ -458,11 +473,20 @@ fn check_ou(ctx: &Context, i: usize) -> bool {
                     "je", "j’", "tu", "il", "elle", "on", "nous", "vous", "ils", "elles", "l’on",
                 ],
             );
-        return after_noun && subject && !lower_is(ctx, n.and_then(|n| ctx.next(n)), &["ou", "et"]);
+        // « partout où il va », mais « partout ou presque ».
+        let partout = lower_is(ctx, p, &["partout"])
+            && n.is_some_and(|k| !is_capitalized(ctx.words[k].text))
+            && !lower_is(ctx, n, &["presque", "ailleurs", "nulle", "non"]);
+        return partout
+            || after_noun && subject && !lower_is(ctx, n.and_then(|n| ctx.next(n)), &["ou", "et"]);
     }
     let n = ctx.next(i);
+    // « … du roman ? Ou serait-elle plutôt… ? » : seconde branche d'une
+    // question alternative.
+    let alternative = ctx.text[..w.start].trim_end().ends_with('?');
     form(ctx, n).is_some_and(|f| f.has(super::super::lexicon::Reading::is_finite_verb))
         && ends_with_question(ctx, w.end)
+        && !alternative
 }
 
 /// La phrase qui contient la position `from` se termine-t-elle par « ? » ?
@@ -516,9 +540,20 @@ fn check_se(ctx: &Context, i: usize) -> bool {
                 Some(cur)
             })
             .any(|k| form(ctx, k).is_some_and(|f| f.has(super::super::lexicon::Reading::is_past_participle)));
+    // « en se suicidant » : gérondif. « se ré-approprier » : verbe composé
+    // inconnu du lexique. « se déshérite, se spécule et se contrebande » :
+    // suite de verbes pronominaux.
+    let gerund = lower_is(ctx, ctx.prev(i), &["en"]);
+    let compound = n.is_some_and(|n| ctx.text[ctx.words[n].end..].starts_with('-'));
+    let after_comma = i > 0 && ctx.text[ctx.words[i - 1].end..ctx.words[i].start].contains(',');
+    let series = (after_comma || lower_is(ctx, ctx.prev(i), &["et", "ou"]))
+        && (i.saturating_sub(6)..i).any(|k| lower_is(ctx, Some(k), &["se", "s’", "s'"]));
     etre_then_det
         || lower_is(ctx, n, &["qui", "que", "qu’", "dont", "quoi"])
-        || form(ctx, n).is_some_and(|f| f.only(|r| r.pos == Pos::Nom))
+        || (form(ctx, n).is_some_and(|f| f.only(|r| r.pos == Pos::Nom))
+            && !gerund
+            && !compound
+            && !series)
 }
 
 /// « Mes amis son venus » → « sont » : sujet pluriel, puis participe passé ou
@@ -636,21 +671,19 @@ fn check_s(ctx: &Context, i: usize) -> bool {
         return false;
     }
     // Un participe dans les mots suivants, éventuellement après des adverbes
-    // (« s’est peu à peu transformée », « s’est en effet déplacé ») : correct.
-    let mut k = n.and_then(|n| ctx.next(n));
-    if k.is_none() {
+    // ou une incise (« s’est peu à peu transformée », « s’est en effet
+    // déplacé », « s’est, semble-t-il, perdue ») : correct.
+    let Some(n) = n else { return false };
+    if ctx.next(n).is_none() {
         return false;
     }
-    for _ in 0..5 {
-        let Some(j) = k else { break };
-        if form(ctx, Some(j))
-            .is_some_and(|f| f.has(super::super::lexicon::Reading::is_past_participle))
-        {
-            return false;
-        }
-        k = ctx.next(j);
-    }
-    true
+    !(n + 1..ctx.words.len())
+        .take_while(|&j| !ctx.words[j].sentence_start)
+        .take(6)
+        .any(|j| {
+            form(ctx, Some(j))
+                .is_some_and(|f| f.has(super::super::lexicon::Reading::is_past_participle))
+        })
 }
 
 fn check_c(ctx: &Context, i: usize) -> bool {
@@ -815,6 +848,8 @@ fn check_sa(ctx: &Context, i: usize) -> bool {
     if nw.compound_part
         || (is_capitalized(nw.text) && !nw.sentence_start)
         || matches!(nw.lower.as_str(), "tout" | "toute" | "tous" | "toutes")
+        // « le journal lui consacre sa une » : la une, première page.
+        || nw.lower == "une"
     {
         return false;
     }
