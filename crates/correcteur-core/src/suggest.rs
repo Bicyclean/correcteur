@@ -2,9 +2,10 @@
 //!
 //! Candidats : formes de même squelette (erreurs d'accent ou de lettre doublée),
 //! formes à une modification près du mot (insertion, suppression, substitution,
-//! inversion), formes à une modification près du squelette, et coupure en deux
-//! mots. Les candidats sont classés par une distance d'édition pondérée,
-//! corrigée par la fréquence.
+//! inversion), formes à une modification près du squelette, formes obtenues
+//! par une confusion phonétique courante (« fesait » → « faisait »), et coupure
+//! en deux mots. Les candidats sont classés par une distance d'édition
+//! pondérée, corrigée par la fréquence.
 
 use std::collections::HashSet;
 
@@ -22,6 +23,20 @@ const FREQ_WEIGHT: f32 = 0.08;
 const SPLIT_PENALTY: f32 = 0.6;
 /// Coût d'une apostrophe d'élision oubliée (« quil » → « qu’il »).
 const MISSING_APOSTROPHE: f32 = 0.5;
+
+/// Graphies qui se prononcent de la même façon, ou presque, et que l'on
+/// confond souvent : remplacer l'une par l'autre coûte moins qu'une faute de
+/// frappe. Chaque paire vaut dans les deux sens.
+const CONFUSIONS: &[(&str, &str, f32)] = &[
+    ("é", "ée", 0.25), // musé → musée
+    ("e", "ai", 0.5),  // fesait → faisait
+    ("è", "ai", 0.5),  // mèson → maison
+    ("s", "ss", 0.5),  // pousser, poser
+    ("c", "ç", 0.25),  // garcon → garçon
+    ("ph", "f", 0.5),  // filosofie → philosophie
+    ("an", "en", 0.5), // anfant → enfant
+    ("am", "em", 0.5), // amporter → emporter
+];
 
 /// `elisions` : formes élidées connues (`qu’`, `l’`…), pour proposer une apostrophe oubliée.
 pub fn suggest(
@@ -42,6 +57,10 @@ pub fn suggest(
     }
     for e in edits1(&skeleton(&lower), SKELETON_LETTERS) {
         ids.extend_from_slice(lexicon.ids_for_skeleton(&e));
+    }
+    for v in confusion_variants(&lower) {
+        lexicon.ids_for_lower(&v, &mut ids);
+        ids.extend_from_slice(lexicon.ids_for_skeleton(&skeleton(&v)));
     }
 
     let mut seen = HashSet::new();
@@ -117,6 +136,28 @@ fn restore_case(original: &str, suggestion: &str) -> String {
     }
 }
 
+/// Variantes de `word` où une ou deux graphies de [`CONFUSIONS`] sont
+/// remplacées par l'autre (« filosofie » → « philosophie »).
+fn confusion_variants(word: &str) -> Vec<String> {
+    let once = |w: &str| {
+        let mut out = Vec::new();
+        for &(x, y, _) in CONFUSIONS {
+            for (from, to) in [(x, y), (y, x)] {
+                for (pos, _) in w.match_indices(from) {
+                    out.push(format!("{}{to}{}", &w[..pos], &w[pos + from.len()..]));
+                }
+            }
+        }
+        out
+    };
+    let first = once(word);
+    let mut out: Vec<String> = first.iter().flat_map(|v| once(v)).collect();
+    out.extend(first);
+    out.sort();
+    out.dedup();
+    out
+}
+
 /// Toutes les chaînes à une modification de `word`.
 fn edits1(word: &str, alphabet: &str) -> Vec<String> {
     let chars: Vec<char> = word.chars().collect();
@@ -144,12 +185,19 @@ fn edits1(word: &str, alphabet: &str) -> Vec<String> {
 
 /// Distance d'édition (avec inversion de lettres voisines) dont les coûts
 /// reflètent les fautes fréquentes : accent oublié ou erroné, lettre doublée
-/// ou dédoublée.
+/// ou dédoublée, confusion phonétique (voir [`CONFUSIONS`]).
 pub fn weighted_distance(a: &str, b: &str) -> f32 {
     let a: Vec<char> = a.chars().collect();
     let b: Vec<char> = b.chars().collect();
     let (n, m) = (a.len(), b.len());
     let mut d = vec![vec![0f32; m + 1]; n + 1];
+    let confusions: Vec<(Vec<char>, Vec<char>, f32)> = CONFUSIONS
+        .iter()
+        .flat_map(|&(x, y, c)| {
+            let (x, y): (Vec<char>, Vec<char>) = (x.chars().collect(), y.chars().collect());
+            [(x.clone(), y.clone(), c), (y, x, c)]
+        })
+        .collect();
 
     // Coût d'insertion ou de suppression de `s[i]` : moindre si la lettre double sa voisine.
     let indel = |s: &[char], i: usize| -> f32 {
@@ -185,6 +233,11 @@ pub fn weighted_distance(a: &str, b: &str) -> f32 {
             if i > 1 && j > 1 && a[i - 1] == b[j - 2] && a[i - 2] == b[j - 1] {
                 v = v.min(d[i - 2][j - 2] + 0.75);
             }
+            for (x, y, c) in &confusions {
+                if a[..i].ends_with(x) && b[..j].ends_with(y) {
+                    v = v.min(d[i - x.len()][j - y.len()] + c);
+                }
+            }
             d[i][j] = v;
         }
     }
@@ -202,6 +255,27 @@ mod tests {
         assert_eq!(weighted_distance("maison", "maison"), 0.0);
         assert_eq!(weighted_distance("maiosn", "maison"), 0.75);
         assert!(weighted_distance("chat", "chien") > 2.0);
+    }
+
+    #[test]
+    fn confusions_phonetiques() {
+        assert_eq!(weighted_distance("musé", "musée"), 0.25);
+        assert_eq!(weighted_distance("fesait", "faisait"), 0.5);
+        assert_eq!(weighted_distance("filosofie", "philosophie"), 1.0);
+        assert_eq!(weighted_distance("anfant", "enfant"), 0.5);
+    }
+
+    #[test]
+    fn classement_phonetique() {
+        let tsv = "muse\tmuse\tNOM\tf.s\t1.31\ttest\n\
+                   musée\tmusée\tNOM\tm.s\t20.07\ttest\n\
+                   faisait\tfaire\tVER\tind.impf.3s\t329.81\ttest\n\
+                   fessait\tfesser\tVER\tind.impf.3s\t0.07\ttest\n\
+                   pesait\tpeser\tVER\tind.impf.3s\t5.0\ttest\n";
+        let lex = Lexicon::from_tsv_files(&[("t".into(), tsv.into())]).unwrap();
+        let none = HashSet::new();
+        assert_eq!(suggest(&lex, &none, "musé", 5)[0], "musée");
+        assert_eq!(suggest(&lex, &none, "fesait", 5)[0], "faisait");
     }
 
     #[test]
