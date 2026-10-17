@@ -15,6 +15,14 @@ document n'est jamais envoyé. La politique de sécurité de la page
   add-ins avec Internet Explorer (Word 2016 et 2019 en licence perpétuelle)
   ne savent pas exécuter de WebAssembly.
 
+## Outils
+
+La section **Outils** du panneau conjugue un verbe (infinitif, forme
+conjuguée ou pronominal) et cherche les synonymes d'un mot : laissé vide, le
+champ prend le mot sélectionné, et un clic sur un synonyme remplace la
+sélection. Le style (répétitions, phrases longues) s'active dans les
+**Réglages** ; la lisibilité du texte s'affiche après chaque analyse.
+
 ## Construire et tester
 
 ```bash

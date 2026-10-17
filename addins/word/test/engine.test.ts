@@ -77,3 +77,25 @@ test("chaque suggestion du corpus s'applique au bon endroit via la recherche", (
   }
   assert.ok(checked > 50, `${checked} suggestions vérifiées`);
 });
+
+test("conjugaison, synonymes et lisibilité", () => {
+  const c = engine.conjugate("se souvenir");
+  assert.ok(c);
+  assert.equal(c.auxiliary, "être");
+  assert.equal(c.modes[0].tenses[0].lines[0], "je me souviens");
+  assert.equal(engine.conjugate("xyzir"), null);
+  const s = engine.synonyms("maisons");
+  assert.equal(s?.entry, "maison");
+  assert.ok(s?.groups[0].words.includes("demeure"));
+  const r = engine.readability("Le chat dort. Il rêve.");
+  assert.equal(r.words, 5);
+  assert.equal(r.sentences, 2);
+  assert.ok(r.score > 60);
+});
+
+test("style désactivé par défaut, activable", () => {
+  const text = "La maison est grande et la maison est ancienne.";
+  assert.equal(engine.check(text).length, 0);
+  const all = engine.check(text, { ...DEFAULT_OPTIONS, disabledCategories: [] });
+  assert.equal(all[0]?.rule, "STYLE_REPETITION");
+});

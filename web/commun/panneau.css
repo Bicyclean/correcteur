@@ -12,6 +12,7 @@
   --cat-homophone: #7c3aed;
   --cat-grammaire: #0f766e;
   --cat-typographie: #2563eb;
+  --cat-style: #a16207;
   color-scheme: light dark;
 }
 @media (prefers-color-scheme: dark) {
@@ -29,6 +30,7 @@
     --cat-homophone: #b79cfa;
     --cat-grammaire: #5eead4;
     --cat-typographie: #93b4fb;
+    --cat-style: #facc15;
   }
 }
 * { box-sizing: border-box; }
@@ -130,3 +132,37 @@ legend { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
 #dictionary { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
 #dictionary li { display: flex; justify-content: space-between; gap: 8px; }
 footer { margin-top: 16px; font-size: 12px; color: var(--muted); }
+
+/* Outils : conjugaison et synonymes */
+#outils { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 8px; }
+#outils summary { cursor: pointer; font-weight: 600; }
+.tool { margin: 10px 0 6px; display: grid; gap: 4px; }
+.tool label { font-size: 12px; color: var(--muted); }
+.tool .row { display: flex; gap: 6px; }
+.tool input, input.small {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--text);
+}
+input.small { width: 4.5em; flex: none; }
+.tool button {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 4px;
+  padding: 4px 10px;
+}
+.tool-head { margin: 8px 0 4px; }
+.conjugation .mode { margin: 4px 0; }
+.conjugation summary { cursor: pointer; font-weight: 600; font-size: 13px; }
+.conjugation .tense { margin: 4px 0 8px 8px; }
+.conjugation h4 { margin: 0; font-size: 12px; color: var(--muted); font-weight: 600; }
+.conjugation ul { list-style: none; margin: 2px 0 0; padding: 0; font-size: 13px; }
+.synonym-group { margin-bottom: 8px; }
+.synonym-group .muted { margin: 4px 0; }
+.card[data-category="style"], .chip[data-category="style"] { --cat: var(--cat-style); }

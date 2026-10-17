@@ -6,7 +6,7 @@
 import { type DocumentAccess } from "./document";
 import { type Target, locate } from "./mapping";
 import { loadSettings, saveSettings } from "./settings";
-import { type Category, type CheckOptions, type Checker, type Issue } from "./types";
+import { type Category, type CheckOptions, type Checker, type Conjugation, type Issue, type Synonyms } from "./types";
 
 export interface Found {
   key: string;
@@ -21,6 +21,7 @@ const CATEGORIES: { id: Category; label: string }[] = [
   { id: "homophone", label: "Homophones" },
   { id: "grammaire", label: "Grammaire" },
   { id: "typographie", label: "Typographie" },
+  { id: "style", label: "Style" },
 ];
 
 const state = {
@@ -88,8 +89,10 @@ export async function analyze(): Promise<void> {
     }
     state.found = found;
     state.analyzed = true;
-    const words = paragraphs.join(" ").split(/\s+/).filter(Boolean).length;
-    setStatus(`${words} mots analysés en ${Math.round(performance.now() - t0)} ms`);
+    const ms = Math.round(performance.now() - t0);
+    const r = await engine.readability(paragraphs.join("\n"));
+    const score = r.words > 0 ? ` · lisibilité ${Math.round(r.score)} (${r.level})` : "";
+    setStatus(`${r.words} mots${score} · ${ms} ms`);
     render();
     state.onAnalyzed?.(visible());
   } catch (e) {
@@ -271,6 +274,18 @@ function bindOptions(): void {
     };
     cats.append(el("label", {}, box, ` ${c.label}`));
   }
+  const phrase = document.getElementById("opt-phrase") as HTMLInputElement | null;
+  if (phrase) {
+    phrase.value = String(state.options.longSentenceWords);
+    phrase.onchange = () => {
+      const n = Number(phrase.value);
+      if (Number.isInteger(n) && n >= 10 && n <= 200) {
+        state.options.longSentenceWords = n;
+        saveSettings(state.options);
+        void analyze();
+      }
+    };
+  }
   $("opt-reset-rules").onclick = () => {
     state.options.disabledRules = [];
     saveSettings(state.options);
@@ -298,6 +313,76 @@ function renderDictionary(): void {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Outils : conjugaison et synonymes
+
+function showConjugation(c: Conjugation): HTMLElement {
+  const head = el(
+    "p",
+    { className: "tool-head" },
+    el("strong", {}, c.infinitive),
+    ` — modèle « ${c.model} », auxiliaire ${c.auxiliary}`,
+    c.guessed ? " (verbe inconnu : modèle déduit de la terminaison)" : "",
+  );
+  const modes = c.modes.map((m) =>
+    el(
+      "details",
+      { className: "mode", open: m.name === "Indicatif" },
+      el("summary", {}, m.name),
+      ...m.tenses.map((t) =>
+        el("div", { className: "tense" }, el("h4", {}, t.name), el("ul", {}, ...t.lines.map((l) => el("li", {}, l)))),
+      ),
+    ),
+  );
+  return el("div", { className: "conjugation" }, head, ...modes);
+}
+
+function showSynonyms(s: Synonyms): HTMLElement {
+  const groups = s.groups.map((g) => {
+    const list = el("div", { className: "suggestions" });
+    for (const w of g.words) {
+      const b = el("button", { className: "suggestion", type: "button", title: "Remplacer la sélection" }, w);
+      b.setAttribute("aria-label", `Remplacer la sélection par « ${w} »`);
+      b.onclick = async () => {
+        await state.doc?.replaceSelection(w);
+        void analyze();
+      };
+      list.append(b);
+    }
+    return el("div", { className: "synonym-group" }, el("p", { className: "muted" }, g.category), list);
+  });
+  return el("div", {}, el("p", { className: "tool-head" }, el("strong", {}, s.entry)), ...groups);
+}
+
+function bindTools(): void {
+  const out = document.getElementById("outil-resultat");
+  const conj = document.getElementById("form-conjuguer") as HTMLFormElement | null;
+  const syn = document.getElementById("form-synonymes") as HTMLFormElement | null;
+  if (!out || !conj || !syn) return;
+  const show = (node: Node) => out.replaceChildren(node);
+  conj.onsubmit = async (e) => {
+    e.preventDefault();
+    const verb = $<HTMLInputElement>("verbe").value.trim();
+    if (!verb || !state.engine) return;
+    const c = await state.engine.conjugate(verb);
+    show(c ? showConjugation(c) : el("p", { className: "muted" }, `« ${verb} » : verbe inconnu.`));
+  };
+  const word = $<HTMLInputElement>("mot");
+  // Champ vide : on part de la sélection du document.
+  word.onfocus = async () => {
+    if (!word.value && state.doc) word.value = (await state.doc.selectedText()).trim();
+  };
+  syn.onsubmit = async (e) => {
+    e.preventDefault();
+    let w = word.value.trim();
+    if (!w && state.doc) w = (await state.doc.selectedText()).trim();
+    if (!w || !state.engine) return;
+    word.value = w;
+    const s = await state.engine.synonyms(w);
+    show(s ? showSynonyms(s) : el("p", { className: "muted" }, `Aucun synonyme connu pour « ${w} ».`));
+  };
+}
+
 export interface PanelSetup {
   doc: DocumentAccess;
   /** Charge le moteur (WebAssembly ou natif). */
@@ -312,6 +397,7 @@ export async function startPanel(setup: PanelSetup): Promise<void> {
   state.doc = setup.doc;
   state.onAnalyzed = setup.onAnalyzed ?? null;
   bindOptions();
+  bindTools();
   $("analyze").onclick = () => void analyze();
   render();
   try {

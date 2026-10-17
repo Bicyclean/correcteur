@@ -30,8 +30,9 @@ SERVICES = ("com.sun.star.linguistic2.Proofreader",)
 COUNTRIES = ("FR", "BE", "CA", "CH", "LU", "MC")
 
 # LibreOffice a son propre correcteur orthographique (Hunspell) : on ne
-# double pas ses signalements. Les autres catégories sont vérifiées.
-OPTIONS = "categorie_off=orthographe"
+# double pas ses signalements. Le style (répétitions, phrases longues) reste
+# désactivé, comme dans les autres interfaces. Les autres catégories sont vérifiées.
+OPTIONS = "categorie_off=orthographe\ncategorie_off=style"
 
 # Couleur du soulignement par catégorie (0xRRGGBB).
 LINE_COLORS = {

@@ -78,6 +78,7 @@ body {
 .backdrop mark[data-category="homophone"] { --cat: var(--cat-homophone); }
 .backdrop mark[data-category="grammaire"] { --cat: var(--cat-grammaire); }
 .backdrop mark[data-category="typographie"] { --cat: var(--cat-typographie); }
+.backdrop mark[data-category="style"] { --cat: var(--cat-style); }
 
 .statusbar {
   display: flex;

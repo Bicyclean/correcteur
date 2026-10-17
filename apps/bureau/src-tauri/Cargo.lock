@@ -426,10 +426,11 @@ dependencies = [
 
 [[package]]
 name = "correcteur-bureau"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "correcteur-core",
  "serde",
+ "serde_json",
  "tauri",
  "tauri-build",
  "tauri-plugin-clipboard-manager",
@@ -438,7 +439,7 @@ dependencies = [
 
 [[package]]
 name = "correcteur-core"
-version = "0.2.0"
+version = "0.3.0"
 
 [[package]]
 name = "cpufeatures"

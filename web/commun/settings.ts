@@ -44,11 +44,19 @@ export function sanitize(value: unknown): CheckOptions {
   if (Array.isArray(v.disabledCategories)) {
     o.disabledCategories = v.disabledCategories.filter(
       (c): c is CheckOptions["disabledCategories"][number] =>
-        c === "orthographe" || c === "homophone" || c === "grammaire" || c === "typographie",
+        c === "orthographe" ||
+        c === "homophone" ||
+        c === "grammaire" ||
+        c === "typographie" ||
+        c === "style",
     );
   }
-  if (typeof v.maxSuggestions === "number" && v.maxSuggestions >= 0 && v.maxSuggestions <= 20) {
-    o.maxSuggestions = Math.floor(v.maxSuggestions);
-  }
+  const integer = (k: "maxSuggestions" | "longSentenceWords" | "repetitionWindow", min: number, max: number) => {
+    const x = v[k];
+    if (typeof x === "number" && x >= min && x <= max) o[k] = Math.floor(x);
+  };
+  integer("maxSuggestions", 0, 20);
+  integer("longSentenceWords", 10, 200);
+  integer("repetitionWindow", 2, 500);
   return o;
 }

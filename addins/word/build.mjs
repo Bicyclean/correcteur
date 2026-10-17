@@ -54,19 +54,14 @@ if (urlArg) manifest = manifest.replaceAll("https://localhost:3000", urlArg.repl
 fs.writeFileSync(path.join(dist, "manifest.xml"), manifest);
 
 // 4. Données : celles que lit le moteur, et leur liste.
-// Tous les fichiers de règles : le moteur ignore ceux qu'il n'utilise pas.
-const dataFiles = [
-  ...fs
-    .readdirSync(path.join(root, "data/regles"))
-    .filter((f) => /\.(tsv|txt)$/.test(f))
+// Toutes les données lues par le moteur (il ignore les fichiers qu'il n'utilise pas).
+const dataFiles = ["regles", "conjugaison", "thesaurus", "lexique"].flatMap((dir) =>
+  fs
+    .readdirSync(path.join(root, "data", dir))
+    .filter((f) => /\.(tsv|txt|dat)$/.test(f) && !f.startsWith("README"))
     .sort()
-    .map((f) => `regles/${f}`),
-  ...fs
-    .readdirSync(path.join(root, "data/lexique"))
-    .filter((f) => f.endsWith(".tsv"))
-    .sort()
-    .map((f) => `lexique/${f}`),
-];
+    .map((f) => `${dir}/${f}`),
+);
 for (const f of dataFiles) {
   const to = path.join(dist, "data", f);
   fs.mkdirSync(path.dirname(to), { recursive: true });
@@ -75,6 +70,7 @@ for (const f of dataFiles) {
 fs.writeFileSync(path.join(dist, "data/index.json"), JSON.stringify(dataFiles, null, 1));
 // Mentions de licence des données, à côté des données.
 fs.copyFileSync(path.join(root, "data/lexique/LISEZMOI.md"), path.join(dist, "data/lexique/LISEZMOI.md"));
+fs.copyFileSync(path.join(root, "data/thesaurus/README_thes_fr.txt"), path.join(dist, "data/thesaurus/README_thes_fr.txt"));
 
 // 5. Tests (Node).
 if (flag("--tests")) {

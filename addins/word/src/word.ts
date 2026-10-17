@@ -25,6 +25,22 @@ export class WordDocument implements DocumentAccess {
     });
   }
 
+  selectedText(): Promise<string> {
+    return Word.run(async (ctx) => {
+      const sel = ctx.document.getSelection();
+      sel.load("text");
+      await ctx.sync();
+      return sel.text;
+    });
+  }
+
+  replaceSelection(text: string): Promise<void> {
+    return Word.run(async (ctx) => {
+      ctx.document.getSelection().insertText(text, "Replace");
+      await ctx.sync();
+    });
+  }
+
   private withRange(
     paragraph: number,
     expected: string,

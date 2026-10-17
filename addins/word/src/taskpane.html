@@ -33,6 +33,18 @@
   <nav id="filters" aria-label="Filtrer par catégorie"></nav>
   <main id="issues"></main>
 
+  <details id="outils">
+    <summary>Outils</summary>
+    <form id="form-conjuguer" class="tool">
+      <label for="verbe">Conjuguer</label>
+      <div class="row"><input id="verbe" placeholder="venir, se souvenir…" autocomplete="off"><button type="submit">Conjuguer</button></div>
+    </form>
+    <form id="form-synonymes" class="tool">
+      <label for="mot">Synonymes</label>
+      <div class="row"><input id="mot" placeholder="mot ou sélection" autocomplete="off"><button type="submit">Chercher</button></div>
+    </form>
+    <div id="outil-resultat" aria-live="polite"></div>
+  </details>
   <details id="options">
     <summary>Réglages</summary>
     <fieldset>
@@ -52,6 +64,12 @@
       <legend>Orthographe</legend>
       <div class="stack">
         <label><input type="checkbox" id="opt-noms"> Vérifier les noms propres</label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Style</legend>
+      <div class="stack">
+        <label>Phrase longue au-delà de <input type="number" id="opt-phrase" min="10" max="200" class="small"> mots</label>
       </div>
     </fieldset>
     <fieldset>

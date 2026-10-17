@@ -11,7 +11,9 @@
 
 use std::cell::RefCell;
 
-use correcteur_core::interop::{issues_to_json, parse_options};
+use correcteur_core::interop::{
+    conjugation_to_json, issues_to_json, parse_options, readability_to_json, synonyms_to_json,
+};
 use correcteur_core::{Engine, EngineData};
 
 #[derive(Default)]
@@ -141,6 +143,59 @@ pub unsafe extern "C" fn cr_check(
     finish(result)
 }
 
+/// Applique `f` au moteur et à une chaîne reçue ; `null` (JSON) si `f` ne trouve rien.
+///
+/// # Safety
+/// `ptr` doit désigner `len` octets lisibles.
+unsafe fn with_engine(
+    ptr: *const u8,
+    len: usize,
+    f: impl Fn(&Engine, &str) -> Option<String>,
+) -> i32 {
+    let result = (|| {
+        let input = read_str(ptr, len)?;
+        STATE.with(|s| {
+            let s = s.borrow();
+            let engine = s.engine.as_ref().ok_or("moteur non construit")?;
+            Ok(f(engine, &input).unwrap_or_else(|| "null".into()))
+        })
+    })();
+    finish(result)
+}
+
+/// Tableau de conjugaison (JSON), ou `null` si le verbe est inconnu.
+///
+/// # Safety
+/// `ptr` doit désigner `len` octets lisibles.
+#[no_mangle]
+pub unsafe extern "C" fn cr_conjugate(ptr: *const u8, len: usize) -> i32 {
+    with_engine(ptr, len, |e, v| {
+        e.conjugate(v).map(|c| conjugation_to_json(&c))
+    })
+}
+
+/// Synonymes (JSON), ou `null`.
+///
+/// # Safety
+/// `ptr` doit désigner `len` octets lisibles.
+#[no_mangle]
+pub unsafe extern "C" fn cr_synonyms(ptr: *const u8, len: usize) -> i32 {
+    with_engine(ptr, len, |e, w| {
+        e.synonyms(w).map(|(entry, g)| synonyms_to_json(&entry, &g))
+    })
+}
+
+/// Lisibilité d'un texte (JSON).
+///
+/// # Safety
+/// `ptr` doit désigner `len` octets lisibles.
+#[no_mangle]
+pub unsafe extern "C" fn cr_readability(ptr: *const u8, len: usize) -> i32 {
+    with_engine(ptr, len, |e, t| {
+        Some(readability_to_json(&e.readability(t)))
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -149,6 +204,7 @@ mod tests {
     fn interface_complete() {
         let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../data");
         let mut files = correcteur_core::RULE_FILES.to_vec();
+        files.push("conjugaison/verbes.tsv");
         files.push("lexique/00-amorce.tsv");
         for f in files {
             let content = std::fs::read_to_string(root.join(f)).unwrap();
@@ -163,6 +219,13 @@ mod tests {
             0
         );
         let out = STATE.with(|s| String::from_utf8(s.borrow().output.clone()).unwrap());
+        let verb = "chanter";
+        assert_eq!(unsafe { cr_conjugate(verb.as_ptr(), verb.len()) }, 0);
+        let conj = STATE.with(|s| String::from_utf8(s.borrow().output.clone()).unwrap());
+        assert!(conj.contains("\"je chante\""), "{conj}");
+        let unknown = "xyzir";
+        assert_eq!(unsafe { cr_conjugate(unknown.as_ptr(), unknown.len()) }, 0);
+        assert_eq!(STATE.with(|s| s.borrow().output.clone()), b"null");
         // « ! » est au 11e caractère UTF-16 (l'émoji en compte deux).
         assert!(
             out.starts_with("[{\"start\":10,\"end\":11,\"rule\":\"TYPO_ESPACE_AVANT_MANQUANTE\""),

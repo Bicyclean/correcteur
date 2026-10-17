@@ -24,6 +24,14 @@ n'autorise que les échanges avec le processus de l'application.
 Si une autre application utilise déjà le raccourci, il n'est pas enregistré ;
 l'icône de la barre des menus propose aussi « Corriger le presse-papiers ».
 
+## Outils
+
+La section **Outils** du panneau conjugue un verbe (infinitif, forme
+conjuguée ou pronominal) et cherche les synonymes d'un mot : laissé vide, le
+champ prend le mot sélectionné, et un clic sur un synonyme remplace la
+sélection. Le style (répétitions, phrases longues) s'active dans les
+**Réglages** ; la lisibilité du texte s'affiche après chaque analyse.
+
 ## Construire
 
 Prérequis : Rust, Node 20 ou plus récent, et sous Windows le runtime WebView2

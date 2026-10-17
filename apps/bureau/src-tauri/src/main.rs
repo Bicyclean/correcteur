@@ -10,6 +10,7 @@
 
 use std::sync::OnceLock;
 
+use correcteur_core::interop;
 use correcteur_core::{Category, Engine, Issue, Options};
 use serde::{Deserialize, Serialize};
 use tauri::menu::{Menu, MenuItem};
@@ -48,6 +49,8 @@ struct OptionsJs {
     ellipsis_character: bool,
     check_proper_nouns: bool,
     max_suggestions: usize,
+    long_sentence_words: usize,
+    repetition_window: usize,
 }
 
 impl From<OptionsJs> for Options {
@@ -66,6 +69,8 @@ impl From<OptionsJs> for Options {
             ellipsis_character: o.ellipsis_character,
             check_proper_nouns: o.check_proper_nouns,
             max_suggestions: o.max_suggestions,
+            long_sentence_words: o.long_sentence_words,
+            repetition_window: o.repetition_window,
         }
     }
 }
@@ -108,6 +113,45 @@ fn analyser(
         .into_iter()
         .map(IssueJs::from)
         .collect())
+}
+
+/// Tableau de conjugaison (JSON du moteur), ou `null` si le verbe est inconnu.
+#[tauri::command]
+fn conjuguer(state: tauri::State<EngineState>, verbe: String) -> Result<RawJson, String> {
+    let engine = state.get()?;
+    Ok(RawJson(engine.conjugate(&verbe).map_or_else(
+        || "null".into(),
+        |c| interop::conjugation_to_json(&c),
+    )))
+}
+
+/// Synonymes (JSON du moteur), ou `null`.
+#[tauri::command]
+fn synonymes(state: tauri::State<EngineState>, mot: String) -> Result<RawJson, String> {
+    let engine = state.get()?;
+    Ok(RawJson(engine.synonyms(&mot).map_or_else(
+        || "null".into(),
+        |(entry, groups)| interop::synonyms_to_json(&entry, &groups),
+    )))
+}
+
+#[tauri::command]
+fn lisibilite(state: tauri::State<EngineState>, texte: String) -> Result<RawJson, String> {
+    Ok(RawJson(interop::readability_to_json(
+        &state.get()?.readability(&texte),
+    )))
+}
+
+/// JSON déjà produit par le moteur, renvoyé tel quel à l'interface.
+struct RawJson(String);
+
+impl Serialize for RawJson {
+    fn serialize<S: serde::Serializer>(&self, s: S) -> Result<S::Ok, S::Error> {
+        // Relu en valeur générique pour être transmis comme objet, pas comme chaîne.
+        let value: serde_json::Value =
+            serde_json::from_str(&self.0).map_err(serde::ser::Error::custom)?;
+        value.serialize(s)
+    }
 }
 
 /// Nombre de formes du lexique.
@@ -205,7 +249,10 @@ fn main() {
             lire_presse_papiers,
             ecrire_presse_papiers,
             copier_et_masquer,
-            masquer
+            masquer,
+            conjuguer,
+            synonymes,
+            lisibilite
         ])
         .setup(move |app| {
             let handle = app.handle().clone();

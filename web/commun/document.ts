@@ -18,6 +18,10 @@ export interface DocumentAccess {
   select(paragraph: number, expected: string, target: Target): Promise<ActionResult>;
   /** Remplace l'erreur par `suggestion`. */
   replace(paragraph: number, expected: string, target: Target, suggestion: string): Promise<ActionResult>;
+  /** Texte sélectionné (outil Synonymes). */
+  selectedText(): Promise<string>;
+  /** Remplace la sélection (choix d'un synonyme). */
+  replaceSelection(text: string): Promise<void>;
 }
 
 /** Zone de texte, un paragraphe par ligne. */
@@ -48,6 +52,17 @@ export class EditorDocument implements DocumentAccess {
     const v = this.area.value;
     this.area.value = v.slice(0, start) + replacement(target, suggestion) + v.slice(end);
     return "ok";
+  }
+
+  async selectedText(): Promise<string> {
+    return this.area.value.slice(this.area.selectionStart, this.area.selectionEnd);
+  }
+
+  async replaceSelection(text: string): Promise<void> {
+    const { selectionStart: s, selectionEnd: e, value } = this.area;
+    this.area.value = value.slice(0, s) + text + value.slice(e);
+    this.area.setSelectionRange(s, s + text.length);
+    this.area.dispatchEvent(new Event("input"));
   }
 
   /** Position du début du paragraphe, ou `null` s'il a changé. */

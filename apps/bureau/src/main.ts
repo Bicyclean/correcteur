@@ -4,7 +4,14 @@
 
 import { EditorDocument } from "../../../web/commun/document";
 import { type Found, analyze, reveal, startPanel, setStatus, visible } from "../../../web/commun/panneau";
-import { type CheckOptions, type Checker, type Issue } from "../../../web/commun/types";
+import {
+  type CheckOptions,
+  type Checker,
+  type Conjugation,
+  type Issue,
+  type Readability,
+  type Synonyms,
+} from "../../../web/commun/types";
 
 interface TauriGlobal {
   core: { invoke<T>(cmd: string, args?: Record<string, unknown>): Promise<T> };
@@ -25,6 +32,9 @@ function invoke<T>(cmd: string, args?: Record<string, unknown>): Promise<T> {
 const checker = async (): Promise<Checker> => ({
   forms: await invoke<number>("infos"),
   check: (text: string, options: CheckOptions) => invoke<Issue[]>("analyser", { texte: text, options }),
+  conjugate: (verb: string) => invoke<Conjugation | null>("conjuguer", { verbe: verb }),
+  synonyms: (word: string) => invoke<Synonyms | null>("synonymes", { mot: word }),
+  readability: (text: string) => invoke<Readability>("lisibilite", { texte: text }),
 });
 
 // ---------------------------------------------------------------------------

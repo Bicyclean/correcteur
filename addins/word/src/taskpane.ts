@@ -25,7 +25,13 @@ async function loadChecker(): Promise<Checker> {
   await Promise.all(index.map(async (f) => (files[f] = await fetchText(`data/${f}`))));
   const wasm = await (await fetch("correcteur.wasm")).arrayBuffer();
   const engine = await Engine.load(wasm, files);
-  return { forms: engine.forms, check: async (text, options) => engine.check(text, options) };
+  return {
+    forms: engine.forms,
+    check: async (text, options) => engine.check(text, options),
+    conjugate: async (verb) => engine.conjugate(verb),
+    synonyms: async (word) => engine.synonyms(word),
+    readability: async (text) => engine.readability(text),
+  };
 }
 
 function start(inWord: boolean): void {

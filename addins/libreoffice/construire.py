@@ -92,7 +92,8 @@ def main():
             z.write(source, cible)
         z.write(os.path.join(RACINE, "LICENSE"), "LICENSE.txt")
         # Données lues par le moteur, et mentions de licence du lexique.
-        for sous in ("lexique", "regles"):
+        # Pas de thésaurus : LibreOffice a le sien.
+        for sous in ("lexique", "regles", "conjugaison"):
             base = os.path.join(RACINE, "data", sous)
             for f in sorted(os.listdir(base)):
                 if f.endswith((".tsv", ".txt", ".md")):
