@@ -50,12 +50,17 @@ def main():
     try:
         env = f"-env:UserInstallation={profil.as_uri()}"
         subprocess.run([soffice, "--headless", "--norestore", "--terminate_after_init", env], timeout=300)
+        # unopkg d'abord ; il échoue sur certaines installations (LibreOfficeDev 26.8 sur
+        # macOS), le gestionnaire d'extensions prend alors le relais.
+        unopkg = str(Path(soffice).with_name("unopkg.exe" if soffice.endswith(".exe") else "unopkg"))
+        installe = subprocess.run([unopkg, "add", "-s", env, str(Path(oxt).resolve())], timeout=300).returncode == 0
+        print(f"unopkg add : {'réussi' if installe else 'échec, installation par le gestionnaire'}")
         try:
             import uno  # noqa: F401
         except ImportError:
-            res = mode_macro(soffice, env, profil, Path(oxt).resolve())
+            res = mode_macro(soffice, env, profil, Path(oxt).resolve(), installe)
         else:
-            res = mode_socket(soffice, env, Path(oxt).resolve())
+            res = mode_socket(soffice, env, Path(oxt).resolve(), installe)
         print(json.dumps(res, ensure_ascii=False, indent=1))
         verifier(res)
         print("extension LibreOffice : tous les contrôles passent")
@@ -77,7 +82,7 @@ g_exportedScripts = (main,)
 """
 
 
-def mode_macro(soffice, env, profil, oxt):
+def mode_macro(soffice, env, profil, oxt, deja_installe):
     scripts = profil / "user" / "Scripts" / "python"
     scripts.mkdir(parents=True, exist_ok=True)
     controles = (ICI / "controles.py").read_text(encoding="utf-8")
@@ -93,8 +98,9 @@ def mode_macro(soffice, env, profil, oxt):
         return sortie.read_text(encoding="utf-8") if sortie.exists() else None
 
     # 1. Installation, dans le processus de LibreOffice.
-    etat = macro("installer", f"installer(XSCRIPTCONTEXT.getComponentContext(), {oxt.as_posix()!r})",
-                 profil / "installation.txt")
+    etat = "ok" if deja_installe else macro(
+        "installer", f"installer(XSCRIPTCONTEXT.getComponentContext(), {oxt.as_posix()!r})",
+        profil / "installation.txt")
     if etat != "ok":
         sys.exit(f"installation de l'extension impossible :\n{etat or 'aucune réponse'}")
     # 2. Contrôles, après redémarrage (les services de l'extension sont alors enregistrés).
@@ -104,7 +110,7 @@ def mode_macro(soffice, env, profil, oxt):
     return json.loads(sortie)
 
 
-def mode_socket(soffice, env, oxt):
+def mode_socket(soffice, env, oxt, deja_installe):
     import uno
 
     sys.path.insert(0, str(ICI))
@@ -137,9 +143,12 @@ def mode_socket(soffice, env, oxt):
         except subprocess.TimeoutExpired:
             proc.kill()
 
-    proc, ctx = demarrer()
-    etat = controles.installer(ctx, str(oxt))
-    arreter(proc, ctx)
+    if not deja_installe:
+        proc, ctx = demarrer()
+        etat = controles.installer(ctx, str(oxt))
+        arreter(proc, ctx)
+    else:
+        etat = "ok"
     if etat != "ok":
         sys.exit(f"installation de l'extension impossible :\n{etat}")
     proc, ctx = demarrer()
