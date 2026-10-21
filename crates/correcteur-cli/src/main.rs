@@ -15,6 +15,8 @@
 mod antonymes;
 mod conjugaison;
 mod import;
+mod verbes;
+mod wiktionnaire;
 
 use std::io::Read;
 use std::path::{Path, PathBuf};
@@ -92,6 +94,9 @@ fn run(args: &[String]) -> Result<ExitCode, String> {
         return import_antonyms(&a);
     }
     let engine = Engine::from_dir(&a.data).map_err(|e| e.to_string())?;
+    if command == "importer-verbes" {
+        return import_verbs(&engine, &a);
+    }
     match command.as_str() {
         "analyser" => analyze(&engine, &a),
         "evaluer" => eval(&engine, &a),
@@ -458,6 +463,60 @@ fn synonyms(engine: &Engine, a: &Args) -> Result<ExitCode, String> {
     for g in groups {
         println!("  ({}) {}", g.category, g.words.join(", "));
     }
+    Ok(ExitCode::SUCCESS)
+}
+
+/// Verbes du Wiktionnaire absents de Lexique, avec un modèle de conjugaison :
+/// export XML sur l'entrée standard (ou dans le fichier donné).
+fn import_verbs(engine: &Engine, a: &Args) -> Result<ExitCode, String> {
+    let (verbs, report) = match a.positional.first() {
+        Some(path) => {
+            let f = std::fs::File::open(path).map_err(|e| format!("{path} : {e}"))?;
+            verbes::extract(std::io::BufReader::new(f))
+        }
+        None => verbes::extract(std::io::stdin().lock()),
+    }
+    .map_err(|e| e.to_string())?;
+    let conjugator = engine.conjugator();
+    let known: Vec<(String, String)> = conjugator
+        .verbs()
+        .map(|(v, m)| (v.to_string(), m.to_string()))
+        .collect();
+    // Absents de Lexique : ni dans la liste des conjugaisons, ni infinitif du lexique.
+    let missing: verbes::Verbs = verbs
+        .into_iter()
+        .filter(|(v, _)| {
+            conjugator.model_of(v).is_none()
+                && !engine
+                    .lexicon()
+                    .get(v)
+                    .is_some_and(|f| f.has(|r| r.is_infinitive()))
+        })
+        .collect();
+    let (assigned, skipped) = verbes::assign(&missing, &known, conjugator.models());
+    let out = a
+        .output
+        .clone()
+        .unwrap_or_else(|| a.data.join("conjugaison/verbes-wiktionnaire.tsv"));
+    std::fs::write(&out, verbes::render(&assigned))
+        .map_err(|e| format!("{} : {e}", out.display()))?;
+    println!(
+        "{} pages lues ; {} verbes ({} vieillis ou rares écartés) ; {} absents de Lexique, \
+         {} écrits dans {}, {} sans modèle : {}",
+        report.pages,
+        report.verbs,
+        report.dated,
+        missing.len(),
+        assigned.len(),
+        out.display(),
+        skipped.len(),
+        skipped
+            .iter()
+            .take(30)
+            .cloned()
+            .collect::<Vec<_>>()
+            .join(", ")
+    );
     Ok(ExitCode::SUCCESS)
 }
 
