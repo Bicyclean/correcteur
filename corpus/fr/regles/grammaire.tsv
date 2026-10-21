@@ -252,3 +252,18 @@ GRAM_PARTICIPE_AVOIR_COD	Les pommes que je lui en ai donné étaient mûres.	CON
 GRAM_PARTICIPE_AVOIR_COD	La lettre qu’il ne m’a pas envoyée est perdue.	CONTRIB-INIT
 GRAM_PARTICIPE_AVOIR_COD	La réalité que je n’ai pas eu assez de volonté pour découvrir.	CONTRIB-INIT
 GRAM_PARTICIPE_AVOIR_COD	La lettre qu’il a eu le temps de lire.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Je vous ⟦est→ai⟧ déjà envoyé le compte rendu.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	La réunion de lundi a été ⟦reporté→reportée⟧ à jeudi.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	La réunion de lundi a été reportée à jeudi.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Les chiffres qu’on nous a communiqués sont ⟦encourageant→encourageants⟧.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Les chiffres qu’on nous a communiqués sont encourageants.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Il faut réduire les délais de livraison, qui sont trop ⟦long→longs⟧.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Il voit la liste de courses, qui sont rangées.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Les délais sont ⟦long→longs⟧.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elles sont juste là.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Les ventes montent et les clients ⟦semble→semblent⟧ satisfaits.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Le père et les enfants sont partis.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	La mère des enfants qui joue dehors est là.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Tous les détails de sa chétive aventure se présentaient.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Le millionnaire qui lui donnait sa voiture et ses bijoux pouvait payer.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Elle avait été chercher du pain.	CONTRIB-INIT

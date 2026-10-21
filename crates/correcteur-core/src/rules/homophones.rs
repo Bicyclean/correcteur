@@ -473,6 +473,35 @@ fn check_ou(ctx: &Context, i: usize) -> bool {
                     "je", "j’", "tu", "il", "elle", "on", "nous", "vous", "ils", "elles", "l’on",
                 ],
             );
+        // « dites-moi ou en est le projet », « savoir ou il va » : interrogation
+        // indirecte. Devant un pronom sujet, seulement après savoir, ignorer,
+        // demander (« il faut le dire ou il se fâchera »).
+        // « dites-moi ou en est », « dis-lui ou il va » : pronom entre les deux.
+        let v = if lower_is(
+            ctx,
+            p,
+            &["moi", "nous", "lui", "leur", "me", "m’", "vous", "te", "t’"],
+        ) {
+            p.and_then(|p| ctx.prev(p))
+                .or_else(|| p.and_then(|p| p.checked_sub(1)))
+        } else {
+            p
+        };
+        let asks = |lemmas: &[&str]| {
+            form(ctx, v)
+                .is_some_and(|f| f.has(|r| r.pos.is_verb() && lemmas.contains(&r.lemma.as_str())))
+        };
+        // Pas « on sait ou on ne sait pas » : alternative.
+        let alternative = lower_is(ctx, n.and_then(|n| ctx.next(n)), &["ne", "n’", "n'"])
+            || ctx.words[i + 1..]
+                .iter()
+                .take(4)
+                .any(|x| v.is_some_and(|v| ctx.words[v].lower == x.lower));
+        if (lower_is(ctx, n, &["en", "y"]) && asks(INDIRECT_QUESTION_VERBS))
+            || (subject && !alternative && asks(&["savoir", "ignorer", "demander"]))
+        {
+            return true;
+        }
         // « partout où il va », mais « partout ou presque ».
         let partout = lower_is(ctx, p, &["partout"])
             && n.is_some_and(|k| !is_capitalized(ctx.words[k].text))
@@ -687,7 +716,24 @@ fn check_s(ctx: &Context, i: usize) -> bool {
 }
 
 fn check_c(ctx: &Context, i: usize) -> bool {
-    is_preverbal_subject(ctx, ctx.prev(i)) && ctx.next(i).is_some()
+    if is_preverbal_subject(ctx, ctx.prev(i)) && ctx.next(i).is_some() {
+        return true;
+    }
+    // « Ma collègue c’est chargée de… » → « s’est » : nom sujet, sans virgule,
+    // puis « est » et un participe passé.
+    let Some(p) = ctx.prev(i) else { return false };
+    let noun = form(ctx, Some(p)).is_some_and(|f| {
+        f.has_pos(Pos::Nom)
+            && !f.has(|r| r.pos.is_verb() || matches!(r.pos, Pos::Adv | Pos::Pre | Pos::Con))
+    }) && ctx.prev(p).is_some_and(|d| {
+        ctx.data
+            .determiners
+            .contains_key(ctx.words[d].lower.as_str())
+    });
+    let n = ctx.next(i);
+    noun && lower_is(ctx, n, &["est", "était"])
+        && form(ctx, n.and_then(|n| ctx.next(n)))
+            .is_some_and(|f| f.has(super::super::lexicon::Reading::is_past_participle))
 }
 
 /// « il et parti », « c’et vrai » → « est ».
@@ -858,6 +904,17 @@ fn check_sa(ctx: &Context, i: usize) -> bool {
     {
         return true;
     }
+    // « merci de vérifier sa et de… » : après un verbe, devant une conjonction.
+    // Pas « sa et son manteau » : déterminants coordonnés.
+    let after = ctx.next(nj).map(|k| ctx.words[k].lower.as_str());
+    if matches!(nw.lower.as_str(), "et" | "ou" | "mais")
+        && !after.is_some_and(|a| ctx.data.determiners.contains_key(a))
+        && form(ctx, ctx.prev(i)).is_some_and(|f| {
+            f.has(|r| r.pos == Pos::Ver && (r.is_infinitive() || r.is_finite_verb()))
+        })
+    {
+        return true;
+    }
     // Verbe conjugué qui ne peut pas être un nom féminin : « sa va », « sa dépend ».
     form(ctx, n).is_some_and(|f| {
         f.has(super::super::lexicon::Reading::is_finite_verb)
@@ -1013,19 +1070,36 @@ fn check_quelque(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         (None, true) => vec!["quels que", "quelles que"],
     };
     let w = &ctx.words[i];
+    // « quelque soit vos remarques » → « quelles que soient » : le verbe
+    // s'accorde aussi avec le sujet qui suit.
+    let verb = (plural != plural_verb).then(|| match (ctx.words[v].lower.as_str(), plural) {
+        ("soit", true) => "soient",
+        ("fût" | "fut", true) => "fussent",
+        ("soient", false) => "soit",
+        _ => "fût",
+    });
+    let end = if verb.is_some() {
+        ctx.words[v].end
+    } else {
+        w.end
+    };
     let suggestions: Vec<String> = forms
         .iter()
         .map(|f| {
+            let f = match verb {
+                Some(v) => format!("{f} {v}"),
+                None => (*f).to_string(),
+            };
             if is_capitalized(w.text) {
-                capitalize(f)
+                capitalize(&f)
             } else {
-                (*f).to_string()
+                f
             }
         })
         .collect();
     out.push(
-        RawIssue::new(w.start, w.end, QUELQUE_QUEL_QUE)
-            .arg(w.text)
+        RawIssue::new(w.start, end, QUELQUE_QUEL_QUE)
+            .arg(&ctx.text[w.start..end])
             .arg(suggestions[0].clone())
             .with_suggestions(suggestions),
     );

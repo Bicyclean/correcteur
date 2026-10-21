@@ -1254,7 +1254,17 @@ fn wants_avoir(ctx: &Context, subject: &FoundSubject, verb: usize) -> bool {
         };
         !subject.person.starts_with(person)
     });
-    let participle = ctx.next(verb).and_then(|n| ctx.form(n)).is_some_and(|f| {
+    // « je vous est déjà envoyé » : adverbes entre l'auxiliaire et le participe.
+    let mut next = ctx.next(verb);
+    for _ in 0..2 {
+        match next {
+            Some(k) if is_class(ctx, k, "adverbe") || is_class(ctx, k, "negation") => {
+                next = ctx.next(k);
+            }
+            _ => break,
+        }
+    }
+    let participle = next.and_then(|n| ctx.form(n)).is_some_and(|f| {
         f.has(|r| r.is_past_participle() && !ctx.data.conjugator.takes_etre(&r.lemma))
     });
     other_person_object && participle
@@ -1453,9 +1463,39 @@ fn simple_subject(ctx: &Context, verb: usize) -> Option<FoundSubject> {
             return Some(from_pronoun(s, left, chain));
         }
     }
-    // Groupe nominal en début de proposition : « Les enfants jouent ».
     let last = ctx.prev(k)?;
-    for det in (last.saturating_sub(4)..last).rev() {
+    if lower(ctx, last) == "qui" {
+        return antecedent_subject(ctx, last, verb, &chain);
+    }
+    noun_subject(ctx, last, &chain).or_else(|| relative_subject(ctx, k, &chain))
+}
+
+/// Groupe nominal sujet qui finit au mot `last`, en début de proposition.
+/// `chain` : pronoms entre le sujet et le verbe, du verbe vers le sujet.
+fn noun_subject(ctx: &Context, last: usize, chain: &[usize]) -> Option<FoundSubject> {
+    // Groupe nominal en début de proposition : « Les enfants jouent ». Il peut
+    // être suivi d'un complément en « de » : « La réunion de lundi a été ».
+    let mut ends = vec![last];
+    if let Some(d) = (last.saturating_sub(3)..last)
+        .rev()
+        .find(|&d| matches!(lower(ctx, d), "de" | "d’" | "d'" | "du" | "des"))
+    {
+        let nominal = ctx.form(last).is_some_and(|f| f.has_pos(Pos::Nom))
+            && (d + 1..=last).all(|j| {
+                ctx.form(j).is_some_and(|f| {
+                    f.has(|r| matches!(r.pos, Pos::Nom | Pos::Adj | Pos::Det))
+                        && !f.has(Reading::is_finite_verb)
+                })
+            });
+        if let Some(head) = ctx.prev(d).filter(|_| nominal && ctx.next(d).is_some()) {
+            ends.push(head);
+        }
+    }
+    for (last, det) in ends.into_iter().flat_map(|last| {
+        (last.saturating_sub(4)..last)
+            .rev()
+            .map(move |det| (last, det))
+    }) {
         let Some(np) = find_noun_phrase(ctx, det) else {
             continue;
         };
@@ -1490,6 +1530,7 @@ fn simple_subject(ctx: &Context, verb: usize) -> Option<FoundSubject> {
             's' => "3s",
             _ => "3p",
         };
+        let mut chain = chain.to_vec();
         chain.reverse();
         return Some(FoundSubject {
             person: person.into(),
@@ -1500,6 +1541,118 @@ fn simple_subject(ctx: &Context, verb: usize) -> Option<FoundSubject> {
         });
     }
     None
+}
+
+/// « Les chiffres qu’on nous a communiqués sont… », « L’homme dont les fils
+/// sont partis est… » : sujet séparé du verbe par une relative qui ne contient
+/// qu'un verbe conjugué. `k` : premier mot de la chaîne verbale.
+fn relative_subject(ctx: &Context, k: usize, chain: &[usize]) -> Option<FoundSubject> {
+    let mut r = k;
+    for _ in 0..8 {
+        r = ctx.prev(r)?;
+        if matches!(lower(ctx, r), "que" | "qu’" | "qu'" | "qui" | "dont" | "où") {
+            break;
+        }
+    }
+    if !matches!(lower(ctx, r), "que" | "qu’" | "qu'" | "qui" | "dont" | "où") {
+        return None;
+    }
+    let finite = (r + 1..k)
+        .filter(|&j| {
+            ctx.form(j).is_some_and(|f| {
+                f.has(|x| x.pos == Pos::Aux && x.is_finite_verb())
+                    || (f.has(Reading::is_finite_verb)
+                        && !f.has_pos(Pos::Nom)
+                        && !f.has_pos(Pos::Adj))
+            })
+        })
+        .count();
+    // « qu’il recherchait sans s’en rendre compte » : la relative ne doit
+    // contenir ni préposition ni infinitif, sinon sa fin est incertaine.
+    let simple = (r + 1..k).all(|j| {
+        ctx.form(j).is_none_or(|f| {
+            !(f.has_pos(Pos::Pre) && !f.has_pos(Pos::Pro)) && !f.only(Reading::is_infinitive)
+        })
+    });
+    if finite != 1 || !simple {
+        return None;
+    }
+    noun_subject(ctx, ctx.prev(r)?, chain)
+}
+
+/// « les délais de livraison, qui sont trop longs » : « qui » sujet, accordé
+/// avec son antécédent. Après un complément en « de », l'antécédent est celui
+/// des deux noms dont le nombre convient au verbe ; sinon, on s'abstient.
+fn antecedent_subject(
+    ctx: &Context,
+    qui: usize,
+    verb: usize,
+    chain: &[usize],
+) -> Option<FoundSubject> {
+    let before = qui.checked_sub(1)?;
+    let gap = &ctx.text[ctx.words[before].end..ctx.words[qui].start];
+    if !gap.chars().all(|c| c.is_whitespace() || c == ',') {
+        return None;
+    }
+    let ending = |end: usize| {
+        (end.saturating_sub(4)..end)
+            .rev()
+            .filter_map(|d| find_noun_phrase(ctx, d))
+            .find(|np| np.post.unwrap_or(np.noun) == end)
+    };
+    // Antécédent sûr seulement : groupe nominal qui n'est pas lui-même
+    // complément (« sous la lampe qui… », « du changement qui… » : on
+    // s'abstient), éventuellement suivi d'un complément sans déterminant
+    // (« les délais de livraison, qui… »).
+    let mut candidates = Vec::new();
+    let mut bare = false;
+    let np = match ending(before) {
+        Some(near) => Some(near),
+        None => {
+            let noun = ctx
+                .form(before)
+                .is_some_and(|f| f.only(|r| r.pos == Pos::Nom));
+            bare = true;
+            ctx.prev(before)
+                .filter(|&b| noun && matches!(lower(ctx, b), "de" | "d’" | "d'"))
+                .and_then(|b| ctx.prev(b))
+                .and_then(ending)
+        }
+    }?;
+    let complement = matches!(lower(ctx, np.det), "du" | "des" | "au" | "aux")
+        || ctx.prev(np.det).is_some_and(|b| {
+            matches!(lower(ctx, b), "de" | "d’" | "d'")
+                || ctx.form(b).is_some_and(|f| f.has_pos(Pos::Pre))
+        });
+    if complement {
+        return None;
+    }
+    candidates.push(np);
+    let persons: Vec<&str> = ctx
+        .form(verb)?
+        .readings
+        .iter()
+        .filter_map(Reading::person)
+        .collect();
+    let mut found = candidates.iter().filter_map(|np| {
+        let gn = phrase_gn(ctx, np)?;
+        let person = if gn.number? == 's' { "3s" } else { "3p" };
+        Some((np.det, gn, person))
+    });
+    let (start, gn, person) = if candidates.len() == 1 && !bare {
+        found.next()?
+    } else {
+        found.find(|(_, _, p)| persons.contains(p))?
+    };
+    let mut chain = chain.to_vec();
+    chain.reverse();
+    Some(FoundSubject {
+        person: person.into(),
+        gn,
+        start,
+        chain,
+        pronoun: false,
+    })
 }
 
 fn subject_text(ctx: &Context, s: &FoundSubject, verb: usize) -> String {
@@ -1521,9 +1674,50 @@ fn subject_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     if form.has_pos(Pos::Pre) {
         return;
     }
-    let Some(subject) = subject_of(ctx, i) else {
+    // « … et les clients semble satisfaits » : un sujet pluriel, même coordonné,
+    // demande un verbe au pluriel.
+    let Some(subject) = simple_subject(ctx, i) else {
         return;
     };
+    // « sa chétive aventure » : nom après un adjectif, pas un verbe.
+    if form.has_pos(Pos::Nom)
+        && ctx
+            .prev(i)
+            .and_then(|p| ctx.form(p))
+            .is_some_and(|f| f.only(|r| r.pos == Pos::Adj))
+    {
+        return;
+    }
+    // « qui » : l'antécédent est trop souvent incertain pour l'accord du verbe.
+    let first = subject.chain.first().copied().unwrap_or(i);
+    if ctx.prev(first).is_some_and(|q| lower(ctx, q) == "qui") {
+        return;
+    }
+    // Seulement après une proposition (« ont augmenté de 12 % et les clients
+    // semble »), pas après un nom (« sa voiture et ses bijoux pouvait »).
+    let plural_subject = !subject.pronoun
+        && subject.gn.number == Some('p')
+        && ctx
+            .prev(subject.start)
+            .filter(|&p| matches!(lower(ctx, p), "et" | "ou" | "ni"))
+            .and_then(|p| p.checked_sub(1))
+            .is_some_and(|b| {
+                ctx.words[b].has_digit
+                    || ctx.text[ctx.words[b].end..].trim_start().starts_with('%')
+                    || ctx
+                        .form(b)
+                        .is_some_and(|f| !f.has_pos(Pos::Nom) && !f.has_pos(Pos::Adj))
+            });
+    // « des ménages » : après un déterminant (autre que « le », « la », « les »,
+    // qui peuvent être pronoms), le mot est un nom, pas un verbe.
+    if ctx.prev(i).is_some_and(|p| {
+        ctx.data.determiners.contains_key(lower(ctx, p)) && !is_class(ctx, p, "clitique")
+    }) {
+        return;
+    }
+    if !plural_subject && subject_of(ctx, i).is_none() {
+        return;
+    }
     // Après un groupe nominal, un mot qui peut être adjectif est ambigu.
     if !subject.pronoun && form.has(adjectival) {
         return;
@@ -1555,7 +1749,7 @@ fn subject_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
                 ctx.words[b].has_digit
                     || ctx.text[ctx.words[b].end..ctx.words[head].start].contains('%')
             });
-        if collective || coordinated {
+        if collective || (coordinated && !plural_subject) {
             return;
         }
     }
@@ -1644,7 +1838,7 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     let Some(form) = ctx.form(i) else { return };
     let aux =
         |lemma: &str| form.has(|r| r.pos == Pos::Aux && r.lemma == lemma && r.is_finite_verb());
-    let (etre, avoir) = (aux("être"), aux("avoir"));
+    let (mut etre, mut avoir) = (aux("être"), aux("avoir"));
     if !etre && !avoir {
         return;
     }
@@ -1702,7 +1896,24 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
             _ => break,
         }
     }
-    let Some(t) = t else { return };
+    let Some(mut t) = t else { return };
+    // « la réunion a été reportée » : être à un temps composé, le mot suivant
+    // s'accorde avec le sujet.
+    if avoir && lower(ctx, t) == "été" {
+        let mut next = ctx.next(t);
+        for _ in 0..3 {
+            match next {
+                Some(j) if is_class(ctx, j, "adverbe") => next = ctx.next(j),
+                _ => break,
+            }
+        }
+        let Some(n) = next else { return };
+        // « elle avait été chercher » : « été » au sens d'« allé ».
+        if ctx.form(n).is_some_and(|f| f.has(Reading::is_infinitive)) {
+            return;
+        }
+        (t, etre, avoir) = (n, true, false);
+    }
     let Some(ft) = ctx.form(t) else { return };
     // « elle était sur le pas », « comme s’il était entre guillemets » : préposition.
     if ft.has_pos(Pos::Pre) {
@@ -1736,9 +1947,15 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     if etre && (!has_object || reflexive_agrees(ctx, &subject, t, ft)) {
         // Attribut ou participe : accord avec le sujet (« elles sont parties »).
         // « elle est tout contente », « elle est tout le temps » : « tout »,
-        // « fort », « bien »… peuvent être adverbes, donc invariables.
+        // « fort », « bien »… peuvent être adverbes, donc invariables. Mais en fin
+        // de proposition, un mot qui peut être adjectif l'est (« les délais sont
+        // trop long. », « long » étant rarement adverbe).
+        let clause_end = ft.has(|r| r.pos == Pos::Adj)
+            && ctx
+                .next(t)
+                .is_none_or(|n| matches!(lower(ctx, n), "et" | "mais" | "ou"));
         if subject.gn == Gn::default()
-            || ft.has_pos(Pos::Adv)
+            || (ft.has_pos(Pos::Adv) && !clause_end)
             || ft.has_pos(Pos::Det)
             || collective_subject(ctx, &subject, i)
             || coordinated_subject(ctx, &subject)
