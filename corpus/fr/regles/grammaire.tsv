@@ -245,3 +245,10 @@ GRAM_ACCORD_ADJECTIF	Elle vivait dans l’inertie ⟦absolu→absolue⟧ de ses 
 GRAM_ACCORD_DETERMINANT	Il fut sans compensation aucune jeté à la porte.	CONTRIB-INIT
 GRAM_ACCORD_DETERMINANT	Des palmiers dans des cache-pot de Chine.	CONTRIB-INIT
 GRAM_ACCORD_DETERMINANT	Cela le mettait dans ⟦un allégresse→une allégresse⟧ extraordinaire.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Nous avons reçu les informations que vous m’avez ⟦transmis→transmises⟧.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Voici la lettre qu’il lui a ⟦envoyé→envoyée⟧ hier.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Nous avons reçu les informations que vous m’avez transmises.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Les pommes que je lui en ai donné étaient mûres.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	La lettre qu’il ne m’a pas envoyée est perdue.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	La réalité que je n’ai pas eu assez de volonté pour découvrir.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	La lettre qu’il a eu le temps de lire.	CONTRIB-INIT

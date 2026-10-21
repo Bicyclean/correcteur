@@ -222,8 +222,11 @@ fn preceding_object(
     if before.is_some_and(|p| matches!(lower(ctx, p), "tout" | "tous" | "toute" | "toutes")) {
         before = before.and_then(|p| ctx.prev(p));
     }
+    // « voici », « voilà » : présentatifs, que Lexique classe prépositions.
     let after_preposition = before.is_some_and(|p| {
-        ctx.form(p).is_some_and(|f| f.has_pos(Pos::Pre)) || matches!(lower(ctx, p), "d’" | "d'")
+        (ctx.form(p).is_some_and(|f| f.has_pos(Pos::Pre))
+            && !matches!(lower(ctx, p), "voici" | "voilà"))
+            || matches!(lower(ctx, p), "d’" | "d'")
     });
     let coordinated = np.det.checked_sub(1).is_some_and(|b| {
         matches!(lower(ctx, b), "et" | "ou")
@@ -245,8 +248,13 @@ fn preceding_object(
     // Après le participe, un infinitif, une préposition ou « que » changent la
     // construction : « qu’il a fait construire », « que j’avais fini par »,
     // « que j’aurais aimé qu’elle ».
+    // « que je n’ai pas eu assez de volonté pour découvrir », « qu’il a eu le
+    // temps de lire » : le participe a son propre complément direct.
     let construction = ctx.next(t).is_some_and(|n| {
-        matches!(lower(ctx, n), "que" | "qu’" | "qu'")
+        matches!(
+            lower(ctx, n),
+            "que" | "qu’" | "qu'" | "assez" | "beaucoup" | "peu" | "trop" | "tant" | "autant"
+        ) || ctx.data.determiners.contains_key(lower(ctx, n))
             || ctx
                 .form(n)
                 .is_some_and(|f| f.has(Reading::is_infinitive) || f.has_pos(Pos::Pre))
@@ -1777,7 +1785,28 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         return;
     }
 
-    if avoir && subject.chain.is_empty() && preceding_object(ctx, &subject, t, ft, out) {
+    // « les informations que vous m’avez transmises » : un pronom complément
+    // indirect ou une négation n'empêchent pas l'accord avec « que » ; « le »,
+    // « la », « les », « en » changent le complément direct.
+    let indirect_only = subject.chain.iter().all(|&c| {
+        matches!(
+            lower(ctx, c),
+            "me" | "m’"
+                | "m'"
+                | "te"
+                | "t’"
+                | "t'"
+                | "lui"
+                | "nous"
+                | "vous"
+                | "leur"
+                | "y"
+                | "ne"
+                | "n’"
+                | "n'"
+        )
+    });
+    if avoir && indirect_only && preceding_object(ctx, &subject, t, ft, out) {
         return;
     }
     if avoir && plural_object_pronoun(ctx, &subject, t, ft, out) {
