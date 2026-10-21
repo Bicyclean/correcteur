@@ -267,3 +267,15 @@ GRAM_ACCORD_SUJET_VERBE	La mère des enfants qui joue dehors est là.	CONTRIB-IN
 GRAM_ACCORD_SUJET_VERBE	Tous les détails de sa chétive aventure se présentaient.	CONTRIB-INIT
 GRAM_ACCORD_SUJET_VERBE	Le millionnaire qui lui donnait sa voiture et ses bijoux pouvait payer.	CONTRIB-INIT
 GRAM_INFINITIF_PARTICIPE	Elle avait été chercher du pain.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Hier soir, nous ⟦somme→sommes⟧ allés au restaurant.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Il nous voit, nous aborde et sourit.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR	Mes amis ont ⟦choisis→choisi⟧ le poisson.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR	Mes amis ont choisi le poisson.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Je dîne avec des amis que nous n’avions pas ⟦vu→vus⟧ depuis longtemps.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	C’est avec des amis que nous avons dîné.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	La maison des voisins que j’ai visité hier est vendue.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ma sœur, qui s’était absentée quelques minutes, est ⟦revenu→revenue⟧.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ma sœur, qui était là, est revenue.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Une tarte ⟦au pommes→aux pommes⟧.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Il ne pourrait venir aucun des jours qu’il lui avait dit.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Il y a des éternités qu’on ne vous a vu.	CONTRIB-INIT

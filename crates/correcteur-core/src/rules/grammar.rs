@@ -216,23 +216,42 @@ fn preceding_object(
             | "leurs"
             | "un"
             | "une"
+            | "des"
     );
     // « contre tous ces défauts que… » : passer « tous » pour trouver la préposition.
     let mut before = ctx.prev(np.det);
     if before.is_some_and(|p| matches!(lower(ctx, p), "tout" | "tous" | "toute" | "toutes")) {
         before = before.and_then(|p| ctx.prev(p));
     }
-    // « voici », « voilà » : présentatifs, que Lexique classe prépositions.
+    // Après « de », l'antécédent peut être le nom complété (« les inspirations
+    // de sa jeunesse que… ») ; après une autre préposition, seulement dans
+    // « c’est … que » (« c’est à cette époque que… »). « avec des amis que… »
+    // reste vérifié. « la maison des voisins que… », « aucun des jours
+    // qu’il lui avait dit » : « des » contracté, sauf après un verbe ou une
+    // préposition.
+    let cleft = before.is_some_and(|p| {
+        (p.saturating_sub(3)..p).any(|k| matches!(lower(ctx, k), "c’" | "c'" | "ce"))
+    });
     let after_preposition = before.is_some_and(|p| {
-        (ctx.form(p).is_some_and(|f| f.has_pos(Pos::Pre))
-            && !matches!(lower(ctx, p), "voici" | "voilà"))
-            || matches!(lower(ctx, p), "d’" | "d'")
+        matches!(lower(ctx, p), "de" | "d’" | "d'")
+            || (ctx.form(p).is_some_and(|f| f.has_pos(Pos::Pre))
+                && !matches!(lower(ctx, p), "voici" | "voilà")
+                && cleft)
+            || (matches!(lower(ctx, np.det), "du" | "des")
+                && ctx
+                    .form(p)
+                    .is_none_or(|f| !f.has(|r| r.pos.is_verb() || r.pos == Pos::Pre)))
     });
     let coordinated = np.det.checked_sub(1).is_some_and(|b| {
         matches!(lower(ctx, b), "et" | "ou")
             || ctx.text[ctx.words[b].end..ctx.words[np.det].start].contains(',')
     });
-    if !plain_det || after_preposition || coordinated {
+    // « il y a des éternités qu’on ne vous a vu », « cela fait deux ans que… » :
+    // « que » temporel, pas relatif.
+    let duration = before.is_some_and(|p| {
+        lower(ctx, p) == "fait" || (lower(ctx, p) == "a" && p > 0 && lower(ctx, p - 1) == "y")
+    });
+    if !plain_det || after_preposition || coordinated || duration {
         return false;
     }
     let Some(target) = phrase_gn(ctx, &np) else {
@@ -255,9 +274,10 @@ fn preceding_object(
             lower(ctx, n),
             "que" | "qu’" | "qu'" | "assez" | "beaucoup" | "peu" | "trop" | "tant" | "autant"
         ) || ctx.data.determiners.contains_key(lower(ctx, n))
-            || ctx
-                .form(n)
-                .is_some_and(|f| f.has(Reading::is_infinitive) || f.has_pos(Pos::Pre))
+            || ctx.form(n).is_some_and(|f| f.has(Reading::is_infinitive))
+            // « que j’avais fini par », « qu’il a essayé de » ; mais « vus depuis
+            // longtemps », « achetée chez lui » restent accordés.
+            || matches!(lower(ctx, n), "de" | "d’" | "d'" | "à" | "par" | "pour" | "en")
     });
     if invariable || construction {
         return true;
@@ -776,7 +796,12 @@ fn find_noun_phrase<'c>(ctx: &'c Context, det: usize) -> Option<NounPhrase<'c>> 
         (r.pos == Pos::Adj && reading_gn(r).is_some_and(|g| g.compatible(determiner.gn)))
             || (r.pos.is_verb() && r.traits == "ppre")
     });
-    if adjective_agrees {
+    // Seulement si le nom, lui, ne s'accorde pas : « mes amis » reste un nom.
+    let noun_agrees = noun_form
+        .readings
+        .iter()
+        .any(|r| r.pos == Pos::Nom && r.gn().is_some_and(|g| g.compatible(determiner.gn)));
+    if adjective_agrees && !noun_agrees {
         return None;
     }
     // « sans compensation aucune » : « aucun » placé après le nom.
@@ -1087,7 +1112,16 @@ fn noun_phrase(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
                 }
             }
             if let Some(other) = &np.determiner.other_number {
-                suggestions.push(with_determiner(ctx, &np, other, np.noun));
+                // « au pommes » → « aux pommes » d'abord : un article contracté
+                // devant un pluriel en -s est plus souvent la faute.
+                let contracted = matches!(lower(ctx, np.det), "au" | "du");
+                let plural_noun = nouns.iter().all(|(g, _)| g.number == Some('p'));
+                let fixed = with_determiner(ctx, &np, other, np.noun);
+                if contracted && plural_noun {
+                    suggestions.insert(0, fixed);
+                } else {
+                    suggestions.push(fixed);
+                }
             }
             if suggestions.is_empty() {
                 return;
@@ -1463,7 +1497,9 @@ fn simple_subject(ctx: &Context, verb: usize) -> Option<FoundSubject> {
             return Some(from_pronoun(s, left, chain));
         }
     }
-    let last = ctx.prev(k)?;
+    let Some(last) = ctx.prev(k) else {
+        return incise_subject(ctx, k, &chain);
+    };
     if lower(ctx, last) == "qui" {
         return antecedent_subject(ctx, last, verb, &chain);
     }
@@ -1541,6 +1577,37 @@ fn noun_subject(ctx: &Context, last: usize, chain: &[usize]) -> Option<FoundSubj
         });
     }
     None
+}
+
+/// « Ma sœur, qui s’était absentée quelques minutes, est revenue » : sujet
+/// suivi d'une relative entre virgules. `k` : premier mot de la chaîne verbale.
+fn incise_subject(ctx: &Context, k: usize, chain: &[usize]) -> Option<FoundSubject> {
+    let gap = |j: usize| &ctx.text[ctx.words[j - 1].end..ctx.words[j].start];
+    if k == 0 || ctx.words[k].sentence_start || gap(k).trim() != "," {
+        return None;
+    }
+    // Virgule ouvrante : au plus 15 mots plus tôt, dans la même phrase.
+    let mut j = k - 1;
+    for _ in 0..15 {
+        if j == 0 || ctx.words[j].sentence_start {
+            return None;
+        }
+        let g = gap(j);
+        if g.contains(',') {
+            if g.trim() != "," {
+                return None;
+            }
+            break;
+        }
+        if g.contains(['.', ';', ':', '!', '?', '(', ')', '«', '»', '—']) {
+            return None;
+        }
+        j -= 1;
+    }
+    if !matches!(lower(ctx, j), "qui" | "que" | "qu’" | "qu'" | "dont") {
+        return None;
+    }
+    noun_subject(ctx, j - 1, chain)
 }
 
 /// « Les chiffres qu’on nous a communiqués sont… », « L’homme dont les fils
@@ -1756,8 +1823,31 @@ fn subject_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     // « que nous montre le film », « il nous voit, nous aborde » : hors du début
     // de phrase, « nous » et « vous » devant un verbe qui ne s'accorde pas sont
     // plutôt compléments.
+    // « nous somme allés » → « sommes » : forme d'être ou d'avoir à une lettre
+    // près, à la personne du sujet ; faute de frappe probable.
+    let word = ctx.words[i].lower.as_str();
+    let near_auxiliary: Vec<String> = ["être", "avoir"]
+        .iter()
+        .flat_map(|aux| {
+            ctx.lexicon.inflect(aux, |x| {
+                x.pos == Pos::Aux && x.person() == Some(subject.person.as_str())
+            })
+        })
+        .filter(|f| {
+            let (a, b) = if f.len() > word.len() {
+                (*f, word)
+            } else {
+                (word, *f)
+            };
+            a.len() == b.len() + 1 && a.starts_with(b)
+        })
+        .map(|f| same_case(ctx.words[i].text, f))
+        .collect();
     let start = &ctx.words[subject.start];
-    if matches!(start.lower.as_str(), "nous" | "vous") && !start.sentence_start {
+    if matches!(start.lower.as_str(), "nous" | "vous")
+        && !start.sentence_start
+        && near_auxiliary.is_empty()
+    {
         return;
     }
     // « Le lendemain nous avions… », « Quelles promenades nous eussions faites » :
@@ -1787,7 +1877,7 @@ fn subject_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     }
     let mut readings = finite.clone();
     readings.sort_by_key(|r| r.mode_tense() != Some("ind.pres"));
-    let mut suggestions: Vec<String> = Vec::new();
+    let mut suggestions: Vec<String> = near_auxiliary;
     // « Je vous est dit » : un pronom complément d'une autre personne que le
     // sujet, puis le participe d'un verbe conjugué avec avoir ; c'est l'auxiliaire
     // avoir qu'il faut (« je vous ai dit »), pas « suis ».

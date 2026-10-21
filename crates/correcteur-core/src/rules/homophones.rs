@@ -730,6 +730,8 @@ fn check_c(ctx: &Context, i: usize) -> bool {
             .determiners
             .contains_key(ctx.words[d].lower.as_str())
     });
+    // « ma sœur, qui c’était absentée », « ce qui c’est passé » → « s’ ».
+    let noun = noun || lower_is(ctx, Some(p), &["qui"]);
     let n = ctx.next(i);
     noun && lower_is(ctx, n, &["est", "était"])
         && form(ctx, n.and_then(|n| ctx.next(n)))

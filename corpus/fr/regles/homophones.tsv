@@ -177,3 +177,6 @@ HOMO_OU_RELATIF	Il faut le dire ou il se fâchera.	CONTRIB-INIT
 HOMO_A_PREPOSITION	Tout sera prêt ⟦a temps→à temps⟧.	CONTRIB-INIT
 HOMO_OU_RELATIF	On sait ou on ne sait pas.	CONTRIB-INIT
 HOMO_OU_RELATIF	Je veux savoir ⟦ou→où⟧ il habite.	CONTRIB-INIT
+HOMO_C_S	Ma sœur, qui ⟦c’→s’⟧était absentée, revient.	CONTRIB-INIT
+HOMO_C_S	Ce qui ⟦c’→s’⟧est passé est grave.	CONTRIB-INIT
+HOMO_C_S	Le problème qui, c’est sûr, reviendra.	CONTRIB-INIT
