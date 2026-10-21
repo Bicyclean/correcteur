@@ -169,6 +169,11 @@ impl Engine {
         self.data.rules.get(id)
     }
 
+    /// Conjugueur : modèles et verbes connus.
+    pub fn conjugator(&self) -> &conjugation::Conjugator {
+        &self.data.conjugator
+    }
+
     /// Tableau de conjugaison d'un verbe, donné à l'infinitif (« se laver » pour
     /// un pronominal) ou à une forme conjuguée (« mangeons »).
     pub fn conjugate(&self, verb: &str) -> Option<Conjugation> {

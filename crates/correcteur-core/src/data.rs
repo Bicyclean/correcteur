@@ -31,6 +31,7 @@ pub const RULE_FILES: &[&str] = &[
 /// Fichiers facultatifs : la fonction correspondante est vide s'ils manquent.
 pub const OPTIONAL_FILES: &[&str] = &[
     "conjugaison/verbes.tsv",
+    "conjugaison/verbes-wiktionnaire.tsv",
     "thesaurus/thes_fr.dat",
     "thesaurus/antonymes.tsv",
 ];
@@ -406,7 +407,8 @@ impl Data {
                 src.file("conjugaison/modeles.txt")?,
                 src.optional("conjugaison/verbes.tsv"),
                 src.file("conjugaison/auxiliaire_etre.txt")?,
-            )?,
+            )?
+            .with_extra(src.optional("conjugaison/verbes-wiktionnaire.tsv"))?,
             thesaurus,
         })
     }

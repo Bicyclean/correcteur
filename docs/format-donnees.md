@@ -107,6 +107,21 @@ moteur ne détecte pas encore, pour que le rappel mesuré reste honnête.
   `correcteur attribuer-conjugaisons` à partir de Lexique 3.83, dont il suit la
   licence (CC BY-SA 4.0). Facultatif : sans lui, seuls les verbes en -er sont
   conjugués (modèle déduit).
+- `verbes-wiktionnaire.tsv` (généré, ne pas modifier) : `verbe`, `modèle`,
+  `source`. Verbes du Wiktionnaire français absents de Lexique (« modéliser »),
+  hors verbes dont toutes les définitions sont vieillies, archaïques ou rares ;
+  modèle choisi par analogie avec les verbes de Lexique du même groupe qui ont
+  la plus longue terminaison commune. Leurs formes ne sont pas ajoutées au
+  lexique : l'orthographe les reconnaît à la demande, sauf forme de moins de
+  cinq lettres, verbe qui ne diffère d'un verbe de Lexique que par les accents
+  (« repondre ») ou forme qu'un mot du lexique ne distingue que par les accents
+  (« moitie »). Produit par :
+
+  ```bash
+  bzcat frwiktionary-…-pages-articles.xml.bz2 | cargo run --release -p correcteur-cli -- importer-verbes
+  ```
+
+  Licence CC BY-SA 4.0, comme l'export. Facultatif.
 
 ## Thésaurus — `data/thesaurus/thes_fr.dat`
 

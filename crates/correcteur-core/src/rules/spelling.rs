@@ -4,7 +4,7 @@ use std::collections::{HashMap, HashSet};
 
 use super::grammar::subject_gn;
 use super::{Context, RawIssue};
-use crate::lexicon::{Gn, Pos};
+use crate::lexicon::{skeleton, Gn, Pos};
 use crate::suggest::{suggest, weighted_distance};
 use crate::text::{is_all_upper, is_apostrophe, is_capitalized};
 
@@ -116,6 +116,26 @@ fn known_variant(ctx: &Context, lower: &str) -> bool {
     feminine_plural
         || regular_inflection(ctx, lower)
         || (lower.chars().count() >= 4 && ctx.data.conjugator.is_form(lower))
+        || wiktionary_verb(ctx, lower)
+}
+
+/// Forme d'un verbe absent de Lexique, ajouté du Wiktionnaire (« modéliser »,
+/// « paramètre »). Ces verbes souvent rares masqueraient des fautes : la forme
+/// est refusée si un mot du lexique ne s'en distingue que par les accents ou
+/// une lettre doublée (« repondre » pour « répondre », « moitie » pour
+/// « moitié »), ou si elle est courte (« lure », « vale »).
+fn wiktionary_verb(ctx: &Context, lower: &str) -> bool {
+    if lower.chars().count() < 5 {
+        return false;
+    }
+    let Some(forms) = ctx.data.conjugator.extra_forms_of(lower) else {
+        return false;
+    };
+    // « modélise » reste admis malgré « modélisé » : une forme du même verbe.
+    ctx.lexicon
+        .ids_for_skeleton(&skeleton(lower))
+        .iter()
+        .all(|&id| forms.contains(&ctx.lexicon.form(id).text))
 }
 
 /// « développeurs », « toccatas », « islandaises », « poitevine » : pluriel ou

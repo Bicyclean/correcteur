@@ -340,6 +340,9 @@ pub struct Conjugator {
     /// Infinitif → nom du modèle.
     verbs: HashMap<String, String>,
     etre: HashSet<String>,
+    /// Verbes absents du lexique (Wiktionnaire) : toutes leurs formes, infinitif
+    /// et participes compris, sont reconnues par `is_form`.
+    extra: HashSet<String>,
     /// (squelette de l'infinitif, infinitif), trié : verbes par début de mot.
     by_skeleton: Vec<(String, String)>,
 }
@@ -369,17 +372,60 @@ impl Conjugator {
             models,
             verbs: map,
             etre,
+            extra: HashSet::new(),
             by_skeleton,
         })
     }
 
-    /// Vrai si `word` (en minuscules) est une forme conjuguée d'un verbe connu,
-    /// même absente du lexique (« rétablît », « embarquerons »). Participes et
-    /// infinitifs exclus : le lexique les a, et un participe de verbe rare
-    /// masquerait une faute courante (« musé » de *muser* pour « musée »). Les verbes
-    /// essayés sont ceux dont l'infinitif commence comme le mot, accents et
-    /// lettres doublées mis à part (« cède » → « céder », « jette » → « jeter »).
+    /// Ajoute des verbes absents du lexique (`verbe`, `modèle`, source). Leurs
+    /// formes ne sont pas ajoutées au lexique (plus d'un million) : `is_form`
+    /// les reconnaît à la demande.
+    pub fn with_extra(mut self, verbs: &str) -> Result<Conjugator, DataError> {
+        // « macher », « repondre », « reparer » : variantes sans accent d'un verbe
+        // courant (« mâcher », « répondre »), leurs formes masqueraient des fautes.
+        let known: HashSet<String> = self.verbs.keys().map(|v| skeleton(v)).collect();
+        for (n, line) in data_lines(verbs) {
+            let cols: Vec<&str> = line.split('\t').collect();
+            if cols.len() < 2 || self.models.get(cols[1]).is_none() {
+                return Err(DataError {
+                    file: "conjugaison/verbes-wiktionnaire.tsv".into(),
+                    line: n,
+                    message: format!("modèle inconnu : {line}"),
+                });
+            }
+            let verb = normalize_apostrophes(cols[0]);
+            if self.verbs.contains_key(&verb) || known.contains(&skeleton(&verb)) {
+                continue;
+            }
+            self.by_skeleton.push((skeleton(&verb), verb.clone()));
+            self.verbs.insert(verb.clone(), cols[1].to_string());
+            self.extra.insert(verb);
+        }
+        self.by_skeleton.sort();
+        Ok(self)
+    }
+
+    /// Vrai si `word` (en minuscules) est une forme conjuguée d'un verbe de
+    /// Lexique, même absente du lexique (« rétablît », « embarquerons »).
+    /// Participes et infinitifs exclus : le lexique les a, et un participe de
+    /// verbe rare masquerait une faute courante (« musé » de *muser* pour
+    /// « musée »).
     pub fn is_form(&self, word: &str) -> bool {
+        self.find_form(word, false).is_some()
+    }
+
+    /// Si `word` est une forme, infinitif et participes compris, d'un verbe
+    /// ajouté du Wiktionnaire (« modéliser », « modélisé »), absent du lexique :
+    /// toutes les formes de ce verbe.
+    pub fn extra_forms_of(&self, word: &str) -> Option<Vec<String>> {
+        self.find_form(word, true)
+    }
+
+    /// Les verbes essayés sont ceux dont l'infinitif commence comme le mot,
+    /// accents et lettres doublées mis à part (« cède » → « céder », « jette » →
+    /// « jeter ») ; `extra` choisit entre les verbes de Lexique et ceux du
+    /// Wiktionnaire.
+    fn find_form(&self, word: &str, extra: bool) -> Option<Vec<String>> {
         const MAX_TRIED: usize = 150;
         let skel = skeleton(word);
         let chars: Vec<char> = skel.chars().collect();
@@ -393,28 +439,33 @@ impl Conjugator {
                 if !s.starts_with(&prefix) || tried.len() >= MAX_TRIED {
                     break;
                 }
-                if !tried.insert(verb) {
+                if self.extra.contains(verb.as_str()) != extra || !tried.insert(verb) {
                     continue;
                 }
-                let found = self
+                let forms = self
                     .verbs
                     .get(verb)
                     .and_then(|m| self.models.get(m))
                     .and_then(|m| m.conjugate(verb))
-                    .is_some_and(|f| {
-                        traits_forms(&f)
-                            .iter()
-                            .any(|(t, x)| x == word && !t.starts_with("pp") && t != "inf")
-                    });
+                    .map(|f| traits_forms(&f))
+                    .unwrap_or_default();
+                let found = forms
+                    .iter()
+                    .any(|(t, x)| x == word && (extra || (!t.starts_with("pp") && t != "inf")));
                 if found {
-                    return true;
+                    return Some(forms.into_iter().map(|(_, x)| x).collect());
                 }
             }
             if tried.len() >= MAX_TRIED {
                 break;
             }
         }
-        false
+        None
+    }
+
+    /// Verbes de la liste, avec leur modèle.
+    pub fn verbs(&self) -> impl Iterator<Item = (&str, &str)> {
+        self.verbs.iter().map(|(v, m)| (v.as_str(), m.as_str()))
     }
 
     pub fn models(&self) -> &Models {
