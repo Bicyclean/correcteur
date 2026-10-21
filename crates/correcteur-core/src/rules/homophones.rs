@@ -408,7 +408,16 @@ fn check_a(ctx: &Context, i: usize) -> bool {
                 || ctx.data.subjects.contains_key(ctx.words[q].lower.as_str())
                 || form(ctx, Some(q)).is_some_and(|f| f.has_pos(Pos::Nom))
         });
-    locution || after_verb || name_after
+    // « nous sommes allés a la plage », « il a travaillé a Lyon » : temps
+    // composé déjà complet (auxiliaire puis participe) ; pas « le gâteau mangé
+    // a disparu », où le participe suit un nom.
+    let after_compound = p.is_some_and(|q| {
+        form(ctx, Some(q))
+            .is_some_and(|f| f.has(super::super::lexicon::Reading::is_past_participle))
+            && form(ctx, ctx.prev(q))
+                .is_some_and(|f| f.has(|r| r.pos == Pos::Aux && r.is_finite_verb()))
+    });
+    locution || after_verb || name_after || after_compound
 }
 
 /// Noms qui forment avec avoir une locution sans déterminant (« il a raison »).
