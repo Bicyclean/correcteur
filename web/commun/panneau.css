@@ -51,8 +51,10 @@
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+/* Thème sombre : selon le système (« Automatique »), ou choisi dans les
+   Réglages (attribut data-theme sur <html>). */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     color-scheme: dark;
     --bg: #18181b;
     --bg-subtle: #1f1f23;
@@ -82,6 +84,36 @@
     --cat-style: #ffc078;
   }
 }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #18181b;
+  --bg-subtle: #1f1f23;
+  --surface: #1f1f23;
+  --surface-hover: #27272c;
+  --surface-active: #232846;
+  --border: #2e2e34;
+  --border-strong: #3f3f46;
+  --text: #f4f4f5;
+  --text-muted: #b4b4bc;
+  --text-subtle: #8f8f99;
+  --accent: #748ffc;
+  --accent-hover: #91a7ff;
+  --accent-fg: #10142b;
+  --accent-soft: #232846;
+  --focus: #91a7ff;
+  --danger: #ff8787;
+  --success: #69db7c;
+  --shadow-sm: none;
+  --shadow-md: 0 4px 16px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 12px 32px rgb(0 0 0 / 0.5);
+
+  --cat-orthographe: #ff922b;
+  --cat-homophone: #b197fc;
+  --cat-grammaire: #3bc9db;
+  --cat-typographie: #74c0fc;
+  --cat-style: #ffc078;
+}
+:root[data-theme="light"] { color-scheme: light; }
 
 * { box-sizing: border-box; }
 html, body { margin: 0; }
@@ -263,6 +295,7 @@ kbd {
   margin-bottom: var(--space-3); padding: var(--space-2) var(--space-3);
   border-radius: var(--radius); background: var(--accent-soft); font-size: var(--text-sm);
 }
+.cr-bulk-meta { color: var(--text-muted); }
 
 /* ----------------------------------------------------------- États */
 

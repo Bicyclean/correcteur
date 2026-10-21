@@ -40,6 +40,41 @@ export interface PanelSetup {
   hostSettings?: { title: string; items: HostSetting[] };
   /** Version affichée dans « À propos ». */
   version?: string;
+  /** Thème choisi (au démarrage, puis à chaque changement) : barre de titre de l'hôte. */
+  onTheme?: (theme: Theme) => void;
+}
+
+/** Thème de l'interface : celui du système, ou imposé. */
+export type Theme = "auto" | "clair" | "sombre";
+const THEMES: [Theme, string][] = [["auto", "Automatique"], ["clair", "Clair"], ["sombre", "Sombre"]];
+const THEME_KEY = "correcteur.theme";
+
+/** Thème enregistré (préférence d'affichage, propre à ce poste). */
+export function savedTheme(): Theme {
+  try {
+    const t = localStorage.getItem(THEME_KEY);
+    return t === "clair" || t === "sombre" ? t : "auto";
+  } catch {
+    return "auto";
+  }
+}
+
+/** Applique le thème à la page (attribut data-theme lu par panneau.css). */
+export function applyTheme(theme: Theme): void {
+  const root = document.documentElement;
+  if (theme === "auto") delete root.dataset.theme;
+  else root.dataset.theme = theme === "clair" ? "light" : "dark";
+}
+
+function setTheme(theme: Theme): void {
+  try {
+    if (theme === "auto") localStorage.removeItem(THEME_KEY);
+    else localStorage.setItem(THEME_KEY, theme);
+  } catch {
+    // Stockage indisponible : le thème vaut pour la session.
+  }
+  applyTheme(theme);
+  state.setup?.onTheme?.(theme);
 }
 
 export type HostSetting =
@@ -59,6 +94,8 @@ const CATEGORIES: { id: Category; label: string; desc: string }[] = [
   { id: "typographie", label: "Typographie", desc: "Espaces, guillemets, apostrophes, tirets" },
   { id: "style", label: "Style", desc: "Répétitions et phrases longues : des conseils, pas des fautes" },
 ];
+/** Mot absent du lexique : suggestions à valider une par une. */
+const UNKNOWN_WORD = "ORTH_MOT_INCONNU";
 const label = (c: Category) => CATEGORIES.find((x) => x.id === c)?.label ?? c;
 
 type Tab = "corrections" | "outils" | "reglages";
@@ -340,15 +377,30 @@ function renderCorrections(): void {
   }
 
   const shown = visible();
-  // Correction groupée : seulement la typographie, aux corrections sans ambiguïté.
-  const bulk = shown.filter((f) => f.issue.category === "typographie" && f.issue.suggestions.length > 0 && f.target);
-  if (state.filter === "typographie" && bulk.length > 1) {
+  // Correction en un clic : la première suggestion de chaque problème affiché.
+  // Les mots inconnus restent à valider un par un : leur première suggestion
+  // est moins sûre, et un nom propre ou un mot étranger serait « corrigé ».
+  const bulk = automatic(shown);
+  const left = shown.length - bulk.length;
+  if (bulk.length > 0) {
+    const s = bulk.length > 1 ? "s" : "";
     nodes.push(
       el(
         "div",
         { className: "cr-bulk" },
-        el("span", {}, `${bulk.length} corrections typographiques`),
-        button("Tout appliquer", { variant: "primary", size: "sm", iconName: "check", onClick: () => void applyAll(bulk) }),
+        el(
+          "span",
+          {},
+          `${bulk.length} correction${s} automatique${s}`,
+          left > 0 ? el("span", { className: "cr-bulk-meta" }, ` · ${left} à vérifier`) : null,
+        ),
+        button("Tout corriger", {
+          variant: "primary",
+          size: "sm",
+          iconName: "check",
+          title: left > 0 ? "Les mots inconnus et les passages sans suggestion restent à vérifier un par un." : undefined,
+          onClick: () => void applyAll(bulk),
+        }),
       ),
     );
   }
@@ -447,7 +499,7 @@ function card(f: Found): HTMLElement {
     "div",
     { className: "cr-actions" },
     button("Ignorer", { variant: "ghost", size: "sm", iconName: "x", onClick: () => ignore(f) }),
-    issue.rule === "ORTH_MOT_INCONNU"
+    issue.rule === UNKNOWN_WORD
       ? button("Ajouter au dictionnaire", { variant: "ghost", size: "sm", iconName: "plus", onClick: () => addWord(wrong) })
       : button("Désactiver cette règle", { variant: "ghost", size: "sm", iconName: "sliders", onClick: () => disableRule(issue.rule) }),
   );
@@ -559,9 +611,47 @@ async function apply(f: Found, suggestion: string): Promise<void> {
   if (again) void activate(again, { reveal: false, focus: document.activeElement?.closest?.(".cr-panel") != null });
 }
 
+/** Problèmes corrigés d'un clic : première suggestion, sauf mots inconnus. */
+function automatic(items: Found[]): Found[] {
+  return items.filter((f) => f.issue.suggestions.length > 0 && f.target && f.issue.rule !== UNKNOWN_WORD);
+}
+
+/**
+ * Applique la première suggestion de chaque problème, puis recommence sur le
+ * texte corrigé (au plus trois passes) : « Les enfant joue » devient « Les
+ * enfants joue », puis « Les enfants jouent ». Un seul « Annuler » défait tout.
+ */
 async function applyAll(items: Found[]): Promise<void> {
   const doc = state.setup?.doc;
   if (!doc) return;
+  const filter = state.filter;
+  let done = 0;
+  let batch = items;
+  for (let pass = 0; pass < 3 && batch.length > 0; pass++) {
+    done += await applyOnce(doc, batch);
+    await analyze();
+    batch = automatic(visible());
+  }
+  const s = done > 1 ? "s" : "";
+  const undo = state.setup?.undo;
+  notify(
+    `${done} correction${s} appliquée${s}`,
+    undo && done > 0
+      ? {
+          label: "Annuler",
+          run: () => {
+            for (let i = 0; i < done; i++) undo();
+            void analyze();
+          },
+        }
+      : undefined,
+  );
+  state.filter = filter;
+  renderCorrections();
+}
+
+/** Une passe ; renvoie le nombre de corrections faites. */
+async function applyOnce(doc: DocumentAccess, items: Found[]): Promise<number> {
   const paragraphs = await doc.readParagraphs();
   let done = 0;
   // Par paragraphe, de la fin vers le début : les positions antérieures restent valables.
@@ -570,18 +660,20 @@ async function applyAll(items: Found[]): Promise<void> {
   for (const [p, list] of byParagraph) {
     let text = paragraphs[p];
     if (text !== list[0].text) continue;
+    // Deux problèmes qui se chevauchent : seul le dernier est corrigé, l'autre
+    // revient à la passe suivante s'il existe encore.
+    let limit = Infinity;
     for (const f of [...list].sort((a, b) => b.issue.start - a.issue.start)) {
       const s = f.issue.suggestions[0];
       const target = locate(text, f.issue);
-      if (s === undefined || !target) continue;
+      if (s === undefined || !target || f.issue.end > limit) continue;
       if ((await doc.replace(p, text, target, s)) !== "ok") break;
       text = applyToText(text, f.issue, s);
+      limit = f.issue.start;
       done++;
     }
   }
-  notify(`${done} correction${done > 1 ? "s" : ""} appliquée${done > 1 ? "s" : ""}`);
-  state.filter = "tout";
-  await analyze();
+  return done;
 }
 
 function ignore(f: Found): void {
@@ -877,8 +969,21 @@ function renderSettings(): void {
       )
     : [el("div", { className: "cr-empty-row" }, "Aucune. « Désactiver cette règle » sur une suggestion l'ajoute ici.")];
 
+  // Apparence
+  const current = savedTheme();
+  const themes = el("div", { className: "cr-segmented", role: "group", "aria-label": "Thème" });
+  for (const [id, text] of THEMES) {
+    const b = el("button", { type: "button", "aria-pressed": String(current === id) }, text);
+    b.addEventListener("click", () => {
+      setTheme(id);
+      renderSettings();
+    });
+    themes.append(b);
+  }
+
   const host = state.setup?.hostSettings;
   ui.sections.reglages.replaceChildren(
+    group("Apparence", row("Thème", "Automatique : celui du système.", themes)),
     group("Vérifications", ...categories),
     ...(host ? [group(host.title, ...host.items.map(hostRow))] : []),
     group(
@@ -968,6 +1073,9 @@ function buildShell(setup: PanelSetup): void {
 
 export async function startPanel(setup: PanelSetup): Promise<void> {
   state.setup = setup;
+  const theme = savedTheme();
+  applyTheme(theme);
+  setup.onTheme?.(theme);
   try {
     state.options = sanitize(await (setup.store ?? localStore).load());
   } catch (e) {

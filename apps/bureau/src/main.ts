@@ -553,6 +553,7 @@ async function start(): Promise<void> {
     store: fileStore,
     hostSettings: await hostSettings(info),
     version: info?.version,
+    onTheme: (theme) => void invoke("regler_theme", { theme }).catch(() => undefined),
   });
   if (notice) notify(notice);
   // Trouvée par la recherche automatique avant que l'interface soit prête.

@@ -23,6 +23,15 @@ champ prend le mot sélectionné, et un clic sur un synonyme remplace la
 sélection. Le style (répétitions, phrases longues) s'active dans les
 **Réglages** ; la lisibilité du texte s'affiche après chaque analyse.
 
+**Tout corriger**, en tête de la liste des suggestions, applique la première
+suggestion de chaque problème affiché, puis analyse de nouveau et recommence
+(trois passes au plus : « Les enfant joue » devient « Les enfants jouent »).
+Les mots inconnus restent à valider un par un. « Annuler », dans la
+notification, défait toutes ces corrections.
+
+**Réglages > Apparence > Thème** : Automatique (celui du système), Clair ou
+Sombre.
+
 ## Construire et tester
 
 ```bash

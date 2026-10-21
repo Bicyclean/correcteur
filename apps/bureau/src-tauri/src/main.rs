@@ -407,6 +407,18 @@ fn titre(window: WebviewWindow, titre: String) -> Result<(), String> {
     window.set_title(&titre).map_err(|e| e.to_string())
 }
 
+/// Thème de la fenêtre (barre de titre) : « clair », « sombre », ou celui du
+/// système pour toute autre valeur (« auto »).
+#[tauri::command]
+fn regler_theme(window: WebviewWindow, theme: String) -> Result<(), String> {
+    let theme = match theme.as_str() {
+        "clair" => Some(tauri::Theme::Light),
+        "sombre" => Some(tauri::Theme::Dark),
+        _ => None,
+    };
+    window.set_theme(theme).map_err(|e| e.to_string())
+}
+
 // ---------------------------------------------------------------------------
 // Application
 
@@ -640,6 +652,7 @@ fn main() {
             enregistrer_document,
             confirmer,
             titre,
+            regler_theme,
             infos_application,
             regler_demarrage_auto,
             afficher_reglages,
