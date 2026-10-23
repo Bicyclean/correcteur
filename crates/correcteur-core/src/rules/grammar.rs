@@ -162,30 +162,26 @@ fn plural_object_pronoun(
     true
 }
 
-/// « Les fleurs qu’il a cueilli » : participe avec avoir dont le complément
-/// direct, « que », reprend le groupe nominal qui précède. Signale le
-/// participe non accordé ; vrai si la construction a été reconnue.
-fn preceding_object(
-    ctx: &Context,
-    subject: &FoundSubject,
-    t: usize,
-    ft: &Form,
-    out: &mut Vec<RawIssue>,
-) -> bool {
-    let Some(q) = ctx.prev(subject.start) else {
-        return false;
-    };
+/// Groupe nominal que reprend « que » devant le verbe : « les fleurs qu’il a »,
+/// « mes collègues, que j’ai ». Antécédent sûr seulement (voir les gardes).
+fn que_antecedent<'c>(ctx: &'c Context, subject: &FoundSubject) -> Option<(NounPhrase<'c>, Gn)> {
+    let q = ctx.prev(subject.start)?;
     if !matches!(lower(ctx, q), "que" | "qu’" | "qu'") {
-        return false;
+        return None;
     }
-    let Some(head) = ctx.prev(q) else {
-        return false;
-    };
+    // « mes collègues, que j’ai » : la virgule d'incise sépare « que » de son
+    // antécédent, qui doit alors commencer la proposition (« sa voiture, qu’il
+    // avait gardé » reprend un nom plus éloigné).
+    let comma = ctx.prev(q).is_none();
+    let head = ctx.prev(q).or_else(|| {
+        q.checked_sub(1)
+            .filter(|&b| ctx.text[ctx.words[b].end..ctx.words[q].start].trim() == ",")
+    })?;
     let np = (head.saturating_sub(4)..head)
         .rev()
         .filter_map(|det| find_noun_phrase(ctx, det))
         .find(|np| np.post.unwrap_or(np.noun) == head);
-    let Some(np) = np else { return false };
+    let np = np?;
     // Antécédent sûr seulement : article, démonstratif ou possessif (pas
     // « trois mois que »), groupe qui ne suit ni une préposition ni « de »
     // (« les inspirations de sa jeunesse que… », « c’est de cette façon
@@ -253,11 +249,29 @@ fn preceding_object(
         lower(ctx, p) == "fait" || (lower(ctx, p) == "a" && p > 0 && lower(ctx, p - 1) == "y")
     });
     if !plain_det || after_preposition || coordinated || duration {
-        return false;
+        return None;
     }
-    let Some(target) = phrase_gn(ctx, &np) else {
+    if comma && !clause_start(ctx, np.det) {
+        return None;
+    }
+    let target = phrase_gn(ctx, &np)?;
+    Some((np, target))
+}
+
+/// « Les fleurs qu’il a cueilli » : participe avec avoir dont le complément
+/// direct, « que », reprend le groupe nominal qui précède. Signale le
+/// participe non accordé ; vrai si la construction a été reconnue.
+fn preceding_object(
+    ctx: &Context,
+    subject: &FoundSubject,
+    t: usize,
+    ft: &Form,
+    out: &mut Vec<RawIssue>,
+) -> bool {
+    let Some((np, target)) = que_antecedent(ctx, subject) else {
         return false;
     };
+    let head = np.post.unwrap_or(np.noun);
     // « la fois qu’il a parlé » : « que » n'est pas complément d'objet.
     if is_class(ctx, np.noun, "nom_adverbial") || !ft.has(Reading::is_past_participle) {
         return false;
@@ -316,25 +330,26 @@ fn other_head(ctx: &Context, np: &NounPhrase, adj: &Form) -> bool {
     // (« cours », « bras », « prix ») qu'au pluriel ; leur nombre est libre.
     let agrees_with = |i: usize| {
         let text = ctx.words[i].lower.as_str();
-        ctx.form(i).is_some_and(|f| {
-            f.readings.iter().filter(|r| r.pos == Pos::Nom).any(|n| {
-                let invariable = n.lemma == text && text.ends_with(['s', 'x', 'z']);
-                n.gn()
-                    .map(|g| {
-                        if invariable {
-                            Gn { number: None, ..g }
-                        } else {
-                            g
-                        }
-                    })
-                    .is_some_and(|gn| {
-                        adj.readings
-                            .iter()
-                            .filter(|r| adjectival(r))
-                            .any(|r| reading_gn(r).is_some_and(|g| g.compatible(gn)))
-                    })
+        !elided(ctx, i)
+            && ctx.form(i).is_some_and(|f| {
+                f.readings.iter().filter(|r| r.pos == Pos::Nom).any(|n| {
+                    let invariable = n.lemma == text && text.ends_with(['s', 'x', 'z']);
+                    n.gn()
+                        .map(|g| {
+                            if invariable {
+                                Gn { number: None, ..g }
+                            } else {
+                                g
+                            }
+                        })
+                        .is_some_and(|gn| {
+                            adj.readings
+                                .iter()
+                                .filter(|r| adjectival(r))
+                                .any(|r| reading_gn(r).is_some_and(|g| g.compatible(gn)))
+                        })
+                })
             })
-        })
     };
     // Préposition devant le groupe (« de », « à », « par »…, ou contractée dans
     // « du », « des », « au », « aux ») : l'adjectif peut se rapporter au nom
@@ -759,6 +774,15 @@ fn find_noun_phrase<'c>(ctx: &'c Context, det: usize) -> Option<NounPhrase<'c>> 
         || is_class(ctx, noun, "clitique")
         || ctx.data.subjects.contains_key(nw.lower.as_str())
     {
+        return None;
+    }
+    // « les saint Thomas », « le docteur Paul » : titre devant un nom propre.
+    if ctx.next(noun).is_some_and(|n| {
+        let nw = &ctx.words[n];
+        is_capitalized(nw.text)
+            && !nw.sentence_start
+            && ctx.form(n).is_some_and(|f| f.has_pos(Pos::NomPropre))
+    }) {
         return None;
     }
     let noun_form = ctx.form(noun)?;
@@ -1391,6 +1415,40 @@ fn participle_for_infinitive(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         return;
     }
     let Some(p) = ctx.prev(i) else { return };
+    // « un poste de chargé de mission », « le titre de délégué » : fonction.
+    if matches!(lower(ctx, p), "de" | "d’" | "d'")
+        && ctx.prev(p).is_some_and(|q| {
+            matches!(
+                lower(ctx, q),
+                "poste"
+                    | "postes"
+                    | "fonction"
+                    | "fonctions"
+                    | "titre"
+                    | "titres"
+                    | "rôle"
+                    | "rôles"
+                    | "métier"
+                    | "métiers"
+                    | "statut"
+                    | "qualité"
+                    | "grade"
+                    | "emploi"
+                    | "profession"
+                    | "mandat"
+                    | "place"
+                    | "situation"
+                    | "position"
+                    | "responsabilité"
+                    | "poste-clé"
+                    | "offre"
+                    | "offres"
+                    | "recrutement"
+            )
+        })
+    {
+        return;
+    }
     let introduces = match lower(ctx, p) {
         // « rien de prévu », « quelque chose de cassé » : participe correct.
         // « rien de prévu », « quelqu’un d’autorisé », « quelque chose d’osseux
@@ -1894,10 +1952,11 @@ fn subject_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         // le sujet est la quantité.
         let before = head.checked_sub(1);
         let coordinated = coordinated_subject(ctx, &subject)
-            || before.is_some_and(|b| {
-                ctx.words[b].has_digit
-                    || ctx.text[ctx.words[b].end..ctx.words[head].start].contains('%')
-            });
+            || (!ctx.words[head].sentence_start
+                && before.is_some_and(|b| {
+                    ctx.words[b].has_digit
+                        || ctx.text[ctx.words[b].end..ctx.words[head].start].contains('%')
+                }));
         if collective || (coordinated && !plural_subject) {
             return;
         }
@@ -2077,7 +2136,14 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     let mut t = ctx.next(i);
     for _ in 0..3 {
         match t {
-            Some(j) if is_class(ctx, j, "adverbe") => t = ctx.next(j),
+            // « notamment », « souvent » : adverbes en -ment ou de la liste.
+            Some(j)
+                if is_class(ctx, j, "adverbe")
+                    || (ctx.words[j].lower.ends_with("ment")
+                        && ctx.form(j).is_some_and(|f| f.has_pos(Pos::Adv))) =>
+            {
+                t = ctx.next(j)
+            }
             _ => break,
         }
     }
@@ -2107,13 +2173,34 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     let w = &ctx.words[t];
     let has_object = subject.chain.iter().any(|&c| is_class(ctx, c, "objet"));
 
-    // « il a manger », « elle est aller » → participe passé.
+    // « il a manger », « elle est aller » → participe passé. « Mes collègues,
+    // que j’ai toujours respecter » : accordé avec l'antécédent de « que ».
     if ft.has(Reading::is_infinitive) && !ft.has(adjectival) {
         let target = if avoir {
-            Gn {
+            let before = if subject.chain.iter().all(|&c| {
+                matches!(
+                    lower(ctx, c),
+                    "me" | "m’"
+                        | "m'"
+                        | "te"
+                        | "t’"
+                        | "t'"
+                        | "lui"
+                        | "leur"
+                        | "y"
+                        | "ne"
+                        | "n’"
+                        | "n'"
+                )
+            }) {
+                que_antecedent(ctx, &subject).map(|(_, g)| g)
+            } else {
+                None
+            };
+            before.unwrap_or(Gn {
                 gender: Some('m'),
                 number: Some('s'),
-            }
+            })
         } else {
             subject.gn
         };

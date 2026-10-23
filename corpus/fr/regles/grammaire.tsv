@@ -289,3 +289,11 @@ GRAM_PARTICIPE_AVOIR_COD	Les objectifs que nous nous étions ⟦fixé→fixés�
 GRAM_PARTICIPE_AVOIR_COD	Les objectifs que nous nous étions fixés ont été atteints.	CONTRIB-INIT
 GRAM_PARTICIPE_AVOIR_COD	Les gens que nous nous sommes parlé hier sont partis.	CONTRIB-INIT
 GRAM_PARTICIPE_AVOIR_COD	Un sentiment qu’elle s’était habituée à ne plus ressentir.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il postule au poste de chargé de communication.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il propose d’être chargé de mission.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Avant de ⟦fermé→fermer⟧ la porte, il éteint la lumière.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR	J’ai notamment ⟦pilotés→piloté⟧ la refonte du site.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Les visiteurs ont augmenté de 40 %. Mes collègues ⟦apprécie→apprécient⟧ ma rigueur.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Veuillez agréer l’expression de mes salutations ⟦distingués→distinguées⟧.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Mes collègues, que j’ai toujours ⟦respecter→respectés⟧, sont là.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Mes collègues, que j’ai ⟦respecté→respectés⟧, sont là.	CONTRIB-INIT

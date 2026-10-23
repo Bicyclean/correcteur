@@ -4,6 +4,7 @@
 |---|---|---|---|
 | `00-amorce.tsv` | Formes absentes de Lexique 3.83 : noms propres, formes élidées, mots figés. Rédigé à la main. | `CONTRIB-INIT` | GPL-3.0-or-later |
 | `05-pays.tsv` | Noms de pays, territoires, continents et régions du monde, avec genre et nombre. Rédigé à la main. | `CONTRIB-INIT` | GPL-3.0-or-later |
+| `06-prenoms.tsv` | 426 prénoms courants, avec le genre de la personne qui le porte d'ordinaire. Rédigé à la main. | `CONTRIB-INIT` | GPL-3.0-or-later |
 | `10-lexique383.tsv` | 125 000 formes, 154 000 lectures. | `LEXIQUE383` | CC BY-SA 4.0 |
 
 ## Attribution
