@@ -116,7 +116,93 @@ fn known_variant(ctx: &Context, lower: &str) -> bool {
     feminine_plural
         || regular_inflection(ctx, lower)
         || (lower.chars().count() >= 4 && ctx.data.conjugator.is_form(lower))
+        || rectified(ctx, lower)
         || wiktionary_verb(ctx, lower)
+}
+
+/// Graphies rectifiées de 1990, correctes comme les traditionnelles :
+/// - accent circonflexe facultatif sur i et u (« connait », « bruler »,
+///   « chaine »), sauf dans les terminaisons du passé simple (« nous vîmes »)
+///   et du subjonctif imparfait (« qu’il fût ») ; les mots où il distingue un
+///   homonyme (« dû », « mûr », « sûr ») restent connus sans accent ;
+/// - verbes en -eler, -eter avec « è » (« il amoncèle », « il étiquète »),
+///   sauf appeler et jeter, et noms en -ement (« amoncèlement ») ;
+/// - futur et conditionnel en « è » (« je cèderai ») ;
+/// - mots isolés : tréma (« ambigüe »), soudures (« weekend »), etc.
+fn rectified(ctx: &Context, lower: &str) -> bool {
+    if ctx.data.rectified.contains(lower)
+        || lower
+            .strip_suffix('s')
+            .is_some_and(|w| ctx.data.rectified.contains(w))
+    {
+        return true;
+    }
+    let form = |w: &str| ctx.lexicon.find(w);
+    // Circonflexe : chaque i ou u peut l'avoir perdu (au plus six positions).
+    let chars: Vec<char> = lower.chars().collect();
+    let slots: Vec<usize> = (0..chars.len())
+        .filter(|&i| matches!(chars[i], 'i' | 'u'))
+        .collect();
+    if !slots.is_empty() && slots.len() <= 6 {
+        for mask in 1u32..(1 << slots.len()) {
+            let mut v = chars.clone();
+            for (b, &i) in slots.iter().enumerate() {
+                if mask & (1 << b) != 0 {
+                    v[i] = if v[i] == 'i' { 'î' } else { 'û' };
+                }
+            }
+            let v: String = v.into_iter().collect();
+            // « vîmes », « vîtes », « qu’il fût » : le circonflexe reste.
+            let keeps = |r: &crate::lexicon::Reading| {
+                r.pos.is_verb()
+                    && match (r.mode_tense(), r.person()) {
+                        (Some("ind.ps"), Some(p)) => p == "1p" || p == "2p",
+                        (Some("sub.impf"), Some(p)) => p == "3s",
+                        _ => false,
+                    }
+            };
+            // Formes absentes du lexique (« mûrissons ») : le conjugueur, hors
+            // terminaisons qui gardent l'accent (« -îmes », « -îtes », « -ît »).
+            let kept_ending = ["îmes", "îtes", "ûmes", "ûtes", "ît", "ût"]
+                .iter()
+                .any(|e| v.ends_with(e));
+            if form(&v).is_some_and(|f| f.readings.iter().any(|r| !keeps(r)))
+                || (!kept_ending && form(&v).is_none() && ctx.data.conjugator.is_form(&v))
+            {
+                return true;
+            }
+        }
+    }
+    // -eler, -eter : « amoncèle » → « amoncelle », « étiquète » → « étiquette ».
+    for (rect, trad) in [("èl", "ell"), ("èt", "ett")] {
+        if let Some(i) = lower.rfind(rect) {
+            let v = format!("{}{}{}", &lower[..i], trad, &lower[i + rect.len()..]);
+            let ok = form(&v).is_some_and(|f| {
+                f.readings.iter().any(|r| {
+                    let verb = r.pos.is_verb()
+                        && (r.lemma.ends_with("eler") || r.lemma.ends_with("eter"))
+                        && !r.lemma.ends_with("appeler")
+                        && !r.lemma.ends_with("jeter");
+                    verb || (r.pos == Pos::Nom && r.lemma.ends_with("ement"))
+                })
+            });
+            if ok {
+                return true;
+            }
+        }
+    }
+    // Futur et conditionnel : « cèderai » → « céderai ».
+    if let Some(i) = lower.rfind('è') {
+        let v = format!("{}é{}", &lower[..i], &lower[i + 'è'.len_utf8()..]);
+        if form(&v).is_some_and(|f| {
+            f.has(|r| {
+                r.pos.is_verb() && matches!(r.mode_tense(), Some("ind.fut") | Some("cond.pres"))
+            })
+        }) {
+            return true;
+        }
+    }
+    false
 }
 
 /// Forme d'un verbe absent de Lexique, ajouté du Wiktionnaire (« modéliser »,

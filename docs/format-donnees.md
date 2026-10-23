@@ -63,6 +63,11 @@ la correction.
 - `h_aspire.txt` : mots ou lemmes à h aspiré, devant lesquels on n'élide pas.
 - `noms_deux_genres.txt` : noms employés aux deux genres, dont le genre n'est
   pas vérifié (épicènes et homographes que Lexique décrit mal).
+- `rectifications_1990.txt` : graphies rectifiées de 1990 qu'aucune règle ne
+  déduit (tréma : « ambigüe » ; soudures : « weekend » ; mots isolés :
+  « ognon »), pluriel en -s compris. Les règles générales (circonflexe
+  facultatif sur i et u, verbes en -eler/-eter en è, futur en è) sont dans
+  `rules/spelling.rs`.
 
 ## Listes simples
 

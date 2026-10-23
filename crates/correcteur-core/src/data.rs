@@ -23,6 +23,7 @@ pub const RULE_FILES: &[&str] = &[
     "regles/mots_grammaticaux.tsv",
     "regles/h_aspire.txt",
     "regles/noms_deux_genres.txt",
+    "regles/rectifications_1990.txt",
     "regles/style_mots_ignores.txt",
     "conjugaison/modeles.txt",
     "conjugaison/auxiliaire_etre.txt",
@@ -199,6 +200,8 @@ pub(crate) struct Data {
     pub h_aspire: HashSet<String>,
     /// Noms employés aux deux genres (genre non vérifié).
     pub two_gender_nouns: HashSet<String>,
+    /// Graphies rectifiées de 1990 non déduites par une règle (« weekend »).
+    pub rectified: HashSet<String>,
     pub conjugator: crate::conjugation::Conjugator,
     pub thesaurus: crate::thesaurus::Thesaurus,
 }
@@ -403,6 +406,7 @@ impl Data {
             word_classes,
             h_aspire: word_list(src.file("regles/h_aspire.txt")?),
             two_gender_nouns: word_list(src.file("regles/noms_deux_genres.txt")?),
+            rectified: word_list(src.file("regles/rectifications_1990.txt")?),
             conjugator: crate::conjugation::Conjugator::new(
                 src.file("conjugaison/modeles.txt")?,
                 src.optional("conjugaison/verbes.tsv"),
