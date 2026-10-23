@@ -304,3 +304,173 @@ GRAM_CONTRACTION	Il parle au directeur et des enfants.	CONTRIB-INIT
 GRAM_NOM_ATTENDU	Nous avons dîné dans un ⟦restaurent→restaurant⟧.	CONTRIB-INIT
 GRAM_NOM_ATTENDU	Il mange un morceau de pain.	CONTRIB-INIT
 GRAM_PARTICIPE_AVOIR_COD	Les lettres que nous nous sommes écrites sont restées.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Une réunion ⟦important→importante⟧ a lieu demain.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Un problème ⟦sérieuse→sérieux⟧ apparaît.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	La plupart des étudiants ⟦a→ont⟧ réussi.	CONTRIB-INIT
+GRAM_CENSE	Il est ⟦sensé→censé⟧ savoir la réponse.	CONTRIB-INIT
+GRAM_CONTRACTION	⟦De le→Du⟧ côté de la rue.	CONTRIB-INIT
+GRAM_CONTRACTION	Je parle ⟦à les→aux⟧ enfants.	CONTRIB-INIT
+GRAM_DONT	Voici le stylo ⟦que→dont⟧ j’ai besoin.	CONTRIB-INIT
+GRAM_EXPRESSION	⟦Au jour d’aujourd’hui→Aujourd’hui⟧, tout change.	CONTRIB-INIT
+GRAM_EXPRESSION	Il est fort possible, ⟦voire même→voire⟧ probable, qu’il vienne.	CONTRIB-INIT
+GRAM_EXPRESSION	⟦Comme même→Quand même⟧, c’est étonnant.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Elle a ⟦mangea→mangé⟧ trop vite.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Il a ⟦mit→mis⟧ son manteau.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Elle a ⟦prit→pris⟧ le train.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Nous avons ⟦pût→pu⟧ venir.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Il a ⟦faillit→failli⟧ tomber.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Elle a ⟦réussit→réussi⟧ son examen.	CONTRIB-INIT
+GRAM_NOM_ATTENDU	Nous irons au ⟦restaurent→restaurant⟧ ce soir.	CONTRIB-INIT
+GRAM_PARONYME	Le vol s’est fait par ⟦infraction→effraction⟧ de la serrure.	CONTRIB-INIT
+GRAM_PARONYME	La ⟦conjecture→conjoncture⟧ économique est mauvaise.	CONTRIB-INIT
+GRAM_PARONYME	Une ⟦collusion→collision⟧ frontale entre deux camions.	CONTRIB-INIT
+GRAM_PARONYME	Un ⟦éminent→imminent⟧ départ du ministre est prévu.	CONTRIB-INIT
+GRAM_PARONYME	Un professeur ⟦imminent→éminent⟧ a parlé.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR	Les employés ont ⟦signés→signé⟧ le contrat.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR	Ils ont ⟦étés→été⟧ surpris.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR	Nous avons ⟦sortis→sorti⟧ le chien.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Les clients que nous avons ⟦contacté→contactés⟧ sont satisfaits.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Elle a lu les livres que je lui ai ⟦prêté→prêtés⟧.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Nous avons vu les films qu’ils ont ⟦recommandé→recommandés⟧.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	La lettre qu’il a ⟦écrit→écrite⟧ est arrivée.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ma tante est ⟦arrivé→arrivée⟧ hier soir.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elle est ⟦partit→partie⟧ en vacances.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Les enfants sont ⟦allé→allés⟧ à l’école.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Paul et Anne sont ⟦arrivé→arrivés⟧ en retard.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Les voitures sont très ⟦rapide→rapides⟧.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ces maisons sont très ⟦ancien→anciennes⟧.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Tous les enfants sont ⟦content→contents⟧.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Toutes les maisons sont ⟦vendu→vendues⟧.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Cette fille est très ⟦gentil→gentille⟧.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Les fleurs sont belles et ⟦parfumé→parfumées⟧.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Ils vont ⟦acheté→acheter⟧ une voiture.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Tu as raison, nous allons ⟦parti→partir⟧.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Je peux ⟦venu→venir⟧ demain.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il doit ⟦finis→finir⟧ son travail.	CONTRIB-INIT
+GRAM_PARTICIPE_PRONOMINAL	Elle s’est ⟦coupée→coupé⟧ les cheveux.	CONTRIB-INIT
+GRAM_PARTICIPE_PRONOMINAL	Ils se sont ⟦téléphonés→téléphoné⟧ hier.	CONTRIB-INIT
+GRAM_PARTICIPE_PRONOMINAL	Nous nous sommes ⟦parlés→parlé⟧ longtemps.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il faut que nous ⟦prenons→prenions⟧ un taxi.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Pour que tu ⟦sais→saches⟧ la vérité, écoute.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Avant que vous ⟦partez→partiez⟧, signez ici.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Bien que nous ⟦sommes→soyons⟧ en retard, nous continuons.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Je crains qu’il ne ⟦vient→vienne⟧ pas.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il est essentiel que chacun ⟦comprend→comprenne⟧ la règle.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Je ne crois pas qu’elle ⟦est→soit⟧ malade.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il est possible qu’ils ⟦ont→aient⟧ raison.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Je souhaite qu’il ⟦réussit→réussisse⟧ son examen.	CONTRIB-INIT
+GRAM_TOUT	Elle a ⟦tout→tous⟧ les livres.	CONTRIB-INIT
+GRAM_TOUT	⟦Tout→Tous⟧ les jours, il court.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Je m’occupe ⟦a→à⟧ fond du dossier.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Il parle sans cesse ⟦a→à⟧ ses amis.	CONTRIB-INIT
+HOMO_QUAND_QUANT	⟦Quand→Quant⟧ à lui, il part demain.	CONTRIB-INIT
+ORTH_ELISION	Je ne sais pas ⟦si il→s’il⟧ vient.	CONTRIB-INIT
+ORTH_ELISION	Elle a dit ⟦que elle→qu’elle⟧ viendrait.	CONTRIB-INIT
+ORTH_ELISION	Il pense ⟦que on→qu’on⟧ peut partir.	CONTRIB-INIT
+ORTH_ELISION	⟦Le enfant→L’enfant⟧ joue dehors.	CONTRIB-INIT
+ORTH_ELISION	⟦La amie→L’amie⟧ de Paul est là.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot ⟦bureaucracie→bureaucratie⟧ figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot ⟦concurence→concurrence⟧ figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot ⟦déffinition→définition⟧ figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot ⟦éfficace→efficace⟧ figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot ⟦fréquament→fréquemment⟧ figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot ⟦immédiatment→immédiatement⟧ figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot ⟦laboratoir→laboratoire⟧ figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot ⟦obligatoir→obligatoire⟧ figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot ⟦responsabilitée→responsabilité⟧ figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot ⟦vérrifier→vérifier⟧ figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot ⟦détaillè→détaillé⟧ figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot ⟦hébergment→hébergement⟧ figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot ⟦reglément→règlement⟧ figure dans ce dossier.	CONTRIB-INIT
+ORTH_TRAIT_UNION	Il habite ⟦au dessus→au-dessus⟧ de chez nous.	CONTRIB-INIT
+ORTH_TRAIT_UNION	Le texte ⟦ci joint→ci-joint⟧ est complet.	CONTRIB-INIT
+ORTH_TRAIT_UNION	Tu es allé ⟦la bas→là-bas⟧ hier.	CONTRIB-INIT
+ORTH_TRAIT_UNION	Il se déplace avec un ⟦porte monnaie→porte-monnaie⟧.	CONTRIB-INIT
+ORTH_TRAIT_UNION	Il est ⟦soit disant→soi-disant⟧ malade.	CONTRIB-INIT
+ORTH_TRAIT_UNION	Il habite au ⟦rez de chaussée→rez-de-chaussée⟧.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Une réunion importante a lieu demain.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Un problème sérieux apparaît.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	La plupart des étudiants ont réussi.	CONTRIB-INIT
+GRAM_CENSE	Il est censé savoir la réponse.	CONTRIB-INIT
+GRAM_CONTRACTION	Du côté de la rue.	CONTRIB-INIT
+GRAM_CONTRACTION	Je parle aux enfants.	CONTRIB-INIT
+GRAM_DONT	Voici le stylo dont j’ai besoin.	CONTRIB-INIT
+GRAM_EXPRESSION	Aujourd’hui, tout change.	CONTRIB-INIT
+GRAM_EXPRESSION	Il est fort possible, voire probable, qu’il vienne.	CONTRIB-INIT
+GRAM_EXPRESSION	Quand même, c’est étonnant.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Elle a mangé trop vite.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Il a mis son manteau.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Elle a pris le train.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Nous avons pu venir.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Il a failli tomber.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Elle a réussi son examen.	CONTRIB-INIT
+GRAM_NOM_ATTENDU	Nous irons au restaurant ce soir.	CONTRIB-INIT
+GRAM_PARONYME	Le vol s’est fait par effraction de la serrure.	CONTRIB-INIT
+GRAM_PARONYME	La conjoncture économique est mauvaise.	CONTRIB-INIT
+GRAM_PARONYME	Une collision frontale entre deux camions.	CONTRIB-INIT
+GRAM_PARONYME	Un imminent départ du ministre est prévu.	CONTRIB-INIT
+GRAM_PARONYME	Un professeur éminent a parlé.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR	Les employés ont signé le contrat.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR	Ils ont été surpris.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR	Nous avons sorti le chien.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Les clients que nous avons contactés sont satisfaits.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Elle a lu les livres que je lui ai prêtés.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Nous avons vu les films qu’ils ont recommandés.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	La lettre qu’il a écrite est arrivée.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ma tante est arrivée hier soir.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elle est partie en vacances.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Les enfants sont allés à l’école.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Le directeur et son adjoint sont absents.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Paul et Anne sont arrivés en retard.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Les voitures sont très rapides.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ces maisons sont très anciennes.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Tous les enfants sont contents.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Toutes les maisons sont vendues.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Cette fille est très gentille.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Les fleurs sont belles et parfumées.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Ils vont acheter une voiture.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Tu as raison, nous allons partir.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Je peux venir demain.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il doit finir son travail.	CONTRIB-INIT
+GRAM_PARTICIPE_PRONOMINAL	Elle s’est coupé les cheveux.	CONTRIB-INIT
+GRAM_PARTICIPE_PRONOMINAL	Ils se sont téléphoné hier.	CONTRIB-INIT
+GRAM_PARTICIPE_PRONOMINAL	Nous nous sommes parlé longtemps.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il faut que nous prenions un taxi.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Pour que tu saches la vérité, écoute.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Avant que vous partiez, signez ici.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Bien que nous soyons en retard, nous continuons.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Je crains qu’il ne vienne pas.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il est essentiel que chacun comprenne la règle.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Je ne crois pas qu’elle soit malade.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il est possible qu’ils aient raison.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Je souhaite qu’il réussisse son examen.	CONTRIB-INIT
+GRAM_TOUT	Elle a tous les livres.	CONTRIB-INIT
+GRAM_TOUT	Tous les jours, il court.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Je m’occupe à fond du dossier.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Il parle sans cesse à ses amis.	CONTRIB-INIT
+HOMO_QUAND_QUANT	Quant à lui, il part demain.	CONTRIB-INIT
+ORTH_ELISION	Je ne sais pas s’il vient.	CONTRIB-INIT
+ORTH_ELISION	Elle a dit qu’elle viendrait.	CONTRIB-INIT
+ORTH_ELISION	Il pense qu’on peut partir.	CONTRIB-INIT
+ORTH_ELISION	L’enfant joue dehors.	CONTRIB-INIT
+ORTH_ELISION	L’amie de Paul est là.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot bureaucratie figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot concurrence figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot définition figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot efficace figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot fréquemment figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot hôpital figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot intellectuel figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot négociation figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot raisonnable figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot technique figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot zone figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot détaillé figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot hébergement figure dans ce dossier.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le mot partenaire figure dans ce dossier.	CONTRIB-INIT
+ORTH_TRAIT_UNION	Il habite au-dessus de chez nous.	CONTRIB-INIT
+ORTH_TRAIT_UNION	Le texte ci-joint est complet.	CONTRIB-INIT
+ORTH_TRAIT_UNION	Tu es allé là-bas hier.	CONTRIB-INIT
+ORTH_TRAIT_UNION	Il se déplace avec un porte-monnaie.	CONTRIB-INIT
+ORTH_TRAIT_UNION	Il est soi-disant malade.	CONTRIB-INIT
+ORTH_TRAIT_UNION	Il habite au rez-de-chaussée.	CONTRIB-INIT

@@ -354,6 +354,33 @@ fn check_a(ctx: &Context, i: usize) -> bool {
     if verb_with_subject && nominal {
         return true;
     }
+    // « il parle sans cesse a ses amis », « il écrit souvent a Marie » : adverbe
+    // après un verbe, puis le complément introduit par « à ».
+    let adverb_end = p.map(|q| {
+        if lower_is(ctx, Some(q), &["cesse"]) && lower_is(ctx, ctx.prev(q), &["sans"]) {
+            ctx.prev(q).unwrap_or(q)
+        } else {
+            q
+        }
+    });
+    let adverb_then_a = adverb_end.is_some_and(|q| {
+        let adverb = ctx.data.is(&ctx.words[q].lower, "adverbe")
+            || form(ctx, Some(q)).is_some_and(|f| f.has_pos(Pos::Adv) && !f.has_pos(Pos::Nom))
+            || lower_is(ctx, Some(q), &["sans"]);
+        adverb
+            && form(ctx, ctx.prev(q)).is_some_and(|f| {
+                f.has(super::super::lexicon::Reading::is_finite_verb)
+                    && !f.has(|r| matches!(r.pos, Pos::Det | Pos::Pre))
+            })
+            // Un sujet pronom ou un nom propre devant le verbe : pas « ce calme même a ».
+            && ctx.prev(q).and_then(|v| ctx.prev(v)).is_some_and(|sub| {
+                ctx.data.subjects.contains_key(ctx.words[sub].lower.as_str())
+                    || (is_capitalized(ctx.words[sub].text) && !ctx.words[sub].sentence_start)
+            })
+    });
+    if adverb_then_a && nominal {
+        return true;
+    }
     // Le verbe « a » est suivi d'un participe (« a été », « a fini ») ou d'une
     // locution avec avoir (« a raison », « a lieu ») : on s'abstient alors.
     let pp = |k: Option<usize>| {

@@ -11,8 +11,18 @@ pub const FORM: &str = "ORTH_FORME";
 
 pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
     let words = &ctx.words;
+    let empty: Vec<usize> = Vec::new();
     for i in 0..words.len() {
-        for loc in &ctx.data.locutions {
+        let by_word = ctx
+            .data
+            .locution_by_first
+            .get(&words[i].lower)
+            .unwrap_or(&empty);
+        for loc in by_word
+            .iter()
+            .chain(ctx.data.locution_lemma_first.iter())
+            .map(|&k| &ctx.data.locutions[k])
+        {
             let n = loc.words.len();
             if i + n > words.len() {
                 continue;

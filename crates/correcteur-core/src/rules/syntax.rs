@@ -23,6 +23,7 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
         elision(ctx, i, out);
         contraction(ctx, i, out);
         inversion(ctx, i, out);
+        inversion_t(ctx, i, out);
         est_ce(ctx, i, out);
         sense(ctx, i, out);
         paronym(ctx, i, out);
@@ -89,15 +90,83 @@ fn elision(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     if nw.text.chars().count() == 1 && nw.lower != "y" {
         return;
     }
-    let elides = ctx.data.elides(&nw.lower, None)
+    // « haut-commissaire » : le premier élément décide ; « hauts », « haies » : le
+    // lemme (h aspiré).
+    let first_part = nw.lower.split('-').next().unwrap_or("");
+    let lemma = ctx
+        .form(n)
+        .and_then(|f| f.readings.first())
+        .map(|r| r.lemma.as_str());
+    // Mot inconnu (étranger, nom propre minuscule) : on ne sait pas s'il s'élide ;
+    // « le ou les » : conjonction citée ; « à la une » ; « de un but », « de un à
+    // trois jours » : nombre.
+    if ctx.form(n).is_none() || matches!(nw.lower.as_str(), "ou" | "et") {
+        return;
+    }
+    if (w.lower == "la" && nw.lower == "une")
+        || (w.lower == "de"
+            && nw.lower == "un"
+            && ctx.next(n).is_none_or(|k| {
+                matches!(
+                    lower(ctx, k),
+                    "but"
+                        | "buts"
+                        | "à"
+                        | "point"
+                        | "points"
+                        | "an"
+                        | "ans"
+                        | "jour"
+                        | "jours"
+                        | "mois"
+                        | "heure"
+                        | "heures"
+                        | "minute"
+                        | "minutes"
+                        | "seconde"
+                        | "secondes"
+                        | "fois"
+                        | "partout"
+                        | "seul"
+                        | "seule"
+                )
+            }))
+    {
+        return;
+    }
+    let elides = ctx.data.elides(&nw.lower, lemma)
+        && ctx.data.elides(first_part, None)
         && !NO_ELISION.contains(&nw.lower.as_str())
+        && !["oua", "ouï", "ouis"]
+            .iter()
+            .any(|p| nw.lower.starts_with(p))
+        && !nw.text.contains(['’', '\''])
         && (nw.lower == "y" || !nw.lower.starts_with('y'));
     if !elides {
         return;
     }
+    // Noms propres et titres (« de Holland », « de American Idiot ») : l'élision
+    // dépend de l'origine ; seuls les prénoms connus (hors « h ») sont vérifiés.
+    if is_capitalized(nw.text) {
+        let first_name =
+            ctx.form(n).is_some_and(|f| f.has_pos(Pos::NomPropre)) && !nw.lower.starts_with('h');
+        if !first_name {
+            return;
+        }
+    }
     // « ce » seulement devant être (« c’est »), « si » devant « il(s) ».
     match w.lower.as_str() {
         "ce" if !matches!(nw.lower.as_str(), "est" | "était" | "étaient" | "eût") => return,
+        // « lorsque », « puisque », « quoique » ne s'élident que devant il(s),
+        // elle(s), on, un, une (« puisque aucune » reste sans apostrophe).
+        "lorsque" | "puisque" | "quoique"
+            if !matches!(
+                nw.lower.as_str(),
+                "il" | "ils" | "elle" | "elles" | "on" | "un" | "une"
+            ) =>
+        {
+            return
+        }
         "si" if !matches!(nw.lower.as_str(), "il" | "ils") => return,
         // « Le Havre », « La Anne » : titres et noms propres.
         "le" | "la" if is_capitalized(nw.text) => return,
@@ -565,6 +634,9 @@ fn noun_expected(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     // « leur » précèdent un verbe : « il le mange »).
     let det = lower(ctx, d);
     const SAFE_DETERMINERS: &[&str] = &[
+        "au",
+        "aux",
+        "du",
         "un",
         "une",
         "des",
@@ -577,7 +649,6 @@ fn noun_expected(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         "ton",
         "ta",
         "tes",
-        "son",
         "sa",
         "ses",
         "notre",
@@ -620,11 +691,58 @@ fn noun_expected(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     let Some(first) = suggestions.first().cloned() else {
         return;
     };
+    // « une boite » : graphie rectifiée de « boîte » (l'accent circonflexe est
+    // facultatif) ; « une serpente » : mot rare mais correct, quand la correction
+    // proposée est plus rare que le mot lui-même.
+    let freq = |t: &str| ctx.lexicon.get(&t.to_lowercase()).map_or(0.0, |x| x.freq);
+    if crate::lexicon::skeleton(&first) == crate::lexicon::skeleton(&w.lower)
+        || freq(&first) < freq(&w.lower) * 4.0
+    {
+        return;
+    }
     out.push(
         RawIssue::new(w.start, w.end, NOUN_EXPECTED)
             .arg(w.text)
             .arg(first)
             .arg(ctx.words[d].text)
             .with_suggestions(suggestions),
+    );
+}
+
+/// « Quand arrive t il ? » → « arrive-t-il » : « t » isolé entre le verbe et le pronom.
+fn inversion_t(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
+    let p = &ctx.words[i];
+    if !matches!(p.lower.as_str(), "il" | "elle" | "on") || p.compound_part {
+        return;
+    }
+    let Some(t) = ctx
+        .prev(i)
+        .filter(|&t| lower(ctx, t) == "t" && !ctx.words[t].compound_part)
+    else {
+        return;
+    };
+    let Some(v) = ctx.prev(t) else { return };
+    if !ends_with_question(ctx, p.end)
+        || !ctx
+            .form(v)
+            .is_some_and(|f| f.has(Reading::is_finite_verb) || f.has(|r| r.pos == Pos::Aux))
+    {
+        return;
+    }
+    let vw = &ctx.words[v];
+    let opens = vw.sentence_start
+        || ctx
+            .prev(v)
+            .is_some_and(|q| INTERROGATIVES.contains(&lower(ctx, q)));
+    if !opens {
+        return;
+    }
+    let found = &ctx.text[vw.start..p.end];
+    let fixed = format!("{}-t-{}", vw.text, p.text);
+    out.push(
+        RawIssue::new(vw.start, p.end, HYPHEN)
+            .arg(found)
+            .arg(fixed.clone())
+            .suggest(fixed),
     );
 }

@@ -113,7 +113,26 @@ fn known_variant(ctx: &Context, lower: &str) -> bool {
             f.has(|r| r.is_past_participle() && r.gn().is_some_and(|g| g.gender == Some('f')))
         })
     });
-    feminine_plural
+    // « schématisé », « schématisés » : Lexique a parfois le féminin du participe
+    // (« schématisée ») sans le masculin. « musé » reste une faute : « musée » est
+    // un nom, pas un participe.
+    let masculine_participle = ["é", "és"].iter().any(|e| {
+        lower.strip_suffix(e).is_some_and(|stem| {
+            ctx.lexicon
+                .find(&format!("{stem}{}", if *e == "é" { "ée" } else { "ées" }))
+                .is_some_and(|f| {
+                    // « musée » est aussi un nom : « musé » reste une faute.
+                    !f.has_pos(Pos::Nom)
+                        && f.has(|r| {
+                            r.is_past_participle()
+                                && r.lemma.ends_with("er")
+                                && r.gn().is_some_and(|g| g.gender == Some('f'))
+                        })
+                })
+        })
+    });
+    masculine_participle
+        || feminine_plural
         || regular_inflection(ctx, lower)
         || (lower.chars().count() >= 4 && ctx.data.conjugator.is_form(lower))
         || rectified(ctx, lower)

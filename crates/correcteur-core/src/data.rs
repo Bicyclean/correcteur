@@ -191,6 +191,10 @@ pub(crate) struct Subject {
 pub(crate) struct Data {
     pub rules: HashMap<String, RuleInfo>,
     pub locutions: Vec<Locution>,
+    /// Indices des locutions dont le premier mot est une forme exacte, par ce mot.
+    pub locution_by_first: HashMap<String, Vec<usize>>,
+    /// Indices des locutions dont le premier mot est un lemme (« =pallier à »).
+    pub locution_lemma_first: Vec<usize>,
     pub elisions: HashSet<String>,
     pub abbreviations: HashSet<String>,
     pub verbs_with_a: HashSet<String>,
@@ -344,6 +348,14 @@ impl Data {
             });
         }
 
+        let mut locution_by_first: HashMap<String, Vec<usize>> = HashMap::new();
+        let mut locution_lemma_first = Vec::new();
+        for (k, loc) in locutions.iter().enumerate() {
+            match &loc.words[0] {
+                LocToken::Word(w) => locution_by_first.entry(w.clone()).or_default().push(k),
+                LocToken::Lemma(_) => locution_lemma_first.push(k),
+            }
+        }
         let table =
             |name: &'static str, ncols: usize| -> Result<Vec<(usize, Vec<String>)>, DataError> {
                 let mut rows = Vec::new();
@@ -400,6 +412,8 @@ impl Data {
 
         Ok(Data {
             rules,
+            locution_by_first,
+            locution_lemma_first,
             locutions,
             elisions: word_list(src.file("regles/elisions.txt")?),
             abbreviations: word_list(src.file("regles/abreviations.txt")?),
