@@ -411,7 +411,8 @@ fn other_head(ctx: &Context, np: &NounPhrase, adj: &Form) -> bool {
                         && matches!(r.lemma.as_str(), "être" | "avoir" | "aller" | "faire")
                 })
         });
-        if !pronoun && !head_ok {
+        // « dans la plupart des cas représenté » : « plupart » n'est noté qu'adverbe.
+        if !pronoun && !head_ok && !collective(ctx, h) {
             break;
         }
         // « dans la plupart des cas représenté » : le participe s'accorde avec le
@@ -695,6 +696,25 @@ fn agree_forms<'a>(
         .map(|r| r.lemma.as_str())
         .collect();
     lemmas.dedup();
+    // Lexique sépare le masculin et le féminin de quelques adjectifs en deux
+    // lemmes (« nouveau » / « nouvelle ») : on cherche dans les deux.
+    const SIBLINGS: &[(&str, &str)] = &[
+        ("nouveau", "nouvelle"),
+        ("beau", "belle"),
+        ("vieux", "vieille"),
+        ("fou", "folle"),
+        ("mou", "molle"),
+        ("jumeau", "jumelle"),
+    ];
+    let siblings: Vec<&str> = lemmas
+        .iter()
+        .filter_map(|l| {
+            SIBLINGS
+                .iter()
+                .find_map(|(a, b)| (a == l).then_some(*b).or_else(|| (b == l).then_some(*a)))
+        })
+        .collect();
+    lemmas.extend(siblings);
     for exact in [true, false] {
         for lemma in &lemmas {
             for f in ctx.lexicon.inflect(lemma, |r| {
@@ -712,6 +732,21 @@ fn agree_forms<'a>(
                 }
             }
         }
+    }
+    // Genre inconnu : le masculin d'abord, comme dans l'accord par défaut.
+    if target.gender.is_none() {
+        out.sort_by_key(|f| {
+            ctx.lexicon.get(f).map_or(2, |x| {
+                let feminine =
+                    |r: &Reading| pred(r) && r.gn().is_some_and(|g| g.gender == Some('f'));
+                let other = |r: &Reading| pred(r) && r.gn().is_some_and(|g| g.gender != Some('f'));
+                if x.has(feminine) && !x.has(other) {
+                    1
+                } else {
+                    0
+                }
+            })
+        });
     }
     out.truncate(ctx.options.max_suggestions.max(1));
     out
@@ -824,7 +859,21 @@ fn find_noun_phrase<'c>(ctx: &'c Context, det: usize) -> Option<NounPhrase<'c>> 
             break;
         };
         let Some(fnext) = ctx.form(n) else { break };
+        // « l’alezan vole », « la cité conserve » : le premier mot est le nom, le
+        // suivant un verbe ; « un belle voiture » : « belle » n'est pas un nom au
+        // masculin, c'est bien un adjectif devant « voiture ».
+        let first_is_noun = fj
+            .readings
+            .iter()
+            .any(|r| r.pos == Pos::Nom && r.gn().is_some_and(|g| g.compatible(determiner.gn)));
+        // Verbe seulement si un autre mot que ne suit pas un second verbe : « ces grands
+        // tables sont » (« tables » est un nom, « sont » le verbe).
+        let next_is_verb = fnext.has(Reading::is_finite_verb)
+            && ctx
+                .next(n)
+                .is_some_and(|m| !ctx.form(m).is_some_and(|f| f.has(Reading::is_finite_verb)));
         let next_is_plain_noun = fnext.has_pos(Pos::Nom)
+            && !(first_is_noun && next_is_verb)
             && !fnext.has(|r| r.pos == Pos::Adj)
             && !elided(ctx, n)
             && !is_class(ctx, n, "clitique");
@@ -1190,13 +1239,19 @@ fn noun_phrase(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
                 // (« les maisons couvrant les trottoirs », « une femme ressemblant au
                 // portrait » : participe présent, invariable).
                 let complement = ctx.next(adj).is_some_and(|n| {
-                    !matches!(lower(ctx, n), "et" | "ou" | "mais")
-                        && (ctx.data.determiners.contains_key(lower(ctx, n))
-                            || ctx.form(n).is_some_and(|g| {
-                                g.has(|r| {
-                                    matches!(r.pos, Pos::Pre | Pos::Pro | Pos::Adv | Pos::Adj)
-                                })
-                            }))
+                    !matches!(lower(ctx, n), "et" | "ou" | "mais" | "qui")
+                        && ctx.form(n).is_some_and(|g| {
+                            // « a lieu », « est » : être et avoir ne sont pas un complément.
+                            !g.has(|r| {
+                                r.is_finite_verb() && matches!(r.lemma.as_str(), "être" | "avoir")
+                            }) && (ctx.data.determiners.contains_key(lower(ctx, n))
+                                || g.has(|r| {
+                                    matches!(
+                                        r.pos,
+                                        Pos::Pre | Pos::Pro | Pos::Adv | Pos::Adj | Pos::Nom
+                                    )
+                                }))
+                        })
                 });
                 if ok
                     || (f.has(|r| r.pos.is_verb() && r.traits == "ppre")
@@ -1216,7 +1271,15 @@ fn noun_phrase(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
                 }
                 // « un finale intitulé », « des intellectuelles membres » : le
                 // premier mot est le nom, le suivant un adjectif ou une apposition.
+                // Seulement quand un complément suit (« membres du parti », « finale
+                // intitulé Moto perpetuo ») : « ces grands tables » reste une faute.
+                let complement_follows = ctx.next(np.noun).is_some_and(|n| {
+                    is_capitalized(ctx.words[n].text)
+                        || matches!(lower(ctx, n), "du" | "des" | "au" | "aux" | "de" | "d’")
+                        || ctx.form(n).is_some_and(|g| g.has_pos(Pos::Pre))
+                });
                 if Some(adj) != np.post
+                    && complement_follows
                     && f.has(|r| r.pos == Pos::Nom && r.gn().is_some_and(|g| g.compatible(d)))
                 {
                     continue;
@@ -2650,6 +2713,12 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     if !etre && !avoir {
         return;
     }
+    // « apprendre a utiliser » : « a » est déjà signalé comme préposition.
+    if out.iter().any(|o| {
+        o.rule == "HOMO_A_PREPOSITION" && o.start == ctx.words[i].start && o.end == ctx.words[i].end
+    }) {
+        return;
+    }
     // « la ligne A relie » : lettre ou nom en capitale, pas l'auxiliaire.
     if ctx.words[i].text == "A" && !ctx.words[i].sentence_start {
         return;
@@ -3422,6 +3491,44 @@ fn operand(ctx: &Context, last: usize) -> Option<(usize, Option<char>)> {
     }
     if matches!(w.lower.as_str(), "moi" | "toi") {
         return Some((last, None));
+    }
+    // « Madame Leroy », « Docteur Martin », « Leroy » : nom propre inconnu du
+    // lexique, éventuellement précédé d'un titre ou d'un prénom.
+    if is_capitalized(w.text) && !w.sentence_start && !w.compound_part && ctx.form(last).is_none() {
+        let title = |t: &str| {
+            matches!(
+                t,
+                "madame"
+                    | "monsieur"
+                    | "mme"
+                    | "mlle"
+                    | "m"
+                    | "docteur"
+                    | "dr"
+                    | "maître"
+                    | "professeur"
+                    | "pr"
+            )
+        };
+        let mut start = last;
+        let mut gender = None;
+        while let Some(p) = ctx.prev(start).filter(|&p| {
+            title(ctx.words[p].lower.as_str())
+                || (is_capitalized(ctx.words[p].text)
+                    && ctx.form(p).is_some_and(|f| f.has_pos(Pos::NomPropre)))
+        }) {
+            gender = gender.or(match ctx.words[p].lower.as_str() {
+                "madame" | "mme" | "mlle" => Some('f'),
+                "monsieur" | "m" | "docteur" | "dr" | "professeur" | "pr" => Some('m'),
+                _ => ctx
+                    .form(p)
+                    .and_then(|f| f.readings.iter().find(|r| r.pos == Pos::NomPropre))
+                    .and_then(|r| r.gn())
+                    .and_then(|g| g.gender),
+            });
+            start = p;
+        }
+        return Some((start, gender));
     }
     (last.saturating_sub(4)..last)
         .rev()

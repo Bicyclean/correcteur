@@ -474,3 +474,13 @@ ORTH_TRAIT_UNION	Tu es allé là-bas hier.	CONTRIB-INIT
 ORTH_TRAIT_UNION	Il se déplace avec un porte-monnaie.	CONTRIB-INIT
 ORTH_TRAIT_UNION	Il est soi-disant malade.	CONTRIB-INIT
 ORTH_TRAIT_UNION	Il habite au rez-de-chaussée.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Ces ⟦nouveaux→nouvelles⟧ méthodes sont rapides.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Ces ⟦grands→grandes⟧ tables sont là.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Ces nouvelles méthodes sont rapides.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	L’alezan vole comme l’oiseau.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	La cité conserve ses institutions municipales.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Les maisons couvrant les trottoirs sont anciennes.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Madame Leroy et moi sommes ⟦prêt→prêts⟧ à vous aider.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Madame Leroy et moi sommes prêts à vous aider.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Chacun doit apprendre ⟦a→à⟧ utiliser l’outil.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Chacun doit apprendre à utiliser l’outil.	CONTRIB-INIT
