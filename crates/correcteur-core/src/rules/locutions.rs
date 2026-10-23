@@ -4,6 +4,11 @@ use super::{Context, RawIssue};
 use crate::data::LocToken;
 use crate::text::{capitalize, is_capitalized};
 
+/// Expressions figées : pléonasmes, confusions, mauvais assemblages.
+pub const EXPRESSION: &str = "GRAM_EXPRESSION";
+/// Forme verbale inventée par analogie (« vous faisez »).
+pub const FORM: &str = "ORTH_FORME";
+
 pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
     let words = &ctx.words;
     for i in 0..words.len() {
@@ -45,6 +50,12 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
             // La locution entière remplace le signalement d'un de ses mots par la
             // même règle (« a » dans « a cause de »).
             out.retain(|o| !(o.rule == loc.rule && o.start >= start && o.end <= end));
+            // « un vis à vis » : l'alerte de genre sur une locution mal écrite cède.
+            out.retain(|o| {
+                !(o.rule == "GRAM_ACCORD_DETERMINANT" && o.start < end && start < o.end)
+            });
+            // Un mot inconnu remplacé par sa correction connue : la correction prime.
+            out.retain(|o| !(o.rule == "ORTH_MOT_INCONNU" && o.start >= start && o.end <= end));
             out.push(
                 RawIssue::new(start, end, loc.rule)
                     .arg(found)

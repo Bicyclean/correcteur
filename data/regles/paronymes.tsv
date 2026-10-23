@@ -1,0 +1,25 @@
+# Confusions de mots proches (paronymes) : mot employé, mot attendu, mots qui le trahissent, source.
+# Le mot employé n'est signalé que si l'un des mots déclencheurs figure à moins de quatre mots de lui,
+# dans la même phrase : « effraction » seul est correct (vol avec effraction), « une effraction au code de
+# la route » ne l'est pas. Rédigé pour ce projet d'après l'usage décrit dans les ouvrages de référence.
+effraction	infraction	code,loi,lois,règlement,amende,pénale,contravention,délit,route,routier,routière,conduite	REF-GRAM-FR
+effractions	infractions	code,loi,lois,règlement,amende,pénale,contravention,délit,route,routier,routière,conduite	REF-GRAM-FR
+infraction	effraction	serrure,serrures,fenêtre,verrou,cambriolage,cambrioleur,cambrioleurs,forcé,forcée,pénétrer,pénétré	REF-GRAM-FR
+infractions	effractions	serrure,serrures,fenêtre,verrou,cambriolage,cambrioleur,cambrioleurs,forcé,forcée,pénétrer,pénétré	REF-GRAM-FR
+conjecture	conjoncture	économique,économiques,crise,croissance,marché,marchés,chômage,ralentissement,financière,actuelle	REF-GRAM-FR
+conjectures	conjonctures	économique,économiques,crise,croissance,marché,marchés,chômage,ralentissement,financière,actuelle	REF-GRAM-FR
+conjoncture	conjecture	hypothèse,prouver,démontrer,démontrée,mathématique,théorème,réfuter	REF-GRAM-FR
+conjonctures	conjectures	hypothèse,prouver,démontrer,démontrée,mathématique,théorème,réfuter	REF-GRAM-FR
+collusion	collision	voiture,voitures,véhicule,véhicules,camion,camions,accident,moto,train,trains,avion,bateau,navires,frontale,routière,carambolage	REF-GRAM-FR
+collusions	collisions	voiture,voitures,véhicule,véhicules,camion,camions,accident,moto,train,trains,avion,bateau,navires,frontale,routière,carambolage	REF-GRAM-FR
+collision	collusion	complicité,cartel,entreprises,concurrentes,concurrents,corruption,fraude,frauduleuse,secrète,mafia	REF-GRAM-FR
+collisions	collusions	complicité,cartel,entreprises,concurrentes,concurrents,corruption,fraude,frauduleuse,secrète,mafia	REF-GRAM-FR
+éminent	imminent	danger,péril,menace,risque,départ,arrivée,chute,catastrophe,crise,retour,effondrement,explosion,faillite,rupture,mort,fin	REF-GRAM-FR
+éminente	imminente	danger,péril,menace,risque,départ,arrivée,chute,catastrophe,crise,retour,effondrement,explosion,faillite,rupture,mort,fin	REF-GRAM-FR
+éminents	imminents	danger,péril,menace,risque,départ,arrivée,chute,catastrophe,crise,retour,effondrement,explosion,faillite,rupture,mort,fin	REF-GRAM-FR
+éminentes	imminentes	danger,péril,menace,risque,départ,arrivée,chute,catastrophe,crise,retour,effondrement,explosion,faillite,rupture,mort,fin	REF-GRAM-FR
+imminent	éminent	professeur,chercheur,savant,scientifique,spécialiste,juriste,écrivain,universitaire,expert,avocat,médecin,physicien,historien,professeurs,chercheurs,savants,spécialistes	REF-GRAM-FR
+imminente	éminente	professeur,chercheur,savant,scientifique,spécialiste,juriste,écrivain,universitaire,expert,avocat,médecin,physicien,historien,professeurs,chercheurs,savants,spécialistes	REF-GRAM-FR
+imminents	éminents	professeur,chercheur,savant,scientifique,spécialiste,juriste,écrivain,universitaire,expert,avocat,médecin,physicien,historien,professeurs,chercheurs,savants,spécialistes	REF-GRAM-FR
+imminentes	éminentes	professeur,chercheur,savant,scientifique,spécialiste,juriste,écrivain,universitaire,expert,avocat,médecin,physicien,historien,professeurs,chercheurs,savants,spécialistes	REF-GRAM-FR
+prodiguees	prodigees	enfant prodigue	REF-GRAM-FR

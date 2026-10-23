@@ -24,6 +24,7 @@ pub const RULE_FILES: &[&str] = &[
     "regles/h_aspire.txt",
     "regles/noms_deux_genres.txt",
     "regles/rectifications_1990.txt",
+    "regles/paronymes.tsv",
     "regles/style_mots_ignores.txt",
     "conjugaison/modeles.txt",
     "conjugaison/auxiliaire_etre.txt",
@@ -202,6 +203,8 @@ pub(crate) struct Data {
     pub two_gender_nouns: HashSet<String>,
     /// Graphies rectifiées de 1990 non déduites par une règle (« weekend »).
     pub rectified: HashSet<String>,
+    /// Mot employé → (mot attendu, mots déclencheurs) : voir `paronymes.tsv`.
+    pub paronyms: HashMap<String, (String, HashSet<String>)>,
     pub conjugator: crate::conjugation::Conjugator,
     pub thesaurus: crate::thesaurus::Thesaurus,
 }
@@ -407,6 +410,30 @@ impl Data {
             h_aspire: word_list(src.file("regles/h_aspire.txt")?),
             two_gender_nouns: word_list(src.file("regles/noms_deux_genres.txt")?),
             rectified: word_list(src.file("regles/rectifications_1990.txt")?),
+            paronyms: {
+                let mut map = HashMap::new();
+                for (n, line) in data_lines(src.file("regles/paronymes.tsv")?) {
+                    let cols: Vec<&str> = line.split('\t').collect();
+                    if cols.len() != 4 {
+                        return Err(DataError {
+                            file: "regles/paronymes.tsv".into(),
+                            line: n,
+                            message: format!("4 colonnes attendues, {} trouvées", cols.len()),
+                        });
+                    }
+                    map.insert(
+                        cols[0].to_lowercase(),
+                        (
+                            cols[1].to_string(),
+                            cols[2]
+                                .split(',')
+                                .map(|w| w.trim().to_lowercase())
+                                .collect(),
+                        ),
+                    );
+                }
+                map
+            },
             conjugator: crate::conjugation::Conjugator::new(
                 src.file("conjugaison/modeles.txt")?,
                 src.optional("conjugaison/verbes.tsv"),

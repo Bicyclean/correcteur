@@ -63,6 +63,10 @@ la correction.
 - `h_aspire.txt` : mots ou lemmes à h aspiré, devant lesquels on n'élide pas.
 - `noms_deux_genres.txt` : noms employés aux deux genres, dont le genre n'est
   pas vérifié (épicènes et homographes que Lexique décrit mal).
+- `paronymes.tsv` : mot employé, mot attendu, mots déclencheurs (séparés par des
+  virgules), source. Le mot employé n'est signalé que si un mot déclencheur figure
+  à moins de quatre mots de lui, dans la même phrase (« une effraction au code de
+  la route » → « infraction » ; « vol avec effraction » reste correct).
 - `rectifications_1990.txt` : graphies rectifiées de 1990 qu'aucune règle ne
   déduit (tréma : « ambigüe » ; soudures : « weekend » ; mots isolés :
   « ognon »), pluriel en -s compris. Les règles générales (circonflexe

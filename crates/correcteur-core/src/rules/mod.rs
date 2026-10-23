@@ -6,6 +6,7 @@ mod homophones;
 mod locutions;
 mod spelling;
 pub mod style;
+mod syntax;
 mod typo;
 
 use std::collections::HashSet;
@@ -53,9 +54,22 @@ pub const CODE_RULES: &[&str] = &[
     grammar::SI_CONDITIONAL,
     grammar::PARTICIPLE_AVOIR_LES,
     grammar::PARTICIPLE_FOR_INFINITIVE,
+    grammar::SUBJUNCTIVE,
+    grammar::TOUT,
+    grammar::PRONOMINAL_PARTICIPLE,
+    grammar::AUXILIARY_ETRE,
     grammar::INFINITIVE,
     grammar::NEGATION,
     grammar::PREPOSITION,
+    locutions::EXPRESSION,
+    locutions::FORM,
+    syntax::ELISION,
+    syntax::CONTRACTION,
+    syntax::HYPHEN,
+    syntax::SENSE,
+    syntax::PARONYM,
+    syntax::DONT,
+    syntax::NOUN_EXPECTED,
     style::REPETITION,
     style::LONG_SENTENCE,
     typo::SPACE_BEFORE_MISSING,
@@ -170,6 +184,7 @@ pub fn run_all(ctx: &Context, out: &mut Vec<RawIssue>) {
     spelling::check(ctx, out);
     homophones::check(ctx, out);
     grammar::check(ctx, out);
+    syntax::check(ctx, out);
     style::check(ctx, out);
     locutions::check(ctx, out);
 }

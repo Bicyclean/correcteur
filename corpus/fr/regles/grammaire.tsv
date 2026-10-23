@@ -15,7 +15,7 @@ GRAM_ACCORD_SUJET_VERBE	Que mangent les enfants{fine}?	CONTRIB-INIT
 GRAM_ACCORD_DETERMINANT	⟦Les chat→Les chats⟧ dorment.	CONTRIB-INIT
 GRAM_ACCORD_DETERMINANT	⟦Le chats→Le chat⟧ dort.	CONTRIB-INIT
 GRAM_ACCORD_DETERMINANT	⟦Le maison→La maison⟧ est grande.	CONTRIB-INIT
-GRAM_ACCORD_DETERMINANT	Il aime ⟦le école→l’école⟧.	CONTRIB-INIT
+ORTH_ELISION	Il aime ⟦le école→l’école⟧.	CONTRIB-INIT
 GRAM_ACCORD_DETERMINANT	La porte est ouverte.	CONTRIB-INIT
 GRAM_ACCORD_DETERMINANT	Il la porte.	CONTRIB-INIT
 GRAM_ACCORD_DETERMINANT	Une enfant joue.	CONTRIB-INIT
@@ -302,3 +302,4 @@ GRAM_PARTICIPE_AVOIR_COD	La commande que vous avez ⟦passé→passée⟧ le len
 GRAM_ACCORD_SUJET_VERBE	Certains d’entre eux ⟦nécessite→nécessitent⟧ une vérification.	CONTRIB-INIT
 GRAM_ACCORD_SUJET_VERBE	Certains d’entre eux nécessitent une vérification.	CONTRIB-INIT
 GRAM_ACCORD_SUJET_VERBE	Chacun d’entre eux nécessite une vérification.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Il aime ⟦le maison→la maison⟧.	CONTRIB-INIT

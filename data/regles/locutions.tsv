@@ -28,3 +28,116 @@ où bien	ou bien	HOMO_OU_CONJONCTION	REF-GRAM-FR
 en rapport à	par rapport à	GRAM_PREPOSITION	REF-GRAM-FR
 malgré que	bien que	GRAM_PREPOSITION	REF-GRAM-FR
 malgré qu’	bien qu’	GRAM_PREPOSITION	REF-GRAM-FR
+# Expressions figées : pléonasmes, confusions, mauvais assemblages.
+voire même	voire	GRAM_EXPRESSION	REF-GRAM-FR
+comme même	quand même	GRAM_EXPRESSION	REF-GRAM-FR
+au dépend de	aux dépens de	GRAM_EXPRESSION	REF-GRAM-FR
+aux dépends de	aux dépens de	GRAM_EXPRESSION	REF-GRAM-FR
+d’ ors et déjà	d’ores et déjà	GRAM_EXPRESSION	REF-GRAM-FR
+d’ or et déjà	d’ores et déjà	GRAM_EXPRESSION	REF-GRAM-FR
+de par et d’ autre	de part et d’autre	GRAM_EXPRESSION	REF-GRAM-FR
+en conséquent	par conséquent	GRAM_EXPRESSION	REF-GRAM-FR
+à cause que	parce que	GRAM_EXPRESSION	REF-GRAM-FR
+à cause qu’	parce qu’	GRAM_EXPRESSION	REF-GRAM-FR
+en faite	en fait	GRAM_EXPRESSION	REF-GRAM-FR
+au jour d’ aujourd’hui	aujourd’hui	GRAM_EXPRESSION	REF-GRAM-FR
+à priori	a priori	GRAM_EXPRESSION	REF-GRAM-FR
+à postériori	a posteriori	GRAM_EXPRESSION	REF-GRAM-FR
+a postériori	a posteriori	GRAM_EXPRESSION	REF-GRAM-FR
+à fortiori	a fortiori	GRAM_EXPRESSION	REF-GRAM-FR
+quelques chose	quelque chose	GRAM_EXPRESSION	REF-GRAM-FR
+d’ avantage de	davantage de	GRAM_EXPRESSION	REF-GRAM-FR
+=monter en haut	$1	GRAM_EXPRESSION	REF-GRAM-FR
+=descendre en bas	$1	GRAM_EXPRESSION	REF-GRAM-FR
+=sortir dehors	$1	GRAM_EXPRESSION	REF-GRAM-FR
+=entrer dedans	$1	GRAM_EXPRESSION	REF-GRAM-FR
+=reculer en arrière	$1	GRAM_EXPRESSION	REF-GRAM-FR
+=avancer en avant	$1	GRAM_EXPRESSION	REF-GRAM-FR
+=collaborer ensemble	$1	GRAM_EXPRESSION	REF-GRAM-FR
+tant qu’ a faire	tant qu’à faire	HOMO_A_PREPOSITION	REF-GRAM-FR
+tout a l’ heure	tout à l’heure	HOMO_A_PREPOSITION	REF-GRAM-FR
+# Mots composés et locutions à traits d'union.
+au dessus	au-dessus	ORTH_TRAIT_UNION	REF-GRAM-FR
+au dessous	au-dessous	ORTH_TRAIT_UNION	REF-GRAM-FR
+par dessus	par-dessus	ORTH_TRAIT_UNION	REF-GRAM-FR
+par dessous	par-dessous	ORTH_TRAIT_UNION	REF-GRAM-FR
+ci dessus	ci-dessus	ORTH_TRAIT_UNION	REF-GRAM-FR
+ci dessous	ci-dessous	ORTH_TRAIT_UNION	REF-GRAM-FR
+ci joint	ci-joint	ORTH_TRAIT_UNION	REF-GRAM-FR
+ci jointe	ci-jointe	ORTH_TRAIT_UNION	REF-GRAM-FR
+ci après	ci-après	ORTH_TRAIT_UNION	REF-GRAM-FR
+ci contre	ci-contre	ORTH_TRAIT_UNION	REF-GRAM-FR
+ci inclus	ci-inclus	ORTH_TRAIT_UNION	REF-GRAM-FR
+là dessus	là-dessus	ORTH_TRAIT_UNION	REF-GRAM-FR
+là dessous	là-dessous	ORTH_TRAIT_UNION	REF-GRAM-FR
+là bas	là-bas	ORTH_TRAIT_UNION	REF-GRAM-FR
+la bas	là-bas	ORTH_TRAIT_UNION	REF-GRAM-FR
+là haut	là-haut	ORTH_TRAIT_UNION	REF-GRAM-FR
+c’ est à dire	c’est-à-dire	ORTH_TRAIT_UNION	REF-GRAM-FR
+vis à vis	vis-à-vis	ORTH_TRAIT_UNION	REF-GRAM-FR
+moi même	moi-même	ORTH_TRAIT_UNION	REF-GRAM-FR
+toi même	toi-même	ORTH_TRAIT_UNION	REF-GRAM-FR
+lui même	lui-même	ORTH_TRAIT_UNION	REF-GRAM-FR
+elle même	elle-même	ORTH_TRAIT_UNION	REF-GRAM-FR
+soi même	soi-même	ORTH_TRAIT_UNION	REF-GRAM-FR
+nous mêmes	nous-mêmes	ORTH_TRAIT_UNION	REF-GRAM-FR
+vous même	vous-même	ORTH_TRAIT_UNION	REF-GRAM-FR
+vous mêmes	vous-mêmes	ORTH_TRAIT_UNION	REF-GRAM-FR
+eux mêmes	eux-mêmes	ORTH_TRAIT_UNION	REF-GRAM-FR
+elles mêmes	elles-mêmes	ORTH_TRAIT_UNION	REF-GRAM-FR
+soit disant	soi-disant	ORTH_TRAIT_UNION	REF-GRAM-FR
+savoir faire	savoir-faire	ORTH_TRAIT_UNION	REF-GRAM-FR
+savoir vivre	savoir-vivre	ORTH_TRAIT_UNION	REF-GRAM-FR
+croche pied	croche-pied	ORTH_TRAIT_UNION	REF-GRAM-FR
+porte manteau	porte-manteau	ORTH_TRAIT_UNION	REF-GRAM-FR
+porte monnaie	porte-monnaie	ORTH_TRAIT_UNION	REF-GRAM-FR
+porte clé	porte-clé	ORTH_TRAIT_UNION	REF-GRAM-FR
+porte clés	porte-clés	ORTH_TRAIT_UNION	REF-GRAM-FR
+porte parole	porte-parole	ORTH_TRAIT_UNION	REF-GRAM-FR
+sous sol	sous-sol	ORTH_TRAIT_UNION	REF-GRAM-FR
+grand mère	grand-mère	ORTH_TRAIT_UNION	REF-GRAM-FR
+grand père	grand-père	ORTH_TRAIT_UNION	REF-GRAM-FR
+grands parents	grands-parents	ORTH_TRAIT_UNION	REF-GRAM-FR
+beau père	beau-père	ORTH_TRAIT_UNION	REF-GRAM-FR
+belle mère	belle-mère	ORTH_TRAIT_UNION	REF-GRAM-FR
+beau frère	beau-frère	ORTH_TRAIT_UNION	REF-GRAM-FR
+belle sœur	belle-sœur	ORTH_TRAIT_UNION	REF-GRAM-FR
+arc en ciel	arc-en-ciel	ORTH_TRAIT_UNION	REF-GRAM-FR
+rez de chaussée	rez-de-chaussée	ORTH_TRAIT_UNION	REF-GRAM-FR
+chef d’ œuvre	chef-d’œuvre	ORTH_TRAIT_UNION	REF-GRAM-FR
+week end	week-end	ORTH_TRAIT_UNION	REF-GRAM-FR
+lave vaisselle	lave-vaisselle	ORTH_TRAIT_UNION	REF-GRAM-FR
+sèche cheveux	sèche-cheveux	ORTH_TRAIT_UNION	REF-GRAM-FR
+tire bouchon	tire-bouchon	ORTH_TRAIT_UNION	REF-GRAM-FR
+pare brise	pare-brise	ORTH_TRAIT_UNION	REF-GRAM-FR
+pare chocs	pare-chocs	ORTH_TRAIT_UNION	REF-GRAM-FR
+gratte ciel	gratte-ciel	ORTH_TRAIT_UNION	REF-GRAM-FR
+chauffe eau	chauffe-eau	ORTH_TRAIT_UNION	REF-GRAM-FR
+# Formes verbales inventées par analogie : « vous faisez », « ils prendent ».
+faisez	faites	ORTH_FORME	REF-GRAM-FR
+disez	dites	ORTH_FORME	REF-GRAM-FR
+allent	vont	ORTH_FORME	REF-GRAM-FR
+pouvent	peuvent	ORTH_FORME	REF-GRAM-FR
+voulent	veulent	ORTH_FORME	REF-GRAM-FR
+prendent	prennent	ORTH_FORME	REF-GRAM-FR
+comprendent	comprennent	ORTH_FORME	REF-GRAM-FR
+apprendent	apprennent	ORTH_FORME	REF-GRAM-FR
+venent	viennent	ORTH_FORME	REF-GRAM-FR
+tenent	tiennent	ORTH_FORME	REF-GRAM-FR
+devent	doivent	ORTH_FORME	REF-GRAM-FR
+recevent	reçoivent	ORTH_FORME	REF-GRAM-FR
+croyent	croient	ORTH_FORME	REF-GRAM-FR
+voyent	voient	ORTH_FORME	REF-GRAM-FR
+buvent	boivent	ORTH_FORME	REF-GRAM-FR
+faisent	font	ORTH_FORME	REF-GRAM-FR
+craindent	craignent	ORTH_FORME	REF-GRAM-FR
+atteindent	atteignent	ORTH_FORME	REF-GRAM-FR
+peindent	peignent	ORTH_FORME	REF-GRAM-FR
+prendu	pris	ORTH_FORME	REF-GRAM-FR
+faisé	fait	ORTH_FORME	REF-GRAM-FR
+disé	dit	ORTH_FORME	REF-GRAM-FR
+pouvu	pu	ORTH_FORME	REF-GRAM-FR
+voulé	voulu	ORTH_FORME	REF-GRAM-FR
+savu	su	ORTH_FORME	REF-GRAM-FR
+devu	dû	ORTH_FORME	REF-GRAM-FR
+écrivé	écrit	ORTH_FORME	REF-GRAM-FR

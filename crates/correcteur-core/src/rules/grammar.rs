@@ -21,6 +21,10 @@ pub const PARTICIPLE_AVOIR: &str = "GRAM_PARTICIPE_AVOIR";
 pub const PARTICIPLE_AVOIR_COD: &str = "GRAM_PARTICIPE_AVOIR_COD";
 pub const SI_CONDITIONAL: &str = "GRAM_SI_CONDITIONNEL";
 pub const PARTICIPLE_AVOIR_LES: &str = "GRAM_PARTICIPE_AVOIR_LES";
+pub const SUBJUNCTIVE: &str = "GRAM_SUBJONCTIF";
+pub const TOUT: &str = "GRAM_TOUT";
+pub const PRONOMINAL_PARTICIPLE: &str = "GRAM_PARTICIPE_PRONOMINAL";
+pub const AUXILIARY_ETRE: &str = "GRAM_AUXILIAIRE";
 pub const PARTICIPLE_FOR_INFINITIVE: &str = "GRAM_PARTICIPE_POUR_INFINITIF";
 pub const INFINITIVE: &str = "GRAM_INFINITIF_PARTICIPE";
 pub const NEGATION: &str = "GRAM_NEGATION_NE";
@@ -34,6 +38,9 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
         noun_phrase(ctx, i, out);
         subject_verb(ctx, i, out);
         noun_for_verb(ctx, i, out);
+        subjunctive(ctx, i, out);
+        modal_finite(ctx, i, out);
+        tout_agreement(ctx, i, out);
         auxiliary(ctx, i, out);
         negation(ctx, i, out);
         si_conditional(ctx, i, out);
@@ -395,6 +402,18 @@ fn other_head(ctx: &Context, np: &NounPhrase, adj: &Form) -> bool {
                 | "certains"
                 | "certaines"
         );
+        // « il a des fleurs rouge », « c’est des fleurs » : une forme d'être, avoir,
+        // aller ou faire n'est pas la tête d'un groupe nominal.
+        let head_ok = ctx.form(h).is_some_and(|f| {
+            (f.has_pos(Pos::Nom) || f.has_pos(Pos::Adj) || f.has_pos(Pos::NomPropre))
+                && !f.has(|r| {
+                    r.is_finite_verb()
+                        && matches!(r.lemma.as_str(), "être" | "avoir" | "aller" | "faire")
+                })
+        });
+        if !pronoun && !head_ok {
+            break;
+        }
         if pronoun
             || (is_capitalized(hw.text) && !hw.sentence_start)
             || agrees_with(h)
@@ -627,7 +646,21 @@ fn noun_gns(ctx: &Context, form: &Form) -> Vec<(Gn, String)> {
         .filter(|r| r.pos == Pos::Nom)
         .filter_map(|r| {
             let mut gn = reading_gn(r)?;
-            gn.gender = noun_gender(ctx, &r.lemma);
+            gn.gender = noun_gender(ctx, &r.lemma).or_else(|| {
+                if r.lemma.starts_with("mi-") {
+                    return None;
+                }
+                // « amie », « cousine » : le lemme a les deux genres, mais cette
+                // forme-ci n'en a qu'un (d'orthographe distincte de l'autre).
+                let own = r.gn().and_then(|g| g.gender)?;
+                (!ctx.data.two_gender_nouns.contains(&r.lemma)
+                    && form
+                        .readings
+                        .iter()
+                        .filter(|x| x.pos == Pos::Nom && x.lemma == r.lemma)
+                        .all(|x| x.gn().and_then(|g| g.gender) == Some(own)))
+                .then_some(own)
+            });
             Some((gn, r.lemma.clone()))
         })
         .collect()
@@ -728,6 +761,37 @@ fn find_noun_phrase<'c>(ctx: &'c Context, det: usize) -> Option<NounPhrase<'c>> 
     }
     let determiner = ctx.data.determiners.get(&w.lower)?;
     let mut j = ctx.next(det)?;
+    // « les deux sœurs », « ces trois enfants » : le nombre ne change pas le groupe.
+    const NUMBERS: &[&str] = &[
+        "deux",
+        "trois",
+        "quatre",
+        "cinq",
+        "six",
+        "sept",
+        "huit",
+        "neuf",
+        "dix",
+        "onze",
+        "douze",
+        "treize",
+        "quatorze",
+        "quinze",
+        "seize",
+        "vingt",
+        "trente",
+        "quarante",
+        "cinquante",
+        "soixante",
+        "cent",
+        "mille",
+    ];
+    if determiner.gn.number == Some('p')
+        && NUMBERS.contains(&lower(ctx, j))
+        && !matches!(w.lower.as_str(), "deux" | "trois")
+    {
+        j = ctx.next(j)?;
+    }
     // « il les mange » : pronom complément, pas déterminant.
     let pronoun_reading = ctx.form(det).is_some_and(|f| f.has_pos(Pos::Pro));
     let after_subject = ctx.prev(det).is_some_and(|p| {
@@ -753,12 +817,35 @@ fn find_noun_phrase<'c>(ctx: &'c Context, det: usize) -> Option<NounPhrase<'c>> 
         };
         let Some(fnext) = ctx.form(n) else { break };
         let next_is_plain_noun = fnext.has_pos(Pos::Nom)
-            && !fnext.has(|r| r.pos == Pos::Adj || r.is_finite_verb())
+            && !fnext.has(|r| r.pos == Pos::Adj)
             && !elided(ctx, n)
             && !is_class(ctx, n, "clitique");
         // « les neuf heures » : nombre, pas adjectif.
         // « le Pure race espagnole » : majuscule, nom propre ou titre.
         let capital = is_capitalized(ctx.words[j].text) && !ctx.words[j].sentence_start;
+        // « une grande et belle maison » : deux adjectifs coordonnés avant le nom.
+        if fj.has_pos(Pos::Adj) && !fj.has_pos(Pos::Det) && !capital && lower(ctx, n) == "et" {
+            if let Some((m, n2)) = ctx.next(n).and_then(|m| ctx.next(m).map(|n2| (m, n2))) {
+                let plain = |k: usize| {
+                    ctx.form(k).is_some_and(|f| {
+                        f.has_pos(Pos::Nom)
+                            && !f.has_pos(Pos::Adj)
+                            && !elided(ctx, k)
+                            && !is_class(ctx, k, "clitique")
+                    })
+                };
+                if ctx
+                    .form(m)
+                    .is_some_and(|f| f.has_pos(Pos::Adj) && !f.has_pos(Pos::Det))
+                    && plain(n2)
+                {
+                    pre.push(j);
+                    pre.push(m);
+                    j = n2;
+                    break;
+                }
+            }
+        }
         if fj.has_pos(Pos::Adj) && !fj.has_pos(Pos::Det) && !capital && next_is_plain_noun {
             pre.push(j);
             j = n;
@@ -920,6 +1007,7 @@ fn find_noun_phrase<'c>(ctx: &'c Context, det: usize) -> Option<NounPhrase<'c>> 
                     | ("à", "l’" | "l'", "origine")
                     | (_, "du", "reste")
                     | ("à", "cet", "endroit")
+                    | ("en", "quelque", "sorte")
                     | ("à", _, "yeux")
             )
         }
@@ -1098,6 +1186,7 @@ fn noun_phrase(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
                 issue.suggestions = suggestions.iter().map(|s| same_case(w.text, s)).collect();
                 out.push(issue);
             }
+            coordinated_adjective(ctx, &np, target, out);
         }
         // « Elisabeth et Maria, les marque profondément », « un sort navrant le
         // place » : « le », « la », « les » devant une forme verbale peuvent être
@@ -1405,12 +1494,22 @@ fn participle_for_infinitive(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     if is_capitalized(w.text) {
         return;
     }
-    let Some(stem) = w.lower.strip_suffix('é') else {
+    // Après un verbe modal (« il faut travaillé », « tu peux m’aidé », « ils vont
+    // arrivés »), le participe, même accordé, est un infinitif mal écrit.
+    let modal_word = modal_before(ctx, i);
+    let modal = modal_word.is_some();
+    let stem = ["ées", "és", "ée", "é"]
+        .iter()
+        .filter(|e| modal || **e == "é")
+        .find_map(|e| w.lower.strip_suffix(e));
+    let Some(stem) = stem else {
         return;
     };
     let Some(form) = ctx.form(i) else { return };
     // « le passé », « un fermé » : nom possible, on s'abstient.
-    if !form.has(|r| r.is_past_participle() && r.lemma.ends_with("er")) || form.has_pos(Pos::Nom) {
+    if !form.has(|r| r.is_past_participle() && r.lemma.ends_with("er"))
+        || (form.has_pos(Pos::Nom) && !modal)
+    {
         return;
     }
     let infinitive = format!("{stem}er");
@@ -1421,7 +1520,33 @@ fn participle_for_infinitive(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     {
         return;
     }
-    let Some(p) = ctx.prev(i) else { return };
+    // « heureux de vous rencontré » : pronoms compléments entre la préposition et
+    // le participe ; l'infinitif est alors seul, sans complément à suivre.
+    let mut clitics = false;
+    let mut pp = ctx.prev(i);
+    while let Some(k) = pp.filter(|&k| {
+        matches!(
+            lower(ctx, k),
+            "me" | "m’" | "te" | "t’" | "se" | "s’" | "nous" | "vous" | "lui"
+        )
+    }) {
+        clitics = true;
+        pp = ctx.prev(k);
+    }
+    let Some(p) = pp else {
+        return;
+    };
+    if modal {
+        let fixed = same_case(w.text, &infinitive);
+        out.push(
+            RawIssue::new(w.start, w.end, PARTICIPLE_FOR_INFINITIVE)
+                .arg(w.text)
+                .arg(fixed.clone())
+                .arg(ctx.words[modal_word.unwrap_or(p)].text)
+                .suggest(fixed),
+        );
+        return;
+    }
     // « un poste de chargé de mission », « le titre de délégué » : fonction.
     if matches!(lower(ctx, p), "de" | "d’" | "d'")
         && ctx.prev(p).is_some_and(|q| {
@@ -1507,7 +1632,7 @@ fn participle_for_infinitive(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
                 .form(n)
                 .is_some_and(|f| f.has(|r| matches!(r.pos, Pos::Det | Pos::Pre | Pos::Pro)))
     });
-    if !introduces || !complement {
+    if !introduces || !(complement || clitics) {
         return;
     }
     let fixed = same_case(w.text, &infinitive);
@@ -1650,6 +1775,30 @@ fn noun_subject(ctx: &Context, last: usize, chain: &[usize]) -> Option<FoundSubj
                     chain,
                     pronoun: false,
                 });
+            }
+            // « La plupart des gens sont » : Lexique ne note « plupart » que comme
+            // adverbe ; le sujet est pluriel.
+            if lower(ctx, head) == "plupart" {
+                if let Some(la) = ctx
+                    .prev(head)
+                    .filter(|&l| lower(ctx, l) == "la" && clause_start(ctx, l))
+                {
+                    let mut chain = chain.to_vec();
+                    chain.reverse();
+                    let gender = find_noun_phrase(ctx, d)
+                        .and_then(|np| phrase_gn(ctx, &np))
+                        .and_then(|g| g.gender);
+                    return Some(FoundSubject {
+                        person: "3p".into(),
+                        gn: Gn {
+                            gender,
+                            number: Some('p'),
+                        },
+                        start: la,
+                        chain,
+                        pronoun: false,
+                    });
+                }
             }
             ends.push(head);
         }
@@ -1854,6 +2003,235 @@ fn subject_text(ctx: &Context, s: &FoundSubject, verb: usize) -> String {
     rebuild(ctx, s.start, end, &[])
 }
 
+/// Verbes (tous temps) qui veulent le subjonctif dans la complétive en « que ».
+const SUBJUNCTIVE_VERBS: &[&str] = &[
+    "falloir",
+    "vouloir",
+    "souhaiter",
+    "désirer",
+    "aimer",
+    "préférer",
+    "douter",
+    "craindre",
+    "regretter",
+    "exiger",
+    "demander",
+    "ordonner",
+    "interdire",
+    "permettre",
+    "empêcher",
+    "attendre",
+    "accepter",
+    "éviter",
+    "redouter",
+    "déplorer",
+    "veiller",
+    "admettre",
+];
+/// Verbes d'opinion : subjonctif seulement à la forme négative (« je ne pense pas que »).
+const OPINION_VERBS: &[&str] = &["penser", "croire", "estimer", "imaginer", "supposer"];
+/// Adjectifs après « il est », « c’est » qui veulent le subjonctif.
+const SUBJUNCTIVE_ADJECTIVES: &[&str] = &[
+    "possible",
+    "impossible",
+    "nécessaire",
+    "important",
+    "essentiel",
+    "préférable",
+    "normal",
+    "dommage",
+    "temps",
+    "utile",
+    "indispensable",
+    "urgent",
+    "bon",
+    "rare",
+    "juste",
+    "regrettable",
+    "souhaitable",
+    "étonnant",
+    "surprenant",
+    "naturel",
+    "inadmissible",
+    "inutile",
+];
+
+/// Locution ou verbe qui demande le subjonctif devant la complétive en « que » :
+/// renvoie son texte (« il faut que »), ou rien.
+fn subjunctive_trigger(ctx: &Context, que: usize) -> Option<String> {
+    let text = |from: usize| ctx.text[ctx.words[from].start..ctx.words[que].end].to_string();
+    let w1 = ctx.prev(que)?;
+    let l1 = lower(ctx, w1);
+    let w2 = ctx.prev(w1);
+    let l2 = w2.map(|k| lower(ctx, k));
+    // Conjonctions : « pour que », « à moins que », « jusqu’à ce que »…
+    match (l2, l1) {
+        (_, "pour" | "afin" | "avant" | "sans" | "pourvu") => return Some(text(w1)),
+        (Some("à"), "moins" | "condition" | "supposer") => return Some(text(w2?)),
+        (Some("de"), "peur" | "crainte") => return Some(text(w2?)),
+        (Some("en"), "attendant") => return Some(text(w2?)),
+        (Some("jusqu’à" | "jusqu'à"), "ce") => return Some(text(w2?)),
+        (Some("à"), "ce") => {
+            let j = ctx.prev(w2?)?;
+            if matches!(lower(ctx, j), "jusqu’" | "jusqu'") {
+                return Some(text(j));
+            }
+        }
+        _ => {}
+    }
+    // « bien que », « encore que » en tête de proposition ; pas « si bien que »,
+    // « tant bien que mal » (conséquence, indicatif).
+    if matches!(l1, "bien" | "encore")
+        && clause_start(ctx, w1)
+        && !matches!(
+            l2,
+            Some("si" | "tant" | "aussi" | "très" | "trop" | "assez" | "tellement")
+        )
+    {
+        return Some(text(w1));
+    }
+    // « quoi que », « où que », « qui que ».
+    if matches!(l1, "quoi" | "où" | "qui")
+        && ctx.prev(w1).is_none_or(|p| lower(ctx, p) != "ce")
+        && clause_start(ctx, w1)
+    {
+        return Some(text(w1));
+    }
+    // « il se peut que », « il vaut mieux que ».
+    if l1 == "peut" && l2 == Some("se") {
+        return Some(text(ctx.prev(w1)?));
+    }
+    if l1 == "mieux"
+        && ctx
+            .prev(w1)
+            .and_then(|k| ctx.form(k))
+            .is_some_and(|f| f.has(|r| r.lemma == "valoir"))
+    {
+        return Some(text(ctx.prev(w1)?));
+    }
+    // « il est possible que », « c’est dommage que ».
+    if SUBJUNCTIVE_ADJECTIVES.contains(&l1) {
+        let e = ctx.prev(w1)?;
+        let etre = ctx
+            .form(e)
+            .is_some_and(|f| f.has(|r| r.lemma == "être" && r.is_finite_verb()));
+        if etre || matches!(lower(ctx, e), "c’" | "c'") {
+            return Some(text(e));
+        }
+    }
+    // « il faut que », « je veux que », « j’aimerais que »…
+    let f1 = ctx.form(w1)?;
+    // « hors de doute qu’il », « n’empêche que » : nom ou idiome, indicatif.
+    let noun_use = ctx.prev(w1).is_some_and(|p| {
+        matches!(
+            lower(ctx, p),
+            "de" | "d’" | "sans" | "le" | "un" | "ce" | "du" | "au" | "mon" | "ton" | "son"
+        )
+    });
+    let idiom = l1 == "empêche"
+        && ctx
+            .prev(w1)
+            .is_some_and(|p| matches!(lower(ctx, p), "n’" | "n'" | "ne"));
+    if !noun_use
+        && !idiom
+        && f1.has(|r| r.is_finite_verb() && SUBJUNCTIVE_VERBS.contains(&r.lemma.as_str()))
+    {
+        // Verbe lui-même précédé d'un mot qui le rend autre (« ce que je veux que »)
+        // reste un déclencheur ; « ne … pas » sans effet.
+        return Some(text(w1));
+    }
+    // « je ne pense pas que ».
+    if l1 == "pas" {
+        let v = ctx.prev(w1)?;
+        if ctx.form(v).is_some_and(|f| {
+            f.has(|r| r.is_finite_verb() && OPINION_VERBS.contains(&r.lemma.as_str()))
+        }) {
+            return Some(text(v));
+        }
+    }
+    None
+}
+
+/// « Il faut que tu viens » → « viennes » : indicatif présent là où le subjonctif
+/// est de rigueur, quand les deux formes diffèrent.
+fn subjunctive(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
+    let Some(form) = ctx.form(i) else { return };
+    let w = &ctx.words[i];
+    if w.compound_part || w.ignored {
+        return;
+    }
+    let Some(subject) = simple_subject(ctx, i) else {
+        return;
+    };
+    let Some(que) = ctx.prev(subject.start) else {
+        return;
+    };
+    // Le sujet touche le verbe : pas une proposition relative entre les deux
+    // (« une bête qui n’a que cet âge »).
+    if (subject.start..i).any(|k| matches!(lower(ctx, k), "qui" | "que" | "qu’" | "dont" | "où"))
+    {
+        return;
+    }
+    let trigger = if matches!(lower(ctx, que), "que" | "qu’" | "qu'") {
+        subjunctive_trigger(ctx, que)
+    } else if matches!(lower(ctx, que), "quoique" | "quoiqu’" | "quoiqu'") {
+        Some(ctx.words[que].text.to_string())
+    } else {
+        None
+    };
+    let Some(trigger) = trigger else { return };
+    let person = subject.person.as_str();
+    let indicative: Vec<&Reading> = form
+        .readings
+        .iter()
+        .filter(|r| r.mode_tense() == Some("ind.pres") && r.person() == Some(person))
+        .collect();
+    // Aucune forme du subjonctif de même graphie : l'erreur est certaine.
+    let same = form
+        .readings
+        .iter()
+        .any(|r| r.mode_tense() == Some("sub.pres") && r.person() == Some(person));
+    if indicative.is_empty() || same {
+        return;
+    }
+    // « Il faut que je le fais » : le verbe n'est pas à l'infinitif ni participe.
+    // Lexique ne note pas le subjonctif présent de la 1re et de la 2e personne du
+    // pluriel quand il s'écrit comme l'imparfait (« veniez », « chantions »).
+    let wanted = [format!("sub.pres.{person}"), format!("ind.impf.{person}")];
+    let mut suggestions: Vec<String> = Vec::new();
+    for r in indicative {
+        for traits in wanted
+            .iter()
+            .take(if matches!(person, "1p" | "2p") { 2 } else { 1 })
+        {
+            for f in ctx
+                .lexicon
+                .inflect(&r.lemma, |x| x.pos == r.pos && x.traits == *traits)
+            {
+                let f = same_case(w.text, f);
+                if !suggestions.contains(&f) {
+                    suggestions.push(f);
+                }
+            }
+            if !suggestions.is_empty() {
+                break;
+            }
+        }
+    }
+    // « que vous oubliiez » : correct, mais personne ne l'écrit ; on s'abstient.
+    suggestions.retain(|f| !f.contains("ii"));
+    let Some(first) = suggestions.first().cloned() else {
+        return;
+    };
+    out.push(
+        RawIssue::new(w.start, w.end, SUBJUNCTIVE)
+            .arg(w.text)
+            .arg(first)
+            .arg(trigger)
+            .with_suggestions(suggestions),
+    );
+}
+
 /// « Je vous rappel que… » : après un pronom sujet (et ses pronoms compléments),
 /// un mot qui n'est qu'un nom ne peut pas être le verbe ; on propose les formes
 /// conjuguées voisines à la personne du sujet (« rappelle »).
@@ -1926,9 +2304,14 @@ fn subject_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     if form.has_pos(Pos::Pre) {
         return;
     }
+    // « Le chat et le chien dorme », « Marie et Paul est » : sujet coordonné.
+    if let Some(sub) = and_subject(ctx, i) {
+        and_subject_verb(ctx, i, &sub, out);
+        return;
+    }
     // « … et les clients semble satisfaits » : un sujet pluriel, même coordonné,
     // demande un verbe au pluriel.
-    let Some(subject) = simple_subject(ctx, i) else {
+    let Some(mut subject) = simple_subject(ctx, i) else {
         return;
     };
     // « sa chétive aventure » : nom après un adjectif, pas un verbe.
@@ -1970,6 +2353,20 @@ fn subject_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     if !plural_subject && subject_of(ctx, i).is_none() {
         return;
     }
+    // « La plupart des gens est » : « la plupart des » demande le pluriel.
+    let plupart = !subject.pronoun
+        && (subject.start..i)
+            .find(|&k| lower(ctx, k) == "plupart")
+            .is_some_and(|k| {
+                k == subject.start + 1
+                    && ctx
+                        .next(k)
+                        .is_some_and(|n| matches!(lower(ctx, n), "des" | "de" | "d’" | "d'"))
+            });
+    if plupart {
+        subject.person = "3p".into();
+        subject.gn.number = Some('p');
+    }
     // Après un groupe nominal, un mot qui peut être adjectif est ambigu.
     if !subject.pronoun && form.has(adjectival) {
         return;
@@ -2002,7 +2399,7 @@ fn subject_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
                     ctx.words[b].has_digit
                         || ctx.text[ctx.words[b].end..ctx.words[head].start].contains('%')
                 }));
-        if collective || (coordinated && !plural_subject) {
+        if (collective && !plupart) || (coordinated && !plural_subject) {
             return;
         }
     }
@@ -2098,6 +2495,37 @@ fn subject_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     }
     suggestions.truncate(ctx.options.max_suggestions.max(1));
     let w = &ctx.words[i];
+    // « Il ont fini » : on peut accorder le verbe ou mettre le pronom au pluriel.
+    if subject.pronoun
+        && subject.chain.is_empty()
+        && ctx.next(subject.start) == Some(i)
+        && matches!(lower(ctx, subject.start), "il" | "elle")
+        && matches!(subject.person.as_str(), "3s")
+        && ctx
+            .form(i)
+            .is_some_and(|f| !f.has(|r| r.person() == Some("3s")))
+    {
+        let pron = &ctx.words[subject.start];
+        let swapped = match pron.lower.as_str() {
+            "il" => "ils",
+            _ => "elles",
+        };
+        let swapped = same_case(pron.text, swapped);
+        // Un « s » oublié ou ajouté au pronom est la faute la plus courante.
+        let both = vec![
+            format!("{swapped} {}", w.text),
+            format!("{} {}", pron.text, suggestions[0]),
+        ];
+        let found = &ctx.text[pron.start..w.end];
+        out.push(
+            RawIssue::new(pron.start, w.end, SUBJECT_VERB)
+                .arg(found)
+                .arg(both[0].clone())
+                .arg(subject_text(ctx, &subject, i))
+                .with_suggestions(both),
+        );
+        return;
+    }
     out.push(
         RawIssue::new(w.start, w.end, SUBJECT_VERB)
             .arg(w.text)
@@ -2165,7 +2593,7 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         }
         return;
     }
-    let Some(subject) = subject_of(ctx, i) else {
+    let Some(subject) = and_subject(ctx, i).or_else(|| subject_of(ctx, i)) else {
         return;
     };
     // « la pluie dont nous avait menacés le capucin » : « nous » ne peut pas
@@ -2211,6 +2639,42 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         (t, etre, avoir) = (n, true, false);
     }
     let Some(ft) = ctx.form(t) else { return };
+    // « Il a tombé » → « est tombé » : verbes qui se conjuguent seulement avec être.
+    if avoir && ctx.next(i) == Some(t) && etre_only_participle(ft) {
+        let target = if subject.gn == Gn::default() {
+            Gn {
+                gender: Some('m'),
+                number: Some('s'),
+            }
+        } else {
+            subject.gn
+        };
+        let traits = form
+            .readings
+            .iter()
+            .find(|r| r.pos == Pos::Aux && r.lemma == "avoir" && r.is_finite_verb())
+            .map(|r| r.traits.clone());
+        let aux_form = traits.and_then(|tr| {
+            ctx.lexicon
+                .inflect("être", |x| x.pos == Pos::Aux && x.traits == tr)
+                .first()
+                .map(|f| f.to_string())
+        });
+        let participle = participles(ctx, ft, Reading::is_past_participle, target)
+            .first()
+            .cloned();
+        if let (Some(a), Some(pp)) = (aux_form, participle) {
+            let (aw, tw) = (&ctx.words[i], &ctx.words[t]);
+            let fixed = format!("{} {pp}", same_case(aw.text, &a));
+            out.push(
+                RawIssue::new(aw.start, tw.end, AUXILIARY_ETRE)
+                    .arg(&ctx.text[aw.start..tw.end])
+                    .arg(fixed.clone())
+                    .suggest(fixed),
+            );
+            return;
+        }
+    }
     // « elle était sur le pas », « comme s’il était entre guillemets » : préposition.
     if ft.has_pos(Pos::Pre) {
         return;
@@ -2278,6 +2742,9 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     // participe s'accorde avec le sujet.
     let indirect =
         ft.has(|r| r.is_past_participle() && ctx.data.is(&r.lemma, "pronominal_indirect"));
+    if etre && reflexive_participle(ctx, &subject, t, ft, out) {
+        return;
+    }
     if etre && reflexive_pair && indirect && preceding_object(ctx, &subject, t, ft, out) {
         return;
     }
@@ -2290,11 +2757,11 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         let clause_end = ft.has(|r| r.pos == Pos::Adj)
             && ctx
                 .next(t)
-                .is_none_or(|n| matches!(lower(ctx, n), "et" | "mais" | "ou"));
+                .is_none_or(|n| matches!(lower(ctx, n), "et" | "mais" | "ou" | "que" | "qu’"));
         if subject.gn == Gn::default()
             || (ft.has_pos(Pos::Adv) && !clause_end)
             || ft.has_pos(Pos::Det)
-            || collective_subject(ctx, &subject, i)
+            || (collective_subject(ctx, &subject, i) && lower(ctx, subject.start + 1) != "plupart")
             || coordinated_subject(ctx, &subject)
             || subject.chain.iter().any(|&c| lower(ctx, c) == "en")
             || distributed_attribute(ctx, &subject, t, ft)
@@ -2309,7 +2776,11 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         // « elle est partit » : forme conjuguée à la place du participe.
         let finite_instead =
             adj.is_empty() && !ft.has_pos(Pos::Nom) && ft.has(Reading::is_finite_verb);
-        if fits || (adj.is_empty() && !finite_instead) {
+        if fits {
+            coordinated_attribute(ctx, &subject, i, t, out);
+            return;
+        }
+        if adj.is_empty() && !finite_instead {
             return;
         }
         let pred = |r: &Reading| {
@@ -2367,6 +2838,32 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         return;
     }
 
+    // « Il a prit », « elle a apprit » : forme conjuguée à la place du participe.
+    if avoir
+        && !ft.has(Reading::is_past_participle)
+        && ft.has(|r| r.is_finite_verb() && matches!(r.mode_tense(), Some("ind.ps" | "ind.pres")))
+        && !ft.has(|r| {
+            matches!(
+                r.pos,
+                Pos::Nom | Pos::Adj | Pos::Adv | Pos::Pre | Pos::Con | Pos::Pro | Pos::Det
+            )
+        })
+    {
+        let ms = Gn {
+            gender: Some('m'),
+            number: Some('s'),
+        };
+        let suggestions = participles(ctx, ft, Reading::is_finite_verb, ms);
+        if let Some(first) = suggestions.first().cloned() {
+            out.push(
+                RawIssue::new(w.start, w.end, INFINITIVE)
+                    .arg(w.text)
+                    .arg(first)
+                    .with_suggestions(suggestions),
+            );
+            return;
+        }
+    }
     if avoir && !has_object && !ft.has_pos(Pos::Nom) {
         // Avec avoir, sans complément placé avant, le participe reste au masculin singulier.
         let pp: Vec<&Reading> = ft
@@ -2481,5 +2978,567 @@ fn negation(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
             .arg(fixed.clone())
             .arg(ctx.words[n].text)
             .suggest(fixed),
+    );
+}
+
+// ---------------------------------------------------------------------------
+// Verbes modaux, « tout », verbes pronominaux, sujets coordonnés
+
+/// Verbe modal qui précède le mot `i` (pronoms compléments et négation sautés) :
+/// « il faut », « tu peux m’… », « ils vont ».
+fn modal_before(ctx: &Context, i: usize) -> Option<usize> {
+    let mut p = ctx.prev(i);
+    // Seulement des pronoms qui ne sont pas aussi des articles, et la négation.
+    while let Some(k) = p.filter(|&k| {
+        matches!(
+            lower(ctx, k),
+            "me" | "m’"
+                | "te"
+                | "t’"
+                | "se"
+                | "s’"
+                | "nous"
+                | "vous"
+                | "lui"
+                | "y"
+                | "ne"
+                | "n’"
+                | "pas"
+                | "jamais"
+                | "déjà"
+                | "toujours"
+                | "encore"
+                | "bien"
+                | "mal"
+        )
+    }) {
+        p = ctx.prev(k);
+    }
+    p.filter(|&k| {
+        // Le modal est la tête de sa proposition : pas « que nous désirons »,
+        // « qui peut » (le verbe suivant appartient alors à la principale).
+        !(k.saturating_sub(2)..k)
+            .any(|q| matches!(lower(ctx, q), "que" | "qu’" | "qu'" | "qui" | "dont" | "où"))
+            && ctx.form(k).is_some_and(|f| {
+                f.has(|r| {
+                    r.is_finite_verb()
+                        && matches!(
+                            r.lemma.as_str(),
+                            "falloir"
+                                | "pouvoir"
+                                | "devoir"
+                                | "vouloir"
+                                | "aller"
+                                | "savoir"
+                                | "oser"
+                                | "espérer"
+                                | "compter"
+                                | "préférer"
+                                | "désirer"
+                                | "daigner"
+                        )
+                }) && !f.has(|r| matches!(r.pos, Pos::Adv | Pos::Con | Pos::Nom))
+            })
+            && !ctx
+                .prev(k)
+                .is_some_and(|d| ctx.data.determiners.contains_key(lower(ctx, d)))
+    })
+}
+
+/// « Je vais finis » → « finir » : forme conjuguée après un verbe modal.
+fn modal_finite(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
+    let w = &ctx.words[i];
+    if w.compound_part || w.ignored || w.has_digit || is_capitalized(w.text) {
+        return;
+    }
+    let Some(form) = ctx.form(i) else { return };
+    if form.has(Reading::is_infinitive)
+        || !form.has(Reading::is_finite_verb)
+        || form.has(|r| {
+            matches!(
+                r.pos,
+                Pos::Adv | Pos::Pre | Pos::Det | Pos::Pro | Pos::Con | Pos::Nom | Pos::NomPropre
+            )
+        })
+    {
+        return;
+    }
+    let Some(m) = modal_before(ctx, i) else {
+        return;
+    };
+    // « une chose que je sais fausse » : après savoir ou vouloir, un adjectif est
+    // un attribut ; après aller, pouvoir, devoir, falloir, c'est un verbe mal formé.
+    if form.has_pos(Pos::Adj)
+        && !ctx.form(m).is_some_and(|f| {
+            f.has(|r| {
+                r.is_finite_verb()
+                    && matches!(r.lemma.as_str(), "aller" | "pouvoir" | "devoir" | "falloir")
+            })
+        })
+    {
+        return;
+    }
+    // Le verbe est bien à lui seul un verbe, pas une suite « modal, sujet verbe ».
+    let Some(lemma) = form
+        .readings
+        .iter()
+        .find(|r| r.is_finite_verb())
+        .map(|r| r.lemma.clone())
+    else {
+        return;
+    };
+    if !ctx
+        .lexicon
+        .get(&lemma)
+        .is_some_and(|f| f.has(Reading::is_infinitive))
+    {
+        return;
+    }
+    let fixed = same_case(w.text, &lemma);
+    out.push(
+        RawIssue::new(w.start, w.end, PARTICIPLE_FOR_INFINITIVE)
+            .arg(w.text)
+            .arg(fixed.clone())
+            .arg(ctx.words[m].text)
+            .suggest(fixed),
+    );
+}
+
+/// « Toute les personnes », « Tous les femmes » : « tout » s'accorde avec le nom.
+fn tout_agreement(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
+    let w = &ctx.words[i];
+    if !matches!(w.lower.as_str(), "tout" | "toute" | "tous" | "toutes") || w.compound_part {
+        return;
+    }
+    let Some(d) = ctx.next(i) else { return };
+    // Seulement devant un déterminant défini ou démonstratif ou possessif.
+    if !matches!(
+        lower(ctx, d),
+        "le" | "la"
+            | "l’"
+            | "les"
+            | "ce"
+            | "cet"
+            | "cette"
+            | "ces"
+            | "mon"
+            | "ma"
+            | "mes"
+            | "ton"
+            | "ta"
+            | "tes"
+            | "son"
+            | "sa"
+            | "ses"
+            | "notre"
+            | "nos"
+            | "votre"
+            | "vos"
+            | "leur"
+            | "leurs"
+            | "un"
+            | "une"
+    ) {
+        return;
+    }
+    let Some(np) = find_noun_phrase(ctx, d) else {
+        return;
+    };
+    let Some(gn) = phrase_gn(ctx, &np) else {
+        return;
+    };
+    let Some(number) = gn.number else { return };
+    // « ils portent tous le nom », « de tous sa servante » : « tous » pluriel avec
+    // un nom singulier est un pronom ou un quantificateur flottant.
+    if number == 's' && matches!(w.lower.as_str(), "tous" | "toutes") {
+        return;
+    }
+    let ok = matches!(
+        (number, gn.gender, w.lower.as_str()),
+        ('s', Some('f'), "toute")
+            | ('s', Some('m'), "tout")
+            | ('p', Some('f'), "toutes")
+            | ('p', Some('m'), "tous")
+            | ('s', None, "tout" | "toute")
+            | ('p', None, "tous" | "toutes")
+    );
+    if ok {
+        return;
+    }
+    let fixed = match (number, gn.gender) {
+        ('s', Some('f')) => "toute",
+        ('s', _) => "tout",
+        ('p', Some('f')) => "toutes",
+        _ => "tous",
+    };
+    let fixed = same_case(w.text, fixed);
+    out.push(
+        RawIssue::new(w.start, w.end, TOUT)
+            .arg(w.text)
+            .arg(fixed.clone())
+            .suggest(fixed),
+    );
+}
+
+/// Participes des verbes qui se conjuguent seulement avec être.
+fn etre_only_participle(ft: &Form) -> bool {
+    ft.has(|r| {
+        r.is_past_participle()
+            && matches!(
+                r.lemma.as_str(),
+                "aller"
+                    | "venir"
+                    | "revenir"
+                    | "devenir"
+                    | "parvenir"
+                    | "partir"
+                    | "arriver"
+                    | "tomber"
+                    | "rester"
+                    | "naître"
+                    | "mourir"
+                    | "décéder"
+                    | "advenir"
+                    | "survenir"
+            )
+    })
+}
+
+/// « Elle s’est lavée les mains » → « lavé » ; « Elles se sont parlées » →
+/// « parlé » : le participe reste invariable. Vrai si le cas a été reconnu.
+fn reflexive_participle(
+    ctx: &Context,
+    subject: &FoundSubject,
+    t: usize,
+    ft: &Form,
+    out: &mut Vec<RawIssue>,
+) -> bool {
+    let person = subject.person.as_str();
+    let reflexive = subject
+        .chain
+        .iter()
+        .any(|&c| match (lower(ctx, c), person) {
+            ("se" | "s’", p) => p.starts_with('3'),
+            ("me" | "m’", "1s") | ("te" | "t’", "2s") | ("nous", "1p") | ("vous", "2p") => true,
+            _ => false,
+        });
+    if !reflexive {
+        return false;
+    }
+    // « les lettres que nous nous sommes écrites » : « que » est le complément
+    // direct placé avant, le participe s'accorde (voir `preceding_object`).
+    if ctx
+        .prev(subject.start)
+        .is_some_and(|q| matches!(lower(ctx, q), "que" | "qu’" | "qu'"))
+    {
+        return false;
+    }
+    let invariable_verb =
+        ft.has(|r| r.is_past_participle() && ctx.data.is(&r.lemma, "pronominal_invariable"));
+    let cod_follows = ft
+        .has(|r| r.is_past_participle() && ctx.data.is(&r.lemma, "pronominal_indirect"))
+        && ctx.next(t).is_some_and(|n| {
+            ctx.data.determiners.contains_key(lower(ctx, n))
+                && !matches!(lower(ctx, n), "de" | "du" | "des" | "d’")
+        });
+    if !(invariable_verb || cod_follows) {
+        return false;
+    }
+    let ms = Gn {
+        gender: Some('m'),
+        number: Some('s'),
+    };
+    let has_ms = ft.has(|r| r.is_past_participle() && r.gn().is_some_and(|g| g.compatible(ms)));
+    if has_ms {
+        return true;
+    }
+    let suggestions: Vec<String> = agree_forms(ctx, ft, Reading::is_past_participle, ms)
+        .iter()
+        .map(|s| s.to_string())
+        .collect();
+    let Some(first) = suggestions.first().cloned() else {
+        return true;
+    };
+    let w = &ctx.words[t];
+    out.push(
+        RawIssue::new(w.start, w.end, PRONOMINAL_PARTICIPLE)
+            .arg(w.text)
+            .arg(first)
+            .with_suggestions(suggestions),
+    );
+    true
+}
+
+/// Opérande d'une coordination : prénom (ou nom propre connu), « moi », « toi »,
+/// ou groupe nominal ; renvoie le premier mot et le genre.
+fn operand(ctx: &Context, last: usize) -> Option<(usize, Option<char>)> {
+    let w = &ctx.words[last];
+    if is_capitalized(w.text) && !w.compound_part {
+        if let Some(f) = ctx.form(last).filter(|f| f.has_pos(Pos::NomPropre)) {
+            let gender = f
+                .readings
+                .iter()
+                .find(|r| r.pos == Pos::NomPropre)
+                .and_then(|r| r.gn())
+                .and_then(|g| g.gender);
+            return Some((last, gender));
+        }
+    }
+    if matches!(w.lower.as_str(), "moi" | "toi") {
+        return Some((last, None));
+    }
+    (last.saturating_sub(4)..last)
+        .rev()
+        .filter_map(|d| find_noun_phrase(ctx, d))
+        .find(|np| np.post.unwrap_or(np.noun) == last)
+        .map(|np| (np.det, phrase_gn(ctx, &np).and_then(|g| g.gender)))
+}
+
+/// « Le chat et le chien dorme », « Marie et Paul sont », « Mon frère et moi
+/// sommes » : sujet fait de deux éléments coordonnés par « et », devant le verbe `verb`.
+fn and_subject(ctx: &Context, verb: usize) -> Option<FoundSubject> {
+    if ctx.words[verb].compound_part {
+        return None;
+    }
+    let mut k = verb;
+    let mut chain = Vec::new();
+    while let Some(p) = ctx.prev(k).filter(|&p| {
+        matches!(
+            lower(ctx, p),
+            "se" | "s’"
+                | "ne"
+                | "n’"
+                | "y"
+                | "en"
+                | "me"
+                | "m’"
+                | "te"
+                | "t’"
+                | "lui"
+                | "leur"
+                | "le"
+                | "la"
+                | "l’"
+                | "les"
+        )
+    }) {
+        chain.push(p);
+        k = p;
+    }
+    chain.reverse();
+    let last2 = ctx.prev(k)?;
+    let (s2, g2) = operand(ctx, last2)?;
+    let et = ctx.prev(s2).filter(|&e| lower(ctx, e) == "et")?;
+    let last1 = ctx.prev(et)?;
+    let (s1, g1) = operand(ctx, last1)?;
+    if !clause_start(ctx, s1) {
+        return None;
+    }
+    // « elle lui donnait sa voiture et son hôtel et ses bijoux » : énumération.
+    if ctx
+        .prev(s1)
+        .is_some_and(|p| matches!(lower(ctx, p), "et" | "ou" | "ni"))
+    {
+        return None;
+    }
+    // « chaque homme et chaque femme est », « tout homme et toute femme » : singulier.
+    if matches!(
+        lower(ctx, s1),
+        "chaque" | "tout" | "toute" | "aucun" | "aucune" | "nul" | "nulle" | "l’un" | "l'un"
+    ) || (s1 > 0 && lower(ctx, s1 - 1) == "l’")
+    {
+        return None;
+    }
+    let person = match lower(ctx, last2) {
+        "moi" => "1p",
+        "toi" => "2p",
+        _ => "3p",
+    };
+    let gender = match (g1, g2) {
+        (Some('m'), _) | (_, Some('m')) => Some('m'),
+        (Some('f'), Some('f')) => Some('f'),
+        _ => None,
+    };
+    Some(FoundSubject {
+        person: person.into(),
+        gn: Gn {
+            gender,
+            number: Some('p'),
+        },
+        start: s1,
+        chain,
+        pronoun: false,
+    })
+}
+
+/// Le verbe d'un sujet coordonné doit être au pluriel.
+fn and_subject_verb(ctx: &Context, i: usize, sub: &FoundSubject, out: &mut Vec<RawIssue>) {
+    let Some(form) = ctx.form(i) else { return };
+    let person = sub.person.as_str();
+    let finite: Vec<&Reading> = form
+        .readings
+        .iter()
+        .filter(|r| r.person().is_some())
+        .collect();
+    if finite.is_empty()
+        || finite.iter().any(|r| r.person() == Some(person))
+        || form.has(|r| matches!(r.pos, Pos::Nom | Pos::Adj | Pos::Adv | Pos::Con | Pos::Pre))
+    {
+        return;
+    }
+    let mut suggestions: Vec<String> = Vec::new();
+    for r in &finite {
+        let wanted = format!("{}.{person}", r.mode_tense().unwrap_or(""));
+        for f in ctx
+            .lexicon
+            .inflect(&r.lemma, |x| x.pos == r.pos && x.traits == wanted)
+        {
+            let f = same_case(ctx.words[i].text, f);
+            if !suggestions.contains(&f) {
+                suggestions.push(f);
+            }
+        }
+    }
+    suggestions.truncate(ctx.options.max_suggestions.max(1));
+    let Some(first) = suggestions.first().cloned() else {
+        return;
+    };
+    let w = &ctx.words[i];
+    out.push(
+        RawIssue::new(w.start, w.end, SUBJECT_VERB)
+            .arg(w.text)
+            .arg(first)
+            .arg(subject_text(ctx, sub, i))
+            .with_suggestions(suggestions),
+    );
+}
+
+/// « Elle est très belle et intelligent » : le second adjectif de l'attribut
+/// s'accorde aussi avec le sujet.
+fn coordinated_attribute(
+    ctx: &Context,
+    subject: &FoundSubject,
+    verb: usize,
+    t: usize,
+    out: &mut Vec<RawIssue>,
+) {
+    let Some(c) = ctx
+        .next(t)
+        .filter(|&c| matches!(lower(ctx, c), "et" | "ou"))
+    else {
+        return;
+    };
+    let mut k = ctx.next(c);
+    while let Some(j) = k.filter(|&j| {
+        matches!(
+            lower(ctx, j),
+            "très"
+                | "trop"
+                | "plus"
+                | "moins"
+                | "si"
+                | "aussi"
+                | "bien"
+                | "tellement"
+                | "assez"
+                | "fort"
+        )
+    }) {
+        k = ctx.next(j);
+    }
+    let Some(u) = k else { return };
+    let Some(fu) = ctx.form(u) else { return };
+    if !fu.has(adjectival)
+        || fu.has(|r| matches!(r.pos, Pos::Adv | Pos::Det | Pos::Pre | Pos::Con | Pos::Pro))
+        || follows_noun(ctx, u)
+        || ctx.words[u].compound_part
+        || is_capitalized(ctx.words[u].text)
+    {
+        return;
+    }
+    let fits = fu
+        .readings
+        .iter()
+        .filter(|r| adjectival(r))
+        .any(|r| adjective_gn(ctx, r).is_some_and(|g| g.compatible(subject.gn)));
+    if fits {
+        return;
+    }
+    let suggestions: Vec<String> = agree_forms(ctx, fu, adjectival, subject.gn)
+        .iter()
+        .map(|s| same_case(ctx.words[u].text, s))
+        .collect();
+    let Some(first) = suggestions.first().cloned() else {
+        return;
+    };
+    let w = &ctx.words[u];
+    out.push(
+        RawIssue::new(w.start, w.end, PARTICIPLE_ETRE)
+            .arg(w.text)
+            .arg(first)
+            .arg(subject_text(ctx, subject, verb))
+            .with_suggestions(suggestions),
+    );
+}
+
+/// « des livres intéressants et amusant » : le second adjectif coordonné
+/// s'accorde avec le même nom.
+fn coordinated_adjective(ctx: &Context, np: &NounPhrase, target: Gn, out: &mut Vec<RawIssue>) {
+    let Some(post) = np.post else { return };
+    let first_ok = ctx.form(post).is_some_and(|f| {
+        f.readings
+            .iter()
+            .filter(|r| adjectival(r))
+            .any(|r| adjective_gn(ctx, r).is_some_and(|g| g.compatible(target)))
+    });
+    if !first_ok {
+        return;
+    }
+    let Some(c) = ctx
+        .next(post)
+        .filter(|&c| matches!(lower(ctx, c), "et" | "ou"))
+    else {
+        return;
+    };
+    let Some(u) = ctx.next(c) else { return };
+    let Some(fu) = ctx.form(u) else { return };
+    // « valeur intellectuelle et appropriées à la recherche » : un adjectif qui a
+    // son propre complément peut se rapporter à un nom plus éloigné.
+    if ctx
+        .next(u)
+        .is_some_and(|n| !matches!(lower(ctx, n), "et" | "ou" | "mais" | "car" | "donc"))
+    {
+        return;
+    }
+    if !fu.has(adjectival)
+        || fu.has(|r| matches!(r.pos, Pos::Adv | Pos::Det | Pos::Pre | Pos::Con | Pos::Pro))
+        || follows_noun(ctx, u)
+        || ctx.words[u].compound_part
+        || is_capitalized(ctx.words[u].text)
+    {
+        return;
+    }
+    let fits = fu
+        .readings
+        .iter()
+        .filter(|r| adjectival(r))
+        .any(|r| adjective_gn(ctx, r).is_some_and(|g| g.compatible(target)));
+    if fits {
+        return;
+    }
+    let suggestions: Vec<String> = agree_forms(ctx, fu, adjectival, target)
+        .iter()
+        .map(|s| same_case(ctx.words[u].text, s))
+        .collect();
+    let Some(first) = suggestions.first().cloned() else {
+        return;
+    };
+    let w = &ctx.words[u];
+    out.push(
+        RawIssue::new(w.start, w.end, ADJECTIVE)
+            .arg(w.text)
+            .arg(first)
+            .arg(ctx.words[np.noun].text)
+            .with_suggestions(suggestions),
     );
 }
