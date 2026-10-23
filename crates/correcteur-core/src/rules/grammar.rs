@@ -288,7 +288,14 @@ fn preceding_object(
         matches!(
             lower(ctx, n),
             "que" | "qu’" | "qu'" | "assez" | "beaucoup" | "peu" | "trop" | "tant" | "autant"
-        ) || ctx.data.determiners.contains_key(lower(ctx, n))
+        ) || (ctx.data.determiners.contains_key(lower(ctx, n))
+            // « que vous avez passé le 3 octobre », « passé le lendemain » : date
+            // ou moment, pas un complément direct.
+            // (« a eu le temps de lire » garde son complément direct.)
+            && !ctx.next(n).is_some_and(|k| {
+                ctx.words[k].has_digit
+                    || (is_class(ctx, k, "nom_adverbial") && lower(ctx, k) != "temps")
+            }))
             || ctx.form(n).is_some_and(|f| f.has(Reading::is_infinitive))
             // « que j’avais fini par », « qu’il a essayé de » ; mais « vus depuis
             // longtemps », « achetée chez lui » restent accordés.
@@ -1568,6 +1575,44 @@ fn simple_subject(ctx: &Context, verb: usize) -> Option<FoundSubject> {
 /// Groupe nominal sujet qui finit au mot `last`, en début de proposition.
 /// `chain` : pronoms entre le sujet et le verbe, du verbe vers le sujet.
 fn noun_subject(ctx: &Context, last: usize, chain: &[usize]) -> Option<FoundSubject> {
+    // « Certains d’entre eux nécessite » : pronom de quantité, sujet au pluriel.
+    if matches!(lower(ctx, last), "eux" | "elles") {
+        let head = ctx
+            .prev(last)
+            .filter(|&e| lower(ctx, e) == "entre")
+            .and_then(|e| ctx.prev(e))
+            .filter(|&d| matches!(lower(ctx, d), "d’" | "d'"))
+            .and_then(|d| ctx.prev(d))
+            .filter(|&h| {
+                matches!(
+                    lower(ctx, h),
+                    "certains"
+                        | "certaines"
+                        | "plusieurs"
+                        | "beaucoup"
+                        | "quelques-uns"
+                        | "quelques-unes"
+                ) && clause_start(ctx, h)
+            });
+        if let Some(h) = head {
+            let mut chain = chain.to_vec();
+            chain.reverse();
+            return Some(FoundSubject {
+                person: "3p".into(),
+                gn: Gn {
+                    gender: match lower(ctx, h) {
+                        "certains" | "quelques-uns" => Some('m'),
+                        "certaines" | "quelques-unes" => Some('f'),
+                        _ => None,
+                    },
+                    number: Some('p'),
+                },
+                start: h,
+                chain,
+                pronoun: false,
+            });
+        }
+    }
     // Groupe nominal en début de proposition : « Les enfants jouent ». Il peut
     // être suivi d'un complément en « de » : « La réunion de lundi a été ».
     let mut ends = vec![last];

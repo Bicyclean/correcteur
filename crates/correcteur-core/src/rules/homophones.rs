@@ -557,9 +557,29 @@ fn check_ce(ctx: &Context, i: usize) -> bool {
     let Some(f) = form(ctx, n) else {
         return false;
     };
+    // « Ma collègue ce charge de votre dossier » : un nom sujet, puis un mot qui
+    // est à la fois forme verbale et nom féminin, donc impossible après « ce »
+    // masculin (« ce poste de travail » reste correct).
+    // La virgule d'incise (« Madame Petit, ma collègue, ce charge ») compte pour rien.
+    let before = ctx.prev(i).or_else(|| {
+        i.checked_sub(1)
+            .filter(|&b| ctx.text[ctx.words[b].end..ctx.words[i].start].trim() == ",")
+    });
+    let after_noun = form(ctx, before).is_some_and(|p| {
+        p.has_pos(Pos::Nom)
+            && !p.has(|r| r.pos.is_verb() || matches!(r.pos, Pos::Adv | Pos::Pre | Pos::Con))
+    });
+    let feminine_only = f
+        .readings
+        .iter()
+        .filter(|r| r.pos == Pos::Nom)
+        .all(|r| noun_gender(ctx, &r.lemma) == Some('f'))
+        && f.has_pos(Pos::Nom);
+    let verb_form = f.has(|r| r.is_finite_verb() && r.person() == Some("3s"));
     (is_preverbal_subject(ctx, ctx.prev(i))
         && f.has(super::super::lexicon::Reading::is_finite_verb))
         || f.only(super::super::lexicon::Reading::is_infinitive)
+        || (after_noun && feminine_only && verb_form)
 }
 
 /// « se que je veux » → « ce » ; « se matin » → « ce ».

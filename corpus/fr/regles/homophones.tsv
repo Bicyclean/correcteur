@@ -187,3 +187,5 @@ HOMO_A_PREPOSITION	Suite ⟦a→à⟧ votre message, je vous réponds.	CONTRIB-I
 HOMO_A_PREPOSITION	Suite a été publiée hier.	CONTRIB-INIT
 HOMO_QUAND_QUANT	⟦Quand→Quant⟧ à la répartition des tâches, elle sera précisée.	CONTRIB-INIT
 HOMO_QUAND_QUANT	Quand à la fin du mois il pleut, nous restons.	CONTRIB-INIT
+HOMO_CE_SE	Madame Petit, ma collègue, ⟦ce→se⟧ charge de votre dossier.	CONTRIB-INIT
+HOMO_CE_SE	Ce poste de travail est libre.	CONTRIB-INIT

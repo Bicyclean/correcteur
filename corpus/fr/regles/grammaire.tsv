@@ -297,3 +297,8 @@ GRAM_ACCORD_SUJET_VERBE	Les visiteurs ont augmenté de 40 %. Mes collègues ⟦a
 GRAM_ACCORD_ADJECTIF	Veuillez agréer l’expression de mes salutations ⟦distingués→distinguées⟧.	CONTRIB-INIT
 GRAM_INFINITIF_PARTICIPE	Mes collègues, que j’ai toujours ⟦respecter→respectés⟧, sont là.	CONTRIB-INIT
 GRAM_PARTICIPE_AVOIR_COD	Mes collègues, que j’ai ⟦respecté→respectés⟧, sont là.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Nous traitons la commande que vous avez ⟦passé→passée⟧ le 3 octobre.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	La commande que vous avez ⟦passé→passée⟧ le lendemain est partie.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Certains d’entre eux ⟦nécessite→nécessitent⟧ une vérification.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Certains d’entre eux nécessitent une vérification.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Chacun d’entre eux nécessite une vérification.	CONTRIB-INIT
