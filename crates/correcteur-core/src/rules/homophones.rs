@@ -300,6 +300,18 @@ fn check_a(ctx: &Context, i: usize) -> bool {
         return false;
     }
     let p = ctx.prev(i);
+    // « Suite a votre message » : en tête de phrase, devant un groupe nominal ;
+    // pas « Suite a été publiée ».
+    if p.is_some_and(|q| ctx.words[q].sentence_start && ctx.words[q].lower == "suite")
+        && n.is_some_and(|k| {
+            let nw = &ctx.words[k];
+            ctx.data.determiners.contains_key(nw.lower.as_str())
+                && !form(ctx, Some(k))
+                    .is_some_and(|f| f.has(super::super::lexicon::Reading::is_past_participle))
+        })
+    {
+        return true;
+    }
     let after_a_verb = form(ctx, p)
         .is_some_and(|f| f.has(|r| r.pos.is_verb() && ctx.data.verbs_with_a.contains(&r.lemma)));
     if after_a_verb
@@ -1161,6 +1173,27 @@ fn check_quand(ctx: &Context, i: usize) -> bool {
     );
     if lower_is(ctx, n, &["à"]) && stressed {
         return true;
+    }
+    // « Quand à la répartition des tâches, elle sera précisée » : en tête de
+    // phrase, groupe sans verbe puis virgule.
+    if ctx.words[i].sentence_start
+        && lower_is(ctx, n, &["à"])
+        && form(ctx, nn).is_some_and(|f| f.has_pos(Pos::Det))
+    {
+        let mut k = nn;
+        for _ in 0..8 {
+            let Some(j) = k else { break };
+            if form(ctx, Some(j)).is_some_and(|f| {
+                f.has(super::super::lexicon::Reading::is_finite_verb)
+                    && !f.has(|r| matches!(r.pos, Pos::Nom | Pos::Adj | Pos::Det))
+            }) {
+                break;
+            }
+            if ctx.text[ctx.words[j].end..].trim_start().starts_with(',') {
+                return true;
+            }
+            k = ctx.next(j);
+        }
     }
     // « Quand au(x) » en tête de phrase, puis une virgule après le groupe :
     // « Quant aux autres, ils attendront. »

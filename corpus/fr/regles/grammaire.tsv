@@ -279,3 +279,13 @@ GRAM_PARTICIPE_ETRE	Ma sœur, qui était là, est revenue.	CONTRIB-INIT
 GRAM_ACCORD_DETERMINANT	Une tarte ⟦au pommes→aux pommes⟧.	CONTRIB-INIT
 GRAM_PARTICIPE_AVOIR_COD	Il ne pourrait venir aucun des jours qu’il lui avait dit.	CONTRIB-INIT
 GRAM_PARTICIPE_AVOIR_COD	Il y a des éternités qu’on ne vous a vu.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR	Les tests ont ⟦étés→été⟧ réalisés par nos collaborateurs.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR	Les étés ont été chauds.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Certaines de ces modifications ⟦reste→restent⟧ à valider.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Certaines de ces modifications restent à valider.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Je vous ⟦rappel→rappelle⟧ que la date limite est fixée.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Voici le rappel que je vous envoie.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Les objectifs que nous nous étions ⟦fixé→fixés⟧ ont été atteints.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Les objectifs que nous nous étions fixés ont été atteints.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Les gens que nous nous sommes parlé hier sont partis.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Un sentiment qu’elle s’était habituée à ne plus ressentir.	CONTRIB-INIT

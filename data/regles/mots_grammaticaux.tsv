@@ -6,6 +6,8 @@
 #   adverbe       adverbe (ou « tous », « toutes ») qui peut s'intercaler entre l'auxiliaire et le participe ou l'attribut
 #   negation      second élément de la négation (pas, jamais…)
 #   antecedent    mot qui annonce un complément d'objet placé avant le verbe (que, combien)
+#   pronominal_indirect  infinitif d'un verbe pronominal dont le pronom réfléchi est complément indirect
+#                          et qui a un complément direct (« les règles que nous nous sommes fixées »)
 #   pronominal_invariable  infinitif d'un verbe dont le participe reste invariable à la
 #                 forme pronominale (le pronom est complément indirect) : ils se sont parlé,
 #                 elles se sont succédé, elle s'est permis de partir
@@ -147,3 +149,36 @@ prévoir	participe_invariable	REF-GRAM-FR
 savoir	participe_invariable	REF-GRAM-FR
 dont	charniere	REF-GRAM-FR
 où	charniere	REF-GRAM-FR
+fixer	pronominal_indirect	REF-GRAM-FR
+donner	pronominal_indirect	REF-GRAM-FR
+procurer	pronominal_indirect	REF-GRAM-FR
+imposer	pronominal_indirect	REF-GRAM-FR
+offrir	pronominal_indirect	REF-GRAM-FR
+permettre	pronominal_indirect	REF-GRAM-FR
+représenter	pronominal_indirect	REF-GRAM-FR
+figurer	pronominal_indirect	REF-GRAM-FR
+créer	pronominal_indirect	REF-GRAM-FR
+poser	pronominal_indirect	REF-GRAM-FR
+payer	pronominal_indirect	REF-GRAM-FR
+acheter	pronominal_indirect	REF-GRAM-FR
+attribuer	pronominal_indirect	REF-GRAM-FR
+réserver	pronominal_indirect	REF-GRAM-FR
+promettre	pronominal_indirect	REF-GRAM-FR
+accorder	pronominal_indirect	REF-GRAM-FR
+assigner	pronominal_indirect	REF-GRAM-FR
+forger	pronominal_indirect	REF-GRAM-FR
+construire	pronominal_indirect	REF-GRAM-FR
+bâtir	pronominal_indirect	REF-GRAM-FR
+écrire	pronominal_indirect	REF-GRAM-FR
+envoyer	pronominal_indirect	REF-GRAM-FR
+souhaiter	pronominal_indirect	REF-GRAM-FR
+reprocher	pronominal_indirect	REF-GRAM-FR
+interdire	pronominal_indirect	REF-GRAM-FR
+refuser	pronominal_indirect	REF-GRAM-FR
+épargner	pronominal_indirect	REF-GRAM-FR
+ménager	pronominal_indirect	REF-GRAM-FR
+assurer	pronominal_indirect	REF-GRAM-FR
+fabriquer	pronominal_indirect	REF-GRAM-FR
+commander	pronominal_indirect	REF-GRAM-FR
+commettre	pronominal_indirect	REF-GRAM-FR
+rendre	pronominal_indirect	REF-GRAM-FR

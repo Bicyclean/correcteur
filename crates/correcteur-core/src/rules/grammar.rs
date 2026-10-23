@@ -33,6 +33,7 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
         }
         noun_phrase(ctx, i, out);
         subject_verb(ctx, i, out);
+        noun_for_verb(ctx, i, out);
         auxiliary(ctx, i, out);
         negation(ctx, i, out);
         si_conditional(ctx, i, out);
@@ -1524,6 +1525,29 @@ fn noun_subject(ctx: &Context, last: usize, chain: &[usize]) -> Option<FoundSubj
                 })
             });
         if let Some(head) = ctx.prev(d).filter(|_| nominal && ctx.next(d).is_some()) {
+            // « Certaines de ces modifications reste » : le pronom de quantité
+            // est le sujet, au pluriel.
+            if matches!(lower(ctx, head), "certains" | "certaines" | "plusieurs")
+                && clause_start(ctx, head)
+            {
+                let gender = match lower(ctx, head) {
+                    "certains" => Some('m'),
+                    "certaines" => Some('f'),
+                    _ => None,
+                };
+                let mut chain = chain.to_vec();
+                chain.reverse();
+                return Some(FoundSubject {
+                    person: "3p".into(),
+                    gn: Gn {
+                        gender,
+                        number: Some('p'),
+                    },
+                    start: head,
+                    chain,
+                    pronoun: false,
+                });
+            }
             ends.push(head);
         }
     }
@@ -1725,6 +1749,64 @@ fn antecedent_subject(
 fn subject_text(ctx: &Context, s: &FoundSubject, verb: usize) -> String {
     let end = s.chain.first().map_or(verb, |&c| c) - 1;
     rebuild(ctx, s.start, end, &[])
+}
+
+/// « Je vous rappel que… » : après un pronom sujet (et ses pronoms compléments),
+/// un mot qui n'est qu'un nom ne peut pas être le verbe ; on propose les formes
+/// conjuguées voisines à la personne du sujet (« rappelle »).
+fn noun_for_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
+    let w = &ctx.words[i];
+    let Some(form) = ctx.form(i) else { return };
+    if w.compound_part
+        || w.ignored
+        || is_capitalized(w.text)
+        || w.text.contains('-')
+        || !form.only(|r| r.pos == Pos::Nom)
+        || ctx.next(i).is_none()
+    {
+        return;
+    }
+    let Some(subject) = simple_subject(ctx, i) else {
+        return;
+    };
+    if !subject.pronoun {
+        return;
+    }
+    // « qu’elle heure il est » : homophone déjà signalé (« quelle »).
+    let start = &ctx.words[subject.start];
+    if out
+        .iter()
+        .any(|o| o.rule.starts_with("HOMO_") && o.end >= start.start && o.start <= start.end)
+    {
+        return;
+    }
+    // Le présent d'abord (« rappelle » avant « rappela »), puis l'ordre de proximité.
+    let fits = |f: &str, present: bool| {
+        ctx.lexicon.get(&f.to_lowercase()).is_some_and(|x| {
+            x.has(|r| {
+                r.is_finite_verb()
+                    && r.person() == Some(subject.person.as_str())
+                    && (!present || r.mode_tense() == Some("ind.pres"))
+            })
+        })
+    };
+    let all = crate::suggest::suggest(ctx.lexicon, &ctx.data.elisions, &w.norm, 10);
+    let near: Vec<String> = all
+        .iter()
+        .filter(|f| fits(f, true))
+        .chain(all.iter().filter(|f| fits(f, false) && !fits(f, true)))
+        .map(|f| same_case(w.text, f))
+        .collect();
+    let Some(first) = near.first().cloned() else {
+        return;
+    };
+    out.push(
+        RawIssue::new(w.start, w.end, SUBJECT_VERB)
+            .arg(w.text)
+            .arg(first)
+            .arg(subject_text(ctx, &subject, i))
+            .with_suggestions(near),
+    );
 }
 
 fn subject_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
@@ -1932,6 +2014,19 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     if !etre && !avoir {
         return;
     }
+    // « et les tests ont étés réalisés » : « été » ne prend jamais de s.
+    if avoir {
+        if let Some(t) = ctx.next(i).filter(|&t| ctx.words[t].lower == "étés") {
+            let w = &ctx.words[t];
+            out.push(
+                RawIssue::new(w.start, w.end, PARTICIPLE_AVOIR)
+                    .arg(w.text)
+                    .arg(same_case(w.text, "été"))
+                    .suggest(same_case(w.text, "été")),
+            );
+            return;
+        }
+    }
     // « Odette avait présenter », « la porte a tourner » : avoir suivi d'un
     // infinitif en -er est fautif même sans sujet reconnu (nom propre…).
     // « machine a laver » : « a » pour « à » après un nom, signalé ailleurs.
@@ -2034,6 +2129,26 @@ fn auxiliary(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         return;
     }
 
+    // « Les objectifs que nous nous étions fixé » : le pronom réfléchi est
+    // indirect, « que » est le complément direct placé avant.
+    let reflexive_pair = subject.pronoun
+        && subject.chain.len() == 1
+        && matches!(
+            (lower(ctx, subject.start), lower(ctx, subject.chain[0])),
+            ("je", "me" | "m’" | "m'")
+                | ("tu", "te" | "t’" | "t'")
+                | ("nous", "nous")
+                | ("vous", "vous")
+                | ("il" | "elle" | "on" | "ils" | "elles", "se" | "s’" | "s'")
+        );
+    // Seulement pour les verbes dont le pronom réfléchi est indirect : avec
+    // « qu’elle s’était habituée », « se » est le complément direct et le
+    // participe s'accorde avec le sujet.
+    let indirect =
+        ft.has(|r| r.is_past_participle() && ctx.data.is(&r.lemma, "pronominal_indirect"));
+    if etre && reflexive_pair && indirect && preceding_object(ctx, &subject, t, ft, out) {
+        return;
+    }
     if etre && (!has_object || reflexive_agrees(ctx, &subject, t, ft)) {
         // Attribut ou participe : accord avec le sujet (« elles sont parties »).
         // « elle est tout contente », « elle est tout le temps » : « tout »,

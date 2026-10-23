@@ -183,3 +183,7 @@ HOMO_C_S	Le problème qui, c’est sûr, reviendra.	CONTRIB-INIT
 HOMO_A_PREPOSITION	Nous sommes allés ⟦a→à⟧ la plage.	CONTRIB-INIT
 HOMO_A_PREPOSITION	Le gâteau mangé a disparu.	CONTRIB-INIT
 HOMO_A_PREPOSITION	Il a été ⟦a→à⟧ Lyon.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Suite ⟦a→à⟧ votre message, je vous réponds.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Suite a été publiée hier.	CONTRIB-INIT
+HOMO_QUAND_QUANT	⟦Quand→Quant⟧ à la répartition des tâches, elle sera précisée.	CONTRIB-INIT
+HOMO_QUAND_QUANT	Quand à la fin du mois il pleut, nous restons.	CONTRIB-INIT
