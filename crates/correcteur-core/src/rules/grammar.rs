@@ -1452,7 +1452,7 @@ fn subject_of(ctx: &Context, verb: usize) -> Option<FoundSubject> {
                         "je" | "j’" | "tu" | "il" | "ils" | "on" => true,
                         // « Nous partirons tôt et nous arriveront » : le même pronom
                         // ouvre déjà la proposition précédente.
-                        "nous" | "vous" => repeats_subject(ctx, p, s.start),
+                        "nous" | "vous" => pronoun_repeated(ctx, s.start),
                         _ => false,
                     };
             }
@@ -1463,14 +1463,61 @@ fn subject_of(ctx: &Context, verb: usize) -> Option<FoundSubject> {
     (!coordinated).then_some(s)
 }
 
-/// Le pronom `pronoun` (« nous », « vous ») est déjà sujet d'un verbe plus haut
-/// dans la phrase, avant le « et » d'indice `et`.
-fn repeats_subject(ctx: &Context, et: usize, pronoun: usize) -> bool {
-    let word = lower(ctx, pronoun);
-    (et.saturating_sub(12)..et)
+/// « nous » ou « vous » d'indice `p` est sujet : en tête de phrase, après une
+/// conjonction de subordination (« dès que vous », « quand nous »), ou repris
+/// après une virgule, « et » ou « puis » quand le même pronom est déjà sujet plus
+/// haut dans la phrase (« Nous partirons tôt, nous arriveront »). Un « nous »
+/// complément (« il nous reconnaît, nous aborde, nous demande ») n'ouvre aucune
+/// chaîne.
+pub(super) fn pronoun_repeated(ctx: &Context, p: usize) -> bool {
+    is_subject_pronoun(ctx, p, 0)
+}
+
+fn is_subject_pronoun(ctx: &Context, p: usize, depth: usize) -> bool {
+    let w = &ctx.words[p];
+    if w.sentence_start {
+        return true;
+    }
+    let prev = if p > 0 { Some(p - 1) } else { None };
+    let comma = prev.is_some_and(|b| ctx.text[ctx.words[b].end..w.start].contains(','));
+    if let Some(b) = prev.filter(|_| !comma) {
+        match lower(ctx, b) {
+            "quand" | "lorsque" | "si" | "puisque" | "mais" | "car" => return true,
+            "que" | "qu’" | "qu'" => {
+                return b.checked_sub(1).is_some_and(|c| {
+                    matches!(
+                        lower(ctx, c),
+                        "dès"
+                            | "parce"
+                            | "bien"
+                            | "pour"
+                            | "avant"
+                            | "après"
+                            | "afin"
+                            | "tandis"
+                            | "alors"
+                            | "sans"
+                            | "pourvu"
+                            | "quoi"
+                            | "tant"
+                            | "aussitôt"
+                    )
+                })
+            }
+            _ => {}
+        }
+    }
+    // Reprise : virgule, « et », « ou », « puis » devant le pronom.
+    let joined = comma || prev.is_some_and(|b| matches!(lower(ctx, b), "et" | "ou" | "puis"));
+    if !joined || depth >= 3 {
+        return false;
+    }
+    let word = lower(ctx, p);
+    (p.saturating_sub(14)..p)
         .rev()
         .take_while(|&k| !ctx.words[k + 1].sentence_start)
-        .any(|k| lower(ctx, k) == word && clause_start(ctx, k))
+        .take_while(|&k| !matches!(lower(ctx, k), "qui" | "dont" | "où" | "lequel"))
+        .any(|k| lower(ctx, k) == word && is_subject_pronoun(ctx, k, depth + 1))
 }
 
 /// Une proposition conjuguée (verbe et son sujet) se termine juste avant le mot
@@ -3389,6 +3436,7 @@ fn subject_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     let start = &ctx.words[subject.start];
     if matches!(start.lower.as_str(), "nous" | "vous")
         && !start.sentence_start
+        && !pronoun_repeated(ctx, subject.start)
         && near_auxiliary.is_empty()
     {
         return;

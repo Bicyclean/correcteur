@@ -124,7 +124,10 @@ fn imperative(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         return;
     }
     // Sans trait d'union, seul un mot qui n'est que verbe est un impératif sûr.
-    if !object && !plain_verb(form) {
+    if !object
+        && !plain_verb(form)
+        && !(after_ne(ctx, i) && !form.has(|r| r.pos != Pos::Nom && !r.pos.is_verb()))
+    {
         return;
     }
     let mut lemmas: Vec<&str> = Vec::new();
@@ -203,7 +206,7 @@ fn bare_participle(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         || form
             .readings
             .iter()
-            .any(|r| matches!(r.lemma.as_str(), "être" | "avoir" | "luire"))
+            .any(|r| matches!(r.lemma.as_str(), "luire"))
     {
         return;
     }
@@ -414,9 +417,9 @@ fn bare_infinitive(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         pronoun,
         "je" | "j’" | "tu" | "il" | "elle" | "on" | "ils" | "elles"
     );
-    // « Vous pardonner ! », « Nous convertir ? » : infinitif exclamatif ou
-    // interrogatif ; seuls « nous » et « vous » en tête de phrase y échappent, et
-    // pas dans une phrase qui finit par « ? », « ! » ou « … ».
+    // « Il manger ? », « Moi, partir ! » : infinitif exclamatif ou interrogatif,
+    // donc rien à dire d'une phrase qui finit par « ? », « ! » ou « … ». « nous » et
+    // « vous » sont laissés de côté : « nous enfoncer » est un réfléchi.
     let ends_with_mark = ctx.text[w.end..]
         .chars()
         .find(|c| matches!(c, '.' | '?' | '!' | '…' | ';' | ':' | '\n'))

@@ -355,7 +355,13 @@ fn agreeing_first(ctx: &Context, i: usize, suggestions: &mut [String]) {
 /// « tu nettoye » → « nettoies », « il faudrai » → « faudra » : formes conjuguées
 /// à la personne du sujet, proches du mot écrit, d'après les verbes des
 /// suggestions et ceux qui commencent comme lui ; elles passent en tête.
-fn conjugated_first(ctx: &Context, i: usize, person: &str, suggestions: &mut Vec<String>) {
+fn conjugated_first(
+    ctx: &Context,
+    i: usize,
+    person: &str,
+    suggestions: &mut Vec<String>,
+    first: bool,
+) {
     const TENSES: [&str; 6] = [
         "ind.pres",
         "ind.impf",
@@ -409,13 +415,26 @@ fn conjugated_first(ctx: &Context, i: usize, person: &str, suggestions: &mut Vec
     }
     found.sort_by(|a, b| a.0.total_cmp(&b.0));
     let max = suggestions.len().max(ctx.options.max_suggestions.max(1));
-    let mut merged: Vec<String> = found.into_iter().map(|(_, f)| f).take(2).collect();
+    let found: Vec<String> = found.into_iter().map(|(_, f)| f).take(2).collect();
+    let mut merged: Vec<String> = Vec::new();
+    // Après un pronom sujet, ces formes passent en tête ; après un nom, simple
+    // possibilité à la suite des suggestions ordinaires.
+    if first {
+        merged.extend(found.iter().cloned());
+    }
     for s in suggestions.drain(..) {
         if !merged.contains(&s) {
             merged.push(s);
         }
     }
-    merged.truncate(max);
+    if !first {
+        for f in found {
+            if !merged.contains(&f) {
+                merged.push(f);
+            }
+        }
+    }
+    merged.truncate(max.max(5));
     *suggestions = merged;
 }
 
@@ -448,6 +467,28 @@ fn participles_first(ctx: &Context, i: usize, suggestions: &mut Vec<String>) {
             None => return,
         }
     }
+    // « Les enfants courur » : groupe nominal sujet, déterminant et nom pluriel.
+    let noun_person = ctx.form(p).and_then(|f| {
+        let before = ctx.prev(p).map(|d| ctx.words[d].lower.as_str());
+        let det = before.is_some_and(|d| ctx.data.determiners.contains_key(d));
+        let numbers: Vec<Option<char>> = f
+            .readings
+            .iter()
+            .filter(|r| r.pos == Pos::Nom)
+            .map(|r| r.gn().and_then(|g| g.number))
+            .collect();
+        (det && !numbers.is_empty() && numbers.iter().all(|n| *n == numbers[0]))
+            .then(|| match numbers[0] {
+                Some('p') => "3p",
+                Some('s') => "3s",
+                _ => "",
+            })
+            .filter(|p| !p.is_empty())
+    });
+    if let Some(person) = noun_person {
+        conjugated_first(ctx, i, person, suggestions, false);
+        return;
+    }
     if let Some(subject) = ctx.data.subjects.get(ctx.words[p].lower.as_str()) {
         if !ctx.words[p].compound_part {
             let person = subject.person.as_str();
@@ -458,7 +499,7 @@ fn participles_first(ctx: &Context, i: usize, suggestions: &mut Vec<String>) {
             };
             let (good, bad): (Vec<String>, Vec<String>) = suggestions.drain(..).partition(fits);
             suggestions.extend(good.into_iter().chain(bad));
-            conjugated_first(ctx, i, person, suggestions);
+            conjugated_first(ctx, i, person, suggestions, true);
         }
         return;
     }
