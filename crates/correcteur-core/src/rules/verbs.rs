@@ -264,22 +264,35 @@ fn bare_participle(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     let lemma = reading.lemma.as_str();
     let etre = ctx.data.conjugator.takes_etre(lemma);
     let aux = if etre { "être" } else { "avoir" };
+    // Participe au masculin singulier : « elle est allée » demande l'accord, mais
+    // « vous faite » est surtout un « s » oublié.
+    let participle = inflected(ctx, lemma, Pos::Ver, "ppas.m.s")
+        .into_iter()
+        .next()
+        .unwrap_or_else(|| w.text.to_string());
     let mut suggestions: Vec<String> = Vec::new();
-    for f in inflected(ctx, aux, Pos::Aux, &format!("ind.pres.{person}")) {
-        let both = format!("{f} {}", w.text);
-        if !suggestions.contains(&both) {
-            suggestions.push(same_case(w.text, &both).to_lowercase());
-        }
-        break;
+    if let Some(a) = inflected(ctx, aux, Pos::Aux, &format!("ind.pres.{person}"))
+        .into_iter()
+        .next()
+    {
+        suggestions.push(format!("{a} {participle}"));
     }
+    let mut finite: Vec<String> = Vec::new();
     for tense in ["ind.pres", "ind.ps"] {
-        for f in inflected(ctx, lemma, Pos::Ver, &format!("{tense}.{person}")) {
-            if !suggestions.contains(&f) {
-                suggestions.push(f);
+        if let Some(f) = inflected(ctx, lemma, Pos::Ver, &format!("{tense}.{person}"))
+            .into_iter()
+            .next()
+        {
+            if !finite.contains(&f) {
+                finite.push(f);
             }
-            break;
         }
     }
+    // Une forme conjuguée à une lettre près (« rougi » → « rougis ») passe en tête.
+    let (close, far): (Vec<String>, Vec<String>) =
+        finite.into_iter().partition(|f| one_edit(&w.lower, f));
+    suggestions.splice(0..0, close);
+    suggestions.extend(far);
     if suggestions.is_empty() {
         return;
     }
@@ -290,4 +303,19 @@ fn bare_participle(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
             .arg(first)
             .with_suggestions(suggestions),
     );
+}
+
+/// Les deux mots diffèrent d'une seule lettre ajoutée, retirée ou remplacée.
+fn one_edit(a: &str, b: &str) -> bool {
+    let (a, b): (Vec<char>, Vec<char>) = (a.chars().collect(), b.chars().collect());
+    if a.len().abs_diff(b.len()) > 1 {
+        return false;
+    }
+    let common = a.iter().zip(&b).take_while(|(x, y)| x == y).count();
+    let (ra, rb) = (&a[common..], &b[common..]);
+    match ra.len().cmp(&rb.len()) {
+        std::cmp::Ordering::Equal => ra[1..] == rb[1..],
+        std::cmp::Ordering::Greater => ra[1..] == *rb,
+        std::cmp::Ordering::Less => *ra == rb[1..],
+    }
 }

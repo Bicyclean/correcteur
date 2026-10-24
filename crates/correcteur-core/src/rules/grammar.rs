@@ -1419,19 +1419,56 @@ fn subject_of(ctx: &Context, verb: usize) -> Option<FoundSubject> {
         .is_some_and(|p| {
             // « Il mange et ils boit » : un pronom sujet après « et » ouvre une
             // proposition, sauf après un pronom tonique (« lui et elle »).
-            !s.pronoun
-                || !matches!(
-                    lower(ctx, s.start),
-                    "je" | "j’" | "tu" | "il" | "ils" | "on"
+            let tonic = p.checked_sub(1).is_some_and(|b| {
+                matches!(
+                    lower(ctx, b),
+                    "moi" | "toi" | "lui" | "eux" | "elle" | "elles"
                 )
-                || p.checked_sub(1).is_some_and(|b| {
-                    matches!(
-                        lower(ctx, b),
-                        "moi" | "toi" | "lui" | "eux" | "elle" | "elles"
-                    )
-                })
+            });
+            if s.pronoun {
+                return tonic
+                    || !match lower(ctx, s.start) {
+                        "je" | "j’" | "tu" | "il" | "ils" | "on" => true,
+                        // « Nous partirons tôt et nous arriveront » : le même pronom
+                        // ouvre déjà la proposition précédente.
+                        "nous" | "vous" => repeats_subject(ctx, p, s.start),
+                        _ => false,
+                    };
+            }
+            // « Il a plu toute la nuit et les rues sont inondé » : une proposition
+            // complète précède « et ».
+            !complete_clause_before(ctx, p)
         });
     (!coordinated).then_some(s)
+}
+
+/// Le pronom `pronoun` (« nous », « vous ») est déjà sujet d'un verbe plus haut
+/// dans la phrase, avant le « et » d'indice `et`.
+fn repeats_subject(ctx: &Context, et: usize, pronoun: usize) -> bool {
+    let word = lower(ctx, pronoun);
+    (et.saturating_sub(12)..et)
+        .rev()
+        .take_while(|&k| !ctx.words[k + 1].sentence_start)
+        .any(|k| lower(ctx, k) == word && clause_start(ctx, k))
+}
+
+/// Une proposition conjuguée (verbe et son sujet) se termine juste avant le mot
+/// d'indice `et`, dans la même phrase.
+fn complete_clause_before(ctx: &Context, et: usize) -> bool {
+    (et.saturating_sub(12)..et)
+        .rev()
+        .take_while(|&k| !ctx.words[k + 1].sentence_start)
+        .any(|k| {
+            ctx.form(k).is_some_and(|f| {
+                f.has(|r| r.is_finite_verb())
+                    && !f.has(|r| {
+                        matches!(
+                            r.pos,
+                            Pos::Nom | Pos::Adj | Pos::Adv | Pos::Pre | Pos::Con | Pos::Det
+                        )
+                    })
+            }) && simple_subject(ctx, k).is_some()
+        })
 }
 
 /// Sujet coordonné à un autre placé avant lui : « aussi bien le poète que la
@@ -1982,6 +2019,111 @@ fn simple_subject(ctx: &Context, verb: usize) -> Option<FoundSubject> {
 
 /// Groupe nominal sujet qui finit au mot `last`, en début de proposition.
 /// `chain` : pronoms entre le sujet et le verbe, du verbe vers le sujet.
+/// « Marie mangent », « Hier, Paul Durand sont » : nom propre (prénom, nom, titre
+/// et initiales compris) en tête de proposition. Pas dans une coordination
+/// (« Randy Duncan et Matthew J. Smith parlent »), une citation ou après « que ».
+/// Titre de civilité, abrégé ou non, qui précède un nom.
+fn is_title(word: &str) -> bool {
+    matches!(
+        word,
+        "m" | "mme"
+            | "mlle"
+            | "dr"
+            | "pr"
+            | "me"
+            | "mm"
+            | "monsieur"
+            | "madame"
+            | "docteur"
+            | "professeur"
+    )
+}
+
+fn proper_noun_subject(ctx: &Context, last: usize, chain: &[usize]) -> Option<FoundSubject> {
+    let name = &ctx.words[last];
+    if !is_capitalized(name.text) || name.compound_part {
+        return None;
+    }
+    let known = match ctx.form(last) {
+        Some(f) => f.has_pos(Pos::NomPropre) && !f.has(Reading::is_finite_verb),
+        None => !name.sentence_start,
+    };
+    if !known {
+        return None;
+    }
+    // Début du nom : « M. Catani », « Matthew J. Smith ».
+    let mut start = last;
+    while start > 0 {
+        let p = start - 1;
+        let gap = &ctx.text[ctx.words[p].end..ctx.words[start].start];
+        // « Les Verdurin » : famille au pluriel, pas un prénom.
+        if is_capitalized(ctx.words[p].text)
+            && !ctx
+                .data
+                .determiners
+                .contains_key(ctx.words[p].lower.as_str())
+            && ctx
+                .form(p)
+                .is_none_or(|f| f.has_pos(Pos::NomPropre) || is_title(&ctx.words[p].lower))
+            && !ctx.words[start].sentence_start
+            && matches!(gap, " " | ". " | "." | "\u{a0}" | ".\u{a0}")
+        {
+            start = p;
+        } else {
+            break;
+        }
+    }
+    // « Les Verdurin », « Vos Rubens » : le nom est précédé d'un déterminant.
+    if start > 0
+        && ctx.prev(start).is_some_and(|p| {
+            ctx.data
+                .determiners
+                .contains_key(ctx.words[p].lower.as_str())
+        })
+    {
+        return None;
+    }
+    let before = ctx.text[..ctx.words[start].start].trim_end();
+    if before.ends_with(['«', '“', '"', '/', '(', '[', '&']) {
+        return None;
+    }
+    let allowed = ctx.words[start].sentence_start
+        || (!ctx.words[start].joined_to_prev && before.ends_with(','))
+        || ctx.prev(start).is_some_and(|p| {
+            matches!(
+                lower(ctx, p),
+                "mais" | "puis" | "quand" | "lorsque" | "car" | "donc" | "or" | "alors" | "si"
+            )
+        });
+    if !allowed {
+        return None;
+    }
+    // Coordination : « Hier, Paul et Marie mangent » relève de `and_subject`.
+    if before.ends_with(',') && start > 0 {
+        let b = start - 1;
+        if ctx.form(b).is_some_and(|f| f.has_pos(Pos::NomPropre)) {
+            return None;
+        }
+    }
+    let gender = ctx
+        .form(last)
+        .and_then(|f| f.readings.iter().find(|r| r.pos == Pos::NomPropre))
+        .and_then(|r| r.gn())
+        .and_then(|g| g.gender);
+    let mut chain = chain.to_vec();
+    chain.reverse();
+    Some(FoundSubject {
+        person: "3s".into(),
+        gn: Gn {
+            gender,
+            number: Some('s'),
+        },
+        start,
+        chain,
+        pronoun: false,
+    })
+}
+
 fn noun_subject(ctx: &Context, last: usize, chain: &[usize]) -> Option<FoundSubject> {
     // « Certains d’entre eux nécessite » : pronom de quantité, sujet au pluriel.
     if matches!(lower(ctx, last), "eux" | "elles") {
@@ -2020,6 +2162,10 @@ fn noun_subject(ctx: &Context, last: usize, chain: &[usize]) -> Option<FoundSubj
                 pronoun: false,
             });
         }
+    }
+    // Prénom ou nom propre en tête de proposition : « Marie mangent ».
+    if let Some(found) = proper_noun_subject(ctx, last, chain) {
+        return Some(found);
     }
     // Groupe nominal en début de proposition : « Les enfants jouent ». Il peut
     // être suivi d'un complément en « de » : « La réunion de lundi a été ».
@@ -2607,6 +2753,8 @@ fn subjunctive(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     }
     // « que vous oubliiez » : correct, mais personne ne l'écrit ; on s'abstient.
     suggestions.retain(|f| !f.contains("ii"));
+    // « qu’il essaye » : les verbes en -ayer ont deux graphies au subjonctif aussi.
+    suggestions.retain(|f| f.replace('y', "i") != w.lower.replace('y', "i"));
     let Some(first) = suggestions.first().cloned() else {
         return;
     };
@@ -2848,6 +2996,14 @@ fn subject_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     {
         return;
     }
+    // « Frederick S. Pierce président » : titre après un nom propre.
+    if !subject.pronoun
+        && form.has_pos(Pos::Nom)
+        && is_capitalized(ctx.words[subject.start].text)
+        && !ctx.words[subject.start].sentence_start
+    {
+        return;
+    }
     // « qui » : l'antécédent est trop souvent incertain pour l'accord du verbe.
     let first = subject.chain.first().copied().unwrap_or(i);
     if ctx.prev(first).is_some_and(|q| lower(ctx, q) == "qui") {
@@ -2892,8 +3048,9 @@ fn subject_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         subject.person = "3p".into();
         subject.gn.number = Some('p');
     }
-    // Après un groupe nominal, un mot qui peut être adjectif est ambigu.
-    if !subject.pronoun && form.has(adjectival) {
+    // Après un groupe nominal, un mot qui peut être adjectif est ambigu, sauf si
+    // un pronom s'intercale (« les voisins se plaint »).
+    if !subject.pronoun && subject.chain.is_empty() && form.has(adjectival) {
         return;
     }
     let vw = &ctx.words[i];
@@ -2901,10 +3058,11 @@ fn subject_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     // « les types A », « organisées en Écosse », « chevaux Barbe » : nom propre.
     // « en livres », « en bois » : « en » préposition devant un nom. « les
     // portes » : déterminant devant un nom. « une crise puis un conflit » : adverbe.
-    let noun_after_clitic = form.has_pos(Pos::Nom)
-        && chain
-            .iter()
-            .any(|c| matches!(*c, "en" | "le" | "la" | "l’" | "les" | "leur"));
+    let noun_after_clitic = chain
+        .iter()
+        .any(|c| matches!(*c, "en" | "le" | "la" | "l’" | "les" | "leur"))
+        && ((form.has_pos(Pos::Nom) && !subject.pronoun)
+            || form.has(|r| matches!(r.pos, Pos::Adv | Pos::Con)));
     if (is_capitalized(vw.text) && !vw.sentence_start)
         || noun_after_clitic
         || (!subject.pronoun && form.has(|r| matches!(r.pos, Pos::Con | Pos::Adv)))

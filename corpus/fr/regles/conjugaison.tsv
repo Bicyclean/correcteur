@@ -207,7 +207,7 @@ ORTH_MOT_INCONNU	Mangeons maintenant, nous avons faim.	CONTRIB-INIT
 ORTH_MOT_INCONNU	Les enfants jouant dans la cour sont heureux, les enfants jouant aussi.	CONTRIB-INIT
 ORTH_MOT_INCONNU	Il est sorti en courant.	CONTRIB-INIT
 ORTH_MOT_INCONNU	Ayant fini son travail, il est parti, étant fatigué.	CONTRIB-INIT
-GRAM_PARTICIPE_SEUL	Il ⟦voulu→a voulu⟧ partir mais elle le retint.	CONTRIB-INIT
+GRAM_PARTICIPE_SEUL	Il ⟦voulu→voulut⟧ partir mais elle le retint.	CONTRIB-INIT
 GRAM_PARTICIPE_SEUL	Il a voulu partir mais elle le retint.	CONTRIB-INIT
 GRAM_PARTICIPE_SEUL	L’une d’elles intitulée Gymnopédies a été écrite par lui.	CONTRIB-INIT
 GRAM_IMPERATIF	Vas-y et parles-en à ton frère.	CONTRIB-INIT
