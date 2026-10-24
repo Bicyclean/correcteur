@@ -315,6 +315,18 @@ ps vis vis vit vîmes vîtes virent
 fut voir
 ppas vu
 
+modele pourvoir voir
+pres vois vois voit voyons voyez voient
+ps vus vus vut vûmes vûtes vurent
+fut voir
+ppas vu
+
+modele mouvoir ouvoir
+pres eus eus eut ouvons ouvez euvent
+ps us us ut ûmes ûtes urent
+fut ouvr
+ppas û us ue ues
+
 modele valoir aloir
 pres aux aux aut alons alez alent
 ps alus alus alut alûmes alûtes alurent
@@ -328,7 +340,9 @@ pres - - faut - - -
 ps - - fallut - - -
 fut faudr
 ppas fallu inv
+impf - - fallait - - -
 subj - - faille - - -
+subi - - fallût - - -
 imp - - -
 
 modele pleuvoir pleuvoir
@@ -337,6 +351,10 @@ pres - - pleut - - -
 ps - - plut - - -
 fut pleuvr
 ppas plu inv
+impf - - pleuvait - - -
+subj - - pleuve - - -
+subi - - plût - - -
+ppre pleuvant
 imp - - -
 
 modele asseoir asseoir

@@ -3056,7 +3056,7 @@ mourir	mourir	43	0
 mouronner	chanter	2	0
 mousser	chanter	8	0
 moutonner	chanter	6	0
-mouvoir	émouvoir	12	1
+mouvoir	mouvoir	12	0
 moyenner	chanter	3	0
 moyer	nettoyer	1	0
 muer	chanter	17	0
@@ -3477,7 +3477,7 @@ pourfendre	rendre	8	0
 pourlécher	sécher	8	0
 pourrir	finir	29	0
 poursuivre	suivre	40	0
-pourvoir	prévoir	20	1
+pourvoir	pourvoir	20	0
 pousser	chanter	41	0
 pouvoir	pouvoir	44	0
 poétiser	chanter	6	0
