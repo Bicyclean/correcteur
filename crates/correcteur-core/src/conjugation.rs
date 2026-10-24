@@ -463,6 +463,36 @@ impl Conjugator {
         None
     }
 
+    /// Formes de `infinitive` pour le trait `wanted` (`ind.ps.2s`), d'après son
+    /// modèle ; utile quand le lexique n'atteste pas la forme.
+    pub fn forms_for(&self, infinitive: &str, wanted: &str) -> Vec<String> {
+        self.verbs
+            .get(infinitive)
+            .and_then(|m| self.models.get(m))
+            .and_then(|m| m.conjugate(infinitive))
+            .map(|f| {
+                traits_forms(&f)
+                    .into_iter()
+                    .filter(|(t, _)| t == wanted)
+                    .map(|(_, x)| x)
+                    .collect()
+            })
+            .unwrap_or_default()
+    }
+
+    /// Infinitifs dont le squelette commence par celui de `prefix`.
+    pub fn verbs_with_prefix(&self, prefix: &str) -> Vec<&str> {
+        let prefix = skeleton(prefix);
+        let from = self
+            .by_skeleton
+            .partition_point(|(s, _)| s.as_str() < prefix.as_str());
+        self.by_skeleton[from..]
+            .iter()
+            .take_while(|(s, _)| s.starts_with(&prefix))
+            .map(|(_, v)| v.as_str())
+            .collect()
+    }
+
     /// Verbes de la liste, avec leur modèle.
     pub fn verbs(&self) -> impl Iterator<Item = (&str, &str)> {
         self.verbs.iter().map(|(v, m)| (v.as_str(), m.as_str()))
@@ -496,6 +526,11 @@ impl Conjugator {
             Some(v) => (true, v.trim().to_string()),
             None => (false, input.clone()),
         };
+        // « s’en aller », « s’en souvenir » : le pronom « en » suit le réfléchi.
+        let (en, verb) = match verb.strip_prefix("en ").filter(|_| pronominal) {
+            Some(v) => (true, v.trim().to_string()),
+            None => (false, verb),
+        };
         let (model, guessed) = match self.verbs.get(&verb).and_then(|m| self.models.get(m)) {
             Some(m) => (m, false),
             // Verbe inconnu en -er : premier groupe, le seul encore productif.
@@ -516,6 +551,11 @@ impl Conjugator {
         };
         let aux = self.models.get(auxiliary)?.conjugate(auxiliary)?;
         let shown = if pronominal {
+            let verb = if en {
+                format!("en {verb}")
+            } else {
+                verb.clone()
+            };
             format!("{}{verb}", if elides(&verb) { "s’" } else { "se " })
         } else {
             verb.clone()
@@ -531,6 +571,7 @@ impl Conjugator {
                 &aux,
                 auxiliary == "être",
                 pronominal,
+                en,
                 model.impersonal,
                 elides,
             ),
@@ -546,6 +587,7 @@ fn table(
     aux: &SimpleForms,
     etre: bool,
     pronominal: bool,
+    en: bool,
     impersonal: bool,
     elides: &dyn Fn(&str) -> bool,
 ) -> Vec<Mode> {
@@ -583,6 +625,9 @@ fn table(
         let subject = SUBJECTS[person];
         let mut rest = verb.to_string();
         if pronominal {
+            if en {
+                rest = format!("en {rest}");
+            }
             rest = format!("{}{rest}", elide(REFLEXIVE[person], &rest));
         }
         let mut s = format!("{}{rest}", elide(subject, &rest));
@@ -610,7 +655,11 @@ fn table(
     };
     let imperative: Vec<String> = f.tenses["imp.pres"]
         .iter()
-        .zip(["toi", "nous", "vous"])
+        .zip(if en {
+            ["t’en", "nous-en", "vous-en"]
+        } else {
+            ["toi", "nous", "vous"]
+        })
         .filter_map(|(c, pr)| alts(c).map(|v| if pronominal { format!("{v}-{pr}") } else { v }))
         .collect();
     let imperative_past: Vec<String> = if pronominal || impersonal {
@@ -626,6 +675,7 @@ fn table(
     let aux_ppre = alts(&aux.present_participle).unwrap_or_default();
     let refl = |s: String| {
         if pronominal {
+            let s = if en { format!("en {s}") } else { s };
             format!("{}{s}", elide("se", &s))
         } else {
             s
