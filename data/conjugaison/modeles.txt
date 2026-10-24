@@ -357,6 +357,40 @@ subi - - plût - - -
 ppre pleuvant
 imp - - -
 
+modele croître croître
+pres croîs croîs croît croissons croissez croissent
+ps crûs crûs crût crûmes crûtes crûrent
+fut croîtr
+ppas crû crus crue crues
+
+modele accroître croître
+pres crois crois croît croissons croissez croissent
+ps crus crus crut crûmes crûtes crurent
+fut croîtr
+ppas cru crus crue crues
+
+modele clore clore
+pres clos clos clôt closons closez closent
+impf - - - - - -
+ps - - - - - -
+fut clor
+ppas clos clos close closes
+subj close closes close closions closiez closent
+
+modele éclore clore
+pres - - clôt - - closent
+impf - - - - - -
+ps - - - - - -
+fut clor
+ppas clos clos close closes
+subj - - close - - closent
+
+modele foutre foutre
+pres fous fous fout foutons foutez foutent
+ps foutis foutis foutit foutîmes foutîtes foutirent
+fut foutr
+ppas foutu
+
 modele asseoir asseoir
 pres assieds/assois assieds/assois assied/assoit asseyons/assoyons asseyez/assoyez asseyent/assoient
 ps assis assis assit assîmes assîtes assirent

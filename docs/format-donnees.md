@@ -116,6 +116,9 @@ moteur ne détecte pas encore, pour que le rappel mesuré reste honnête.
   `correcteur attribuer-conjugaisons` à partir de Lexique 3.83, dont il suit la
   licence (CC BY-SA 4.0). Facultatif : sans lui, seuls les verbes en -er sont
   conjugués (modèle déduit).
+- `verbes-complements.tsv` (écrit à la main) : `verbe`, `modèle`, `source`. Les
+  quelques verbes de Lexique que le générateur ne rattache à aucun modèle
+  (croître, clore, éclore, foutre…). S'ajoute à `verbes.tsv`.
 - `verbes-wiktionnaire.tsv` (généré, ne pas modifier) : `verbe`, `modèle`,
   `source`. Verbes du Wiktionnaire français absents de Lexique (« modéliser »),
   hors verbes dont toutes les définitions sont vieillies, archaïques ou rares ;

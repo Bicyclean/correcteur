@@ -33,6 +33,7 @@ pub const RULE_FILES: &[&str] = &[
 /// Fichiers facultatifs : la fonction correspondante est vide s'ils manquent.
 pub const OPTIONAL_FILES: &[&str] = &[
     "conjugaison/verbes.tsv",
+    "conjugaison/verbes-complements.tsv",
     "conjugaison/verbes-wiktionnaire.tsv",
     "thesaurus/thes_fr.dat",
     "thesaurus/antonymes.tsv",
@@ -450,7 +451,11 @@ impl Data {
             },
             conjugator: crate::conjugation::Conjugator::new(
                 src.file("conjugaison/modeles.txt")?,
-                src.optional("conjugaison/verbes.tsv"),
+                &format!(
+                    "{}\n{}",
+                    src.optional("conjugaison/verbes.tsv"),
+                    src.optional("conjugaison/verbes-complements.tsv")
+                ),
                 src.file("conjugaison/auxiliaire_etre.txt")?,
             )?
             .with_extra(src.optional("conjugaison/verbes-wiktionnaire.tsv"))?,

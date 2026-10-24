@@ -1,0 +1,13 @@
+# Verbes de Lexique 3.83 que `correcteur attribuer-conjugaisons` ne rattache à aucun modèle, avec le modèle qui leur
+# convient. Rédigé pour ce projet d'après la conjugaison usuelle (REF-GRAM-FR) ; les formes de Lexique ont servi de contrôle.
+# Colonnes : verbe, modèle, source.
+croître	croître	REF-GRAM-FR
+accroître	accroître	REF-GRAM-FR
+décroître	accroître	REF-GRAM-FR
+recroître	croître	REF-GRAM-FR
+clore	clore	REF-GRAM-FR
+enclore	clore	REF-GRAM-FR
+éclore	éclore	REF-GRAM-FR
+foutre	foutre	REF-GRAM-FR
+refoutre	foutre	REF-GRAM-FR
+contrefoutre	foutre	REF-GRAM-FR

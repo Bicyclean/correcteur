@@ -470,6 +470,16 @@ fn etant_participle(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     if !form.has(Reading::is_past_participle) || form.has(|r| r.is_finite_verb()) {
         return;
     }
+    // « étant donné les circonstances », « étant entendu que » : locutions invariables.
+    if matches!(
+        tw.lower.as_str(),
+        "donné" | "entendu" | "supposé" | "convenu" | "attendu"
+    ) || ctx
+        .next(t)
+        .is_some_and(|n| ctx.data.determiners.contains_key(lower(ctx, n)))
+    {
+        return;
+    }
     // La virgule qui ferme la proposition, puis le pronom sujet.
     let Some(comma) = (t + 1..(t + 12).min(ctx.words.len()))
         .find(|&k| ctx.text[ctx.words[k - 1].end..ctx.words[k].start].contains(','))
