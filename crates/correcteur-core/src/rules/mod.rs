@@ -8,6 +8,7 @@ mod spelling;
 pub mod style;
 mod syntax;
 mod typo;
+mod verbs;
 
 use std::collections::HashSet;
 
@@ -55,6 +56,7 @@ pub const CODE_RULES: &[&str] = &[
     grammar::PARTICIPLE_AVOIR_LES,
     grammar::PARTICIPLE_FOR_INFINITIVE,
     grammar::SUBJUNCTIVE,
+    grammar::CONCORDANCE,
     grammar::TOUT,
     grammar::PRONOMINAL_PARTICIPLE,
     grammar::AUXILIARY_ETRE,
@@ -70,6 +72,8 @@ pub const CODE_RULES: &[&str] = &[
     syntax::PARONYM,
     syntax::DONT,
     syntax::NOUN_EXPECTED,
+    verbs::IMPERATIVE,
+    verbs::BARE_PARTICIPLE,
     style::REPETITION,
     style::LONG_SENTENCE,
     typo::SPACE_BEFORE_MISSING,
@@ -185,6 +189,7 @@ pub fn run_all(ctx: &Context, out: &mut Vec<RawIssue>) {
     homophones::check(ctx, out);
     grammar::check(ctx, out);
     syntax::check(ctx, out);
+    verbs::check(ctx, out);
     style::check(ctx, out);
     locutions::check(ctx, out);
 }

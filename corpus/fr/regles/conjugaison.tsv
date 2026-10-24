@@ -1,0 +1,216 @@
+# Conjugaison : fautes de temps, de mode, de personne et de forme, avec leur correction attendue.
+# Phrases rédigées pour ce projet (batterie de vérification des conjugaisons).
+GRAM_ACCORD_ADJECTIF	La porte ⟦fermé→fermée⟧, il est parti.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Je ⟦veut→veux⟧ aller au cinéma ce soir.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Tu ⟦peut→peux⟧ venir demain si tu veux.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Tu ⟦boit→bois⟧ trop de café le matin.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Je ⟦croit→crois⟧ que tu as raison.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Tu ⟦écrit→écris⟧ une lettre à ton ami.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Tu ne sais pas, mais il ⟦sais→sait⟧ tout.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Je lis un livre et tu ⟦lit→lis⟧ le journal.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Je ⟦finit→finis⟧ mon travail avant midi.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Je ⟦reçoit→reçois⟧ un colis demain.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Je ⟦met→mets⟧ mon manteau avant de sortir.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Elle ⟦cour→court⟧ dans le parc tous les matins.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ils ⟦meurt→meurent⟧ de faim dans cette région.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Je ⟦suit→suis⟧ les conseils de mon médecin.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Il ⟦faisais→faisait⟧ beau ce jour-là.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ils étaient fatigués et ils voulaient dormir, ⟦il avaient→ils avaient⟧ faim.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ils venaient souvent et ils ⟦apportait→apportaient⟧ des fleurs.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Il ouvrit la porte et entra dans la pièce, puis il ⟦pris→prit⟧ son manteau.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Demain, je partirai tôt et tu ⟦viendra→viendras⟧ avec moi.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Quand il ⟦viendras→viendra⟧, nous mangerons.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Il ⟦achèteras→achètera⟧ du pain, je le jure.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ils voudraient partir mais ils ne ⟦pourrait→pourraient⟧ pas.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Il faut que tu lises ce livre et que tu ⟦écrive→écrives⟧ un résumé.	CONTRIB-INIT
+GRAM_AUXILIAIRE	Il ⟦a venu→est venu⟧ me voir hier matin.	CONTRIB-INIT
+GRAM_AUXILIAIRE	Nous ⟦avons allé→sommes allés⟧ à la plage.	CONTRIB-INIT
+GRAM_AUXILIAIRE	Ils ont fini hier, ils ont mangé, ils ⟦ont partis→sont partis⟧ ensuite.	CONTRIB-INIT
+GRAM_CONCORDANCE	Je croyais que tu ⟦viendrai→viendrais⟧ demain.	CONTRIB-INIT
+GRAM_CONCORDANCE	Il savait que nous ⟦partirons→partirions⟧ le lendemain.	CONTRIB-INIT
+GRAM_IMPERATIF	Va chercher ton frère et ⟦dit→dis⟧-lui de venir.	CONTRIB-INIT
+GRAM_IMPERATIF	⟦Donnes→Donne⟧-moi ton livre, je te prie.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Elle a ⟦prit→pris⟧ le train ce matin.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Il a mis la table et il a fait la cuisine, il a ⟦dis→dit⟧ merci.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR	Nous avons ⟦vus→vu⟧ un film hier soir.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR	Il avait mangé quand elle est arrivée, elle avait ⟦attendue→attendu⟧ longtemps.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Nous sommes ⟦arrivé→arrivés⟧ hier soir à la gare.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ils sont ⟦parti→partis⟧ sans rien dire.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elles sont ⟦allé→allées⟧ au cinéma ensemble.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Il est mort hier, elle est morte hier, ils sont ⟦mort→morts⟧ hier.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elles se sont ⟦vu→vues⟧ hier au marché.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elle aura fini demain, quand nous serons ⟦arrivé→arrivés⟧.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Il aurait voulu venir, elles seraient ⟦parti→parties⟧ plus tôt.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il faut manger pour vivre, il veut ⟦mangé→manger⟧.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Tu dois ⟦finit→finir⟧ ton travail.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Nous allons ⟦partit→partir⟧ demain matin.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Pour ⟦réussi→réussir⟧, il faut travailler.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il a décidé de ⟦resté→rester⟧ chez lui.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Je ne peux pas ⟦venu→venir⟧ ce soir.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il aime ⟦chanté→chanter⟧ sous la douche.	CONTRIB-INIT
+GRAM_SI_CONDITIONNEL	Si tu ⟦viendrais→venais⟧ demain, je serais content.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il faut que tu ⟦viens→viennes⟧ demain.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il faut que nous ⟦partons→partions⟧ maintenant.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il faut que je ⟦fais→fasse⟧ mes devoirs.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Je veux que tu ⟦as→aies⟧ de la patience.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Pour que vous puissiez comprendre, il faut que vous ⟦pouvez→puissiez⟧ écouter.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il faut que vous alliez au marché, que vous ⟦allez→alliez⟧ vite.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il faut que tu ⟦prends→prennes⟧ ton temps.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il est important que nous ⟦finissons→finissions⟧ ce travail.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Quoique tu ⟦es→sois⟧ fatigué, tu viens.	CONTRIB-INIT
+HOMO_ON_ONT	Ils ⟦on→ont⟧ fini leur travail.	CONTRIB-INIT
+HOMO_PEU_PEUT	Il ⟦peu→peut⟧ venir demain matin.	CONTRIB-INIT
+HOMO_SON_SONT	Ils ⟦son→sont⟧ contents de leurs résultats.	CONTRIB-INIT
+ORTH_FORME	Nous faisons nos devoirs et vous ⟦faisez→faites⟧ les vôtres.	CONTRIB-INIT
+ORTH_FORME	Vous dites toujours la vérité, vous ⟦disez→dites⟧ ce que vous pensez.	CONTRIB-INIT
+ORTH_FORME	Tu vois la mer, nous voyons les vagues, ils ⟦voyent→voient⟧ le phare.	CONTRIB-INIT
+ORTH_FORME	Faites attention et ne ⟦faisez→faites⟧ pas de bruit.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Elle prend le train et nous ⟦prennons→prenons⟧ la voiture.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Ils prennent leur temps, ils ⟦prenent→prennent⟧ le bus.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Ils vont partir et nous ⟦alons→allons⟧ les rejoindre.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Elle vient de Paris et nous ⟦venont→venons⟧ de Lyon.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Ils savent la réponse et nous la ⟦savont→savons⟧ aussi.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous ⟦ouvron→ouvrons⟧ la porte à nos invités.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous commençons le travail et nous ⟦placons→plaçons⟧ les chaises.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Elle ⟦appele→appelle⟧ son frère chaque soir.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Il ⟦jete→jette⟧ les papiers à la poubelle.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Il ⟦achete→achète⟧ du pain tous les matins.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Ils ⟦envoyent→envoient⟧ des courriers chaque semaine.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Ils ⟦choisisent→choisissent⟧ leurs vêtements avec soin.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Elle réfléchit longtemps et ils ⟦réfléchisent→réfléchissent⟧ aussi.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous ⟦devont→devons⟧ partir avant la nuit.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Ils reçoivent les invités et nous ⟦recevont→recevons⟧ les cadeaux.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Elle met la table et nous ⟦mettont→mettons⟧ les verres.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous ⟦suivont→suivons⟧ le guide dans la grotte.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Vous êtes en retard, vous ⟦êtez→êtes⟧ toujours en retard.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Autrefois, nous mangions ensemble et nous ⟦chantion→chantions⟧ des chansons.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Il ⟦pleuvais→pleuvait⟧ souvent en automne.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous avions peur car nous ne ⟦savion→savions⟧ pas où aller.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Elle ⟦voulai→voulait⟧ partir mais il pleuvait.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous voyagions beaucoup et nous ⟦voyagiont→voyagions⟧ en train.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous lisions le soir et nous ⟦écrivion→écrivions⟧ des lettres.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Elle chanta et nous ⟦dansames→dansâmes⟧ toute la nuit.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Je ne pourrai pas venir, nous ⟦pourons→pourrons⟧ peut-être demain.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Tu verras la mer, nous ⟦verons→verrons⟧ les îles.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Il faudra partir, il ⟦faudrai→faudra⟧ se dépêcher demain.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Ils enverront un colis, nous ⟦enverons→enverrons⟧ une lettre.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Si nous avions le choix, nous partirions, nous ⟦resterion→resterions⟧ peut-être.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous aimerions venir, nous ferions un effort, nous ⟦pourions→pourrions⟧ peut-être.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Les enfants jouant dans la cour sont heureux, les enfants ⟦jouants→jouant⟧ aussi.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Il est sorti en ⟦courrant→courant⟧.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Ayant fini son travail, il est parti, ⟦étent→étant⟧ fatigué.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	La porte fermée, il est parti.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Je veux aller au cinéma ce soir.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Tu peux venir demain si tu veux.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Tu bois trop de café le matin.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Je crois que tu as raison.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Tu écris une lettre à ton ami.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Tu ne sais pas, mais il sait tout.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Je lis un livre et tu lis le journal.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Je finis mon travail avant midi.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Je reçois un colis demain.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Je mets mon manteau avant de sortir.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Elle court dans le parc tous les matins.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ils meurent de faim dans cette région.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Je suis les conseils de mon médecin.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Nous sommes prêts et vous êtes prêts, ils sont prêts.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Il faisait beau ce jour-là.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ils étaient fatigués et ils voulaient dormir, ils avaient faim.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ils venaient souvent et ils apportaient des fleurs.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Il ouvrit la porte et entra dans la pièce, puis il prit son manteau.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ils vinrent nous voir, puis ils tinrent conseil, il vint ensuite.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Demain, je partirai tôt et tu viendras avec moi.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Quand il viendra, nous mangerons.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Il achètera du pain, je le jure.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ils voudraient partir mais ils ne pourraient pas.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Il faut que tu lises ce livre et que tu écrives un résumé.	CONTRIB-INIT
+GRAM_AUXILIAIRE	Il est venu me voir hier matin.	CONTRIB-INIT
+GRAM_AUXILIAIRE	Nous sommes allés à la plage.	CONTRIB-INIT
+GRAM_AUXILIAIRE	Tu as fini ton travail et tu es resté tard, tu es parti trop tôt.	CONTRIB-INIT
+GRAM_AUXILIAIRE	Ils ont fini hier, ils ont mangé, ils sont partis ensuite.	CONTRIB-INIT
+GRAM_CONCORDANCE	Je croyais que tu viendrais demain.	CONTRIB-INIT
+GRAM_CONCORDANCE	Il savait que nous partirions le lendemain.	CONTRIB-INIT
+GRAM_IMPERATIF	Va chercher ton frère et dis-lui de venir.	CONTRIB-INIT
+GRAM_IMPERATIF	Donne-moi ton livre, je te prie.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Elle a pris le train ce matin.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Il a mis la table et il a fait la cuisine, il a dit merci.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR	Nous avons vu un film hier soir.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR	Il avait mangé quand elle est arrivée, elle avait attendu longtemps.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Nous sommes arrivés hier soir à la gare.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ils sont partis sans rien dire.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elles sont allées au cinéma ensemble.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Il est mort hier, elle est morte hier, ils sont morts hier.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elles se sont vues hier au marché.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elle aura fini demain, quand nous serons arrivés.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Il aurait voulu venir, elles seraient parties plus tôt.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il faut manger pour vivre, il veut manger.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Tu dois finir ton travail.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Nous allons partir demain matin.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Pour réussir, il faut travailler.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il a décidé de rester chez lui.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Je ne peux pas venir ce soir.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il aime chanter sous la douche.	CONTRIB-INIT
+GRAM_SI_CONDITIONNEL	Si tu venais demain, je serais content.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il faut que tu viennes demain.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il faut que nous partions maintenant.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il faut que je fasse mes devoirs.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Je veux que tu aies de la patience.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Pour que vous puissiez comprendre, il faut que vous puissiez écouter.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il faut que vous alliez au marché, que vous alliez vite.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il faut que tu prennes ton temps.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il est important que nous finissions ce travail.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Quoique tu sois fatigué, tu viens.	CONTRIB-INIT
+HOMO_ON_ONT	Ils ont fini leur travail.	CONTRIB-INIT
+HOMO_PEU_PEUT	Il peut venir demain matin.	CONTRIB-INIT
+HOMO_SON_SONT	Ils sont contents de leurs résultats.	CONTRIB-INIT
+ORTH_FORME	Nous faisons nos devoirs et vous faites les vôtres.	CONTRIB-INIT
+ORTH_FORME	Vous dites toujours la vérité, vous dites ce que vous pensez.	CONTRIB-INIT
+ORTH_FORME	Tu vois la mer, nous voyons les vagues, ils voient le phare.	CONTRIB-INIT
+ORTH_FORME	Faites attention et ne faites pas de bruit.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Elle prend le train et nous prenons la voiture.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Ils prennent leur temps, ils prennent le bus.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Ils vont partir et nous allons les rejoindre.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Elle vient de Paris et nous venons de Lyon.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Ils savent la réponse et nous la savons aussi.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous ouvrons la porte à nos invités.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Je mange une pomme et nous mangeons du pain.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous commençons le travail et nous plaçons les chaises.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Elle appelle son frère chaque soir.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Il jette les papiers à la poubelle.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Il achète du pain tous les matins.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Ils envoient des courriers chaque semaine.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Tu nettoies la cuisine tous les soirs.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Ils choisissent leurs vêtements avec soin.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Elle réfléchit longtemps et ils réfléchissent aussi.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous devons partir avant la nuit.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Ils reçoivent les invités et nous recevons les cadeaux.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Elle met la table et nous mettons les verres.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous suivons le guide dans la grotte.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Vous êtes en retard, vous êtes toujours en retard.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Autrefois, nous mangions ensemble et nous chantions des chansons.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Il pleuvait souvent en automne.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous avions peur car nous ne savions pas où aller.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Elle voulait partir mais il pleuvait.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous voyagions beaucoup et nous voyagions en train.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous lisions le soir et nous écrivions des lettres.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Elle chanta et nous dansâmes toute la nuit.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Elle dit adieu et ferma la porte, puis elle dit merci.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Ils firent un feu et ils firent du thé.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Je ne pourrai pas venir, nous pourrons peut-être demain.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Tu verras la mer, nous verrons les îles.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Il faudra partir, il faudra se dépêcher demain.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Je courrai vite, tu courras aussi.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Ils enverront un colis, nous enverrons une lettre.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Si nous avions le choix, nous partirions, nous resterions peut-être.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous aimerions venir, nous ferions un effort, nous pourrions peut-être.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Mangeons maintenant, nous avons faim.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Les enfants jouant dans la cour sont heureux, les enfants jouant aussi.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Il est sorti en courant.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Ayant fini son travail, il est parti, étant fatigué.	CONTRIB-INIT
+GRAM_PARTICIPE_SEUL	Il ⟦voulu→a voulu⟧ partir mais elle le retint.	CONTRIB-INIT
+GRAM_PARTICIPE_SEUL	Il a voulu partir mais elle le retint.	CONTRIB-INIT
+GRAM_PARTICIPE_SEUL	L’une d’elles intitulée Gymnopédies a été écrite par lui.	CONTRIB-INIT
+GRAM_IMPERATIF	Vas-y et parles-en à ton frère.	CONTRIB-INIT
+GRAM_IMPERATIF	Dit-il la vérité.	CONTRIB-INIT
+GRAM_IMPERATIF	Soit dit en passant, c’est fini.	CONTRIB-INIT
+GRAM_CONCORDANCE	Il est dit que la personne qui arrivera à dénouer ce nœud acquerra l’empire.	CONTRIB-INIT

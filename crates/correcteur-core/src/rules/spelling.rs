@@ -352,6 +352,73 @@ fn agreeing_first(ctx: &Context, i: usize, suggestions: &mut [String]) {
     }
 }
 
+/// « tu nettoye » → « nettoies », « il faudrai » → « faudra » : formes conjuguées
+/// à la personne du sujet, proches du mot écrit, d'après les verbes des
+/// suggestions et ceux qui commencent comme lui ; elles passent en tête.
+fn conjugated_first(ctx: &Context, i: usize, person: &str, suggestions: &mut Vec<String>) {
+    const TENSES: [&str; 6] = [
+        "ind.pres",
+        "ind.impf",
+        "ind.ps",
+        "ind.fut",
+        "cond.pres",
+        "sub.pres",
+    ];
+    let word = ctx.words[i].lower.as_str();
+    if word.chars().count() < 4 {
+        return;
+    }
+    let mut lemmas: Vec<String> = Vec::new();
+    for s in suggestions.iter() {
+        for r in ctx
+            .lexicon
+            .get(s)
+            .map_or(&[][..], |f| f.readings.as_slice())
+        {
+            if r.pos.is_verb() && !lemmas.contains(&r.lemma) {
+                lemmas.push(r.lemma.clone());
+            }
+        }
+    }
+    let prefix: String = word.chars().take(4).collect();
+    for v in ctx
+        .data
+        .conjugator
+        .verbs_with_prefix(&prefix)
+        .into_iter()
+        .take(40)
+    {
+        if !lemmas.iter().any(|l| l == v) {
+            lemmas.push(v.to_string());
+        }
+    }
+    let mut found: Vec<(f32, String)> = Vec::new();
+    for lemma in &lemmas {
+        for (rank, tense) in TENSES.iter().enumerate() {
+            for f in ctx
+                .data
+                .conjugator
+                .forms_for(lemma, &format!("{tense}.{person}"))
+            {
+                let d = weighted_distance(word, &f);
+                if d <= 2.5 && !found.iter().any(|(_, x)| *x == f) {
+                    found.push((d + rank as f32 * 0.15, f));
+                }
+            }
+        }
+    }
+    found.sort_by(|a, b| a.0.total_cmp(&b.0));
+    let max = suggestions.len().max(ctx.options.max_suggestions.max(1));
+    let mut merged: Vec<String> = found.into_iter().map(|(_, f)| f).take(2).collect();
+    for s in suggestions.drain(..) {
+        if !merged.contains(&s) {
+            merged.push(s);
+        }
+    }
+    merged.truncate(max);
+    *suggestions = merged;
+}
+
 /// Ordre des suggestions selon le mot qui précède : celles qui conviennent à la
 /// place du mot passent en tête, dans leur ordre d'origine.
 ///
@@ -361,7 +428,26 @@ fn agreeing_first(ctx: &Context, i: usize, suggestions: &mut [String]) {
 ///   des verbes suggérés s'ajoutent (« partent » → « parties »).
 /// - Après un pronom sujet (« nous avont ») : verbe conjugué à sa personne.
 fn participles_first(ctx: &Context, i: usize, suggestions: &mut Vec<String>) {
-    let Some(p) = ctx.prev(i) else { return };
+    let Some(mut p) = ctx.prev(i) else { return };
+    // « nous la savont » : les clitiques entre le sujet et le verbe sont sautés.
+    // « nous » et « vous » ne sont sujets qu'en tête de proposition.
+    let clause_start = |k: usize| {
+        ctx.words[k].sentence_start
+            || !ctx.words[k].joined_to_prev
+            || ctx
+                .prev(k)
+                .is_some_and(|q| ctx.data.is(ctx.words[q].lower.as_str(), "charniere"))
+    };
+    while ctx.data.is(ctx.words[p].lower.as_str(), "clitique")
+        && (!ctx.data.subjects.contains_key(ctx.words[p].lower.as_str())
+            || (matches!(ctx.words[p].lower.as_str(), "nous" | "vous") && !clause_start(p)))
+        && !ctx.words[p].compound_part
+    {
+        match ctx.prev(p) {
+            Some(q) => p = q,
+            None => return,
+        }
+    }
     if let Some(subject) = ctx.data.subjects.get(ctx.words[p].lower.as_str()) {
         if !ctx.words[p].compound_part {
             let person = subject.person.as_str();
@@ -372,6 +458,7 @@ fn participles_first(ctx: &Context, i: usize, suggestions: &mut Vec<String>) {
             };
             let (good, bad): (Vec<String>, Vec<String>) = suggestions.drain(..).partition(fits);
             suggestions.extend(good.into_iter().chain(bad));
+            conjugated_first(ctx, i, person, suggestions);
         }
         return;
     }
