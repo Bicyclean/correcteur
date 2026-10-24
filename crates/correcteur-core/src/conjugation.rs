@@ -162,6 +162,27 @@ impl Model {
         })
     }
 
+    /// Participe passé de `infinitive` selon ce modèle : masculin singulier,
+    /// masculin pluriel, féminin singulier, féminin pluriel (une seule forme s'il
+    /// est invariable).
+    pub fn past_participles(&self, infinitive: &str) -> Option<Vec<String>> {
+        let base = infinitive.strip_suffix(&self.ending)?;
+        let pp = &self.lines["ppas"];
+        Some(match pp.as_slice() {
+            [p, inv] if inv == "inv" => vec![format!("{base}{p}")],
+            [p] => {
+                let m = format!("{base}{p}");
+                let mp = if m.ends_with(['s', 'x']) {
+                    m.clone()
+                } else {
+                    format!("{m}s")
+                };
+                vec![m.clone(), mp, format!("{m}e"), format!("{m}es")]
+            }
+            four => four.iter().map(|p| format!("{base}{p}")).collect(),
+        })
+    }
+
     /// Formes simples du verbe `infinitive` selon ce modèle.
     pub fn conjugate(&self, infinitive: &str) -> Option<SimpleForms> {
         let base = infinitive.strip_suffix(&self.ending)?;
@@ -232,20 +253,7 @@ impl Model {
             Some(c) => Some(vec![c[0].clone()]),
             None => nous_stem.as_ref().map(|s| vec![join(s, "ant")]),
         };
-        let pp = &self.lines["ppas"];
-        let past_participle = match pp.as_slice() {
-            [p, inv] if inv == "inv" => vec![format!("{base}{p}")],
-            [p] => {
-                let m = format!("{base}{p}");
-                let mp = if m.ends_with(['s', 'x']) {
-                    m.clone()
-                } else {
-                    format!("{m}s")
-                };
-                vec![m.clone(), mp, format!("{m}e"), format!("{m}es")]
-            }
-            four => four.iter().map(|p| format!("{base}{p}")).collect(),
-        };
+        let past_participle = self.past_participles(infinitive)?;
 
         let mut tenses: HashMap<&'static str, Vec<Cell>> = HashMap::new();
         for (key, cells) in [
@@ -478,6 +486,14 @@ impl Conjugator {
                     .collect()
             })
             .unwrap_or_default()
+    }
+
+    /// Participes passés (m.s, m.p, f.s, f.p) de `infinitive`, d'après son modèle.
+    pub fn past_participles(&self, infinitive: &str) -> Option<Vec<String>> {
+        self.verbs
+            .get(infinitive)
+            .and_then(|m| self.models.get(m))
+            .and_then(|m| m.past_participles(infinitive))
     }
 
     /// Infinitifs dont le squelette commence par celui de `prefix`.

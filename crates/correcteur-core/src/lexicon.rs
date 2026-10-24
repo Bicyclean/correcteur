@@ -220,6 +220,48 @@ impl Lexicon {
         Ok(())
     }
 
+    /// Ajoute les participes passés que Lexique n'atteste pas (féminin, pluriel) pour
+    /// ses verbes : « téléphonées », « mises ». Seuls les verbes dont le masculin
+    /// singulier est attesté sont complétés, pour ne pas faire de « musé » un mot
+    /// correct (participe de *muser*, absent de Lexique).
+    pub(crate) fn add_participles(&mut self, conjugator: &crate::conjugation::Conjugator) {
+        const TRAITS: [&str; 4] = ["ppas.m.s", "ppas.m.p", "ppas.f.s", "ppas.f.p"];
+        let mut missing: Vec<(String, Reading)> = Vec::new();
+        for (verb, _) in conjugator.verbs() {
+            let Some(ids) = self.by_lemma.get(verb) else {
+                continue;
+            };
+            let attested = |t: &str| {
+                ids.iter().any(|&id| {
+                    self.forms[id as usize]
+                        .has(|r| r.lemma == verb && r.pos == Pos::Ver && r.traits == t)
+                })
+            };
+            // « moiti » (de *moitir*) est seul : un artefact, pas un verbe vivant.
+            if !attested(TRAITS[0]) || TRAITS.iter().filter(|t| attested(t)).count() < 2 {
+                continue;
+            }
+            let Some(forms) = conjugator.past_participles(verb) else {
+                continue;
+            };
+            for (t, form) in TRAITS.iter().zip(forms).skip(1) {
+                if !attested(t) {
+                    missing.push((
+                        form,
+                        Reading {
+                            lemma: verb.to_string(),
+                            pos: Pos::Ver,
+                            traits: t.to_string(),
+                        },
+                    ));
+                }
+            }
+        }
+        for (text, reading) in missing {
+            self.insert(text, reading, 0.0);
+        }
+    }
+
     fn insert(&mut self, text: String, reading: Reading, freq: f32) {
         let id = self.insert_form(text, reading.clone(), freq);
         let ids = self.by_lemma.entry(reading.lemma).or_default();

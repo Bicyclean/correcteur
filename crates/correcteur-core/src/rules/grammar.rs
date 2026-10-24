@@ -23,6 +23,7 @@ pub const SI_CONDITIONAL: &str = "GRAM_SI_CONDITIONNEL";
 pub const PARTICIPLE_AVOIR_LES: &str = "GRAM_PARTICIPE_AVOIR_LES";
 pub const SUBJUNCTIVE: &str = "GRAM_SUBJONCTIF";
 pub const CONCORDANCE: &str = "GRAM_CONCORDANCE";
+pub const SI_FUTURE: &str = "GRAM_SI_FUTUR";
 pub const TOUT: &str = "GRAM_TOUT";
 pub const PRONOMINAL_PARTICIPLE: &str = "GRAM_PARTICIPE_PRONOMINAL";
 pub const AUXILIARY_ETRE: &str = "GRAM_AUXILIAIRE";
@@ -41,6 +42,7 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
         noun_for_verb(ctx, i, out);
         subjunctive(ctx, i, out);
         concordance(ctx, i, out);
+        si_future(ctx, i, out);
         modal_finite(ctx, i, out);
         tout_agreement(ctx, i, out);
         auxiliary(ctx, i, out);
@@ -961,9 +963,28 @@ fn find_noun_phrase<'c>(ctx: &'c Context, det: usize) -> Option<NounPhrase<'c>> 
                     || (f.has(|r| r.is_finite_verb() || r.is_infinitive()) && !f.has_pos(Pos::Nom))
             })
     });
+    // « et les rues » : « rues » ne serait un verbe qu'avec « tu » devant ; un verbe
+    // aux 1re et 2e personnes veut son pronom sujet dans la proposition.
+    let subject_before = |person: &str| {
+        (det.saturating_sub(6)..det)
+            .rev()
+            .take_while(|&k| ctx.words[k + 1].joined_to_prev)
+            .any(|k| {
+                ctx.data
+                    .subjects
+                    .get(lower(ctx, k))
+                    .is_some_and(|s| s.person == person)
+            })
+    };
     if object_pronoun
-        && noun_form
-            .has(|r| r.pos.is_verb() && (r.is_infinitive() || (before_verb && r.is_finite_verb())))
+        && noun_form.has(|r| {
+            r.pos.is_verb()
+                && (r.is_infinitive()
+                    || (before_verb
+                        && r.is_finite_verb()
+                        && r.person()
+                            .is_some_and(|p| p.starts_with('3') || subject_before(p))))
+        })
     {
         return None;
     }
@@ -1455,20 +1476,71 @@ fn repeats_subject(ctx: &Context, et: usize, pronoun: usize) -> bool {
 /// Une proposition conjuguée (verbe et son sujet) se termine juste avant le mot
 /// d'indice `et`, dans la même phrase.
 fn complete_clause_before(ctx: &Context, et: usize) -> bool {
-    (et.saturating_sub(12)..et)
+    // Un nom qui est aussi une forme verbale (« la nuit ») ne compte que précédé de
+    // son pronom sujet.
+    let Some((k, subject)) = (et.saturating_sub(12)..et)
         .rev()
         .take_while(|&k| !ctx.words[k + 1].sentence_start)
-        .any(|k| {
-            ctx.form(k).is_some_and(|f| {
-                f.has(|r| r.is_finite_verb())
-                    && !f.has(|r| {
-                        matches!(
-                            r.pos,
-                            Pos::Nom | Pos::Adj | Pos::Adv | Pos::Pre | Pos::Con | Pos::Det
-                        )
-                    })
-            }) && simple_subject(ctx, k).is_some()
+        .filter(|&k| !ctx.words[k].compound_part)
+        .filter_map(|k| {
+            // « Peignons les roses en rouge » : titre, pas une proposition.
+            if is_capitalized(ctx.words[k].text) && !ctx.words[k].sentence_start {
+                return None;
+            }
+            let f = ctx.form(k).filter(|f| f.has(|r| r.is_finite_verb()))?;
+            let subject = simple_subject(ctx, k)?;
+            (subject.pronoun
+                || !f.has(|r| {
+                    matches!(
+                        r.pos,
+                        Pos::Nom | Pos::Pre | Pos::Adv | Pos::Con | Pos::Det | Pos::Adj
+                    )
+                }))
+            .then_some((k, subject))
         })
+        .next()
+    else {
+        return false;
+    };
+    // Rien entre le verbe et « et » qui ouvre une subordonnée ou une autre
+    // coordination : « Je pense que Marie et Paul », « Il faut savoir comment ce
+    // crime ou ce vol », « …, et la foule des paysans et des soldats ».
+    let clean = (k + 1..et).all(|m| {
+        !matches!(
+            lower(ctx, m),
+            "que"
+                | "qu’"
+                | "qu'"
+                | "qui"
+                | "dont"
+                | "où"
+                | "si"
+                | "quand"
+                | "lorsque"
+                | "comme"
+                | "parce"
+                | "puisque"
+                | "comment"
+                | "pourquoi"
+                | "et"
+                | "ou"
+                | "ni"
+                | "entre"
+                | "avec"
+                | "ainsi"
+                | "puis"
+        ) && !ctx.text[ctx.words[m].end..ctx.words[m + 1].start].contains([',', ';'])
+    });
+    if !clean {
+        return false;
+    }
+    // Son sujet : un pronom ou un groupe en tête de proposition, pas une relative
+    // (« le millionnaire qui lui donnait sa voiture et ses bijoux pouvait »).
+    if (subject.start..k).any(|m| matches!(lower(ctx, m), "qui" | "dont" | "où")) {
+        return false;
+    }
+    !ctx.prev(subject.start)
+        .is_some_and(|q| matches!(lower(ctx, q), "qui" | "que" | "qu’" | "qu'" | "dont" | "où"))
 }
 
 /// Sujet coordonné à un autre placé avant lui : « aussi bien le poète que la
@@ -1487,7 +1559,11 @@ fn coordinated_subject(ctx: &Context, subject: &FoundSubject) -> bool {
     !subject.pronoun
         && start.checked_sub(1).is_some_and(|b| {
             matches!(lower(ctx, b), "comme" | "et" | "ou" | "ni" | "avec" | "puis")
-                || ctx.text[ctx.words[b].end..ctx.words[start].start].contains(',')
+                // « Hier, le chat mangent » : l'adverbe d'une incise n'est pas un sujet.
+                || (ctx.text[ctx.words[b].end..ctx.words[start].start].contains(',')
+                    && !ctx
+                        .form(b)
+                        .is_some_and(|f| f.has_pos(Pos::Adv) && !f.has_pos(Pos::Nom)))
                 // « aussi bien X que Y », « ainsi que », « tant X que Y », « de
                 // plus savants que son neveu eussent » ; pas « je pense que les
                 // enfants… ».
@@ -2089,6 +2165,10 @@ fn proper_noun_subject(ctx: &Context, last: usize, chain: &[usize]) -> Option<Fo
     }
     let allowed = ctx.words[start].sentence_start
         || (!ctx.words[start].joined_to_prev && before.ends_with(','))
+        || ctx
+            .prev(start)
+            .and_then(|p| ctx.form(p))
+            .is_some_and(|f| f.only(|r| r.pos == Pos::Adv) && ctx.words[start - 1].sentence_start)
         || ctx.prev(start).is_some_and(|p| {
             matches!(
                 lower(ctx, p),
@@ -2482,13 +2562,41 @@ const SUBJUNCTIVE_ADJECTIVES: &[&str] = &[
     "naturel",
     "inadmissible",
     "inutile",
+    "content",
+    "heureux",
+    "ravi",
+    "triste",
+    "désolé",
+    "navré",
+    "fâché",
+    "fier",
+    "furieux",
+    "déçu",
+    "satisfait",
+    "mécontent",
+    "soulagé",
+    "choqué",
+    "contente",
+    "heureuse",
+    "ravie",
+    "désolée",
+    "fière",
+    "déçue",
+    "satisfaite",
 ];
 
 /// Locution ou verbe qui demande le subjonctif devant la complétive en « que » :
 /// renvoie son texte (« il faut que »), ou rien.
 fn subjunctive_trigger(ctx: &Context, que: usize) -> Option<String> {
     let text = |from: usize| ctx.text[ctx.words[from].start..ctx.words[que].end].to_string();
-    let w1 = ctx.prev(que)?;
+    let mut w1 = ctx.prev(que)?;
+    // « il faut absolument que » : l'adverbe ne change rien.
+    if matches!(
+        lower(ctx, w1),
+        "absolument" | "vraiment" | "impérativement" | "simplement" | "surtout" | "seulement"
+    ) {
+        w1 = ctx.prev(w1)?;
+    }
     let l1 = lower(ctx, w1);
     let w2 = ctx.prev(w1);
     let l2 = w2.map(|k| lower(ctx, k));
@@ -2544,7 +2652,23 @@ fn subjunctive_trigger(ctx: &Context, que: usize) -> Option<String> {
     }
     // « il est possible que », « c’est dommage que ».
     if SUBJUNCTIVE_ADJECTIVES.contains(&l1) {
-        let e = ctx.prev(w1)?;
+        let mut e = ctx.prev(w1)?;
+        // « je suis très content que » : l'adverbe est sauté.
+        if matches!(
+            lower(ctx, e),
+            "très"
+                | "si"
+                | "bien"
+                | "tellement"
+                | "vraiment"
+                | "fort"
+                | "trop"
+                | "assez"
+                | "plutôt"
+                | "aussi"
+        ) {
+            e = ctx.prev(e)?;
+        }
         let etre = ctx
             .form(e)
             .is_some_and(|f| f.has(|r| r.lemma == "être" && r.is_finite_verb()));
@@ -2799,6 +2923,91 @@ const REPORTING_VERBS: &[&str] = &[
     "confirmer",
 ];
 
+/// « Si j’avais le temps, je lirais et j’écrirai » : après « si » et l'imparfait,
+/// la principale est au conditionnel, jamais au futur.
+fn si_future(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
+    let Some(form) = ctx.form(i) else { return };
+    let finite: Vec<&Reading> = form
+        .readings
+        .iter()
+        .filter(|r| r.is_finite_verb())
+        .collect();
+    if finite.is_empty() || !finite.iter().all(|r| r.mode_tense() == Some("ind.fut")) {
+        return;
+    }
+    // « si » en tête de la phrase du mot, suivi d'un imparfait avant lui.
+    let Some(si) = (i.saturating_sub(40)..=i)
+        .rev()
+        .find(|&k| ctx.words[k].sentence_start)
+        .filter(|&k| matches!(lower(ctx, k), "si" | "s’" | "s'"))
+    else {
+        return;
+    };
+    // Une ponctuation forte ou un guillemet fermant coupe la phrase.
+    if ctx.text[ctx.words[si].end..ctx.words[i].start].contains(['.', '!', '?', '…', '»', ';', ':'])
+    {
+        return;
+    }
+    let mut imperfect = None;
+    for k in si + 1..i {
+        let l = lower(ctx, k);
+        if matches!(
+            l,
+            "que"
+                | "qu’"
+                | "quand"
+                | "lorsque"
+                | "dès"
+                | "après"
+                | "tant"
+                | "avant"
+                | "puisque"
+                | "parce"
+        ) {
+            return;
+        }
+        if imperfect.is_none() {
+            if let Some(f) = ctx.form(k) {
+                let fin: Vec<&Reading> = f.readings.iter().filter(|r| r.is_finite_verb()).collect();
+                if !fin.is_empty() && !f.has(|r| matches!(r.pos, Pos::Nom | Pos::Adj)) {
+                    if fin.iter().all(|r| r.mode_tense() == Some("ind.impf")) {
+                        imperfect = Some(k);
+                    } else {
+                        return;
+                    }
+                }
+            }
+        }
+    }
+    let Some(imperfect) = imperfect else { return };
+    let Some(subject) = subject_of(ctx, i) else {
+        return;
+    };
+    if subject.start <= imperfect {
+        return;
+    }
+    let person = subject.person.as_str();
+    let mut suggestions: Vec<String> = Vec::new();
+    for r in &finite {
+        for f in inflected(ctx, &r.lemma, r.pos, &format!("cond.pres.{person}")) {
+            let f = same_case(ctx.words[i].text, &f);
+            if !suggestions.contains(&f) {
+                suggestions.push(f);
+            }
+        }
+    }
+    let Some(first) = suggestions.first().cloned() else {
+        return;
+    };
+    let w = &ctx.words[i];
+    out.push(
+        RawIssue::new(w.start, w.end, SI_FUTURE)
+            .arg(w.text)
+            .arg(first)
+            .with_suggestions(suggestions),
+    );
+}
+
 /// Verbe introducteur au passé et sujet de la complétive, quand le verbe `i`
 /// (un futur) est le verbe d'un discours rapporté au passé.
 fn concordance_context(ctx: &Context, i: usize) -> Option<(FoundSubject, usize)> {
@@ -2973,6 +3182,16 @@ fn subject_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     {
         return;
     }
+    // « par équipes », « sur mesures » : après une préposition, un mot qui est aussi
+    // un nom est un nom.
+    if form.has_pos(Pos::Nom)
+        && ctx
+            .prev(i)
+            .and_then(|p| ctx.form(p))
+            .is_some_and(|f| f.has_pos(Pos::Pre) && !f.has(|r| r.is_finite_verb()))
+    {
+        return;
+    }
     // « les charges relevées contre lui » : préposition, pas le verbe contrer.
     if form.has_pos(Pos::Pre) {
         return;
@@ -3050,7 +3269,11 @@ fn subject_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     }
     // Après un groupe nominal, un mot qui peut être adjectif est ambigu, sauf si
     // un pronom s'intercale (« les voisins se plaint »).
-    if !subject.pronoun && subject.chain.is_empty() && form.has(adjectival) {
+    // « est » est aussi un adjectif (« le côté est ») : devant un sujet pluriel,
+    // c'est le verbe (« les rues est inondées »).
+    let plural_est = subject.gn.number == Some('p')
+        && form.has(|r| r.pos == Pos::Aux && r.lemma == "être" && r.is_finite_verb());
+    if !subject.pronoun && subject.chain.is_empty() && form.has(adjectival) && !plural_est {
         return;
     }
     let vw = &ctx.words[i];
@@ -3076,7 +3299,12 @@ fn subject_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         // taille ont » : sujets coordonnés. « 9 % des polytechniciens s’oriente » :
         // le sujet est la quantité.
         let before = head.checked_sub(1);
-        let coordinated = coordinated_subject(ctx, &subject)
+        // « Il a plu toute la nuit et les rues est inondées » : après une proposition
+        // complète, « et » ouvre une nouvelle proposition.
+        let new_clause = ctx.prev(head).is_some_and(|p| {
+            matches!(lower(ctx, p), "et" | "ou") && complete_clause_before(ctx, p)
+        });
+        let coordinated = (coordinated_subject(ctx, &subject) && !new_clause)
             || (!ctx.words[head].sentence_start
                 && before.is_some_and(|b| {
                     ctx.words[b].has_digit
@@ -3130,7 +3358,9 @@ fn subject_verb(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     // « la vulgarité, l’utilité reprenaient » : sujets juxtaposés.
     let juxtaposed = subject.start.checked_sub(1).is_some_and(|b| {
         ctx.text[ctx.words[b].end..start.start].contains(',')
-            && ctx.form(b).is_some_and(|f| f.has_pos(Pos::Nom))
+            && ctx
+                .form(b)
+                .is_some_and(|f| f.has_pos(Pos::Nom) && !f.has_pos(Pos::Adv))
     });
     if !subject.pronoun && juxtaposed {
         return;

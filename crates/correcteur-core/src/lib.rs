@@ -145,8 +145,9 @@ pub struct Engine {
 impl Engine {
     /// Construit le moteur à partir de données déjà lues (cas du WebAssembly).
     pub fn new(mut data: EngineData) -> Result<Engine, DataError> {
-        let lexicon = Lexicon::from_tsv_files(&std::mem::take(&mut data.lexicons))?;
+        let mut lexicon = Lexicon::from_tsv_files(&std::mem::take(&mut data.lexicons))?;
         let data = data::Data::parse(data)?;
+        lexicon.add_participles(&data.conjugator);
         Ok(Engine { data, lexicon })
     }
 

@@ -57,6 +57,7 @@ pub const CODE_RULES: &[&str] = &[
     grammar::PARTICIPLE_FOR_INFINITIVE,
     grammar::SUBJUNCTIVE,
     grammar::CONCORDANCE,
+    grammar::SI_FUTURE,
     grammar::TOUT,
     grammar::PRONOMINAL_PARTICIPLE,
     grammar::AUXILIARY_ETRE,
