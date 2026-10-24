@@ -230,3 +230,14 @@ GRAM_SUBJONCTIF	Je suis sûr que tu es là.	CONTRIB-INIT
 GRAM_SUBJONCTIF	Il faut absolument qu’elle ⟦sait→sache⟧ la vérité.	CONTRIB-INIT
 GRAM_PARTICIPE_PRONOMINAL	Elles se sont ⟦téléphonées→téléphoné⟧ hier soir.	CONTRIB-INIT
 GRAM_PARTICIPE_PRONOMINAL	Elles se sont téléphoné hier soir.	CONTRIB-INIT
+GRAM_INFINITIF_SEUL	Il ⟦manger→mange⟧ trop vite le soir.	CONTRIB-INIT
+GRAM_INFINITIF_SEUL	Il mange trop vite le soir.	CONTRIB-INIT
+GRAM_ACCORD_PARTICIPE	Étant ⟦arrivé→arrivés⟧ trop tard, ils ont raté le début.	CONTRIB-INIT
+GRAM_ACCORD_PARTICIPE	Étant arrivés trop tard, ils ont raté le début.	CONTRIB-INIT
+GRAM_ACCORD_PARTICIPE	Étant fatigué, il est parti.	CONTRIB-INIT
+GRAM_IMPERATIF	Sois prudent et ⟦aies→aie⟧ confiance en toi.	CONTRIB-INIT
+GRAM_IMPERATIF	Mange ta soupe et finis ton assiette, ⟦ouvres→ouvre⟧ la fenêtre.	CONTRIB-INIT
+GRAM_IMPERATIF	Tu manges ta soupe et tu ouvres la fenêtre.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il vient de ⟦partit→partir⟧ à l’instant.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il vient de partir à l’instant.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Pour mieux ⟦comprit→comprendre⟧, relisez le chapitre.	CONTRIB-INIT

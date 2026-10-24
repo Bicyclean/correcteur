@@ -1,12 +1,14 @@
 //! Formes verbales employées à la place d'une autre : impératif écrit comme le
 //! présent (« tu » absent), participe sans auxiliaire.
 
-use super::grammar::{inflected, is_class, lower, same_case};
+use super::grammar::{agree_forms, inflected, is_class, lower, same_case};
 use super::{Context, RawIssue};
-use crate::lexicon::{Form, Pos};
+use crate::lexicon::{Form, Gn, Pos, Reading};
 
 pub const IMPERATIVE: &str = "GRAM_IMPERATIF";
 pub const BARE_PARTICIPLE: &str = "GRAM_PARTICIPE_SEUL";
+pub const BARE_INFINITIVE: &str = "GRAM_INFINITIF_SEUL";
+pub const PARTICIPLE_AGREEMENT: &str = "GRAM_ACCORD_PARTICIPE";
 
 pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
     for i in 0..ctx.words.len() {
@@ -15,6 +17,8 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
         }
         imperative(ctx, i, out);
         bare_participle(ctx, i, out);
+        bare_infinitive(ctx, i, out);
+        etant_participle(ctx, i, out);
     }
 }
 
@@ -116,7 +120,7 @@ fn imperative(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         );
         return;
     }
-    if !object && !(initial(ctx, i) || after_ne(ctx, i)) {
+    if !object && !(initial(ctx, i) || after_ne(ctx, i) || imperative_continuation(ctx, i)) {
         return;
     }
     // Sans trait d'union, seul un mot qui n'est que verbe est un impératif sûr.
@@ -318,4 +322,198 @@ fn one_edit(a: &str, b: &str) -> bool {
         std::cmp::Ordering::Greater => ra[1..] == *rb,
         std::cmp::Ordering::Less => *ra == rb[1..],
     }
+}
+
+/// Le verbe d'indice `i` ouvre une proposition (après une virgule, « et », « ou »…)
+/// dans une phrase qui commence elle-même par un impératif : « Reste ici et
+/// attends-moi, ne bouges pas ».
+fn imperative_continuation(ctx: &Context, i: usize) -> bool {
+    let mut h = i;
+    if h > 0 && matches!(lower(ctx, h - 1), "ne" | "n’") && ctx.words[h].joined_to_prev {
+        h -= 1;
+    }
+    if h == 0 {
+        return false;
+    }
+    let before = ctx.text[..ctx.words[h].start].trim_end();
+    let conjunction = matches!(lower(ctx, h - 1), "et" | "ou" | "puis" | "mais" | "ni");
+    if !(before.ends_with(',') || conjunction) {
+        return false;
+    }
+    let mut s = h;
+    while s > 0 && !ctx.words[s].sentence_start {
+        s -= 1;
+    }
+    let first = if matches!(lower(ctx, s), "ne" | "n’") {
+        s + 1
+    } else {
+        s
+    };
+    let Some(form) = ctx.form(first) else {
+        return false;
+    };
+    form.has(|r| r.traits.starts_with("imp.pres"))
+        && !(s..h).any(|k| {
+            matches!(
+                lower(ctx, k),
+                "je" | "j’" | "tu" | "il" | "elle" | "on" | "ils" | "elles" | "qui"
+            )
+        })
+}
+
+/// Début de proposition : début de phrase, ponctuation ou mot charnière.
+fn clause_head(ctx: &Context, p: usize) -> bool {
+    ctx.words[p].sentence_start
+        || !ctx.words[p].joined_to_prev
+        || ctx.prev(p).is_some_and(|q| is_class(ctx, q, "charniere"))
+}
+
+/// « Vous aller où ? », « Il manger » : un infinitif seul après le pronom sujet.
+fn bare_infinitive(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
+    let w = &ctx.words[i];
+    if w.compound_part {
+        return;
+    }
+    let Some(form) = ctx.form(i) else { return };
+    if !form.has(Reading::is_infinitive)
+        || form.has(|r| r.is_finite_verb())
+        || form.has(|r| matches!(r.pos, Pos::Pre | Pos::Con | Pos::Det | Pos::Pro | Pos::Adv))
+        || matches!(w.lower.as_str(), "être" | "avoir")
+    {
+        return;
+    }
+    let Some(mut p) = ctx.prev(i) else { return };
+    while matches!(
+        lower(ctx, p),
+        "y" | "en"
+            | "ne"
+            | "n’"
+            | "me"
+            | "m’"
+            | "te"
+            | "t’"
+            | "se"
+            | "s’"
+            | "le"
+            | "la"
+            | "l’"
+            | "les"
+            | "lui"
+            | "leur"
+    ) {
+        match ctx.prev(p) {
+            Some(q) => p = q,
+            None => return,
+        }
+    }
+    let pronoun = lower(ctx, p);
+    let Some(subject) = ctx.data.subjects.get(pronoun) else {
+        return;
+    };
+    let strong = matches!(
+        pronoun,
+        "je" | "j’" | "tu" | "il" | "elle" | "on" | "ils" | "elles"
+    );
+    // « Vous pardonner ! », « Nous convertir ? » : infinitif exclamatif ou
+    // interrogatif ; seuls « nous » et « vous » en tête de phrase y échappent, et
+    // pas dans une phrase qui finit par « ? », « ! » ou « … ».
+    let ends_with_mark = ctx.text[w.end..]
+        .chars()
+        .find(|c| matches!(c, '.' | '?' | '!' | '…' | ';' | ':' | '\n'))
+        .is_some_and(|c| matches!(c, '?' | '!' | '…'));
+    if ctx.words[p].compound_part || !(strong && clause_head(ctx, p)) || ends_with_mark {
+        return;
+    }
+    let Some(reading) = form.readings.iter().find(|r| r.is_infinitive()) else {
+        return;
+    };
+    let person = subject.person.as_str();
+    let mut suggestions: Vec<String> = Vec::new();
+    for tense in ["ind.pres", "ind.impf", "ind.fut"] {
+        for f in inflected(ctx, &reading.lemma, Pos::Ver, &format!("{tense}.{person}")) {
+            if !suggestions.contains(&f) {
+                suggestions.push(f);
+            }
+            break;
+        }
+    }
+    let Some(first) = suggestions.first().cloned() else {
+        return;
+    };
+    out.push(
+        RawIssue::new(w.start, w.end, BARE_INFINITIVE)
+            .arg(w.text)
+            .arg(first)
+            .with_suggestions(suggestions),
+    );
+}
+
+/// « Étant arrivé trop tard, ils ont raté » : le participe après « étant » en tête
+/// de phrase s'accorde avec le sujet de la principale.
+fn etant_participle(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
+    let w = &ctx.words[i];
+    if w.lower != "étant" || !w.sentence_start {
+        return;
+    }
+    // Le participe, après d'éventuels adverbes.
+    let mut t = i + 1;
+    while ctx.words.get(t).is_some_and(|x| {
+        matches!(
+            x.lower.as_str(),
+            "très" | "bien" | "déjà" | "toujours" | "tous" | "tout"
+        )
+    }) {
+        t += 1;
+    }
+    let Some(tw) = ctx.words.get(t) else { return };
+    let Some(form) = ctx.form(t) else { return };
+    if !form.has(Reading::is_past_participle) || form.has(|r| r.is_finite_verb()) {
+        return;
+    }
+    // La virgule qui ferme la proposition, puis le pronom sujet.
+    let Some(comma) = (t + 1..(t + 12).min(ctx.words.len()))
+        .find(|&k| ctx.text[ctx.words[k - 1].end..ctx.words[k].start].contains(','))
+    else {
+        return;
+    };
+    let target = match lower(ctx, comma) {
+        "il" | "on" => Gn {
+            gender: Some('m'),
+            number: Some('s'),
+        },
+        "elle" => Gn {
+            gender: Some('f'),
+            number: Some('s'),
+        },
+        "ils" => Gn {
+            gender: Some('m'),
+            number: Some('p'),
+        },
+        "elles" => Gn {
+            gender: Some('f'),
+            number: Some('p'),
+        },
+        "nous" | "vous" => Gn {
+            gender: None,
+            number: Some('p'),
+        },
+        _ => return,
+    };
+    if form.has(|r| r.is_past_participle() && r.gn().is_some_and(|g| g.compatible(target))) {
+        return;
+    }
+    let suggestions: Vec<String> = agree_forms(ctx, form, Reading::is_past_participle, target)
+        .iter()
+        .map(|s| same_case(tw.text, s))
+        .collect();
+    let Some(first) = suggestions.first().cloned() else {
+        return;
+    };
+    out.push(
+        RawIssue::new(tw.start, tw.end, PARTICIPLE_AGREEMENT)
+            .arg(tw.text)
+            .arg(first)
+            .arg(ctx.words[comma].text)
+            .with_suggestions(suggestions),
+    );
 }

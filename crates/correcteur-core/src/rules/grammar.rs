@@ -686,7 +686,7 @@ fn adjectival(r: &Reading) -> bool {
 
 /// Formes du même lemme qui s'accordent avec `target` ; les formes de genre et
 /// de nombre exactement connus d'abord.
-fn agree_forms<'a>(
+pub(super) fn agree_forms<'a>(
     ctx: &'a Context,
     form: &Form,
     pred: impl Fn(&Reading) -> bool,
@@ -1734,6 +1734,8 @@ fn si_conditional(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
 /// « continuer »… Les pronoms compléments entre les deux sont sautés.
 fn infinitive_introducer(ctx: &Context, i: usize) -> Option<usize> {
     let mut p = ctx.prev(i)?;
+    // Pronoms compléments, négation et adverbes entre l'introducteur et le verbe :
+    // « pour mieux comprit », « avant de ne pas rentré ».
     while matches!(
         lower(ctx, p),
         "me" | "m’"
@@ -1750,9 +1752,25 @@ fn infinitive_introducer(ctx: &Context, i: usize) -> Option<usize> {
             | "pas"
             | "plus"
             | "jamais"
+            | "mieux"
+            | "bien"
+            | "mal"
+            | "vite"
+            | "trop"
+            | "tout"
     ) {
         p = ctx.prev(p)?;
     }
+    // Verbes qui se construisent avec « de » ou « à » et un infinitif ; le verbe peut
+    // être conjugué ou au participe (« a commencé à parlé »).
+    let governs = |q: usize, lemmas: &[&str]| {
+        ctx.form(q).is_some_and(|f| {
+            f.has(|r| {
+                (r.is_finite_verb() || r.is_past_participle() || r.is_infinitive())
+                    && lemmas.contains(&r.lemma.as_str())
+            }) && !f.has(|r| matches!(r.pos, Pos::Nom | Pos::Adj) && !r.pos.is_verb())
+        })
+    };
     match lower(ctx, p) {
         // « tenir pour avéré », « laissé pour mort » : attribut.
         "pour" => (!ctx.prev(p).and_then(|q| ctx.form(q)).is_some_and(|f| {
@@ -1769,30 +1787,61 @@ fn infinitive_introducer(ctx: &Context, i: usize) -> Option<usize> {
             let q = ctx.prev(p)?;
             let before = ctx.prev(q).map(|b| lower(ctx, b));
             (matches!(lower(ctx, q), "avant" | "afin" | "histoire" | "plutôt")
-                || (lower(ctx, q) == "lieu" && before == Some("au")))
+                || (lower(ctx, q) == "lieu" && before == Some("au"))
+                || governs(
+                    q,
+                    &[
+                        "venir",
+                        "cesser",
+                        "finir",
+                        "décider",
+                        "essayer",
+                        "refuser",
+                        "oublier",
+                        "tenter",
+                        "arrêter",
+                        "risquer",
+                        "accepter",
+                        "éviter",
+                        "regretter",
+                        "proposer",
+                        "promettre",
+                        "mériter",
+                        "tâcher",
+                        "craindre",
+                        "permettre",
+                        "menacer",
+                        "manquer",
+                        "rêver",
+                        "empêcher",
+                        "interdire",
+                    ],
+                ))
             .then_some(p)
         }
         "à" => {
             let q = ctx.prev(p)?;
-            ctx.form(q)
-                .is_some_and(|f| {
-                    f.has(|r| {
-                        r.is_finite_verb()
-                            && matches!(
-                                r.lemma.as_str(),
-                                "commencer"
-                                    | "continuer"
-                                    | "apprendre"
-                                    | "réussir"
-                                    | "hésiter"
-                                    | "parvenir"
-                                    | "tarder"
-                                    | "s’habituer"
-                                    | "renoncer"
-                            )
-                    }) && !f.has(|r| matches!(r.pos, Pos::Nom | Pos::Adj))
-                })
-                .then_some(p)
+            governs(
+                q,
+                &[
+                    "commencer",
+                    "continuer",
+                    "apprendre",
+                    "réussir",
+                    "hésiter",
+                    "parvenir",
+                    "tarder",
+                    "renoncer",
+                    "passer",
+                    "servir",
+                    "chercher",
+                    "arriver",
+                    "autoriser",
+                    "inviter",
+                    "obliger",
+                ],
+            )
+            .then_some(p)
         }
         _ => None,
     }
@@ -1862,7 +1911,7 @@ fn participle_for_infinitive(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
             let verbal_only = !form.has(Reading::is_infinitive)
                 && !is_class(ctx, i, "clitique")
                 && !ctx.data.subjects.contains_key(w.lower.as_str())
-                && w.lower != "importe"
+                && !matches!(w.lower.as_str(), "importe" | "tâtons" | "reculons")
                 && form.has(usable)
                 && form
                     .readings

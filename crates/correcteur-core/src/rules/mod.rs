@@ -75,6 +75,8 @@ pub const CODE_RULES: &[&str] = &[
     syntax::NOUN_EXPECTED,
     verbs::IMPERATIVE,
     verbs::BARE_PARTICIPLE,
+    verbs::BARE_INFINITIVE,
+    verbs::PARTICIPLE_AGREEMENT,
     style::REPETITION,
     style::LONG_SENTENCE,
     typo::SPACE_BEFORE_MISSING,

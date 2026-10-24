@@ -155,6 +155,14 @@ fn is_preverbal_subject(ctx: &Context, i: Option<usize>) -> bool {
 fn check_a_accent(ctx: &Context, i: usize) -> bool {
     let p = ctx.prev(i);
     let n = ctx.next(i);
+    // « a commencé à parlé » : après un verbe qui se construit avec « à », c'est la
+    // préposition, même devant un participe (une autre règle relève le participe).
+    if form(ctx, p).is_some_and(|f| {
+        f.has(|r| r.pos.is_verb() && !r.is_infinitive() && ctx.data.verbs_with_a.contains(&r.lemma))
+            && !f.has_pos(Pos::Nom)
+    }) {
+        return false;
+    }
     if lower_is(ctx, n, RELATIVES) {
         return false; // « c’est elle à qui je pense »
     }
