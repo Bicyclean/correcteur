@@ -391,11 +391,36 @@ ps foutis foutis foutit foutîmes foutîtes foutirent
 fut foutr
 ppas foutu
 
+modele frire frire
+pres fris fris frit - - -
+impf - - - - - -
+ps - - - - - -
+fut frir
+ppas frit frits frite frites
+subj - - - - - -
+imp fris - -
+ppre -
+
+modele choir choir
+pres chois chois choit choyons choyez choient
+ps chus chus chut chûmes chûtes churent
+fut choir/cherr
+ppas chu chus chue chues
+
+modele absoudre oudre
+pres ous ous out olvons olvez olvent
+ps olus olus olut olûmes olûtes olurent
+fut oudr
+ppas ous ous oute outes
+
 modele asseoir asseoir
 pres assieds/assois assieds/assois assied/assoit asseyons/assoyons asseyez/assoyez asseyent/assoient
 ps assis assis assit assîmes assîtes assirent
 fut assiér/assoir
 ppas assis
+impf asseyais/assoyais asseyais/assoyais asseyait/assoyait asseyions/assoyions asseyiez/assoyiez asseyaient/assoyaient
+subj asseye/assoie asseyes/assoies asseye/assoie asseyions/assoyions asseyiez/assoyiez asseyent/assoient
+ppre asseyant/assoyant
 
 # --- 3e groupe : -re ----------------------------------------------------------
 
