@@ -433,11 +433,13 @@ fn bare_infinitive(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     let person = subject.person.as_str();
     let mut suggestions: Vec<String> = Vec::new();
     for tense in ["ind.pres", "ind.impf", "ind.fut"] {
-        for f in inflected(ctx, &reading.lemma, Pos::Ver, &format!("{tense}.{person}")) {
+        if let Some(f) = inflected(ctx, &reading.lemma, Pos::Ver, &format!("{tense}.{person}"))
+            .into_iter()
+            .next()
+        {
             if !suggestions.contains(&f) {
                 suggestions.push(f);
             }
-            break;
         }
     }
     let Some(first) = suggestions.first().cloned() else {
