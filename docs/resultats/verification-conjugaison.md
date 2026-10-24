@@ -5,7 +5,7 @@ Deux volets : les **tables** (le logiciel conjugue-t-il juste ?) et la
 
 ## Tables de conjugaison
 
-1 195 formes attendues, rédigées d'après la conjugaison usuelle, couvrent une
+1 225 formes attendues, rédigées d'après la conjugaison usuelle, couvrent une
 centaine de verbes (réguliers, irréguliers, à changement de radical, en -cer,
 -ger, -yer, -eler, -eter, défectifs) à tous les temps simples, plus les
 participes et l'impératif : `corpus/fr/conjugaison/formes.tsv`, vérifié par
@@ -51,7 +51,7 @@ conditionnel passé 2e forme, impératifs pronominaux, *vaincre*, *moudre*,
 *clore*, accords de collectifs) : **aucune** alerte. Sur 820 000 mots de romans et
 d'articles de Wikipédia : aucune fausse alerte nouvelle ; les seules alertes
 nouvelles sont de vraies fautes des textes (« sans qu'il s'en rendit compte »,
-« il est bien possible que cette allégresse fut vaine »). 224 fausses alertes
+« il est bien possible que cette allégresse fut vaine »). 59 fausses alertes
 d'orthographe disparaissent (participes féminins et pluriels que Lexique
 n'atteste pas : « archivée », « réutilisées »…).
 
