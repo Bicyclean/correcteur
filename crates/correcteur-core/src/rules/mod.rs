@@ -147,6 +147,8 @@ pub struct Context<'a> {
     /// Entrée du lexique de chaque mot, cherchée une seule fois : les règles
     /// interrogent souvent le même mot (voisins, sujet, groupe nominal).
     forms: Vec<Option<&'a Form>>,
+    /// Formes conjuguées que Lexique n'atteste pas mais que les modèles produisent.
+    synthetic: Vec<Option<Form>>,
 }
 
 impl<'a> Context<'a> {
@@ -166,6 +168,20 @@ impl<'a> Context<'a> {
                     .find(&w.norm)
                     .or_else(|| with_circumflex(lexicon, &w.lower))
             })
+            .collect::<Vec<Option<&'a Form>>>();
+        let synthetic = words
+            .iter()
+            .zip(&forms)
+            .map(|(w, f)| {
+                // Les noms propres (majuscule hors début de phrase) n'en sont pas.
+                if f.is_some()
+                    || w.compound_part
+                    || (w.text.chars().next().is_some_and(char::is_uppercase) && !w.sentence_start)
+                {
+                    return None;
+                }
+                synthetic_form(data, &w.lower)
+            })
             .collect();
         Context {
             text,
@@ -176,6 +192,7 @@ impl<'a> Context<'a> {
             ignored,
             words,
             forms,
+            synthetic,
         }
     }
 
@@ -190,8 +207,12 @@ impl<'a> Context<'a> {
     }
 
     /// Entrée du lexique pour le mot d'indice `i`.
-    pub fn form(&self, i: usize) -> Option<&'a Form> {
-        self.forms.get(i).copied().flatten()
+    pub fn form(&self, i: usize) -> Option<&Form> {
+        self.forms
+            .get(i)
+            .copied()
+            .flatten()
+            .or_else(|| self.synthetic.get(i).and_then(Option::as_ref))
     }
 }
 
@@ -221,4 +242,28 @@ fn with_circumflex<'a>(lexicon: &'a Lexicon, lower: &str) -> Option<&'a Form> {
             v[i] = if v[i] == 'i' { 'î' } else { 'û' };
             lexicon.get(&v.into_iter().collect::<String>())
         })
+}
+
+/// Forme conjuguée absente de Lexique, d'après les modèles : lectures verbales
+/// avec leurs traits (« élevâtes » → *élever*, `ind.ps.2p`).
+fn synthetic_form(data: &Data, lower: &str) -> Option<Form> {
+    if lower.chars().count() < 4 || lower.contains(|c: char| !c.is_alphabetic()) {
+        return None;
+    }
+    let readings: Vec<crate::lexicon::Reading> = data
+        .conjugator
+        .readings_of(lower)
+        .into_iter()
+        .map(|(lemma, traits)| crate::lexicon::Reading {
+            lemma,
+            pos: crate::lexicon::Pos::Ver,
+            traits,
+        })
+        .collect();
+    (!readings.is_empty()).then(|| Form {
+        text: lower.to_string(),
+        freq: 0.0,
+        verb_freq: 0.0,
+        readings,
+    })
 }

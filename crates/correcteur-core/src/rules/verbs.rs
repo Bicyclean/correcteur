@@ -126,8 +126,29 @@ fn imperative(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         return;
     }
     // Sans trait d'union, seul un mot qui n'est que verbe est un impératif sûr.
+    // « Passes ici », « Donnes le livre » : le pluriel d'un nom (« les passes ») ne
+    // s'écrit pas ainsi en tête de phrase quand un complément, un adverbe ou un
+    // pronom suit et non un verbe.
+    let noun_homograph = initial(ctx, i)
+        && w.lower.ends_with("es")
+        && form.has(|r| r.is_finite_verb() && r.person() == Some("2s") && r.lemma.ends_with("er"))
+        && !form.has(|r| matches!(r.pos, Pos::Adv | Pos::Pre | Pos::Con | Pos::Det | Pos::Pro))
+        && ctx.next(i).is_some_and(|n| {
+            let nf = ctx.form(n);
+            // « Rêves d’amour et rêves moins chimériques » : groupe nominal en tête.
+            !matches!(
+                lower(ctx, n),
+                "de" | "d’" | "du" | "des" | "et" | "ou" | "ni"
+            ) && !nf.is_some_and(|f| f.has(Reading::is_finite_verb) && !f.has_pos(Pos::Nom))
+                && (ctx.data.determiners.contains_key(lower(ctx, n))
+                    || is_class(ctx, n, "clitique")
+                    || nf.is_some_and(|f| {
+                        f.has(|r| matches!(r.pos, Pos::Pre | Pos::Adv | Pos::Pro))
+                    }))
+        });
     if !object
         && !plain_verb(form)
+        && !noun_homograph
         && !(after_ne(ctx, i) && !form.has(|r| r.pos != Pos::Nom && !r.pos.is_verb()))
     {
         return;

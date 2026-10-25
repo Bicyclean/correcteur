@@ -353,6 +353,9 @@ pub struct Conjugator {
     extra: HashSet<String>,
     /// (squelette de l'infinitif, infinitif), trié : verbes par début de mot.
     by_skeleton: Vec<(String, String)>,
+    /// Formes conjuguées des verbes à radical irrégulier (« vîtes », « sûtes »), que la
+    /// recherche par début de mot ne retrouve pas ; calculées à la première demande.
+    irregular: std::sync::OnceLock<HashMap<String, Vec<(String, String)>>>,
 }
 
 impl Conjugator {
@@ -382,6 +385,7 @@ impl Conjugator {
             etre,
             extra: HashSet::new(),
             by_skeleton,
+            irregular: std::sync::OnceLock::new(),
         })
     }
 
@@ -419,7 +423,103 @@ impl Conjugator {
     /// verbe rare masquerait une faute courante (« musé » de *muser* pour
     /// « musée »).
     pub fn is_form(&self, word: &str) -> bool {
-        self.find_form(word, false).is_some()
+        self.find_form(word, false).is_some() || self.irregular_forms().contains_key(word)
+    }
+
+    /// Formes conjuguées (ni participes ni infinitifs) des verbes dont le radical
+    /// change d'un temps à l'autre : « voir » → « vîtes », « savoir » → « sûtes ».
+    fn irregular_forms(&self) -> &HashMap<String, Vec<(String, String)>> {
+        const STEM_SHARING: &[&str] = &[
+            "chanter",
+            "finir",
+            "manger",
+            "placer",
+            "espérer",
+            "nettoyer",
+            "appeler",
+            "jeter",
+            "payer",
+            "répéter",
+            "geler",
+            "céder",
+            "sécher",
+            "mener",
+            "lever",
+            "protéger",
+            "aliéner",
+            "disséquer",
+            "acheter",
+            "rendre",
+        ];
+        self.irregular.get_or_init(|| {
+            let mut map: HashMap<String, Vec<(String, String)>> = HashMap::new();
+            for (verb, model) in &self.verbs {
+                // Verbes à radical très court (« tuer », « lier ») : le début du mot ne
+                // suffit pas à les retrouver (« tuâmes »).
+                let short = verb.chars().count() <= 5;
+                if (STEM_SHARING.contains(&model.as_str()) && !short) || self.extra.contains(verb) {
+                    continue;
+                }
+                let forms = self
+                    .models
+                    .get(model)
+                    .and_then(|m| m.conjugate(verb))
+                    .map(|f| traits_forms(&f))
+                    .unwrap_or_default();
+                for (t, x) in forms {
+                    if !t.starts_with("pp") && t != "inf" {
+                        map.entry(x).or_default().push((verb.clone(), t));
+                    }
+                }
+            }
+            map
+        })
+    }
+
+    /// Lectures (infinitif, trait) d'une forme conjuguée de Lexique que celui-ci
+    /// n'atteste pas (« élevâtes », « vîtes »), participes et infinitifs exclus.
+    pub fn readings_of(&self, word: &str) -> Vec<(String, String)> {
+        let mut out: Vec<(String, String)> = Vec::new();
+        if let Some(found) = self.irregular_forms().get(word) {
+            out.extend(found.iter().cloned());
+        }
+        const MAX_TRIED: usize = 150;
+        let skel = skeleton(word);
+        let chars: Vec<char> = skel.chars().collect();
+        let mut tried: HashSet<&str> = HashSet::new();
+        for k in (3..=chars.len()).rev() {
+            let prefix: String = chars[..k].iter().collect();
+            let from = self
+                .by_skeleton
+                .partition_point(|(s, _)| s.as_str() < prefix.as_str());
+            for (s, verb) in &self.by_skeleton[from..] {
+                if !s.starts_with(&prefix) || tried.len() >= MAX_TRIED {
+                    break;
+                }
+                if self.extra.contains(verb.as_str()) || !tried.insert(verb) {
+                    continue;
+                }
+                let forms = self
+                    .verbs
+                    .get(verb)
+                    .and_then(|m| self.models.get(m))
+                    .and_then(|m| m.conjugate(verb))
+                    .map(|f| traits_forms(&f))
+                    .unwrap_or_default();
+                for (t, x) in forms {
+                    if x == word && !t.starts_with("pp") && t != "inf" {
+                        let entry = (verb.clone(), t);
+                        if !out.contains(&entry) {
+                            out.push(entry);
+                        }
+                    }
+                }
+            }
+            if tried.len() >= MAX_TRIED {
+                break;
+            }
+        }
+        out
     }
 
     /// Si `word` est une forme, infinitif et participes compris, d'un verbe

@@ -288,8 +288,14 @@ fn preceding_object(
         return false;
     }
     // « les années qu’il a vécu », « la maison qu’il a fait construire » : invariable.
-    let invariable =
-        ft.has(|r| r.is_past_participle() && ctx.data.is(&r.lemma, "participe_invariable"));
+    // « les lettres que j’ai faites », « les leçons qu’il a sues » : faire et savoir
+    // s'accordent quand rien ne suit (« qu’il a fait construire » reste invariable).
+    let alone = ctx.next(t).is_none();
+    let invariable = ft.has(|r| {
+        r.is_past_participle()
+            && ctx.data.is(&r.lemma, "participe_invariable")
+            && !(alone && matches!(r.lemma.as_str(), "faire" | "savoir"))
+    });
     // Après le participe, un infinitif, une préposition ou « que » changent la
     // construction : « qu’il a fait construire », « que j’avais fini par »,
     // « que j’aurais aimé qu’elle ».
@@ -1495,6 +1501,10 @@ fn is_subject_pronoun(ctx: &Context, p: usize, depth: usize) -> bool {
         match lower(ctx, b) {
             "quand" | "lorsque" | "si" | "puisque" | "mais" | "car" => return true,
             "que" | "qu’" | "qu'" => {
+                // « Il fallait que vous défendissiez » : le subjonctif demande un sujet.
+                if subjunctive_trigger(ctx, b).is_some() {
+                    return true;
+                }
                 return b.checked_sub(1).is_some_and(|c| {
                     matches!(
                         lower(ctx, c),
@@ -1629,7 +1639,7 @@ fn coordinated_subject(ctx: &Context, subject: &FoundSubject) -> bool {
                 // « aussi bien X que Y », « ainsi que », « tant X que Y », « de
                 // plus savants que son neveu eussent » ; pas « je pense que les
                 // enfants… ».
-                || (lower(ctx, b) == "que"
+                || (matches!(lower(ctx, b), "que" | "qu’" | "qu'")
                     && (b.saturating_sub(8)..b).any(|k| {
                         matches!(
                             lower(ctx, k),
@@ -2992,6 +3002,13 @@ fn subjunctive(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
         .readings
         .iter()
         .any(|r| r.mode_tense() == Some("sub.pres") && r.person() == Some(person));
+    // Le modèle admet cette forme au subjonctif (« qu’ils asseyent »).
+    let same = same
+        || indicative.iter().any(|r| {
+            inflected(ctx, &r.lemma, r.pos, &format!("sub.pres.{person}"))
+                .iter()
+                .any(|f| f.to_lowercase() == w.lower)
+        });
     if indicative.is_empty() || same {
         return;
     }
@@ -3005,11 +3022,8 @@ fn subjunctive(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
             .iter()
             .take(if matches!(person, "1p" | "2p") { 2 } else { 1 })
         {
-            for f in ctx
-                .lexicon
-                .inflect(&r.lemma, |x| x.pos == r.pos && x.traits == *traits)
-            {
-                let f = same_case(w.text, f);
+            for f in inflected(ctx, &r.lemma, r.pos, traits) {
+                let f = same_case(w.text, &f);
                 if !suggestions.contains(&f) {
                     suggestions.push(f);
                 }

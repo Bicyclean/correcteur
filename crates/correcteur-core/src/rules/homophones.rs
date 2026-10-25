@@ -149,7 +149,7 @@ fn lower_is(ctx: &Context, i: Option<usize>, set: &[&str]) -> bool {
     i.is_some_and(|i| set.contains(&ctx.words[i].lower.as_str()))
 }
 
-fn form<'a>(ctx: &Context<'a>, i: Option<usize>) -> Option<&'a Form> {
+fn form<'a>(ctx: &'a Context, i: Option<usize>) -> Option<&'a Form> {
     i.and_then(|i| ctx.form(i))
 }
 

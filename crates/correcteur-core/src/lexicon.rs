@@ -246,7 +246,10 @@ impl Lexicon {
                 })
             };
             // « moiti » (de *moitir*) est seul : un artefact, pas un verbe vivant.
-            if !attested(TRAITS[0]) || TRAITS.iter().filter(|t| attested(t)).count() < 2 {
+            if !attested(TRAITS[0])
+                || (TRAITS.iter().filter(|t| attested(t)).count() < 2
+                    && !conjugator.takes_etre(verb))
+            {
                 continue;
             }
             let Some(forms) = conjugator.past_participles(verb) else {

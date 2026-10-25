@@ -178,3 +178,38 @@ HOMO_QUANT_QUAND	⟦Quant→Quand⟧ il pleut, je reste à la maison.	CONTRIB-IN
 HOMO_QUANT_QUAND	Quant à moi, je reste à la maison.	CONTRIB-INIT
 HOMO_CES_C_EST	⟦Ces→C’est⟧ dommage qu’il ne soit pas venu.	CONTRIB-INIT
 HOMO_CES_C_EST	Ces enfants sont bien contents de partir.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Vous vîtes la mer, vous prîtes un bateau et vous sûtes tout.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous tuâmes le temps et vous tuâtes le veau gras.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Tous deux élevèrent la voix, mais ils ⟦élevâtes→élevèrent⟧ trop tard.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il faut que vous ⟦rangez→rangiez⟧ cette chambre.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il faut que vous rangiez cette chambre.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il faut qu’ils asseyent les enfants.	CONTRIB-INIT
+GRAM_IMPERATIF	⟦Passes→Passe⟧ ici et maintenant.	CONTRIB-INIT
+GRAM_IMPERATIF	Rêves d’amour et rêves moins chimériques sont là.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elles sont ⟦provenu→provenues⟧ de loin.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elles sont provenues de loin.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Les lettres que j’ai ⟦fait→faites⟧.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Les lettres qu’il a fait écrire sont là.	CONTRIB-INIT
+HOMO_A_VERBE	Ce que tu ⟦à→as⟧ fait est bien.	CONTRIB-INIT
+HOMO_PEU_PEUT	Je ⟦peu→peux⟧ vous aider si vous voulez.	CONTRIB-INIT
+HOMO_PEUT_PEU	Il mange ⟦peut→peu⟧ car il n’a pas faim.	CONTRIB-INIT
+HOMO_ET_EST	Il ⟦et→est⟧ grand et fort pour son âge.	CONTRIB-INIT
+ORTH_TRAIT_UNION	Il est ⟦peut être→peut-être⟧ malade.	CONTRIB-INIT
+ORTH_TRAIT_UNION	Il peut être malade depuis hier.	CONTRIB-INIT
+GRAM_NEGATION_NE	Je ⟦vois→ne vois⟧ personne dans la salle.	CONTRIB-INIT
+GRAM_INFINITIF_SEUL	Les soldats mangèrent, burent et s’⟦endormir→endormirent⟧ aussitôt.	CONTRIB-INIT
+GRAM_INFINITIF_SEUL	Il veut manger et boire.	CONTRIB-INIT
+GRAM_AUXILIAIRE	Il ⟦a rentré→est rentré⟧ dans la maison sans frapper.	CONTRIB-INIT
+GRAM_AUXILIAIRE	Il a rentré la voiture dans le garage.	CONTRIB-INIT
+GRAM_CENSE	Un homme ⟦censé→sensé⟧ qui parle ainsi.	CONTRIB-INIT
+GRAM_CENSE	Il habite ⟦prêt→près⟧ de la gare.	CONTRIB-INIT
+GRAM_CENSE	Un prêt de cinq mille euros.	CONTRIB-INIT
+GRAM_PARONYME	Nous devons ⟦palier→pallier⟧ ce manque de personnel.	CONTRIB-INIT
+GRAM_PARONYME	Il habite au deuxième palier.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	⟦Le voiture→La voiture⟧ de mon père est en panne.	CONTRIB-INIT
+GRAM_CONTRACTION	Il habite ⟦à le→au⟧ centre de la ville.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_LES	Elle a écrit ces lettres et les a ⟦envoyé→envoyés⟧ hier.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il m’a demandé de ⟦venu→venir⟧ le voir demain.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il a fini par ⟦accepté→accepter⟧ notre offre.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Je l’ai entendu ⟦chanté→chanter⟧ dans la rue.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il se sait aimé de tous.	CONTRIB-INIT
