@@ -149,10 +149,18 @@ pub struct Form {
     pub text: String,
     /// Somme des fréquences de toutes les lectures.
     pub freq: f32,
+    /// Part de `freq` qui revient aux lectures verbales.
+    pub verb_freq: f32,
     pub readings: Vec<Reading>,
 }
 
 impl Form {
+    /// Le mot est bien plus souvent un nom (ou autre mot) qu'un verbe : « voiture »,
+    /// « centre », « livre ».
+    pub fn mostly_not_verb(&self) -> bool {
+        self.verb_freq * 10.0 < self.freq - self.verb_freq
+    }
+
     pub fn has(&self, pred: impl Fn(&Reading) -> bool) -> bool {
         self.readings.iter().any(pred)
     }
@@ -274,6 +282,9 @@ impl Lexicon {
         if let Some(&id) = self.by_text.get(&text) {
             let form = &mut self.forms[id as usize];
             form.freq += freq;
+            if reading.pos.is_verb() {
+                form.verb_freq += freq;
+            }
             if !form.readings.contains(&reading) {
                 form.readings.push(reading);
             }
@@ -292,6 +303,7 @@ impl Lexicon {
         self.forms.push(Form {
             text,
             freq,
+            verb_freq: if reading.pos.is_verb() { freq } else { 0.0 },
             readings: vec![reading],
         });
         id

@@ -32,6 +32,8 @@ pub const QU_ELLE_QUELLE: &str = "HOMO_QU_ELLE_QUELLE";
 pub const PEU_PEUT: &str = "HOMO_PEU_PEUT";
 pub const PEUT_PEU: &str = "HOMO_PEUT_PEU";
 pub const QUAND_QUANT: &str = "HOMO_QUAND_QUANT";
+pub const QUANT_QUAND: &str = "HOMO_QUANT_QUAND";
+pub const CES_C_EST: &str = "HOMO_CES_C_EST";
 pub const SON_SONT: &str = "HOMO_SON_SONT";
 pub const SONT_SON: &str = "HOMO_SONT_SON";
 pub const QUELQUE_QUEL_QUE: &str = "HOMO_QUELQUE_QUEL_QUE";
@@ -87,7 +89,10 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
             continue;
         }
         let fix = match w.lower.as_str() {
-            "à" => check_a_accent(ctx, i).then_some((A_ACCENT, "a")),
+            "à" => match first_person_before(ctx, i) {
+                Some(form) => Some((A_ACCENT, form)),
+                None => check_a_accent(ctx, i).then_some((A_ACCENT, "a")),
+            },
             "a" => check_a(ctx, i).then_some((A_SANS_ACCENT, "à")),
             "ou" => check_ou(ctx, i).then_some((OU_ACCENT, "où")),
             "où" => check_ou_accent(ctx, i).then_some((OU_SANS_ACCENT, "ou")),
@@ -101,11 +106,15 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
             "sa" => check_sa(ctx, i).then_some((SA_CA, "ça")),
             "ça" => check_ca(ctx, i).then_some((CA_SA, "sa")),
             "ses" => check_ses(ctx, i).then_some((SES_CES, "ces")),
-            "ces" => check_ces(ctx, i).then_some((CES_SES, "ses")),
+            "ces" => match check_ces_cest(ctx, i) {
+                true => Some((CES_C_EST, "c’est")),
+                false => check_ces(ctx, i).then_some((CES_SES, "ses")),
+            },
             "leurs" => check_leurs(ctx, i).then_some((LEURS_LEUR, "leur")),
             "quelle" => check_quelle(ctx, i).then_some((QUELLE_QU_ELLE, "qu’elle")),
             "quelles" => check_quelle(ctx, i).then_some((QUELLE_QU_ELLE, "qu’elles")),
-            "peu" => check_peu(ctx, i).then_some((PEU_PEUT, "peut")),
+            "peu" => check_peu(ctx, i),
+            "quant" => check_quant(ctx, i).then_some((QUANT_QUAND, "quand")),
             "peut" => check_peut(ctx, i).then_some((PEUT_PEU, "peu")),
             "quand" => check_quand(ctx, i).then_some((QUAND_QUANT, "quant")),
             "son" => check_son(ctx, i).then_some((SON_SONT, "sont")),
@@ -830,12 +839,23 @@ fn check_et(ctx: &Context, i: usize) -> bool {
     ) {
         return false;
     }
+    // « Tout cela et plus encore » : adverbes de degré.
+    if lower_is(
+        ctx,
+        ctx.next(i),
+        &[
+            "plus", "moins", "encore", "aussi", "autant", "tant", "beaucoup", "mieux", "bien",
+            "tout", "très",
+        ],
+    ) {
+        return false;
+    }
     form(ctx, ctx.next(i)).is_some_and(|f| {
         f.has(|r| r.pos == Pos::Adj || r.is_past_participle())
             && !f.has(|r| {
                 matches!(
                     r.pos,
-                    Pos::Pro | Pos::Det | Pos::NomPropre | Pos::Con | Pos::Pre | Pos::Adv
+                    Pos::Pro | Pos::Det | Pos::NomPropre | Pos::Con | Pos::Pre
                 )
             })
     })
@@ -902,6 +922,17 @@ fn check_on(ctx: &Context, i: usize) -> bool {
         .is_some_and(|q| form(ctx, Some(q)).is_some_and(|f| f.has_pos(Pos::Pre)));
     if matches!(p, Some("ils" | "elles")) {
         return !after_preposition;
+    }
+    // « Les enfants on faim » : locution avec avoir.
+    if lower_is(
+        ctx,
+        n,
+        &[
+            "faim", "soif", "peur", "raison", "tort", "besoin", "envie", "chaud", "froid", "honte",
+            "sommeil", "hâte", "mal", "lieu", "droit",
+        ],
+    ) {
+        return true;
     }
     form(ctx, n).is_some_and(|f| {
         f.has(super::super::lexicon::Reading::is_past_participle)
@@ -1043,6 +1074,46 @@ fn check_ses(ctx: &Context, i: usize) -> bool {
 }
 
 /// « ces propres enfants » → « ses » : « propre » placé avant le nom marque la possession.
+/// « Ces dommage que… », « ces vrai » → « c’est » : « ces » devant un adjectif
+/// ou un nom au singulier suivi de « que », « de », « pour ».
+fn check_ces_cest(ctx: &Context, i: usize) -> bool {
+    let w = &ctx.words[i];
+    if w.compound_part {
+        return false;
+    }
+    let n = ctx.next(i);
+    lower_is(
+        ctx,
+        n,
+        &[
+            "dommage",
+            "normal",
+            "vrai",
+            "faux",
+            "possible",
+            "impossible",
+            "évident",
+            "clair",
+            "certain",
+            "sûr",
+            "mieux",
+            "inutile",
+            "triste",
+            "étonnant",
+            "exact",
+            "logique",
+            "naturel",
+            "important",
+            "génial",
+            "bête",
+        ],
+    ) && lower_is(
+        ctx,
+        n.and_then(|n| ctx.next(n)),
+        &["que", "qu’", "de", "d’", "pour"],
+    )
+}
+
 fn check_ces(ctx: &Context, i: usize) -> bool {
     let n = ctx.next(i);
     lower_is(ctx, n, &["propres"])
@@ -1261,29 +1332,136 @@ fn check_quand(ctx: &Context, i: usize) -> bool {
         })
 }
 
-fn check_peu(ctx: &Context, i: usize) -> bool {
-    let Some(mut p) = ctx.prev(i) else {
-        return false;
-    };
+fn check_peu(ctx: &Context, i: usize) -> Option<(&'static str, &'static str)> {
+    let mut p = ctx.prev(i)?;
     let negated = matches!(ctx.words[p].lower.as_str(), "ne" | "n’");
     if negated {
-        let Some(q) = ctx.prev(p) else { return false };
-        p = q;
+        p = ctx.prev(p)?;
     }
     let pw = &ctx.words[p];
-    if pw.compound_part || !matches!(pw.lower.as_str(), "il" | "elle" | "on" | "ça" | "cela") {
-        return false;
+    if pw.compound_part {
+        return None;
     }
+    // « tu peu venir » → « peux », « il peu venir » → « peut ».
+    let fixed = match pw.lower.as_str() {
+        "il" | "elle" | "on" | "ça" | "cela" => "peut",
+        "tu" | "je" | "j’" => "peux",
+        _ => return None,
+    };
     if lower_is(ctx, ctx.prev(p), PREPOSITIONS_BEFORE_PRONOUN) {
-        return false;
+        return None;
     }
+    // « je peu vous aider » : pronoms compléments avant l'infinitif.
+    let mut n = ctx.next(i);
+    while n.is_some_and(|k| {
+        matches!(
+            ctx.words[k].lower.as_str(),
+            "vous"
+                | "nous"
+                | "le"
+                | "la"
+                | "l’"
+                | "les"
+                | "lui"
+                | "leur"
+                | "me"
+                | "m’"
+                | "te"
+                | "t’"
+                | "se"
+                | "s’"
+                | "y"
+                | "en"
+        )
+    }) {
+        n = n.and_then(|k| ctx.next(k));
+    }
+    (form(ctx, n).is_some_and(|f| f.has(super::super::lexicon::Reading::is_infinitive))
+        || negated && n.is_some_and(|n| ctx.data.is(&ctx.words[n].lower, "negation")))
+    .then_some((PEU_PEUT, fixed))
+}
+
+/// « Quant il pleut » : « quant » devant un sujet et son verbe est « quand ».
+fn check_quant(ctx: &Context, i: usize) -> bool {
     let n = ctx.next(i);
-    form(ctx, n).is_some_and(|f| f.has(super::super::lexicon::Reading::is_infinitive))
-        || negated && n.is_some_and(|n| ctx.data.is(&ctx.words[n].lower, "negation"))
+    lower_is(
+        ctx,
+        n,
+        &[
+            "il", "elle", "on", "ils", "elles", "je", "j’", "tu", "nous", "vous",
+        ],
+    ) && form(ctx, n.and_then(|n| ctx.next(n)))
+        .is_some_and(|f| f.has(super::super::lexicon::Reading::is_finite_verb))
+}
+
+/// Pronom sujet de la 1re ou 2e personne juste avant « à » : « tu à fait » →
+/// « as », « j’à vu » → « ai » ; « ils à » → « ont ».
+fn first_person_before(ctx: &Context, i: usize) -> Option<&'static str> {
+    if ctx.words[i].compound_part {
+        return None;
+    }
+    let mut p = ctx.prev(i)?;
+    while matches!(
+        ctx.words[p].lower.as_str(),
+        "y" | "en"
+            | "ne"
+            | "n’"
+            | "le"
+            | "la"
+            | "l’"
+            | "les"
+            | "lui"
+            | "leur"
+            | "me"
+            | "m’"
+            | "te"
+            | "t’"
+            | "se"
+            | "s’"
+    ) {
+        p = ctx.prev(p)?;
+    }
+    ctx.next(i)?;
+    // « pour tu à » n'existe pas, mais « de moi à toi » : après une préposition, le
+    // pronom n'est pas sujet (« que » et « et » n'en sont pas).
+    if ctx.words[p].compound_part
+        || lower_is(
+            ctx,
+            ctx.prev(p),
+            &[
+                "à", "avec", "chez", "contre", "de", "entre", "par", "pour", "sans", "sur", "vers",
+            ],
+        )
+    {
+        return None;
+    }
+    match ctx.words[p].lower.as_str() {
+        "tu" => Some("as"),
+        "je" | "j’" => Some("ai"),
+        _ => None,
+    }
 }
 
 /// « un peut de sel », « à peut près » → « peu ».
 fn check_peut(ctx: &Context, i: usize) -> bool {
+    // « Il mange peut car il n’a pas faim » : après un verbe conjugué et devant une
+    // conjonction ou une ponctuation, c'est l'adverbe.
+    if !ctx.words[i].compound_part
+        && form(ctx, ctx.prev(i)).is_some_and(|f| {
+            f.has(super::super::lexicon::Reading::is_finite_verb)
+                && !f.has(|r| matches!(r.pos, Pos::Nom | Pos::Adj | Pos::Pro | Pos::Det))
+        })
+        && !lower_is(ctx, ctx.prev(i), &["il", "elle", "on", "ne", "n’"])
+        && match ctx.next(i) {
+            None => before_punctuation(ctx, i),
+            Some(n) => matches!(
+                ctx.words[n].lower.as_str(),
+                "car" | "mais" | "donc" | "que" | "qu’"
+            ),
+        }
+    {
+        return true;
+    }
     if ctx.words[i].compound_part
         || !lower_is(
             ctx,

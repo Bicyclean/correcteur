@@ -26,9 +26,11 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
         inversion_t(ctx, i, out);
         est_ce(ctx, i, out);
         sense(ctx, i, out);
+        sense_back(ctx, i, out);
         paronym(ctx, i, out);
         dont(ctx, i, out);
         hyphenated_wrongly(ctx, i, out);
+        peut_etre(ctx, i, out);
         noun_expected(ctx, i, out);
     }
 }
@@ -205,7 +207,8 @@ fn contraction(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     let noun_only = ctx.form(n).is_some_and(|f| {
         f.has_pos(Pos::Nom)
             && !f.has(|r| {
-                r.pos.is_verb() || matches!(r.pos, Pos::Adv | Pos::Pre | Pos::Pro | Pos::Con)
+                (r.pos.is_verb() && (!f.mostly_not_verb() || r.is_infinitive()))
+                    || matches!(r.pos, Pos::Adv | Pos::Pre | Pos::Pro | Pos::Con)
             })
     });
     if !noun_only || ctx.words[n].compound_part {
@@ -422,6 +425,62 @@ fn sense(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     );
 }
 
+/// « un homme censé », « très censé » → « sensé » ; « il habite prêt de la gare » →
+/// « près de ».
+fn sense_back(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
+    let w = &ctx.words[i];
+    let fixed = match w.lower.as_str() {
+        "censé" => "sensé",
+        "censée" => "sensée",
+        "censés" => "sensés",
+        "censées" => "sensées",
+        "prêt" | "prête" | "prêts" | "prêtes" => "près",
+        _ => return,
+    };
+    let Some(prev) = ctx.prev(i) else { return };
+    let before = ctx.form(prev);
+    let next_infinitive = ctx
+        .next(i)
+        .and_then(|n| ctx.form(n))
+        .is_some_and(|f| f.has(Reading::is_infinitive));
+    if fixed.starts_with("sens") {
+        let degree = matches!(
+            lower(ctx, prev),
+            "très" | "plus" | "moins" | "aussi" | "si" | "trop" | "assez" | "peu" | "bien" | "fort"
+        );
+        let after_noun = before.is_some_and(|f| {
+            f.has_pos(Pos::Nom)
+                && !f.has(|r| r.is_finite_verb() || r.pos == Pos::Aux)
+                && !f.has_pos(Pos::Pro)
+        }) && !ctx.data.determiners.contains_key(lower(ctx, prev));
+        // « il est censé » + infinitif est correct ; sinon, ou après un degré ou un nom, c'est « sensé ».
+        if next_infinitive || !(degree || after_noun) {
+            return;
+        }
+    } else {
+        // « prêt de » : après un verbe d'action (« il habite prêt de la gare »), pas
+        // « un prêt de 500 euros » ni « être prêt de ».
+        let de = ctx
+            .next(i)
+            .is_some_and(|n| matches!(lower(ctx, n), "de" | "d’" | "du" | "des"));
+        let action_verb = before.is_some_and(|f| {
+            f.has(Reading::is_finite_verb)
+                && !f.has(|r| matches!(r.lemma.as_str(), "être" | "avoir" | "rester"))
+                && !f.has(|r| matches!(r.pos, Pos::Nom | Pos::Adj | Pos::Det))
+        });
+        if !de || !action_verb {
+            return;
+        }
+    }
+    let fixed = same_case(w.text, fixed);
+    out.push(
+        RawIssue::new(w.start, w.end, SENSE)
+            .arg(w.text)
+            .arg(fixed.clone())
+            .suggest(fixed),
+    );
+}
+
 /// « une effraction au code de la route » → « infraction » : mot proche employé
 /// pour un autre, trahi par un mot du voisinage (`paronymes.tsv`).
 fn paronym(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
@@ -588,6 +647,59 @@ fn dont(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
 }
 
 /// « Quand-même » : le trait d'union est fautif (« quand même »).
+/// « Il est peut être malade », « Peut être qu’il viendra » → « peut-être ».
+/// Après un sujet (« il peut être malade »), c'est le verbe pouvoir suivi d'être.
+fn peut_etre(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
+    let a = &ctx.words[i];
+    if a.lower != "peut" || a.compound_part {
+        return;
+    }
+    let Some(b) = ctx.next(i).filter(|&b| lower(ctx, b) == "être") else {
+        return;
+    };
+    let adverb = match ctx.prev(i) {
+        // En tête de phrase ou de proposition, sans sujet : « Peut être qu’… ».
+        None => true,
+        Some(p) => {
+            let l = lower(ctx, p);
+            let finite_be = ctx.form(p).is_some_and(|f| {
+                f.has(|r| {
+                    r.is_finite_verb()
+                        && matches!(
+                            r.lemma.as_str(),
+                            "être" | "avoir" | "devenir" | "rester" | "paraître"
+                        )
+                })
+            });
+            finite_be
+                || matches!(
+                    l,
+                    "et" | "ou"
+                        | "mais"
+                        | "car"
+                        | "donc"
+                        | "que"
+                        | "qu’"
+                        | "alors"
+                        | "comme"
+                        | "puisque"
+                )
+        }
+    };
+    if !adverb {
+        return;
+    }
+    let (start, end) = (a.start, ctx.words[b].end);
+    let found = &ctx.text[start..end];
+    let fixed = same_case(a.text, "peut-être");
+    out.push(
+        RawIssue::new(start, end, HYPHEN)
+            .arg(found)
+            .arg(fixed.clone())
+            .suggest(fixed),
+    );
+}
+
 fn hyphenated_wrongly(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
     let a = &ctx.words[i];
     if a.lower == "quand-même" {

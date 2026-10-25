@@ -1,0 +1,180 @@
+# Audit : phrases fautives et phrases justes de l'audit de la version 0.8.1 (homophones, orthographe, grammaire, syntaxe,
+# vocabulaire, conjugaison). Rédigées pour ce projet.
+GRAM_ACCORD_ADJECTIF	Une grande maison ⟦blanc→blanche⟧ se trouve au bout du chemin.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Ils ont perdu ⟦leur clés→leurs clés⟧ dans le jardin.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	⟦Un belle journée→Une belle journée⟧ nous attend demain.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	⟦Le voiture→La voiture⟧ de mon père est en panne.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Le chat et le chien ⟦est→sont⟧ dans le jardin.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Mes parents ⟦habite→habitent⟧ dans une petite maison.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Je ⟦prend→prends⟧ le train tous les matins pour aller au travail.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Il ⟦vaux→vaut⟧ mieux partir tôt pour éviter les embouteillages.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ils ne veulent pas que nous partions, ils nous ⟦retiens→retiennent⟧.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Les prix ⟦augmente→augmentent⟧ chaque année depuis la crise.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ce sont mes amis qui me ⟦soutienne→soutiennent⟧ dans cette épreuve.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Il y a vingt ans, les gens ⟦écrivait→écrivaient⟧ plus de lettres.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Tu ⟦pourra→pourras⟧ venir quand tu voudras.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ils ⟦devrons→devront⟧ rendre ce rapport avant lundi.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ils ⟦ferait→feraient⟧ mieux de se taire maintenant.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Il est temps que tu te ⟦décide→décides⟧.	CONTRIB-INIT
+GRAM_AUXILIAIRE	Il ⟦a rentré→est rentré⟧ dans la maison sans frapper.	CONTRIB-INIT
+GRAM_AUXILIAIRE	Nous ⟦avons arrivé→sommes arrivés⟧ en retard à la réunion.	CONTRIB-INIT
+GRAM_CENSE	Il est ⟦près→prêt⟧ à partir dès que vous le voudrez.	CONTRIB-INIT
+GRAM_CENSE	Il habite ⟦prêt→près⟧ de la gare depuis des années.	CONTRIB-INIT
+GRAM_CONTRACTION	Il habite ⟦à le→au⟧ centre de la ville.	CONTRIB-INIT
+GRAM_CONTRACTION	Je vais ⟦à les→aux⟧ courses avec ma mère.	CONTRIB-INIT
+GRAM_EXPRESSION	⟦Voire même→Voire⟧ les plus sceptiques ont été convaincus.	CONTRIB-INIT
+GRAM_IMPERATIF	⟦Vas→Va⟧ te coucher, il est tard.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Il a ⟦éluder→éludé⟧ la question de manière habile.	CONTRIB-INIT
+GRAM_NEGATION_NE	Je ⟦vois→ne vois⟧ personne dans la salle.	CONTRIB-INIT
+GRAM_PARONYME	Nous devons ⟦palier→pallier⟧ ce manque de personnel rapidement.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Les chaises que nous avons ⟦acheté→achetées⟧ sont solides.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_LES	Elle a vu les enfants et les a ⟦emmené→emmenés⟧ au parc.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_LES	Je les ai ⟦vu→vus⟧ hier au marché.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_LES	Nous les avons ⟦invité→invités⟧ à dîner chez nous.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Les enfants sont ⟦content→contents⟧ de leur nouvelle école.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ces fleurs sont très ⟦beau→belles⟧ et sentent bon.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Les nouvelles règles sont plus ⟦strict→strictes⟧ que les anciennes.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ces informations sont très ⟦utile→utiles⟧ pour nous.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elle est très ⟦intelligent→intelligente⟧ et travailleuse.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ils sont ⟦allé→allés⟧ au cinéma sans nous prévenir.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Mes cousines sont ⟦arrivé→arrivées⟧ hier soir par le train.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elle est ⟦passé→passée⟧ me voir hier après-midi.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il a fini par ⟦accepté→accepter⟧ notre offre.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Nous allons ⟦visité→visiter⟧ le musée cet après-midi.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Je dois ⟦appelé→appeler⟧ le médecin demain matin.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Bien que nous ⟦sommes→soyons⟧ fatigués, nous continuons.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Afin que vous ⟦pouvez→puissiez⟧ comprendre, je vais expliquer.	CONTRIB-INIT
+GRAM_TOUT	⟦Tout→Tous⟧ les jours, il lit le journal.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Nous allons ⟦a→à⟧ la plage avec nos amis.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Les étudiants ont rendu leurs devoirs ⟦a temps→à temps⟧.	CONTRIB-INIT
+HOMO_A_VERBE	On ⟦à→a⟧ tous besoin de repos.	CONTRIB-INIT
+HOMO_A_VERBE	Il faut que je te parle de ce que tu ⟦à→as⟧ fait.	CONTRIB-INIT
+HOMO_CA_SA	⟦Ça→Sa⟧ mère est partie en voyage.	CONTRIB-INIT
+HOMO_CE_SE	Il ⟦ce→se⟧ lave les mains avant de manger.	CONTRIB-INIT
+HOMO_ET_EST	Il ⟦et→est⟧ grand et fort pour son âge.	CONTRIB-INIT
+HOMO_ONT_ON	⟦Ont→On⟧ verra bien ce qui se passe demain.	CONTRIB-INIT
+HOMO_ON_ONT	Les enfants ⟦on→ont⟧ faim et ils veulent manger.	CONTRIB-INIT
+HOMO_OU_RELATIF	Le village ⟦ou→où⟧ nous avons grandi a beaucoup changé.	CONTRIB-INIT
+HOMO_PEUT_PEU	Il parle trop ⟦peut→peu⟧ de lui-même.	CONTRIB-INIT
+HOMO_PEU_PEUT	Tu ⟦peu→peux⟧ venir quand tu veux.	CONTRIB-INIT
+HOMO_PEU_PEUT	Je ⟦peu→peux⟧ vous aider si vous voulez.	CONTRIB-INIT
+HOMO_QUAND_QUANT	⟦Quand→Quant⟧ à moi, je préfère rester ici.	CONTRIB-INIT
+HOMO_QUANT_QUAND	⟦Quant→Quand⟧ il pleut, je reste à la maison.	CONTRIB-INIT
+HOMO_QUELQUE_QUEL_QUE	⟦Quelque→Quel que⟧ soit ton choix, je le respecterai.	CONTRIB-INIT
+HOMO_SON_SONT	Ils ⟦son→sont⟧ partis sans rien dire à personne.	CONTRIB-INIT
+ORTH_FORME	Vous ⟦dîtes→dites⟧ toujours la même chose à vos clients.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Il a acheté un ordinateur très ⟦perfomant→performant⟧ pour son travail.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Elle a obtenu son ⟦diplome→diplôme⟧ avec les félicitations du jury.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous avons rencontré un problème technique ⟦innatendu→inattendu⟧.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Il habite un ⟦apartement→appartement⟧ au troisième étage.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Cette décision est ⟦completement→complètement⟧ injuste.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Cet exercice est vraiment ⟦difficille→difficile⟧ pour les débutants.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous avons visité plusieurs ⟦musés→musées⟧ pendant notre séjour.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Elle a une mémoire ⟦extraordinnaire→extraordinaire⟧ pour les dates.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Il est ⟦interessant→intéressant⟧ de noter que les résultats sont stables.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Il a toujours été très ⟦gentill→gentil⟧ avec tout le monde.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le président a prononcé un ⟦discour→discours⟧ très applaudi.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Il a fait une demande de ⟦remboursemment→remboursement⟧ la semaine dernière.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Cette ⟦sociéte→société⟧ existe depuis plus de cinquante ans.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Les résultats sont satisfaisants ⟦malgrè→malgré⟧ quelques retards.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Il a mangé un ⟦gateau→gâteau⟧ au chocolat à la fête.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Elle a acheté des fleurs pour ⟦decorer→décorer⟧ la table.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous ne ⟦pouvont→pouvons⟧ pas accepter cette proposition.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous ⟦écrivont→écrivons⟧ une lettre à la mairie.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Ils mettent la table et nous ⟦servont→servons⟧ le repas.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Pendant que tu dormais, nous ⟦préparion→préparions⟧ le dîner.	CONTRIB-INIT
+ORTH_TRAIT_UNION	Il est ⟦peut être→peut-être⟧ malade depuis hier.	CONTRIB-INIT
+ORTH_TRAIT_UNION	Un grand-père et une ⟦grand mère→grand-mère⟧ sont venus.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Une grande maison blanche se trouve au bout du chemin.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Ils ont perdu leurs clés dans le jardin.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	Une belle journée nous attend demain.	CONTRIB-INIT
+GRAM_ACCORD_DETERMINANT	La voiture de mon père est en panne.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Le chat et le chien sont dans le jardin.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Mes parents habitent dans une petite maison.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Je prends le train tous les matins pour aller au travail.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Il vaut mieux partir tôt pour éviter les embouteillages.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ils ne veulent pas que nous partions, ils nous retiennent.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Les prix augmentent chaque année depuis la crise.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ce sont mes amis qui me soutiennent dans cette épreuve.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Il y a vingt ans, les gens écrivaient plus de lettres.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Tu pourras venir quand tu voudras.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ils devront rendre ce rapport avant lundi.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ils feraient mieux de se taire maintenant.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Il est temps que tu te décides.	CONTRIB-INIT
+GRAM_AUXILIAIRE	Il est rentré dans la maison sans frapper.	CONTRIB-INIT
+GRAM_AUXILIAIRE	Nous sommes arrivés en retard à la réunion.	CONTRIB-INIT
+GRAM_CENSE	Il est prêt à partir dès que vous le voudrez.	CONTRIB-INIT
+GRAM_CENSE	Il habite près de la gare depuis des années.	CONTRIB-INIT
+GRAM_CONTRACTION	Il habite au centre de la ville.	CONTRIB-INIT
+GRAM_CONTRACTION	Je vais aux courses avec ma mère.	CONTRIB-INIT
+GRAM_EXPRESSION	Voire les plus sceptiques ont été convaincus.	CONTRIB-INIT
+GRAM_IMPERATIF	Va te coucher, il est tard.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Il a éludé la question de manière habile.	CONTRIB-INIT
+GRAM_NEGATION_NE	Je ne vois personne dans la salle.	CONTRIB-INIT
+GRAM_PARONYME	Nous devons pallier ce manque de personnel rapidement.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_COD	Les chaises que nous avons achetées sont solides.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_LES	Elle a vu les enfants et les a emmenés au parc.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_LES	Je les ai vus hier au marché.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_LES	Nous les avons invités à dîner chez nous.	CONTRIB-INIT
+GRAM_PARTICIPE_AVOIR_LES	Elle a écrit ces lettres et les a envoyées hier.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Les enfants sont contents de leur nouvelle école.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ces fleurs sont très belles et sentent bon.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Les nouvelles règles sont plus strictes que les anciennes.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ces informations sont très utiles pour nous.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elle est très intelligente et travailleuse.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ils sont allés au cinéma sans nous prévenir.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Mes cousines sont arrivées hier soir par le train.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elle est passée me voir hier après-midi.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il a fini par accepter notre offre.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Nous allons visiter le musée cet après-midi.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Elle sait cuisiner et dessiner.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Je dois appeler le médecin demain matin.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Bien que nous soyons fatigués, nous continuons.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Afin que vous puissiez comprendre, je vais expliquer.	CONTRIB-INIT
+GRAM_TOUT	Tous les jours, il lit le journal.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Nous allons à la plage avec nos amis.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Les étudiants ont rendu leurs devoirs à temps.	CONTRIB-INIT
+HOMO_A_VERBE	On a tous besoin de repos.	CONTRIB-INIT
+HOMO_A_VERBE	Il faut que je te parle de ce que tu as fait.	CONTRIB-INIT
+HOMO_CA_SA	Sa mère est partie en voyage.	CONTRIB-INIT
+HOMO_CE_SE	Il se lave les mains avant de manger.	CONTRIB-INIT
+HOMO_ET_EST	Il est grand et fort pour son âge.	CONTRIB-INIT
+HOMO_ONT_ON	On verra bien ce qui se passe demain.	CONTRIB-INIT
+HOMO_ON_ONT	Les enfants ont faim et ils veulent manger.	CONTRIB-INIT
+HOMO_OU_RELATIF	Le village où nous avons grandi a beaucoup changé.	CONTRIB-INIT
+HOMO_PEUT_PEU	Il parle trop peu de lui-même.	CONTRIB-INIT
+HOMO_PEU_PEUT	Tu peux venir quand tu veux.	CONTRIB-INIT
+HOMO_PEU_PEUT	Je peux vous aider si vous voulez.	CONTRIB-INIT
+HOMO_QUAND_QUANT	Quant à moi, je préfère rester ici.	CONTRIB-INIT
+HOMO_QUANT_QUAND	Quand il pleut, je reste à la maison.	CONTRIB-INIT
+HOMO_QUELQUE_QUEL_QUE	Quel que soit ton choix, je le respecterai.	CONTRIB-INIT
+HOMO_SON_SONT	Ils sont partis sans rien dire à personne.	CONTRIB-INIT
+ORTH_FORME	Vous dites toujours la même chose à vos clients.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Il a acheté un ordinateur très performant pour son travail.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Elle a obtenu son diplôme avec les félicitations du jury.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous avons rencontré un problème technique inattendu.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Il habite un appartement au troisième étage.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Cette décision est complètement injuste.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Cet exercice est vraiment difficile pour les débutants.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous avons visité plusieurs musées pendant notre séjour.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Elle a une mémoire extraordinaire pour les dates.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Il est intéressant de noter que les résultats sont stables.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Il a toujours été très gentil avec tout le monde.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le président a prononcé un discours très applaudi.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Il a fait une demande de remboursement la semaine dernière.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Cette société existe depuis plus de cinquante ans.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Les résultats sont satisfaisants malgré quelques retards.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Il a mangé un gâteau au chocolat à la fête.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Elle a acheté des fleurs pour décorer la table.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous ne pouvons pas accepter cette proposition.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous écrivons une lettre à la mairie.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Ils mettent la table et nous servons le repas.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Pendant que tu dormais, nous préparions le dîner.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Je me rendis compte de mon erreur trop tard.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Vous courrez plus vite si vous vous entraînez.	CONTRIB-INIT
+ORTH_TRAIT_UNION	Il est peut-être malade depuis hier.	CONTRIB-INIT
+ORTH_TRAIT_UNION	Un grand-père et une grand-mère sont venus.	CONTRIB-INIT
+HOMO_QUANT_QUAND	⟦Quant→Quand⟧ il pleut, je reste à la maison.	CONTRIB-INIT
+HOMO_QUANT_QUAND	Quant à moi, je reste à la maison.	CONTRIB-INIT
+HOMO_CES_C_EST	⟦Ces→C’est⟧ dommage qu’il ne soit pas venu.	CONTRIB-INIT
+HOMO_CES_C_EST	Ces enfants sont bien contents de partir.	CONTRIB-INIT

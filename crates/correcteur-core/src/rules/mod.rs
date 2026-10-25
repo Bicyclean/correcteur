@@ -42,6 +42,8 @@ pub const CODE_RULES: &[&str] = &[
     homophones::PEU_PEUT,
     homophones::PEUT_PEU,
     homophones::QUAND_QUANT,
+    homophones::QUANT_QUAND,
+    homophones::CES_C_EST,
     homophones::SON_SONT,
     homophones::S_C,
     homophones::SONT_SON,
@@ -157,7 +159,14 @@ impl<'a> Context<'a> {
     ) -> Context<'a> {
         let ignored = ignored_spans(text);
         let words = analyze(text, lexicon, data, user_words, &ignored);
-        let forms = words.iter().map(|w| lexicon.find(&w.norm)).collect();
+        let forms = words
+            .iter()
+            .map(|w| {
+                lexicon
+                    .find(&w.norm)
+                    .or_else(|| with_circumflex(lexicon, &w.lower))
+            })
+            .collect();
         Context {
             text,
             options,
@@ -195,4 +204,21 @@ pub fn run_all(ctx: &Context, out: &mut Vec<RawIssue>) {
     verbs::check(ctx, out);
     style::check(ctx, out);
     locutions::check(ctx, out);
+}
+
+/// Graphie rectifiée de 1990 sans circonflexe (« connait », « maitre ») : la forme
+/// traditionnelle du lexique (« connaît », « maître »), pour que les règles
+/// d'accord la voient.
+fn with_circumflex<'a>(lexicon: &'a Lexicon, lower: &str) -> Option<&'a Form> {
+    if lower.chars().count() < 4 || lower.contains(|c: char| !c.is_alphabetic()) {
+        return None;
+    }
+    let chars: Vec<char> = lower.chars().collect();
+    (0..chars.len())
+        .filter(|&i| matches!(chars[i], 'i' | 'u'))
+        .find_map(|i| {
+            let mut v = chars.clone();
+            v[i] = if v[i] == 'i' { 'î' } else { 'û' };
+            lexicon.get(&v.into_iter().collect::<String>())
+        })
 }

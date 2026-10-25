@@ -18,6 +18,8 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
         imperative(ctx, i, out);
         bare_participle(ctx, i, out);
         bare_infinitive(ctx, i, out);
+        coordinated_infinitive(ctx, i, out);
+        dites(ctx, i, out);
         etant_participle(ctx, i, out);
     }
 }
@@ -530,5 +532,171 @@ fn etant_participle(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
             .arg(first)
             .arg(ctx.words[comma].text)
             .with_suggestions(suggestions),
+    );
+}
+
+/// Verbes qui se construisent directement avec un infinitif : après eux, un
+/// infinitif coordonné est correct (« il peut manger et boire »).
+const GOVERNORS: &[&str] = &[
+    "pouvoir",
+    "vouloir",
+    "devoir",
+    "savoir",
+    "aller",
+    "falloir",
+    "aimer",
+    "préférer",
+    "oser",
+    "désirer",
+    "souhaiter",
+    "espérer",
+    "compter",
+    "sembler",
+    "paraître",
+    "faire",
+    "laisser",
+    "voir",
+    "entendre",
+    "envoyer",
+    "venir",
+    "penser",
+    "croire",
+    "dire",
+    "sentir",
+    "regarder",
+    "écouter",
+    "adorer",
+    "détester",
+    "valoir",
+    "daigner",
+    "risquer",
+    "manquer",
+    "retourner",
+    "monter",
+    "descendre",
+    "sortir",
+    "rentrer",
+    "courir",
+    "partir",
+    "revenir",
+    "devenir",
+];
+
+/// « Les soldats mangèrent, burent et s’endormir aussitôt » : un infinitif
+/// coordonné à un verbe conjugué qui ne le gouverne pas.
+fn coordinated_infinitive(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
+    let w = &ctx.words[i];
+    if w.compound_part {
+        return;
+    }
+    let Some(form) = ctx.form(i) else { return };
+    if !form.has(Reading::is_infinitive)
+        || form.has(|r| r.is_finite_verb())
+        || form.has(|r| matches!(r.pos, Pos::Pre | Pos::Con | Pos::Det | Pos::Pro | Pos::Adv))
+        || matches!(w.lower.as_str(), "être" | "avoir")
+    {
+        return;
+    }
+    let Some(mut p) = ctx.prev(i) else { return };
+    while matches!(
+        lower(ctx, p),
+        "se" | "s’"
+            | "me"
+            | "m’"
+            | "te"
+            | "t’"
+            | "nous"
+            | "vous"
+            | "lui"
+            | "leur"
+            | "y"
+            | "en"
+            | "ne"
+            | "n’"
+            | "pas"
+            | "plus"
+            | "jamais"
+    ) {
+        match ctx.prev(p) {
+            Some(q) => p = q,
+            None => return,
+        }
+    }
+    if !matches!(lower(ctx, p), "et" | "ou") {
+        return;
+    }
+    // Le verbe juste avant « et » : conjugué, seulement verbe, qui ne gouverne pas
+    // d'infinitif.
+    let Some(q) = ctx.prev(p) else { return };
+    let Some(qf) = ctx.form(q) else { return };
+    if !qf.has(Reading::is_finite_verb)
+        || qf.has(|r| {
+            r.is_infinitive()
+                || r.is_past_participle()
+                || matches!(
+                    r.pos,
+                    Pos::Nom | Pos::Adj | Pos::Adv | Pos::Pre | Pos::Con | Pos::Det | Pos::Pro
+                )
+        })
+        || qf.has(|r| GOVERNORS.contains(&r.lemma.as_str()))
+        || ctx.words[q].compound_part
+    {
+        return;
+    }
+    let Some(reading) = qf.readings.iter().find(|r| r.is_finite_verb()) else {
+        return;
+    };
+    let (Some(tense), Some(person)) = (reading.mode_tense(), reading.person()) else {
+        return;
+    };
+    let Some(inf) = form.readings.iter().find(|r| r.is_infinitive()) else {
+        return;
+    };
+    let suggestions: Vec<String> =
+        inflected(ctx, &inf.lemma, Pos::Ver, &format!("{tense}.{person}"));
+    let Some(first) = suggestions.first().cloned() else {
+        return;
+    };
+    out.push(
+        RawIssue::new(w.start, w.end, BARE_INFINITIVE)
+            .arg(w.text)
+            .arg(first)
+            .with_suggestions(suggestions),
+    );
+}
+
+/// « Vous dîtes toujours la même chose » → « dites » : « dîtes » est le passé simple ;
+/// au présent, la forme est « dites ». Sans autre verbe au passé simple dans la
+/// phrase, c'est le présent qui est visé.
+fn dites(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
+    let w = &ctx.words[i];
+    if w.lower != "dîtes" || w.compound_part {
+        return;
+    }
+    let narrative = (i.saturating_sub(12)..(i + 12).min(ctx.words.len()))
+        .filter(|&k| k != i)
+        .any(|k| {
+            [
+                "âtes", "îtes", "ûtes", "âmes", "îmes", "ûmes", "èrent", "irent", "urent", "inrent",
+            ]
+            .iter()
+            .any(|e| ctx.words[k].lower.ends_with(e))
+                || ctx.form(k).is_some_and(|f| {
+                    f.has(|r| r.mode_tense() == Some("ind.ps"))
+                        && !f.has(|r| {
+                            matches!(r.mode_tense(), Some("ind.pres" | "ind.impf" | "sub.pres"))
+                                || r.is_past_participle()
+                        })
+                })
+        });
+    if narrative {
+        return;
+    }
+    let fixed = same_case(w.text, "dites");
+    out.push(
+        RawIssue::new(w.start, w.end, super::locutions::FORM)
+            .arg(w.text)
+            .arg(fixed.clone())
+            .suggest(fixed),
     );
 }
