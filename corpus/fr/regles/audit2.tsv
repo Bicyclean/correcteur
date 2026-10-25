@@ -1,0 +1,195 @@
+# Conjugaison et locutions : deux batteries neuves de l'audit (phrases fautives et phrases justes).
+# Phrases rédigées pour ce projet.
+GRAM_ACCORD_ADJECTIF	Les documents ⟦envoyé→envoyés⟧ hier sont arrivés ce matin.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Les fleurs ⟦cueilli→cueillies⟧ ce matin sont fraîches.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Il a acheté des chaussures ⟦noir→noires⟧.	CONTRIB-INIT
+GRAM_ACCORD_PARTICIPE	Étant ⟦arrivé→arrivés⟧ trop tard, ils ont raté le début.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Les élèves ⟦écoute→écoutent⟧ attentivement la leçon du professeur.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Mon frère et ma sœur ⟦habite→habitent⟧ à Lyon depuis dix ans.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Tu vas au marché et tu ⟦achète→achètes⟧ des légumes frais.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Les voisins se ⟦plaint→plaignent⟧ du bruit chaque soir.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Elle conduit prudemment et ils ⟦conduise→conduisent⟧ trop vite.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ils se ⟦tait→taisent⟧ pendant que le directeur parle.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ces enfants ⟦rit→rient⟧ toujours quand ils jouent ensemble.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Tu connais la réponse mais tu ne la ⟦dit→dis⟧ pas.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Mes parents ⟦vienne→viennent⟧ me voir ce week-end.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Le directeur et son adjoint ⟦reçoit→reçoivent⟧ les candidats lundi.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Les enfants jouaient dans le jardin pendant que leur mère ⟦cuisinaient→cuisinait⟧.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Elles ⟦attendait→attendaient⟧ le bus depuis une heure quand il est arrivé.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Tu aimais la musique et tu ⟦chantait→chantais⟧ toute la journée.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Autrefois, les gens se parlaient plus et ils se ⟦voyais→voyaient⟧ davantage.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Demain tu ⟦comprendra→comprendras⟧ pourquoi je ne voulais pas partir.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Dès demain, elle commencera et ils la ⟦rejoindrons→rejoindront⟧ plus tard.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Il faut que je prenne mon temps et que tu ⟦prend→prennes⟧ le tien.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Elle avait mangé avant que nous arrivions, ils ⟦avait→avaient⟧ déjà fini.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Les employés de la société ⟦travaille→travaillent⟧ souvent le week-end.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Nous voulons partir mais ils ne ⟦veut→veulent⟧ pas.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ces livres ⟦appartient→appartiennent⟧ à la bibliothèque municipale.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Je lui ⟦dit→dis⟧ toujours de faire attention.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Le comité décide et les membres ⟦approuve→approuvent⟧ la proposition.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ils avaient faim et ils ⟦mangeait→mangeaient⟧ trop vite.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Tu ⟦verra→verras⟧, tout se passera bien.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ils ⟦viendrons→viendront⟧ nous voir pendant les vacances.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Elle aurait voulu venir mais elle ne ⟦pouvais→pouvait⟧ pas.	CONTRIB-INIT
+GRAM_AUXILIAIRE	Nous ⟦avons parti→sommes partis⟧ trop tard pour attraper le train.	CONTRIB-INIT
+GRAM_CONCORDANCE	Elle espérait que nous ⟦viendrons→viendrions⟧ la voir.	CONTRIB-INIT
+GRAM_EXPRESSION	Il a réagi ⟦à priori→a priori⟧ sans réfléchir.	CONTRIB-INIT
+GRAM_EXPRESSION	Elle est ⟦sortie dehors→sortie⟧ pour fumer.	CONTRIB-INIT
+GRAM_EXPRESSION	Il a ⟦collaboré ensemble→collaboré⟧ avec nous.	CONTRIB-INIT
+GRAM_EXPRESSION	Il a ⟦vingt et un an→vingt et un ans⟧ cette année.	CONTRIB-INIT
+GRAM_IMPERATIF	⟦Écoutes→Écoute⟧-moi bien et réponds-moi franchement.	CONTRIB-INIT
+GRAM_IMPERATIF	Ne ⟦parles→parle⟧ pas si fort, les enfants dorment.	CONTRIB-INIT
+GRAM_IMPERATIF	Sois prudent et ⟦aies→aie⟧ confiance en toi.	CONTRIB-INIT
+GRAM_IMPERATIF	Réponds-moi vite et ⟦appelles→appelle⟧-moi demain.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Nous avons ⟦chanter→chanté⟧ toute la soirée.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Nous avons rencontré les voisins que vous avez ⟦inviter→invités⟧.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Elle a ⟦prit→pris⟧ sa valise et elle est sortie.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Il a ⟦mettre→mis⟧ son manteau avant de sortir.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Nous avons ⟦fais→fait⟧ le tour de la ville.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Hier, tu as ⟦dis→dit⟧ que tu viendrais.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Il a ⟦prit→pris⟧ la parole en public.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ma sœur est ⟦parti→partie⟧ hier soir pour Paris.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Les invités sont ⟦rentré→rentrés⟧ tard dans la nuit.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Quand tu auras fini, tu seras ⟦libres→libre⟧.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elles seraient ⟦parti→parties⟧ sans vous attendre.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elle est ⟦resté→restée⟧ chez elle toute la journée.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ma mère est ⟦arrivé→arrivée⟧ hier soir à la gare.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Les clients sont ⟦venu→venus⟧ très nombreux.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Il avait déjà quitté la salle quand elle est ⟦entré→entrée⟧.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elle serait ⟦venu→venue⟧ si elle avait pu.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Elle va ⟦chanté→chanter⟧ ce soir devant tout le monde.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Nous devons ⟦finit→finir⟧ ce travail avant lundi.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Vous allez ⟦regrettez→regretter⟧ cette décision.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Je préfère ⟦resté→rester⟧ ici plutôt que sortir.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il a commencé à ⟦parlé→parler⟧ très fort.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Pour mieux ⟦comprit→comprendre⟧, relisez le chapitre.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Elle a besoin de se ⟦reposé→reposer⟧ après ce voyage.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il faut ⟦finit→finir⟧ ce travail avant la fin du mois.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Je voudrais ⟦acheté→acheter⟧ un billet pour demain.	CONTRIB-INIT
+GRAM_PARTICIPE_PRONOMINAL	Elles se sont ⟦téléphonées→téléphoné⟧ hier soir.	CONTRIB-INIT
+GRAM_PARTICIPE_SEUL	Vous ⟦faite→faites⟧ du bon travail depuis votre arrivée.	CONTRIB-INIT
+GRAM_PREPOSITION	Nous devons ⟦pallier à→pallier⟧ ce problème rapidement.	CONTRIB-INIT
+GRAM_PREPOSITION	Je me ⟦rappelle de ce→rappelle ce⟧ jour avec émotion.	CONTRIB-INIT
+GRAM_PREPOSITION	Le résultat est ⟦conforme avec→conforme à⟧ nos attentes.	CONTRIB-INIT
+GRAM_SI_CONDITIONNEL	Si vous ⟦auriez→aviez⟧ le temps, vous pourriez venir.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Je souhaite que tu ⟦réussis→réussisses⟧ ton examen.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il est nécessaire que vous ⟦venez→veniez⟧ demain.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Avant que tu ⟦pars→partes⟧, dis-moi où tu vas.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il vaut mieux que nous ⟦attendons→attendions⟧ ici.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Je suis content que tu ⟦es→sois⟧ là.	CONTRIB-INIT
+GRAM_SUBJONCTIF	À moins que vous ne ⟦préférez→préfériez⟧ rester, nous partirons à huit heures.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Je voudrais que tu ⟦viens→viennes⟧ avec nous.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il faut que nous ⟦allons→allions⟧ chez le médecin.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Sans que vous le ⟦savez→sachiez⟧, il a tout préparé.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il est important que chacun ⟦prend→prenne⟧ ses responsabilités.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Il a participé ⟦a→à⟧ la réunion hier.	CONTRIB-INIT
+HOMO_A_VERBE	Il aurait voulu venir mais il ⟦à→a⟧ eu un empêchement.	CONTRIB-INIT
+HOMO_PEU_PEUT	Je ne sais pas si elle ⟦peu→peut⟧ venir.	CONTRIB-INIT
+HOMO_QUELQUE_QUEL_QUE	⟦Quelque→Quelle que⟧ soit la solution choisie, elle sera coûteuse.	CONTRIB-INIT
+ORTH_FORME	Prenez votre temps et ⟦faisez→faites⟧ attention à la marche.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous ⟦finissont→finissons⟧ le rapport avant la réunion de demain.	CONTRIB-INIT
+ORTH_MOT_INCONNU	On ne peut pas tout prévoir, mais nous ⟦prévoyont→prévoyons⟧ le pire.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Chaque été, nous partions en vacances et nous ⟦restion→restions⟧ un mois.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le médecin vous ⟦recevera→recevra⟧ dès que vous aurez rempli ce formulaire.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Je suis content de vous ⟦revoire→revoir⟧.	CONTRIB-INIT
+ORTH_MOT_INCONNU	À cette époque, nous habitions à la campagne et nous ⟦cultivion→cultivions⟧ un jardin.	CONTRIB-INIT
+ORTH_TRAIT_UNION	Il est assis ⟦vis à vis→vis-à-vis⟧ de moi.	CONTRIB-INIT
+ORTH_TRAIT_UNION	Il a travaillé à ⟦mi temps→mi-temps⟧ cette année.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Les documents envoyés hier sont arrivés ce matin.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Les fleurs cueillies ce matin sont fraîches.	CONTRIB-INIT
+GRAM_ACCORD_ADJECTIF	Il a acheté des chaussures noires.	CONTRIB-INIT
+GRAM_ACCORD_PARTICIPE	Étant arrivés trop tard, ils ont raté le début.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Les élèves écoutent attentivement la leçon du professeur.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Mon frère et ma sœur habitent à Lyon depuis dix ans.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Tu vas au marché et tu achètes des légumes frais.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Les voisins se plaignent du bruit chaque soir.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Elle conduit prudemment et ils conduisent trop vite.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ils se taisent pendant que le directeur parle.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ces enfants rient toujours quand ils jouent ensemble.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Tu connais la réponse mais tu ne la dis pas.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Mes parents viennent me voir ce week-end.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Le directeur et son adjoint reçoivent les candidats lundi.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Les enfants jouaient dans le jardin pendant que leur mère cuisinait.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Elles attendaient le bus depuis une heure quand il est arrivé.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Tu aimais la musique et tu chantais toute la journée.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Autrefois, les gens se parlaient plus et ils se voyaient davantage.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Demain tu comprendras pourquoi je ne voulais pas partir.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Dès demain, elle commencera et ils la rejoindront plus tard.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Il faut que je prenne mon temps et que tu prennes le tien.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Elle avait mangé avant que nous arrivions, ils avaient déjà fini.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Les employés de la société travaillent souvent le week-end.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Nous voulons partir mais ils ne veulent pas.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ces livres appartiennent à la bibliothèque municipale.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Je lui dis toujours de faire attention.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Le comité décide et les membres approuvent la proposition.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ils avaient faim et ils mangeaient trop vite.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Nous partirons dès que vous serez prêts, vous nous suivrez.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Tu verras, tout se passera bien.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Ils viendront nous voir pendant les vacances.	CONTRIB-INIT
+GRAM_ACCORD_SUJET_VERBE	Elle aurait voulu venir mais elle ne pouvait pas.	CONTRIB-INIT
+GRAM_AUXILIAIRE	Nous sommes partis trop tard pour attraper le train.	CONTRIB-INIT
+GRAM_CONCORDANCE	Elle espérait que nous viendrions la voir.	CONTRIB-INIT
+GRAM_EXPRESSION	Il a réagi a priori sans réfléchir.	CONTRIB-INIT
+GRAM_EXPRESSION	Elle est sortie pour fumer.	CONTRIB-INIT
+GRAM_EXPRESSION	Il a collaboré avec nous.	CONTRIB-INIT
+GRAM_EXPRESSION	Il a vingt et un ans cette année.	CONTRIB-INIT
+GRAM_IMPERATIF	Écoute-moi bien et réponds-moi franchement.	CONTRIB-INIT
+GRAM_IMPERATIF	Ne parle pas si fort, les enfants dorment.	CONTRIB-INIT
+GRAM_IMPERATIF	Sois prudent et aie confiance en toi.	CONTRIB-INIT
+GRAM_IMPERATIF	Réponds-moi vite et appelle-moi demain.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Nous avons chanté toute la soirée.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Nous avons rencontré les voisins que vous avez invités.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Elle a pris sa valise et elle est sortie.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Il a mis son manteau avant de sortir.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Nous avons fait le tour de la ville.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Hier, tu as dit que tu viendrais.	CONTRIB-INIT
+GRAM_INFINITIF_PARTICIPE	Il a pris la parole en public.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ma sœur est partie hier soir pour Paris.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Les invités sont rentrés tard dans la nuit.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Quand tu auras fini, tu seras libre.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elles seraient parties sans vous attendre.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elle est restée chez elle toute la journée.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Ma mère est arrivée hier soir à la gare.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Les clients sont venus très nombreux.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Il avait déjà quitté la salle quand elle est entrée.	CONTRIB-INIT
+GRAM_PARTICIPE_ETRE	Elle serait venue si elle avait pu.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Elle va chanter ce soir devant tout le monde.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Nous devons finir ce travail avant lundi.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Vous allez regretter cette décision.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Je préfère rester ici plutôt que sortir.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il a commencé à parler très fort.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Pour mieux comprendre, relisez le chapitre.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Elle a besoin de se reposer après ce voyage.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Il faut finir ce travail avant la fin du mois.	CONTRIB-INIT
+GRAM_PARTICIPE_POUR_INFINITIF	Je voudrais acheter un billet pour demain.	CONTRIB-INIT
+GRAM_PARTICIPE_PRONOMINAL	Elles se sont téléphoné hier soir.	CONTRIB-INIT
+GRAM_PARTICIPE_SEUL	Vous faites du bon travail depuis votre arrivée.	CONTRIB-INIT
+GRAM_PREPOSITION	Nous devons pallier ce problème rapidement.	CONTRIB-INIT
+GRAM_PREPOSITION	Je me rappelle ce jour avec émotion.	CONTRIB-INIT
+GRAM_PREPOSITION	Le résultat est conforme à nos attentes.	CONTRIB-INIT
+GRAM_SI_CONDITIONNEL	Si vous aviez le temps, vous pourriez venir.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Je souhaite que tu réussisses ton examen.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il est nécessaire que vous veniez demain.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Avant que tu partes, dis-moi où tu vas.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il vaut mieux que nous attendions ici.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Je suis content que tu sois là.	CONTRIB-INIT
+GRAM_SUBJONCTIF	À moins que vous ne préfériez rester, nous partirons à huit heures.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Je voudrais que tu viennes avec nous.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il faut que nous allions chez le médecin.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Sans que vous le sachiez, il a tout préparé.	CONTRIB-INIT
+GRAM_SUBJONCTIF	Il est important que chacun prenne ses responsabilités.	CONTRIB-INIT
+HOMO_A_PREPOSITION	Il a participé à la réunion hier.	CONTRIB-INIT
+HOMO_A_VERBE	Il aurait voulu venir mais il a eu un empêchement.	CONTRIB-INIT
+HOMO_PEU_PEUT	Je ne sais pas si elle peut venir.	CONTRIB-INIT
+HOMO_QUELQUE_QUEL_QUE	Quelle que soit la solution choisie, elle sera coûteuse.	CONTRIB-INIT
+ORTH_FORME	Prenez votre temps et faites attention à la marche.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Nous finissons le rapport avant la réunion de demain.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Je ne vois pas pourquoi il revient si tard.	CONTRIB-INIT
+ORTH_MOT_INCONNU	On ne peut pas tout prévoir, mais nous prévoyons le pire.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Chaque été, nous partions en vacances et nous restions un mois.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Le médecin vous recevra dès que vous aurez rempli ce formulaire.	CONTRIB-INIT
+ORTH_MOT_INCONNU	Je suis content de vous revoir.	CONTRIB-INIT
+ORTH_MOT_INCONNU	À cette époque, nous habitions à la campagne et nous cultivions un jardin.	CONTRIB-INIT
+ORTH_TRAIT_UNION	Il est assis vis-à-vis de moi.	CONTRIB-INIT
+ORTH_TRAIT_UNION	Il a travaillé à mi-temps cette année.	CONTRIB-INIT
+TYPO_APOSTROPHE_DROITE	Je me rappelle très bien cette époque.	CONTRIB-INIT
