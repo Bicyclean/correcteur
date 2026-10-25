@@ -140,3 +140,127 @@ voulé	voulu	ORTH_FORME	REF-GRAM-FR
 savu	su	ORTH_FORME	REF-GRAM-FR
 devu	dû	ORTH_FORME	REF-GRAM-FR
 écrivé	écrit	ORTH_FORME	REF-GRAM-FR
+quelques uns	quelques-uns	ORTH_TRAIT_UNION	REF-GRAM-FR
+quelques unes	quelques-unes	ORTH_TRAIT_UNION	REF-GRAM-FR
+mi temps	mi-temps	ORTH_TRAIT_UNION	REF-GRAM-FR
+mi chemin	mi-chemin	ORTH_TRAIT_UNION	REF-GRAM-FR
+mi parcours	mi-parcours	ORTH_TRAIT_UNION	REF-GRAM-FR
+mi course	mi-course	ORTH_TRAIT_UNION	REF-GRAM-FR
+demi heure	demi-heure	ORTH_TRAIT_UNION	REF-GRAM-FR
+demi journée	demi-journée	ORTH_TRAIT_UNION	REF-GRAM-FR
+demi tour	demi-tour	ORTH_TRAIT_UNION	REF-GRAM-FR
+demi frère	demi-frère	ORTH_TRAIT_UNION	REF-GRAM-FR
+demi sœur	demi-sœur	ORTH_TRAIT_UNION	REF-GRAM-FR
+sous marin	sous-marin	ORTH_TRAIT_UNION	REF-GRAM-FR
+sous titre	sous-titre	ORTH_TRAIT_UNION	REF-GRAM-FR
+sous titres	sous-titres	ORTH_TRAIT_UNION	REF-GRAM-FR
+avant hier	avant-hier	ORTH_TRAIT_UNION	REF-GRAM-FR
+après demain	après-demain	ORTH_TRAIT_UNION	REF-GRAM-FR
+cet après midi	cet après-midi	ORTH_TRAIT_UNION	REF-GRAM-FR
+l’ après midi	l’après-midi	ORTH_TRAIT_UNION	REF-GRAM-FR
+un après midi	un après-midi	ORTH_TRAIT_UNION	REF-GRAM-FR
+là dedans	là-dedans	ORTH_TRAIT_UNION	REF-GRAM-FR
+ci gît	ci-gît	ORTH_TRAIT_UNION	REF-GRAM-FR
+celui ci	celui-ci	ORTH_TRAIT_UNION	REF-GRAM-FR
+celle ci	celle-ci	ORTH_TRAIT_UNION	REF-GRAM-FR
+ceux ci	ceux-ci	ORTH_TRAIT_UNION	REF-GRAM-FR
+celles ci	celles-ci	ORTH_TRAIT_UNION	REF-GRAM-FR
+celui là	celui-là	ORTH_TRAIT_UNION	REF-GRAM-FR
+celle là	celle-là	ORTH_TRAIT_UNION	REF-GRAM-FR
+ceux là	ceux-là	ORTH_TRAIT_UNION	REF-GRAM-FR
+celles là	celles-là	ORTH_TRAIT_UNION	REF-GRAM-FR
+ce jour là	ce jour-là	ORTH_TRAIT_UNION	REF-GRAM-FR
+ce soir là	ce soir-là	ORTH_TRAIT_UNION	REF-GRAM-FR
+ce matin là	ce matin-là	ORTH_TRAIT_UNION	REF-GRAM-FR
+cette fois ci	cette fois-ci	ORTH_TRAIT_UNION	REF-GRAM-FR
+ce mois ci	ce mois-ci	ORTH_TRAIT_UNION	REF-GRAM-FR
+à ce moment là	à ce moment-là	ORTH_TRAIT_UNION	REF-GRAM-FR
+tête à tête	tête-à-tête	ORTH_TRAIT_UNION	REF-GRAM-FR
+face à face	face-à-face	ORTH_TRAIT_UNION	REF-GRAM-FR
+pied à terre	pied-à-terre	ORTH_TRAIT_UNION	REF-GRAM-FR
+va et vient	va-et-vient	ORTH_TRAIT_UNION	REF-GRAM-FR
+sang froid	sang-froid	ORTH_TRAIT_UNION	REF-GRAM-FR
+sans gêne	sans-gêne	ORTH_TRAIT_UNION	REF-GRAM-FR
+tout puissant	tout-puissant	ORTH_TRAIT_UNION	REF-GRAM-FR
+nouveau né	nouveau-né	ORTH_TRAIT_UNION	REF-GRAM-FR
+contre attaque	contre-attaque	ORTH_TRAIT_UNION	REF-GRAM-FR
+avant garde	avant-garde	ORTH_TRAIT_UNION	REF-GRAM-FR
+arrière plan	arrière-plan	ORTH_TRAIT_UNION	REF-GRAM-FR
+arrière pensée	arrière-pensée	ORTH_TRAIT_UNION	REF-GRAM-FR
+libre service	libre-service	ORTH_TRAIT_UNION	REF-GRAM-FR
+passe temps	passe-temps	ORTH_TRAIT_UNION	REF-GRAM-FR
+après vente	après-vente	ORTH_TRAIT_UNION	REF-GRAM-FR
+en moi même	en moi-même	ORTH_TRAIT_UNION	REF-GRAM-FR
+dans la mesure ou	dans la mesure où	HOMO_OU_RELATIF	REF-GRAM-FR
+le jour ou	le jour où	HOMO_OU_RELATIF	REF-GRAM-FR
+l’ endroit ou	l’endroit où	HOMO_OU_RELATIF	REF-GRAM-FR
+à l’ époque ou	à l’époque où	HOMO_OU_RELATIF	REF-GRAM-FR
+la fois ou	la fois où	HOMO_OU_RELATIF	REF-GRAM-FR
+au cas ou	au cas où	HOMO_OU_RELATIF	REF-GRAM-FR
+dans le cas ou	dans le cas où	HOMO_OU_RELATIF	REF-GRAM-FR
+le moment ou	le moment où	HOMO_OU_RELATIF	REF-GRAM-FR
+la minute ou	la minute où	HOMO_OU_RELATIF	REF-GRAM-FR
+la semaine ou	la semaine où	HOMO_OU_RELATIF	REF-GRAM-FR
+l’ année ou	l’année où	HOMO_OU_RELATIF	REF-GRAM-FR
+l’ instant ou	l’instant où	HOMO_OU_RELATIF	REF-GRAM-FR
+à l’ instant ou	à l’instant où	HOMO_OU_RELATIF	REF-GRAM-FR
+la ville ou	la ville où	HOMO_OU_RELATIF	REF-GRAM-FR
+le pays ou	le pays où	HOMO_OU_RELATIF	REF-GRAM-FR
+la maison ou	la maison où	HOMO_OU_RELATIF	REF-GRAM-FR
+le lieu ou	le lieu où	HOMO_OU_RELATIF	REF-GRAM-FR
+a l’ instar de	à l’instar de	HOMO_A_PREPOSITION	REF-GRAM-FR
+a l’ insu de	à l’insu de	HOMO_A_PREPOSITION	REF-GRAM-FR
+a l’ égard de	à l’égard de	HOMO_A_PREPOSITION	REF-GRAM-FR
+a l’ encontre de	à l’encontre de	HOMO_A_PREPOSITION	REF-GRAM-FR
+a l’ occasion de	à l’occasion de	HOMO_A_PREPOSITION	REF-GRAM-FR
+a l’ exception de	à l’exception de	HOMO_A_PREPOSITION	REF-GRAM-FR
+a l’ unisson	à l’unisson	HOMO_A_PREPOSITION	REF-GRAM-FR
+a la suite de	à la suite de	HOMO_A_PREPOSITION	REF-GRAM-FR
+a la fois	à la fois	HOMO_A_PREPOSITION	REF-GRAM-FR
+a la place de	à la place de	HOMO_A_PREPOSITION	REF-GRAM-FR
+a la merci de	à la merci de	HOMO_A_PREPOSITION	REF-GRAM-FR
+a la demande de	à la demande de	HOMO_A_PREPOSITION	REF-GRAM-FR
+a la faveur de	à la faveur de	HOMO_A_PREPOSITION	REF-GRAM-FR
+a la rigueur	à la rigueur	HOMO_A_PREPOSITION	REF-GRAM-FR
+a la différence de	à la différence de	HOMO_A_PREPOSITION	REF-GRAM-FR
+a la recherche de	à la recherche de	HOMO_A_PREPOSITION	REF-GRAM-FR
+a tout prix	à tout prix	HOMO_A_PREPOSITION	REF-GRAM-FR
+a tout moment	à tout moment	HOMO_A_PREPOSITION	REF-GRAM-FR
+a toute vitesse	à toute vitesse	HOMO_A_PREPOSITION	REF-GRAM-FR
+a même de	à même de	HOMO_A_PREPOSITION	REF-GRAM-FR
+a nouveau	à nouveau	HOMO_A_PREPOSITION	REF-GRAM-FR
+a présent	à présent	HOMO_A_PREPOSITION	REF-GRAM-FR
+a bientôt	à bientôt	HOMO_A_PREPOSITION	REF-GRAM-FR
+a peine	à peine	HOMO_A_PREPOSITION	REF-GRAM-FR
+a part	à part	HOMO_A_PREPOSITION	REF-GRAM-FR
+a haute voix	à haute voix	HOMO_A_PREPOSITION	REF-GRAM-FR
+a voix basse	à voix basse	HOMO_A_PREPOSITION	REF-GRAM-FR
+voir même	voire	GRAM_EXPRESSION	REF-GRAM-FR
+en tous cas	en tout cas	GRAM_EXPRESSION	REF-GRAM-FR
+de façon à ce que	de façon que	GRAM_EXPRESSION	REF-GRAM-FR
+de manière à ce que	de manière que	GRAM_EXPRESSION	REF-GRAM-FR
+par ce que	parce que	GRAM_EXPRESSION	REF-GRAM-FR
+par ce qu’	parce qu’	GRAM_EXPRESSION	REF-GRAM-FR
+=aller au boucher	$1 chez le boucher	GRAM_PREPOSITION	REF-GRAM-FR
+=aller au boulanger	$1 chez le boulanger	GRAM_PREPOSITION	REF-GRAM-FR
+=aller au pharmacien	$1 chez le pharmacien	GRAM_PREPOSITION	REF-GRAM-FR
+=aller au plombier	$1 chez le plombier	GRAM_PREPOSITION	REF-GRAM-FR
+=aller au notaire	$1 chez le notaire	GRAM_PREPOSITION	REF-GRAM-FR
+=aller au garagiste	$1 chez le garagiste	GRAM_PREPOSITION	REF-GRAM-FR
+=aller au fleuriste	$1 chez le fleuriste	GRAM_PREPOSITION	REF-GRAM-FR
+=prévoir d’ avance	$1	GRAM_EXPRESSION	REF-GRAM-FR
+=entraider mutuellement	$1	GRAM_EXPRESSION	REF-GRAM-FR
+=réunir ensemble	$1	GRAM_EXPRESSION	REF-GRAM-FR
+=ajouter en plus	$1	GRAM_EXPRESSION	REF-GRAM-FR
+=rappeler de ce	$1 ce	GRAM_PREPOSITION	REF-GRAM-FR
+=rappeler de cette	$1 cette	GRAM_PREPOSITION	REF-GRAM-FR
+=rappeler de cet	$1 cet	GRAM_PREPOSITION	REF-GRAM-FR
+=rappeler de ces	$1 ces	GRAM_PREPOSITION	REF-GRAM-FR
+vingt et un an	vingt et un ans	GRAM_EXPRESSION	REF-GRAM-FR
+trente et un an	trente et un ans	GRAM_EXPRESSION	REF-GRAM-FR
+quarante et un an	quarante et un ans	GRAM_EXPRESSION	REF-GRAM-FR
+cinquante et un an	cinquante et un ans	GRAM_EXPRESSION	REF-GRAM-FR
+soixante et un an	soixante et un ans	GRAM_EXPRESSION	REF-GRAM-FR
+soixante et onze an	soixante et onze ans	GRAM_EXPRESSION	REF-GRAM-FR
+conforme avec	conforme à	GRAM_PREPOSITION	REF-GRAM-FR
+conformes avec	conformes à	GRAM_PREPOSITION	REF-GRAM-FR

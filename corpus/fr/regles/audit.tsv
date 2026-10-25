@@ -213,3 +213,9 @@ GRAM_PARTICIPE_POUR_INFINITIF	Il m’a demandé de ⟦venu→venir⟧ le voir de
 GRAM_PARTICIPE_POUR_INFINITIF	Il a fini par ⟦accepté→accepter⟧ notre offre.	CONTRIB-INIT
 GRAM_PARTICIPE_POUR_INFINITIF	Je l’ai entendu ⟦chanté→chanter⟧ dans la rue.	CONTRIB-INIT
 GRAM_PARTICIPE_POUR_INFINITIF	Il se sait aimé de tous.	CONTRIB-INIT
+GRAM_INDICATIF	Après qu’il ⟦soit→est⟧ parti, nous avons dîné.	CONTRIB-INIT
+GRAM_INDICATIF	Après qu’il est parti, nous avons dîné.	CONTRIB-INIT
+GRAM_INDICATIF	Avant qu’il soit parti, nous avons dîné.	CONTRIB-INIT
+GRAM_ACCORD_NOMBRE	J’ai réservé une chambre pour deux ⟦nuit→nuits⟧.	CONTRIB-INIT
+GRAM_ACCORD_NOMBRE	Il est arrivé le deux mars avec dix amis.	CONTRIB-INIT
+GRAM_EXPRESSION	Il a ⟦vingt et un an→vingt et un ans⟧ cette année.	CONTRIB-INIT

@@ -22,6 +22,8 @@ pub const PARTICIPLE_AVOIR_COD: &str = "GRAM_PARTICIPE_AVOIR_COD";
 pub const SI_CONDITIONAL: &str = "GRAM_SI_CONDITIONNEL";
 pub const PARTICIPLE_AVOIR_LES: &str = "GRAM_PARTICIPE_AVOIR_LES";
 pub const SUBJUNCTIVE: &str = "GRAM_SUBJONCTIF";
+pub const INDICATIVE: &str = "GRAM_INDICATIF";
+pub const NUMBER_NOUN: &str = "GRAM_ACCORD_NOMBRE";
 pub const CONCORDANCE: &str = "GRAM_CONCORDANCE";
 pub const SI_FUTURE: &str = "GRAM_SI_FUTUR";
 pub const TOUT: &str = "GRAM_TOUT";
@@ -41,6 +43,8 @@ pub fn check(ctx: &Context, out: &mut Vec<RawIssue>) {
         subject_verb(ctx, i, out);
         noun_for_verb(ctx, i, out);
         subjunctive(ctx, i, out);
+        indicative_after(ctx, i, out);
+        numeral_noun(ctx, i, out);
         concordance(ctx, i, out);
         si_future(ctx, i, out);
         modal_finite(ctx, i, out);
@@ -1523,7 +1527,7 @@ fn is_subject_pronoun(ctx: &Context, p: usize, depth: usize) -> bool {
                             | "tant"
                             | "aussitôt"
                     )
-                })
+                });
             }
             _ => {}
         }
@@ -2912,6 +2916,165 @@ fn subjunctive_context(ctx: &Context, que: usize) -> Option<String> {
         }
     }
     None
+}
+
+/// « Après qu’il soit parti » → « est » : après « après que », « dès que »,
+/// « pendant que »…, le verbe se met à l'indicatif.
+fn indicative_after(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
+    let Some(form) = ctx.form(i) else { return };
+    let w = &ctx.words[i];
+    if w.compound_part || w.ignored {
+        return;
+    }
+    // Pré-filtre : une forme du subjonctif présent que l'indicatif n'a pas.
+    if !form.has(|r| r.mode_tense() == Some("sub.pres")) {
+        return;
+    }
+    let Some(subject) = simple_subject(ctx, i) else {
+        return;
+    };
+    let person = subject.person.as_str();
+    if form.has(|r| {
+        r.person() == Some(person) && matches!(r.mode_tense(), Some(t) if t.starts_with("ind."))
+    }) {
+        return;
+    }
+    let Some(que) = ctx.prev(subject.start) else {
+        return;
+    };
+    if !matches!(lower(ctx, que), "que" | "qu’" | "qu'") {
+        return;
+    }
+    let Some(conj) = ctx.prev(que) else { return };
+    if !matches!(
+        lower(ctx, conj),
+        "après"
+            | "dès"
+            | "aussitôt"
+            | "sitôt"
+            | "depuis"
+            | "pendant"
+            | "tandis"
+            | "alors"
+            | "parce"
+    ) {
+        return;
+    }
+    let sub = form
+        .readings
+        .iter()
+        .find(|r| r.mode_tense() == Some("sub.pres") && r.person() == Some(person));
+    let Some(r) = sub else { return };
+    let suggestions: Vec<String> = inflected(ctx, &r.lemma, r.pos, &format!("ind.pres.{person}"))
+        .into_iter()
+        .map(|f| same_case(w.text, &f))
+        .collect();
+    let Some(first) = suggestions.first().cloned() else {
+        return;
+    };
+    let trigger = format!("{} {}", ctx.words[conj].text, ctx.words[que].text);
+    out.push(
+        RawIssue::new(w.start, w.end, INDICATIVE)
+            .arg(w.text)
+            .arg(first)
+            .arg(trigger)
+            .with_suggestions(suggestions),
+    );
+}
+
+/// « deux nuit » → « nuits » : un nombre supérieur à un demande un nom au pluriel.
+fn numeral_noun(ctx: &Context, i: usize, out: &mut Vec<RawIssue>) {
+    let w = &ctx.words[i];
+    if !matches!(
+        w.lower.as_str(),
+        "deux"
+            | "trois"
+            | "quatre"
+            | "cinq"
+            | "six"
+            | "sept"
+            | "huit"
+            | "neuf"
+            | "dix"
+            | "onze"
+            | "douze"
+            | "treize"
+            | "quatorze"
+            | "quinze"
+            | "seize"
+            | "trente"
+            | "quarante"
+            | "cinquante"
+            | "soixante"
+    ) || w.compound_part
+    {
+        return;
+    }
+    let Some(n) = ctx.next(i) else { return };
+    let nw = &ctx.words[n];
+    let Some(nf) = ctx.form(n) else { return };
+    if nw.compound_part
+        || is_capitalized(nw.text)
+        || nw.lower.ends_with(['s', 'x', 'z'])
+        || nf
+            .readings
+            .iter()
+            .any(|r| r.pos != Pos::Nom && !(r.pos.is_verb() && nf.mostly_not_verb()))
+        || !nf
+            .readings
+            .iter()
+            .filter(|r| r.pos == Pos::Nom)
+            .all(|r| r.gn().is_some_and(|g| g.number == Some('s')))
+        || ctx.text[nw.end..].starts_with('-')
+        // « trois euro » : déjà relevé par l'accord du déterminant.
+        || out.iter().any(|o| o.start <= nw.start && o.end >= nw.end)
+    {
+        return;
+    }
+    // Le mot qui précède ne doit pas faire du nombre un nom (« le deux mars ») : un
+    // déterminant singulier ou « un » devant le nombre écarte le cas.
+    if ctx.prev(i).is_some_and(|p| {
+        matches!(
+            lower(ctx, p),
+            "le" | "la"
+                | "l’"
+                | "un"
+                | "une"
+                | "du"
+                | "au"
+                | "ce"
+                | "cet"
+                | "cette"
+                | "premier"
+                | "numéro"
+                | "n°"
+        )
+    }) {
+        return;
+    }
+    let lemma = nf
+        .readings
+        .iter()
+        .find(|r| r.pos == Pos::Nom)
+        .map_or_else(|| nf.readings[0].lemma.clone(), |r| r.lemma.clone());
+    let plural: Vec<String> = ctx
+        .lexicon
+        .inflect(&lemma, |r| {
+            r.pos == Pos::Nom && r.gn().is_some_and(|g| g.number == Some('p'))
+        })
+        .into_iter()
+        .map(|f| same_case(nw.text, f))
+        .collect();
+    let Some(first) = plural.first().cloned() else {
+        return;
+    };
+    out.push(
+        RawIssue::new(nw.start, nw.end, NUMBER_NOUN)
+            .arg(nw.text)
+            .arg(first)
+            .arg(w.text)
+            .with_suggestions(plural),
+    );
 }
 
 /// « Il faut que tu viens » → « viennes » : indicatif présent là où le subjonctif

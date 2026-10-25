@@ -58,6 +58,8 @@ pub const CODE_RULES: &[&str] = &[
     grammar::PARTICIPLE_AVOIR_LES,
     grammar::PARTICIPLE_FOR_INFINITIVE,
     grammar::SUBJUNCTIVE,
+    grammar::INDICATIVE,
+    grammar::NUMBER_NOUN,
     grammar::CONCORDANCE,
     grammar::SI_FUTURE,
     grammar::TOUT,
