@@ -13,9 +13,10 @@ fréquents.
 | Audit 2 : tous les temps, accords, infinitif | 54 | 68 % | **92 %** | 90 % |
 | Audit 3 : locutions et erreurs fréquentes | 41 | 48 % | **65 %** | 77 % |
 
-Fausses alertes : **aucune** sur 327 phrases justes (dont 64 sur les temps rares)
-et sur 820 000 mots de romans et d'articles de Wikipédia (les seules alertes
-nouvelles sont de vraies fautes des textes). Les typographies (espaces, guillemets,
+Fausses alertes : **aucune** sur 324 phrases justes (dont 64 sur les temps rares)
+et sur 820 000 mots de romans et d'articles de Wikipédia (les alertes
+nouvelles sont de vraies fautes des textes ou de l'oral transcrit : « je crains
+personne », « nous ne croyons pas que vous exagérez »). Les typographies (espaces, guillemets,
 points de suspension, tirets, majuscules) : 27 cas contrôlés, tous justes.
 
 ## Tests systématiques de conjugaison
